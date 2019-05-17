@@ -205,15 +205,15 @@ async function runCommandForNetwork(networkConfiguration: NetworkConfiguration, 
 
         const networkId = await ethersProvider.getNetworkId();
         const addresses = Addresses[networkId];
-        const accounts = [{
+        const account = {
           secretKey: networkConfiguration.privateKey,
           publicKey: computeAddress(`0x${networkConfiguration.privateKey!}`),
-          balance: 0
-        }];
+          balance: 0,
+        };
 
-        console.log(JSON.stringify(accounts, null, 2));
+        console.log(JSON.stringify(account, null, 2));
 
-        await createCannedMarketsAndOrders(accounts, ethersProvider, addresses);
+        await createCannedMarketsAndOrders(account, ethersProvider, addresses);
       }
       break;
     }

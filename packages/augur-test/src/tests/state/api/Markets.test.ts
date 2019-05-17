@@ -6,7 +6,7 @@ import {
   ACCOUNTS,
   makeDbMock,
   deployContracts,
-  ContractAPI,
+  TestingContractAPI,
 } from "../../../libs";
 import { stringTo32ByteHex, NULL_ADDRESS } from "../../../libs/Utils";
 import { BigNumber } from "bignumber.js";
@@ -15,14 +15,14 @@ const mock = makeDbMock();
 
 let db: DB;
 let api: API;
-let john: ContractAPI;
-let mary: ContractAPI;
+let john: TestingContractAPI;
+let mary: TestingContractAPI;
 
 beforeAll(async () => {
   const { provider, addresses } = await deployContracts(ACCOUNTS, compilerOutput);
 
-  john = await ContractAPI.userWrapper(ACCOUNTS, 0, provider, addresses);
-  mary = await ContractAPI.userWrapper(ACCOUNTS, 1, provider, addresses);
+  john = await TestingContractAPI.userWrapper(ACCOUNTS[0], provider, addresses);
+  mary = await TestingContractAPI.userWrapper(ACCOUNTS[1], provider, addresses);
   db = await mock.makeDB(john.augur, ACCOUNTS);
   api = new API(john.augur, db);
   await john.approveCentralAuthority();

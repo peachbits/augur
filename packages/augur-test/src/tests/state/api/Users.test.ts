@@ -2,8 +2,8 @@ import {
     ACCOUNTS,
     makeDbMock,
     deployContracts,
-    ContractAPI,
-  } from "../../../libs";
+    TestingContractAPI,
+} from "../../../libs";
 import { Contracts as compilerOutput } from "@augurproject/artifacts";
 import {API} from "@augurproject/sdk/build/state/api/API";
 import {DB} from "@augurproject/sdk/build/state/db/DB";
@@ -60,14 +60,14 @@ const mock = makeDbMock();
 
 let db: DB;
 let api: API;
-let john: ContractAPI;
-let mary: ContractAPI;
+let john: TestingContractAPI;
+let mary: TestingContractAPI;
 
 beforeAll(async () => {
   const {provider, addresses} = await deployContracts(ACCOUNTS, compilerOutput);
 
-  john = await ContractAPI.userWrapper(ACCOUNTS, 0, provider, addresses);
-  mary = await ContractAPI.userWrapper(ACCOUNTS, 1, provider, addresses);
+  john = await TestingContractAPI.userWrapper(ACCOUNTS[0], provider, addresses);
+  mary = await TestingContractAPI.userWrapper(ACCOUNTS[1], provider, addresses);
   db = await mock.makeDB(john.augur, ACCOUNTS);
   api = new API(john.augur, db);
   await john.approveCentralAuthority();

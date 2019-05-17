@@ -8,10 +8,10 @@ import { GenericAugurInterfaces } from "@augurproject/core";
 import { ContractAddresses } from "@augurproject/artifacts";
 import { numTicksToTickSize, convertDisplayAmountToOnChainAmount, convertDisplayPriceToOnChainPrice, QUINTILLION } from "@augurproject/sdk";
 
-import { AccountList, ContractAPI } from "../libs";
+import { Account, TestingContractAPI } from "../libs";
 import { cannedMarkets, CannedMarket } from "./data/canned-markets";
 
-async function createCannedMarket(person: ContractAPI, can: CannedMarket): Promise<GenericAugurInterfaces.Market<BigNumber>> {
+async function createCannedMarket(person: TestingContractAPI, can: CannedMarket): Promise<GenericAugurInterfaces.Market<BigNumber>> {
   console.log("CREATING CANNED MARKET: ", can.extraInfo.description);
   const contracts = person.augur.contracts;
   const universe = contracts.universe;
@@ -85,7 +85,7 @@ function generateRandom32ByteHex() {
   return formatBytes32String(String(Date.now()));
 }
 
-async function placeOrder(person: ContractAPI,
+async function placeOrder(person: TestingContractAPI,
                           market: GenericAugurInterfaces.Market<BigNumber>,
                           can: CannedMarket,
                           tradeGroupId: string,
@@ -118,7 +118,7 @@ async function placeOrder(person: ContractAPI,
   );
 }
 
-async function createOrderBook(person: ContractAPI, market: GenericAugurInterfaces.Market<BigNumber>, can: CannedMarket) {
+async function createOrderBook(person: TestingContractAPI, market: GenericAugurInterfaces.Market<BigNumber>, can: CannedMarket) {
   const tradeGroupId = generateRandom32ByteHex();
 
   for (let a = 0; a < Object.keys(can.orderBook).length; a++) {
@@ -143,8 +143,8 @@ async function createOrderBook(person: ContractAPI, market: GenericAugurInterfac
   }
 }
 
-export async function createCannedMarketsAndOrders(accounts: AccountList, provider: EthersProvider, addresses: ContractAddresses) {
-  const person = await ContractAPI.userWrapper(accounts, 0, provider, addresses);
+export async function createCannedMarketsAndOrders(account: Account, provider: EthersProvider, addresses: ContractAddresses) {
+  const person = await TestingContractAPI.userWrapper(account, provider, addresses);
   await person.approveCentralAuthority();
 
   await person.faucet(new BigNumber(10).pow(18).multipliedBy(1000000));
