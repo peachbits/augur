@@ -11,8 +11,6 @@ export interface Account {
   balance: number;
 }
 
-export type AccountList = Array<Account>;
-
 export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 const ETERNAL_APPROVAL_VALUE = new ethers.utils.BigNumber("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // 2^256 - 1
 
@@ -21,6 +19,8 @@ export class ContractAPI {
     const signer = await EthersFastSubmitWallet.create(account.secretKey, provider);
     const dependencies = new ContractDependenciesEthers(provider, signer, account.publicKey);
     const augur = await Augur.create(provider, dependencies, addresses);
+
+    console.log("MARINA", "api/")
 
     return new ContractAPI(augur, provider, account.publicKey);
   }

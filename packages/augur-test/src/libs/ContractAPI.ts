@@ -1,4 +1,4 @@
-import { Account, ContractAPI } from "@augurproject/sdk/src/api/ContractAPI";
+import { Account, ContractAPI } from "@augurproject/sdk/build/api/ContractAPI";
 import { Augur } from "@augurproject/sdk";
 import { EthersFastSubmitWallet } from "@augurproject/core";
 import { ContractDependenciesEthers } from "contract-dependencies-ethers";
@@ -10,6 +10,8 @@ export class TestingContractAPI extends ContractAPI {
     const signer = await EthersFastSubmitWallet.create(account.secretKey, provider);
     const dependencies = new ContractDependenciesEthers(provider, signer, account.publicKey);
     const augur = await Augur.create(provider, dependencies, addresses);
+
+    console.log("MARINA", "libs/")
 
     return new TestingContractAPI(augur, provider, account.publicKey);
   }

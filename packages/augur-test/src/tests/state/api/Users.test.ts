@@ -5,9 +5,9 @@ import {
     TestingContractAPI,
 } from "../../../libs";
 import { Contracts as compilerOutput } from "@augurproject/artifacts";
+import { convertDisplayAmountToOnChainAmount, convertDisplayPriceToOnChainPrice, numTicksToTickSize } from "@augurproject/sdk";
 import {API} from "@augurproject/sdk/build/state/api/API";
 import {DB} from "@augurproject/sdk/build/state/db/DB";
-import { convertDisplayAmountToOnChainAmount, convertDisplayPriceToOnChainPrice, numTicksToTickSize } from "@augurproject/sdk";
 import { ContractInterfaces } from "@augurproject/core";
 import { BigNumber } from "bignumber.js";
 import { stringTo32ByteHex } from "../../../libs/Utils";
