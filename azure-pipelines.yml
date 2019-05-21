@@ -53,6 +53,8 @@ jobs:
         name: setVars
 
   - job: TestAndLint
+    dependsOn:
+    - PreFlightCheck
     pool:
       vmImage: 'Ubuntu 16.04'
     strategy:
@@ -91,13 +93,21 @@ jobs:
           yarn workspace @augurproject/ui test
         displayName: augur-ui test
         condition: |
-          eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_UI'], 'true')
+          and
+          (
+            succeeded(),
+            eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_UI'], 'true')
+          )
       - bash: |
           set -euo pipefail
           yarn workspace @augurproject/sdk test
         displayName: augur-ui test
         condition: |
-          eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_SDK'], 'true')
+          and
+          (
+            succeeded(),
+            eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_SDK'], 'true')
+          )
 
 
   - job: Augur_build_docker_image
