@@ -79,7 +79,7 @@ jobs:
         displayName: yarn build
       - bash: |
           set -euo pipefail
-          yarn workspace @augurproject/sdk test
+          yarn test
         displayName: yarn test
 
 
