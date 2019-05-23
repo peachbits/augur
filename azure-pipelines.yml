@@ -101,7 +101,7 @@ jobs:
       - bash: |
           set -euo pipefail
           yarn workspace @augurproject/sdk test
-        displayName: augur-ui test
+        displayName: augur-sdk test
         condition: |
           and
           (
