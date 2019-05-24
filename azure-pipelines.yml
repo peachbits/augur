@@ -55,6 +55,10 @@ jobs:
   - job: TestAndLint
     dependsOn:
     - PreFlightCheck
+        variables:
+          JOB_TRIGGER_UI: $[dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_UI']]
+          JOB_TRIGGER_SDK: $[dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_SDK']]]
+          JOB_TRIGGER_CORE: $[dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_CORE']]]
     pool:
       vmImage: 'Ubuntu 16.04'
     strategy:
@@ -96,7 +100,7 @@ jobs:
           and
           (
             succeeded(),
-            eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_UI'], 'true')
+            eq(variables['JOB_TRIGGER_UI'], 'true')
           )
       - bash: |
           set -euo pipefail
@@ -106,7 +110,7 @@ jobs:
           and
           (
             succeeded(),
-            eq(dependencies.PreFlightCheck.outputs['setVars.JOB_TRIGGER_SDK'], 'true')
+            eq(variables['JOB_TRIGGER_SDK'], 'true')
           )
 
 
