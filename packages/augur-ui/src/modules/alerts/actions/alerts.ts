@@ -1,11 +1,11 @@
-import store from "src/store";
+import store from "store";
 import { augur } from "services/augurjs";
 import * as constants from "modules/common-elements/constants";
 import setAlertText from "modules/alerts/actions/set-alert-text";
 import { createBigNumber } from "utils/create-big-number";
 import makePath from "modules/routes/helpers/make-path";
 import { TRANSACTIONS } from "modules/routes/constants/views";
-import { selectCurrentTimestampInSeconds } from "src/select-state";
+import { selectCurrentTimestampInSeconds } from "store/select-state";
 import { getNetworkId } from "modules/contracts/actions/contractCalls";
 
 export const ADD_ALERT = "ADD_ALERT";
@@ -13,7 +13,7 @@ export const REMOVE_ALERT = "REMOVE_ALERT";
 export const UPDATE_ALERT = "UPDATE_ALERT";
 export const CLEAR_ALERTS = "CLEAR_ALERTS";
 
-function packageAlertInfo(id: String, timestamp: Number, transaction: any) {
+function packageAlertInfo(id: string, timestamp: Number, transaction: any) {
   return {
     id,
     timestamp,
@@ -247,14 +247,14 @@ export function addAlert(alert: any) {
   };
 }
 
-export function removeAlert(id: String) {
+export function removeAlert(id: string) {
   return {
     type: REMOVE_ALERT,
     data: { id }
   };
 }
 
-export function updateAlert(id: String, alert: any) {
+export function updateAlert(id: string, alert: any) {
   return (dispatch: Function, getState: Function) => {
     const callback = (alert: any) => {
       const fullAlert = {

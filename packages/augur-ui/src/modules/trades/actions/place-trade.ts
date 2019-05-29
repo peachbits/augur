@@ -14,10 +14,7 @@ import {
   removePendingOrder
 } from "modules/orders/actions/pending-orders-management";
 import { formatEther, formatShares } from "utils/format-number";
-
-function getOutcomeName(outcomesData: any, outcomeId: any) {
-  return outcomesData[outcomeId].name || outcomesData[outcomeId].description;
-}
+import { getOutcomeName } from "utils/get-outcome";
 
 export const placeTrade = ({
   marketId,
@@ -81,7 +78,7 @@ export const placeTrade = ({
             unmatchedShares: formatShares(tradeInProgress.numShares),
             name: getOutcomeName(
               outcomesData[marketId],
-              parseInt(outcomeId, 10)
+              { id: outcomeId },
             ),
             type: tradeInProgress.side,
             pendingOrder: true,
@@ -137,7 +134,7 @@ export const placeTrade = ({
     bnAllowance.lte(createBigNumber(tradeInProgress.totalCost.value))
   ) {
     dispatch(
-      checkAccountAllowance((err: any, allowance: String) => {
+      checkAccountAllowance((err: any, allowance: string) => {
         if (allowance === "0") {
           promptApprovalandSend();
         } else {

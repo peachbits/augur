@@ -4,41 +4,41 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding-top: 1rem;
+  padding-top: @size-16;
   position: relative;
 }
 
 .TrandingConfirm__topBorder {
-  background: @color-grayish-purple;
+  background: @color-tertiary-background;
   height: 2px;
-  margin: 0 1rem;
+  margin: 0 @size-16;
 }
 
 .TradingConfirm__details {
   display: flex;
   flex-direction: column;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  padding-top: 12px;
+  margin-left: @size-16;
+  margin-right: @size-16;
+  padding-top: @size-12;
 
   > svg {
     > line {
-      stroke: fade(@color-white, 40%);
+      stroke: fade(@color-secondary-text, 40%);
     }
   }
 }
 
 .TradingConfirm__position {
-  padding-bottom: 1rem;
-  padding-top: 0.75rem;
+  padding-bottom: @size-16;
+  padding-top: @size-12;
 }
 
 .TradingConfirm__position__properties {
+  .text-10-bold;
+
   color: @color-tertiary-text;
   display: flex;
   flex-direction: row;
-  font-size: @font-size-extra-small;
-  font-weight: bold;
   margin-bottom: @size-8;
 }
 
@@ -49,7 +49,7 @@
 }
 
 .TradingConfirm__agg_position {
-  color: @color-white;
+  color: @color-secondary-text;
   font-size: @size-11;
   padding-bottom: 0.1875rem;
 
@@ -58,78 +58,13 @@
     text-transform: uppercase;
 
     &.short {
-      color: @color-negative2;
+      color: @color-negative;
     }
 
     &.long {
       color: @color-positive;
     }
   }
-}
-
-.TradingConfirm_arrow_buy,
-.TradingConfirm_arrow_sell,
-.TradingConfirm_arrow {
-  border-bottom: 14px solid transparent;
-  border-top: 14px solid transparent;
-  height: 0;
-  padding-right: 1rem;
-  width: 0;
-}
-
-.TradingConfirm_arrow_buy {
-  border-left: 14px solid @color-positive;
-}
-
-.TradingConfirm_arrow_sell {
-  border-left: 14px solid @color-negative;
-}
-
-.TradingConfirm__potential {
-  &:extend(.TradingConfirm__details all);
-
-  border-bottom-width: 0;
-
-  > li > span:first-child,
-  > li > span:last-child {
-    font-size: @font-size-small;
-    font-weight: 400;
-    line-height: @font-size-small;
-  }
-}
-
-.TradingConfirm__total {
-  &:extend(.TradingConfirm__details all);
-
-  display: flex;
-
-  > li {
-    align-items: stretch;
-    max-width: 15rem;
-  }
-
-  > li:nth-child(2) {
-    display: block;
-    margin-top: 0;
-  }
-
-  > li:nth-child(2) > span:nth-child(1) {
-    padding-bottom: 1rem;
-  }
-
-  > li > span:first-child,
-  > li > span:last-child {
-    display: block;
-    font-size: @font-size-large;
-    font-weight: 700;
-    line-height: @font-size-large;
-    width: auto;
-  }
-}
-
-.TradingConfirm__FeeLabel {
-  margin-right: @size-8;
-  width: unset;
 }
 
 .TradingConfirm__TooltipHint {
@@ -153,6 +88,8 @@
 }
 
 .TradingConfirm__error_message_container {
+  .text-12;
+
   background: fade(@color-darker-teal, 90%);
   border: 1px solid @color-outcome-four;
   border-radius: 3px;
@@ -160,12 +97,11 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  font-size: @font-size-small;
-  left: 1rem;
-  line-height: @font-size-medium;
+  left: @size-16;
+  line-height: @size-14;
   padding: @size-13 @size-8;
   position: absolute;
-  right: 1rem;
+  right: @size-16;
 
   &.error {
     background: @color-error-message-fade;
@@ -199,7 +135,7 @@
   div:last-child {
     .text-11;
 
-    color: @color-white;
+    color: @color-secondary-text;
   }
 }
 
@@ -233,11 +169,6 @@
   width: 5rem;
 }
 
-span.negative__profit,
-span.negative__profit > * {
-  color: @color-error;
-}
-
 @media @breakpoint-mobile {
   .TradingConfirmation__actions {
     min-height: 6.25rem;
@@ -254,10 +185,10 @@ span.negative__profit > * {
   }
 
   .TradingConfirm__header {
-    padding: 1.5rem 2rem 1.1rem;
+    padding: @size-24 @size-32 @size-24;
 
     > h2 {
-      color: @color-white;
+      color: @color-secondary-text;
 
       &.order__buy {
         color: @color-positive;
@@ -269,11 +200,6 @@ span.negative__profit > * {
         text-transform: uppercase;
       }
     }
-  }
-
-  .TradingConfirm__total > li > span,
-  .TradingConfirm__total > li > span:first-child {
-    color: @color-white;
   }
 
   .TradingConfirm__TooltipHint {
@@ -298,8 +224,8 @@ span.negative__profit > * {
 
 @media @breakpoint-mobile-small {
   .TradingConfirm__header {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: @size-16;
+    padding-right: @size-16;
   }
 
   .TradingConfirm__details > li {
@@ -308,6 +234,6 @@ span.negative__profit > * {
 
   .TradingConfirm__details > li > span,
   .TradingConfirm__details > li > span:first-child {
-    color: @color-white;
+    color: @color-secondary-text;
   }
 }

@@ -90,8 +90,8 @@ jobs:
         displayName: yarn build
       - bash: |
           set -euo pipefail
-          yarn workspace @augurproject/test test
-        displayName: augur-test
+          yarn test
+        displayName: yarn test
       - bash: |
           set -euo pipefail
           yarn workspace @augurproject/ui test
@@ -112,6 +112,8 @@ jobs:
             succeeded(),
             eq(variables['JOB_TRIGGER_SDK'], 'true')
           )
+          yarn test
+        displayName: yarn test
 
 
   - job: Augur_build_docker_image
@@ -162,10 +164,6 @@ jobs:
           set -euo pipefail
           yarn build
         displayName: yarn build
-      - bash: |
-          set -euo pipefail
-          yarn workspace @augurproject/sdk test
-        displayName: yarn sdk test
       - bash: |
           set -euo pipefail
           yarn docker:build:augur
