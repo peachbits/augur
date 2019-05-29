@@ -113,7 +113,6 @@ jobs:
             eq(variables['JOB_TRIGGER_SDK'], 'true')
           )
           yarn test
-        displayName: yarn test
 
 
   - job: Augur_build_docker_image
