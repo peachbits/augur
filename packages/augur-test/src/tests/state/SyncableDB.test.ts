@@ -1,10 +1,9 @@
-import { ethers } from "ethers";
 import { Augur } from "@augurproject/sdk";
 import { Contracts as compilerOutput } from "@augurproject/artifacts";
 import { EthersProvider } from "@augurproject/ethersjs-provider";
 import { ACCOUNTS, deployContracts, makeDbMock } from "../../libs";
 import { stringTo32ByteHex } from "../../libs/Utils";
-import { toAscii } from "@augurproject/sdk/build/state/utils/utils";
+import { toAscii } from "@augurproject/sdk/src/state/utils/utils";
 
 // because flexsearch is a UMD type lib
 import FlexSearch = require("flexsearch");

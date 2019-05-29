@@ -4,7 +4,7 @@ import { Contracts } from "./api/Contracts";
 import { Trade } from "./api/Trade";
 import { ContractInterfaces } from "@augurproject/core";
 import { ContractAddresses, NetworkId } from "@augurproject/artifacts";
-import { ContractDependenciesEthers } from "contract-dependencies-ethers/build";
+import { ContractDependenciesEthers } from "contract-dependencies-ethers";
 
 export interface UserSpecificEvent {
   name: string;
@@ -15,7 +15,7 @@ export interface UserSpecificEvent {
 
 export class Augur<TProvider extends Provider = Provider> {
   public readonly provider: TProvider;
-  private readonly dependencies:  ContractDependenciesEthers;
+  private readonly dependencies: ContractDependenciesEthers;
 
   public readonly networkId: NetworkId;
   public readonly events: Events;

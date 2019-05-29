@@ -2,12 +2,12 @@ import {
   ACCOUNTS,
   makeDbMock,
   deployContracts,
-  TestingContractAPI,
+  TestContractAPI,
 } from "../../../libs";
 import { Contracts as compilerOutput } from "@augurproject/artifacts";
-import { API } from "@augurproject/sdk/build/state/api/API";
-import { DB } from "@augurproject/sdk/build/state/db/DB";
-import { MarketTradingHistory } from "@augurproject/sdk/build/state/api/Trading";
+import { API } from "@augurproject/sdk/src/state/api/API";
+import { DB } from "@augurproject/sdk/src/state/db/DB";
+import { MarketTradingHistory } from "@augurproject/sdk/src/state/api/Trading";
 import { BigNumber } from "bignumber.js";
 import { stringTo32ByteHex } from "../../../libs/Utils";
 
@@ -16,14 +16,14 @@ const mock = makeDbMock();
 
 let db: DB;
 let api: API;
-let john: TestingContractAPI;
-let mary: TestingContractAPI;
+let john: TestContractAPI;
+let mary: TestContractAPI;
 
 beforeAll(async () => {
   const {provider, addresses} = await deployContracts(ACCOUNTS, compilerOutput);
 
-  john = await TestingContractAPI.userWrapper(ACCOUNTS[0], provider, addresses);
-  mary = await TestingContractAPI.userWrapper(ACCOUNTS[1], provider, addresses);
+  john = await TestContractAPI.userWrapper(ACCOUNTS[0], provider, addresses);
+  mary = await TestContractAPI.userWrapper(ACCOUNTS[1], provider, addresses);
   db = await mock.makeDB(john.augur, ACCOUNTS);
   api = new API(john.augur, db);
 }, 120000);

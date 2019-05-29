@@ -1,6 +1,7 @@
 import { BigNumber } from "bignumber.js";
 
 export const QUINTILLION = new BigNumber(10).pow(18);
+export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 export function numTicksToTickSize(numTicks: BigNumber, minPrice: BigNumber, maxPrice: BigNumber): BigNumber {
   return maxPrice.minus(minPrice).div(numTicks).dividedBy(QUINTILLION);
@@ -21,3 +22,5 @@ export function convertOnChainPriceToDisplayPrice(onChainPrice: BigNumber, minPr
 export function convertDisplayPriceToOnChainPrice(displayPrice: BigNumber, minPrice: BigNumber, tickSize: BigNumber) {
   return displayPrice.minus(minPrice).dividedBy(tickSize);
 }
+
+
