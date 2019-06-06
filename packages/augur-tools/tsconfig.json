@@ -17,6 +17,12 @@
       "path": "../augur-sdk"
     },
     {
+      "path": "../augur-core"
+    },
+    {
+      "path": "../augur-test"
+    },
+    {
       "path": "../augur-types"
     },
     {
