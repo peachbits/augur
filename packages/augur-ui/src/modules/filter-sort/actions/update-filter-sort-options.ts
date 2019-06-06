@@ -7,7 +7,7 @@ export const HAS_OPEN_ORDERS = "hasOrders";
 
 export function updateFilterSortOptions(
   optionKey: string,
-  optionValue: string | boolean,
+  optionValue: string | boolean
 ) {
   return {
     type: UPDATE_FILTER_SORT_OPTIONS,

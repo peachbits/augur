@@ -21,13 +21,13 @@ describe("modules/orders/actions/cancel-order.js", () => {
           order: {
             id:
               "0xdbd851cc394595f9c50f32c1554059ec343471b49f84a4b72c44589a25f70ff3",
-            type: BID
+            type: BID,
           },
           market: { id: "testMarketId" },
-          outcome: {}
-        }
-      }
-    }
+          outcome: {},
+        },
+      },
+    },
   });
 
   afterEach(() => {

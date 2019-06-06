@@ -15,7 +15,7 @@ const toggleCategory = (category, location, history) => () => {
 
     return history.push({
       ...location,
-      search: searchParams
+      search: searchParams,
     });
   }
 };

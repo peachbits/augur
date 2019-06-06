@@ -9,8 +9,9 @@ const ONE_HUNDRED = createBigNumber(100);
 // Percentages are ALWAYS in number range so results are returned as number
 export const calculatePercentage = (numSize, numTotalStake) => {
   if (numSize === null || numTotalStake === null) return 0;
-  if (typeof numSize === "undefined" || typeof numTotalStake === "undefined")
+  if (typeof numSize === "undefined" || typeof numTotalStake === "undefined") {
     return 0;
+  }
 
   // NB: Remove whence paramaters are converted outside
   const size = createBigNumber(numSize, 10);

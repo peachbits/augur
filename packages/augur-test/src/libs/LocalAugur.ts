@@ -14,13 +14,13 @@ export interface Account {
   secretKey: string;
   publicKey: string;
   balance: number;
-};
+}
 
-export type AccountList = Array<Account>;
+export type AccountList = Account[];
 
 const augurCorePath = path.join(__dirname, "../../../augur-core/");
 
-export function makeDeployerConfiguration(writeArtifacts: boolean = true) {
+export function makeDeployerConfiguration(writeArtifacts = true) {
   const contractInputRoot = path.join(augurCorePath, "../augur-artifacts/src");
   const artifactOutputRoot = writeArtifacts ? path.join(augurCorePath, "../augur-artifacts/src") : null;
   const createGenesisUniverse = true;
@@ -35,7 +35,7 @@ export function makeDeployerConfiguration(writeArtifacts: boolean = true) {
     createGenesisUniverse,
     isProduction,
     useNormalTime,
-    legacyRepAddress,
+    legacyRepAddress
   );
 }
 
@@ -81,7 +81,7 @@ export async function makeGanacheProvider(accounts: AccountList): Promise<ethers
 }
 
 export async function makeSigner(account: Account, provider: EthersProvider) {
-  return await EthersFastSubmitWallet.create(account.secretKey, provider);
+  return EthersFastSubmitWallet.create(account.secretKey, provider);
 }
 
 export function makeDependencies(account: Account, provider: EthersProvider, signer: EthersFastSubmitWallet) {

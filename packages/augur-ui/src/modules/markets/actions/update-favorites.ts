@@ -7,14 +7,14 @@ import { AppState } from "store";
 export const UPDATE_FAVORITES = "UPDATE_FAVORITES";
 export const TOGGLE_FAVORITE = "TOGGLE_FAVORITE";
 
-export const updateFavorites = (favorites: Array<Favorite>) => ({
+export const updateFavorites = (favorites: Favorite[]) => ({
   type: UPDATE_FAVORITES,
-  data: { favorites }
+  data: { favorites },
 });
 
 const toggleFavoriteAction = (marketId: string, timestamp: number) => ({
   type: TOGGLE_FAVORITE,
-  data: { marketId, timestamp }
+  data: { marketId, timestamp },
 });
 
 export const toggleFavorite = (marketId: string) => (
@@ -25,7 +25,7 @@ export const toggleFavorite = (marketId: string) => (
   dispatch(toggleFavoriteAction(marketId, blockchain.currentAugurTimestamp));
 };
 
-export const loadFavoritesMarkets = (favorites: Array<Favorite>) => (
+export const loadFavoritesMarkets = (favorites: Favorite[]) => (
   dispatch: ThunkDispatch<void, any, Action>
 ) => {
   if (favorites) {

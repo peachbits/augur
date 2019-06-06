@@ -8,18 +8,18 @@ import { LoginAccount, BaseAction } from "modules/types";
 const DEFAULT_STATE: LoginAccount = {
   eth: undefined,
   rep: undefined,
-  dai: undefined
+  dai: undefined,
 };
 
 export default function(
   loginAccount: LoginAccount = DEFAULT_STATE,
-  { type, data }: BaseAction,
+  { type, data }: BaseAction
 ): LoginAccount {
   switch (type) {
     case UPDATE_LOGIN_ACCOUNT:
       return {
         ...loginAccount,
-        ...(data || {})
+        ...(data || {}),
       };
     case RESET_STATE:
     case CLEAR_LOGIN_ACCOUNT:

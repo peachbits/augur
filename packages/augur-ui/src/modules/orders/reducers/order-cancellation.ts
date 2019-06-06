@@ -16,14 +16,14 @@ export default function(orderCancellation = DEFAULT_STATE, { type, data }: BaseA
       const { orderId, status } = data;
       return {
         ...orderCancellation,
-        [orderId]: status
+        [orderId]: status,
       };
     }
     case UPDATE_ORDER_REMOVE: {
       const { orderId } = data;
       delete orderCancellation[orderId];
       return {
-        ...orderCancellation
+        ...orderCancellation,
       };
     }
     case RESET_STATE:

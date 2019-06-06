@@ -14,7 +14,7 @@ import { NodeStyleCallback } from "modules/types";
 const mapStateToProps = (state: AppState) => {
   const market = selectMarket(state.modal.marketId);
   const numCompleteSets = createBigNumber(
-    state.modal.numCompleteSets.formatted,
+    state.modal.numCompleteSets.formatted
   );
   const min = market.minPrice;
   const max = market.maxPrice;
@@ -72,7 +72,7 @@ const mergeProps = (sP: any, dP: any, oP: any) => ({
         dP.sellCompleteSets(
           oP.modal.marketId,
           oP.modal.numCompleteSets,
-          oP.modal.cb,
+          oP.modal.cb
         );
         dP.closeModal();
       },
@@ -84,6 +84,6 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-  )(Message),
+    mergeProps
+  )(Message)
 );

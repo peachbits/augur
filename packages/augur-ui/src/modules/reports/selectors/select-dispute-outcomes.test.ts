@@ -14,7 +14,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
     potentialFork: false,
     stakeCompleted: "0",
     stakeRemaining: size,
-    tentativeWinning: false
+    tentativeWinning: false,
   });
 
   const marketBinary = {
@@ -26,8 +26,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
     reportableOutcomes: [
       { id: "0", name: "No" },
       { id: "1", name: "Yes" },
-      { id: "0.5", name: "Indeterminate" }
-    ]
+      { id: "0.5", name: "Indeterminate" },
+    ],
   };
 
   const marketCategorical = {
@@ -44,8 +44,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
       { id: "4", name: "Joe" },
       { id: "5", name: "Mike" },
       { id: "6", name: "Ed" },
-      { id: "0.5", name: "Indeterminate" }
-    ]
+      { id: "0.5", name: "Indeterminate" },
+    ],
   };
 
   const marketScalar = {
@@ -55,7 +55,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
     tickSize: 4,
     numOutcomes: 2,
     marketType: SCALAR,
-    reportableOutcomes: [{ id: "0.5", name: "Indeterminate" }]
+    reportableOutcomes: [{ id: "0.5", name: "Indeterminate" }],
   };
 
   const calculatePayoutNumeratorsValueStubb = sinon.stub().returns(null);
@@ -142,7 +142,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "20",
         display: true,
         id: "90",
-        name: "90"
+        name: "90",
       },
       {
         payout: [3000, 7000],
@@ -154,7 +154,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "35",
         display: true,
         id: "70",
-        name: "70"
+        name: "70",
       },
       {
         payout: [2000, 8000],
@@ -166,7 +166,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "10",
         display: true,
         id: "80",
-        name: "80"
+        name: "80",
       },
       {
         payout: [4000, 6000],
@@ -178,7 +178,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "40",
         display: true,
         id: "60",
-        name: "60"
+        name: "60",
       },
       {
         payout: [6000, 4000],
@@ -190,7 +190,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "60",
         display: true,
         id: "40",
-        name: "40"
+        name: "40",
       },
       {
         payout: [7000, 3000],
@@ -202,7 +202,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "70",
         display: true,
         id: "30",
-        name: "30"
+        name: "30",
       },
       {
         payout: [8000, 2000],
@@ -212,7 +212,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeCurrent: "20",
         stakeRemaining: "300",
         id: "20",
-        name: "20"
+        name: "20",
       },
       {
         payout: [5000, 5000],
@@ -227,7 +227,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "50",
         display: true,
         id: "0.5",
-        name: "Indeterminate"
+        name: "Indeterminate",
       },
       {
         payout: [9000, 1000],
@@ -237,7 +237,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeCurrent: "10",
         stakeRemaining: "200",
         id: "10",
-        name: "10"
+        name: "10",
       },
       {
         payout: [10000, 0],
@@ -247,7 +247,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeCurrent: "0",
         stakeRemaining: "100",
         id: "0",
-        name: "0"
+        name: "0",
       },
       {
         payout: [0, 10000],
@@ -259,7 +259,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "15",
         display: true,
         id: "100",
-        name: "100"
+        name: "100",
       },
       {
         payout: [1500, 8500],
@@ -271,7 +271,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "30",
         display: true,
         id: "85",
-        name: "85"
+        name: "85",
       },
       {
         payout: [8500, 1500],
@@ -281,8 +281,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeCurrent: "15",
         stakeRemaining: "400",
         id: "15",
-        name: "15"
-      }
+        name: "15",
+      },
     ];
     const expected = [
       { ...stakes[2] },
@@ -297,7 +297,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
       { ...stakes[9] },
       { ...stakes[8] },
       { ...stakes[6] },
-      { ...stakes[12] }
+      { ...stakes[12] },
     ];
     const actual = selectDisputeOutcomes(
       marketScalar,
@@ -319,7 +319,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "20",
         display: true,
         id: "90",
-        name: "90"
+        name: "90",
       },
       {
         payout: [3000, 7000],
@@ -330,7 +330,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "35",
         display: true,
         id: "70",
-        name: "70"
+        name: "70",
       },
       {
         payout: [2000, 8000],
@@ -341,8 +341,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "10",
         display: true,
         id: "80",
-        name: "80"
-      }
+        name: "80",
+      },
     ];
     const expected = [
       { ...stakes[2] },
@@ -359,8 +359,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeCompleted: "0",
         stakeCurrent: "0",
         stakeRemaining: 100,
-        tentativeWinning: false
-      }
+        tentativeWinning: false,
+      },
     ];
     const actual = selectDisputeOutcomes(
       marketScalar,
@@ -376,8 +376,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
       {
         payout: [5000, 5000],
         isInvalid: true,
-        tentativeWinning: true
-      }
+        tentativeWinning: true,
+      },
     ];
     const actual = selectDisputeOutcomes(marketScalar, stakes, 100, 1000000000);
     const expected = [
@@ -386,8 +386,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         display: true,
         id: "0.5",
         name: "Indeterminate",
-        ...stakes[0]
-      }
+        ...stakes[0],
+      },
     ];
     expect(actual).toEqual(expected);
   });
@@ -401,7 +401,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         tentativeWinning: true,
         display: true,
         id: "80",
-        name: "name"
+        name: "name",
       },
       {
         payout: [1000, 9000],
@@ -412,7 +412,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "10",
         display: true,
         id: "90",
-        name: "90"
+        name: "90",
       },
       {
         payout: [9000, 1000],
@@ -423,7 +423,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "70",
         display: true,
         id: "10",
-        name: "10"
+        name: "10",
       },
       {
         accountStakeCompleted: "0",
@@ -438,7 +438,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "25",
         display: true,
         id: "0.5",
-        name: "Indeterminate"
+        name: "Indeterminate",
       },
       {
         payout: [1500, 8500],
@@ -449,8 +449,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         stakeRemaining: "85",
         display: true,
         id: "85",
-        name: "85"
-      }
+        name: "85",
+      },
     ];
     const actual = selectDisputeOutcomes(marketScalar, stakes, 100, 1000000000);
     const expected = [
@@ -458,7 +458,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
       { ...stakes[1], stakeRemaining: "10" },
       { ...stakes[3], stakeRemaining: "25" },
       { ...stakes[2], stakeRemaining: "70" },
-      { ...stakes[4], stakeRemaining: "85" }
+      { ...stakes[4], stakeRemaining: "85" },
     ];
     expect(actual).toEqual(expected);
   });
@@ -469,15 +469,15 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         payout: [2000, 8000],
         isInvalid: false,
         potentialFork: false,
-        tentativeWinning: true
+        tentativeWinning: true,
       },
       {
         payout: [1000, 9000],
         isInvalid: false,
         potentialFork: false,
         tentativeWinning: false,
-        stakeRemaining: 50
-      }
+        stakeRemaining: 50,
+      },
     ];
     const actual = selectDisputeOutcomes(marketScalar, stakes, 100, 1000000000);
     const expected = [
@@ -487,8 +487,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         display: true,
         id: "0.5",
         name: "Indeterminate",
-        ...getDefaultStake(100)
-      }
+        ...getDefaultStake(100),
+      },
     ];
 
     expect(actual).toEqual(expected);
@@ -500,8 +500,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         payout: [2000, 8000],
         isInvalid: false,
         potentialFork: false,
-        tentativeWinning: true
-      }
+        tentativeWinning: true,
+      },
     ];
     const actual = selectDisputeOutcomes(marketScalar, stakes, 100, 1000000000);
     const expected = [
@@ -509,14 +509,14 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         ...stakes[0],
         display: true,
         id: "80",
-        name: "80"
+        name: "80",
       },
       {
         ...getDefaultStake(100),
         display: true,
         id: "0.5",
-        name: "Indeterminate"
-      }
+        name: "Indeterminate",
+      },
     ];
     expect(actual).toEqual(expected);
   });
@@ -526,8 +526,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
       {
         payout: [1429, 1429, 1429, 1429, 1429, 1429, 1429],
         isInvalid: true,
-        tentativeWinning: true
-      }
+        tentativeWinning: true,
+      },
     ];
     const actual = selectDisputeOutcomes(
       marketCategorical,
@@ -541,7 +541,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         ...stakes[0],
         display: true,
         id: "0.5",
-        name: "Indeterminate"
+        name: "Indeterminate",
       },
       { ...getDefaultStake(100), display: true, id: "0", name: "Bob" },
       { ...getDefaultStake(100), display: true, id: "1", name: "Sue" },
@@ -549,7 +549,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
       { ...getDefaultStake(100), display: true, id: "3", name: "Mark" },
       { ...getDefaultStake(100), display: true, id: "4", name: "Joe" },
       { ...getDefaultStake(100), display: true, id: "5", name: "Mike" },
-      { ...getDefaultStake(100), display: true, id: "6", name: "Ed" }
+      { ...getDefaultStake(100), display: true, id: "6", name: "Ed" },
     ];
     expect(actual).toEqual(expected);
   });
@@ -559,13 +559,13 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
       {
         payout: [10003, 0, 0, 0, 0, 0, 0],
         isInvalid: false,
-        tentativeWinning: true
+        tentativeWinning: true,
       },
       {
         payout: [0, 0, 0, 0, 10003, 0, 0],
         isInvalid: false,
-        tentativeWinning: false
-      }
+        tentativeWinning: false,
+      },
     ];
     const actual = selectDisputeOutcomes(
       marketCategorical,
@@ -579,7 +579,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         ...stakes[0],
         display: true,
         id: "0",
-        name: "Bob"
+        name: "Bob",
       },
       { ...getDefaultStake(100), display: true, id: "1", name: "Sue" },
       { ...getDefaultStake(100), display: true, id: "2", name: "John" },
@@ -589,7 +589,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         ...stakes[1],
         display: true,
         id: "4",
-        name: "Joe"
+        name: "Joe",
       },
       { ...getDefaultStake(100), display: true, id: "5", name: "Mike" },
       { ...getDefaultStake(100), display: true, id: "6", name: "Ed" },
@@ -597,8 +597,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         ...getDefaultStake(100),
         display: true,
         id: "0.5",
-        name: "Indeterminate"
-      }
+        name: "Indeterminate",
+      },
     ];
     expect(actual).toEqual(expected);
   });
@@ -608,8 +608,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
       {
         payout: [10003, 0, 0, 0, 0, 0, 0],
         isInvalid: false,
-        tentativeWinning: true
-      }
+        tentativeWinning: true,
+      },
     ];
     const actual = selectDisputeOutcomes(
       marketCategorical,
@@ -623,7 +623,7 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         ...stakes[0],
         display: true,
         id: "0",
-        name: "Bob"
+        name: "Bob",
       },
       { ...getDefaultStake(100), display: true, id: "1", name: "Sue" },
       { ...getDefaultStake(100), display: true, id: "2", name: "John" },
@@ -635,8 +635,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         ...getDefaultStake(100),
         display: true,
         id: "0.5",
-        name: "Indeterminate"
-      }
+        name: "Indeterminate",
+      },
     ];
 
     expect(actual).toEqual(expected);
@@ -647,13 +647,13 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
       {
         payout: [10000, 0],
         isInvalid: false,
-        tentativeWinning: true
+        tentativeWinning: true,
       },
       {
         payout: [0, 10000],
         isInvalid: false,
-        tentativeWinning: false
-      }
+        tentativeWinning: false,
+      },
     ];
     const actual = selectDisputeOutcomes(marketBinary, stakes, 100, 1000000000);
     const expected = [
@@ -662,21 +662,21 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         ...stakes[0],
         display: true,
         id: "0",
-        name: "No"
+        name: "No",
       },
       {
         ...getDefaultStake(100),
         ...stakes[1],
         display: true,
         id: "1",
-        name: "Yes"
+        name: "Yes",
       },
       {
         ...getDefaultStake(100),
         display: true,
         id: "0.5",
-        name: "Indeterminate"
-      }
+        name: "Indeterminate",
+      },
     ];
 
     expect(actual).toEqual(expected);
@@ -687,8 +687,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
       {
         payout: [5000, 5000],
         isInvalid: true,
-        tentativeWinning: true
-      }
+        tentativeWinning: true,
+      },
     ];
     const actual = selectDisputeOutcomes(marketBinary, stakes, 100, 1000000000);
     const expected = [
@@ -697,10 +697,10 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         display: true,
         id: "0.5",
         name: "Indeterminate",
-        ...stakes[0]
+        ...stakes[0],
       },
       { display: true, id: "0", name: "No", ...getDefaultStake(100) },
-      { display: true, id: "1", name: "Yes", ...getDefaultStake(100) }
+      { display: true, id: "1", name: "Yes", ...getDefaultStake(100) },
     ];
 
     expect(actual).toEqual(expected);
@@ -711,8 +711,8 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
       {
         payout: [10000, 0],
         isInvalid: false,
-        tentativeWinning: true
-      }
+        tentativeWinning: true,
+      },
     ];
     const actual = selectDisputeOutcomes(marketBinary, stakes, 100, 1000000000);
     const expected = [
@@ -721,15 +721,15 @@ describe(`modules/reports/selectors/select-dispute-outcomes.js`, () => {
         display: true,
         id: "0",
         name: "No",
-        ...stakes[0]
+        ...stakes[0],
       },
       { display: true, id: "1", name: "Yes", ...getDefaultStake(100) },
       {
         display: true,
         id: "0.5",
         name: "Indeterminate",
-        ...getDefaultStake(100)
-      }
+        ...getDefaultStake(100),
+      },
     ];
     expect(actual).toEqual(expected);
   });

@@ -19,13 +19,13 @@ export const loadMarketsToReportOn = (
   const query = {
     ...options,
     universe: universe.id,
-    reporter: loginAccount.address
+    reporter: loginAccount.address,
   };
 
   const designatedReportingQuery = {
     ...query,
     reportingState: "DESIGNATED_REPORTING",
-    designatedReporter: loginAccount.address
+    designatedReporter: loginAccount.address,
   };
   const openReportingQuery = { ...query, reportingState: "OPEN_REPORTING" };
   const reportingQuery = { ...query, reportingState: "CROWDSOURCING_DISPUTE" };
@@ -35,7 +35,7 @@ export const loadMarketsToReportOn = (
       designatedReporting: next =>
         augur.markets.getMarkets(designatedReportingQuery, next),
       openReporting: next => augur.markets.getMarkets(openReportingQuery, next),
-      reporting: next => augur.markets.getMarkets(reportingQuery, next)
+      reporting: next => augur.markets.getMarkets(reportingQuery, next),
     },
     (err, marketsToReportOn) => {
       // marketsToReportOn: {designatedReporting: [marketIds], allReporting: [marketIds], limitedReporting: [marketIds]}

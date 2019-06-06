@@ -19,7 +19,7 @@ const mapStateToProps = (state: AppState) => ({
     // @ts-ignore
     CLAIM_SHARES_GAS_COST,
     { decimalsRounded: 4 },
-    getGasPrice(state),
+    getGasPrice(state)
   ),
 });
 
@@ -80,6 +80,6 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-  )(ModalReview),
+    mergeProps
+  )(ModalReview)
 );

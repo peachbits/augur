@@ -27,7 +27,7 @@ export class SyncableDB extends AbstractDB {
   protected eventName: string;
   protected contractName: string; // TODO Remove if unused
   private syncStatus: SyncStatus;
-  private idFields: Array<string>;
+  private idFields: string[];
   private flexSearch?: FlexSearch;
 
   constructor(
@@ -35,7 +35,7 @@ export class SyncableDB extends AbstractDB {
     networkId: number,
     eventName: string,
     dbName: string = db.getDatabaseName(eventName),
-    idFields: Array<string> = [],
+    idFields: string[] = [],
     fullTextSearchOptions?: object
   ) {
     super(networkId, dbName, db.pouchDBFactory);
@@ -45,8 +45,8 @@ export class SyncableDB extends AbstractDB {
     // TODO Set other indexes as need be
     this.db.createIndex({
       index: {
-        fields: ['blockNumber']
-      }
+        fields: ['blockNumber'],
+      },
     });
     db.notifySyncableDBAdded(this);
     db.registerEventListener(this.eventName, this.addNewBlock);
@@ -56,15 +56,15 @@ export class SyncableDB extends AbstractDB {
     }
   }
 
-  public async createIndex(indexOptions: PouchDB.Find.CreateIndexOptions): Promise<PouchDB.Find.CreateIndexResponse<{}>> {
+  async createIndex(indexOptions: PouchDB.Find.CreateIndexOptions): Promise<PouchDB.Find.CreateIndexResponse<{}>> {
     return this.db.createIndex(indexOptions);
   }
 
-  public async getIndexes(): Promise<PouchDB.Find.GetIndexesResponse<{}>> {
+  async getIndexes(): Promise<PouchDB.Find.GetIndexesResponse<{}>> {
     return this.db.getIndexes();
   }
 
-  public async sync(augur: Augur, chunkSize: number, blockStreamDelay: number, highestAvailableBlockNumber: number): Promise<void> {
+  async sync(augur: Augur, chunkSize: number, blockStreamDelay: number, highestAvailableBlockNumber: number): Promise<void> {
     let highestSyncedBlockNumber = await this.syncStatus.getHighestSyncBlock(this.dbName);
     const goalBlock = highestAvailableBlockNumber - blockStreamDelay;
     while (highestSyncedBlockNumber < goalBlock) {
@@ -82,7 +82,7 @@ export class SyncableDB extends AbstractDB {
     if (this.flexSearch) {
       const previousDocumentEntries = await this.db.allDocs({ include_docs: true });
 
-      for (let row of previousDocumentEntries.rows) {
+      for (const row of previousDocumentEntries.rows) {
         if (row === undefined) {
           continue;
         }
@@ -134,7 +134,7 @@ export class SyncableDB extends AbstractDB {
     }
   }
 
-  public addNewBlock = async (blocknumber: number, logs: Array<ParsedLog>): Promise<number> => {
+  addNewBlock = async (blocknumber: number, logs: ParsedLog[]): Promise<number> => {
     const highestSyncedBlockNumber = await this.syncStatus.getHighestSyncBlock(this.dbName);
 
     let success = true;
@@ -166,7 +166,7 @@ export class SyncableDB extends AbstractDB {
     return blocknumber;
   }
 
-  public async rollback(blockNumber: number): Promise<void> {
+  async rollback(blockNumber: number): Promise<void> {
     if (this.idFields.length > 0) {
       await this.revisionRollback(blockNumber);
     } else {
@@ -177,11 +177,11 @@ export class SyncableDB extends AbstractDB {
   private async documentRollback(blockNumber: number): Promise<void> {
     // Remove each change from blockNumber onward
     try {
-      let blocksToRemove = await this.db.find({
+      const blocksToRemove = await this.db.find({
         selector: { blockNumber: { $gte: blockNumber } },
         fields: ['_id', 'blockNumber', '_rev'],
       });
-      for (let doc of blocksToRemove.docs) {
+      for (const doc of blocksToRemove.docs) {
         await this.db.remove(doc._id, doc._rev);
       }
       await this.syncStatus.setHighestSyncBlock(this.dbName, --blockNumber);
@@ -192,17 +192,17 @@ export class SyncableDB extends AbstractDB {
 
   private async revisionRollback(blockNumber: number): Promise<void> {
     try {
-      let blocksToRemove = await this.db.find({
+      const blocksToRemove = await this.db.find({
         selector: { blockNumber: { $gte: blockNumber } },
         fields: ['_id'],
       });
-      for (let doc of blocksToRemove.docs) {
+      for (const doc of blocksToRemove.docs) {
         const revDocs = await this.db.get<Document>(doc._id, {
           open_revs: 'all',
-          revs: true
+          revs: true,
         });
         // If a revision exists before this blockNumber make that the new record, otherwise simply delete the doc.
-        const replacementDoc = _.maxBy(_.remove(revDocs, (doc) => { return doc.ok.blockNumber > blockNumber; }), "ok.blockNumber");
+        const replacementDoc = _.maxBy(_.remove(revDocs, (doc) => doc.ok.blockNumber > blockNumber), "ok.blockNumber");
         if (replacementDoc) {
           await this.db.put(replacementDoc.ok);
         } else {
@@ -215,7 +215,7 @@ export class SyncableDB extends AbstractDB {
     }
   }
 
-  protected async getLogs(augur: Augur, startBlock: number, endBlock: number): Promise<Array<ParsedLog>> {
+  protected async getLogs(augur: Augur, startBlock: number, endBlock: number): Promise<ParsedLog[]> {
     return augur.events.getLogs(this.eventName, startBlock, endBlock);
   }
 
@@ -225,7 +225,7 @@ export class SyncableDB extends AbstractDB {
     // TODO: This works in bulk sync currently because we process logs chronologically. When we switch to reverse chrono for bulk sync we'll need to add more logic
     if (this.idFields.length > 0) {
       // need to preserve order of fields in id
-      for (let fieldName of this.idFields) {
+      for (const fieldName of this.idFields) {
         _id += _.get(log, fieldName);
       }
     } else {
@@ -237,7 +237,7 @@ export class SyncableDB extends AbstractDB {
     );
   }
 
-  public fullTextSearch(query: string): Array<object> {
+  fullTextSearch(query: string): object[] {
     if (this.flexSearch) {
       return this.flexSearch.search(query);
     }

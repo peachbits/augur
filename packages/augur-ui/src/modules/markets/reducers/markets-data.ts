@@ -20,7 +20,7 @@ export default function(marketsData: MarketsData = DEFAULT_STATE, { type, data }
     case UPDATE_MARKETS_DATA: // TODO -- allow for the consumption of partial market objects
       return {
         ...marketsData,
-        ...processMarketsData(data.marketsData, marketsData)
+        ...processMarketsData(data.marketsData, marketsData),
       };
     case UPDATE_MARKETS_DISPUTE_INFO:
       return {
@@ -28,7 +28,7 @@ export default function(marketsData: MarketsData = DEFAULT_STATE, { type, data }
         ...processMarketsDisputeInfo(
           data.marketsDisputeInfo,
           marketsData
-        )
+        ),
       };
     case UPDATE_MARKET_CATEGORY: {
       const { marketId, category } = data;
@@ -37,8 +37,8 @@ export default function(marketsData: MarketsData = DEFAULT_STATE, { type, data }
         ...marketsData,
         [marketId]: {
           ...marketsData[marketId],
-          category
-        }
+          category,
+        },
       };
     }
     case UPDATE_MARKET_REP_BALANCE: {
@@ -48,8 +48,8 @@ export default function(marketsData: MarketsData = DEFAULT_STATE, { type, data }
         ...marketsData,
         [marketId]: {
           ...marketsData[marketId],
-          repBalance
-        }
+          repBalance,
+        },
       };
     }
     case UPDATE_MARKET_ETH_BALANCE: {
@@ -59,8 +59,8 @@ export default function(marketsData: MarketsData = DEFAULT_STATE, { type, data }
         ...marketsData,
         [marketId]: {
           ...marketsData[marketId],
-          ethBalance
-        }
+          ethBalance,
+        },
       };
     }
     case UPDATE_MARKET_FROZEN_SHARES_VALUE: {
@@ -70,8 +70,8 @@ export default function(marketsData: MarketsData = DEFAULT_STATE, { type, data }
         ...marketsData,
         [marketId]: {
           ...marketsData[marketId],
-          frozenSharesValue
-        }
+          frozenSharesValue,
+        },
       };
     }
     case REMOVE_MARKET:
@@ -88,7 +88,7 @@ function processMarketsData(newMarketsData, existingMarketsData) {
   return Object.keys(newMarketsData).reduce((p, marketId) => {
     const marketData = {
       ...existingMarketsData[marketId],
-      ...newMarketsData[marketId]
+      ...newMarketsData[marketId],
     };
 
     p[marketId] = marketData;
@@ -101,7 +101,7 @@ function processMarketsDisputeInfo(newMarketsDisputeInfo, existingMarketsData) {
   return Object.keys(newMarketsDisputeInfo).reduce((p, marketId) => {
     const marketData = {
       ...existingMarketsData[marketId],
-      disputeInfo: { ...newMarketsDisputeInfo[marketId] }
+      disputeInfo: { ...newMarketsDisputeInfo[marketId] },
     };
 
     p[marketId] = marketData;

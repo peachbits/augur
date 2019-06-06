@@ -27,8 +27,8 @@ function packageAlertInfo(id: string, timestamp: number, transaction: any) {
       amount: transaction && transaction.amount,
       marketId: transaction && transaction.market && transaction.market.id,
       quantity: transaction && transaction.quantity,
-      value: transaction && transaction.value
-    }
+      value: transaction && transaction.value,
+    },
   };
 }
 
@@ -62,8 +62,8 @@ export function handleFilledOnly(tradeInProgress: any = null) {
                   alerts[i].params._direction === "0x1"
                     ? constants.BUY
                     : constants.SELL,
-                difference: difference.toFixed()
-              }
+                difference: difference.toFixed(),
+              },
             })
           );
         } else {
@@ -93,8 +93,8 @@ export function handleFilledOnly(tradeInProgress: any = null) {
                     orderType:
                       alerts[i].params._direction === "0x1"
                         ? constants.BUY
-                        : constants.SELL
-                  }
+                        : constants.SELL,
+                  },
                 })
               );
               return true;
@@ -139,8 +139,8 @@ export function loadAlerts() {
                   orderType:
                     alerts[i].params._direction === "0x1"
                       ? constants.BUY
-                      : constants.SELL
-                }
+                      : constants.SELL,
+                },
               })
             );
             return true;
@@ -251,7 +251,7 @@ export function addAlert(alert: any) {
 export function removeAlert(id: string) {
   return {
     type: REMOVE_ALERT,
-    data: { id }
+    data: { id },
   };
 }
 
@@ -297,7 +297,7 @@ export function updateAlert(id: string, alert: any) {
                 log: alert.log,
                 status: constants.CONFIRMED,
                 linkPath: makePath(TRANSACTIONS),
-                params: alert.params
+                params: alert.params,
               })
             );
           }
@@ -313,7 +313,7 @@ export function clearAlerts(alertLevel = constants.INFO) {
   return {
     type: CLEAR_ALERTS,
     data: {
-      level: alertLevel
-    }
+      level: alertLevel,
+    },
   };
 }

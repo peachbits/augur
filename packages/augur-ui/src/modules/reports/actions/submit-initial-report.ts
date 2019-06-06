@@ -14,7 +14,7 @@ export const submitInitialReport = ({
   invalid,
   history,
   returnPath = REPORTING_REPORT_MARKETS,
-  callback: NodeStyleCallback = logError
+  callback: NodeStyleCallback = logError,
 }: any) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { loginAccount, marketsData } = getState();
   const outcome = parseFloat(selectedOutcome);
@@ -46,6 +46,6 @@ export const submitInitialReport = ({
         callback(null);
       }
     },
-    onFailed: (err: any) => callback(err)
+    onFailed: (err: any) => callback(err),
   });
 };

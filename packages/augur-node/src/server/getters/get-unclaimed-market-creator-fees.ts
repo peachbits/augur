@@ -16,7 +16,7 @@ interface MarketCreatorFeesRow {
   balance: BigNumber;
 }
 
-export async function getUnclaimedMarketCreatorFees(db: Knex, augur: Augur, params: t.TypeOf<typeof UnclaimedMarketCreatorFeesParams>): Promise<Array<UIMarketCreatorFee>> {
+export async function getUnclaimedMarketCreatorFees(db: Knex, augur: Augur, params: t.TypeOf<typeof UnclaimedMarketCreatorFeesParams>): Promise<UIMarketCreatorFee[]> {
   const marketsQuery: Knex.QueryBuilder = getMarketsWithReportingState(db, ["markets.marketId", "market_state.reportingState", "markets.marketCreatorFeesBalance", "cash.balance"]);
   marketsQuery.whereIn("markets.marketId", params.marketIds);
   marketsQuery.leftJoin("balances AS cash", function () {
@@ -25,9 +25,9 @@ export async function getUnclaimedMarketCreatorFees(db: Knex, augur: Augur, para
       .andOn("cash.token", db.raw("?", getCashAddress(augur)));
   });
 
-  const marketCreatorFeeRows: Array<MarketCreatorFeesRow> = await marketsQuery;
+  const marketCreatorFeeRows: MarketCreatorFeesRow[] = await marketsQuery;
   const feeRowsByMarket = _.keyBy(marketCreatorFeeRows, (r: MarketCreatorFeesRow): string => r.marketId);
-  const feeResult: Array<UIMarketCreatorFee> = _.map(params.marketIds, (marketId: string): any|null => {
+  const feeResult: UIMarketCreatorFee[] = _.map(params.marketIds, (marketId: string): any|null => {
     const market = feeRowsByMarket[marketId];
     if (!market) {
       return null;

@@ -43,34 +43,34 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
       key: "topBidShares",
       columnType: COLUMN_TYPES.VALUE,
       value: topBidShares,
-      showEmptyDash: true
+      showEmptyDash: true,
     },
     {
       key: "topBidPrice",
       columnType: COLUMN_TYPES.VALUE,
       value: topBidPrice,
-      showEmptyDash: true
+      showEmptyDash: true,
     },
     {
       key: "topAskPrice",
       columnType: COLUMN_TYPES.VALUE,
       value: topAskPrice,
-      showEmptyDash: true
+      showEmptyDash: true,
     },
     {
       key: "topAskShares",
       columnType: COLUMN_TYPES.VALUE,
       value: topAskShares,
-      showEmptyDash: true
+      showEmptyDash: true,
     },
     {
       key: "lastPrice",
       columnType: COLUMN_TYPES.VALUE,
       value: lastPrice,
       addIndicator: true,
-      outcome: outcome,
+      outcome,
       location: "tradingPage",
-    }
+    },
   ];
   return {
     ...oP,
@@ -78,14 +78,14 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
     ...dP,
     rowProperties: outcome,
     columnProperties,
-    rowOnClick: (e: Event) => {oP.updateSelectedOutcome(outcome.id)},
+    rowOnClick: (e: Event) => {oP.updateSelectedOutcome(outcome.id);},
     styleOptions: {
       outcome: true,
       isSingle: true,
       noToggle: true,
       colorId: oP.marketType === CATEGORICAL && outcome.id,
-      active: oP.marketType === CATEGORICAL && oP.selectedOutcome === outcome.id
-    }
+      active: oP.marketType === CATEGORICAL && oP.selectedOutcome === outcome.id,
+    },
   };
 };
 

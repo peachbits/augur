@@ -10,7 +10,7 @@ import { Action } from "redux";
 export function transferFunds(
   amount: string,
   currency: string,
-  toAddress: string,
+  toAddress: string
 ) {
   return (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
     const { universe, loginAccount } = getState();
@@ -21,7 +21,7 @@ export function transferFunds(
         updateAlert(id, {
           id,
           status,
-          timestamp: getTime(getState())
+          timestamp: getTime(getState()),
         })
       );
     };
@@ -42,14 +42,14 @@ export function transferFunds(
                 params: {
                   etherToSend: amount,
                   to,
-                  type: "sendEther"
+                  type: "sendEther",
                 },
-                timestamp: getTime(getState())
+                timestamp: getTime(getState()),
               })
             );
           },
           onSuccess: (tx: any) => update(tx.hash, CONFIRMED),
-          onFailed: (tx: any) => update(tx.hash, FAILED)
+          onFailed: (tx: any) => update(tx.hash, FAILED),
         });
       case REP:
         return augur.assets.sendReputation({
@@ -69,16 +69,16 @@ export function transferFunds(
                   universe: universe.id,
                   reputationToSend: amount,
                   _to: to,
-                  type: "sendReputation"
+                  type: "sendReputation",
                 },
                 timestamp: getTime(getState()),
                 reputationToSend: amount,
-                _to: to
+                _to: to,
               })
             );
           },
           onSuccess: (tx: any) => update(tx.hash, CONFIRMED),
-          onFailed: (tx: any) => update(tx.hash, FAILED)
+          onFailed: (tx: any) => update(tx.hash, FAILED),
         });
       default:
         console.error("transferFunds: unknown currency", currency);

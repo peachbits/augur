@@ -32,7 +32,7 @@ describe("modules/events/actions/log-handlers.js", () => {
       LOAD_REPORTING_WINDOW: "LOAD_REPORTING_WINDOW",
       GET_WINNING_BALANCE: "GET_WINNING_BALANCE",
       LOAD_MARKET_OPEN_ORDERS: "LOAD_MARKET_OPEN_ORDERS",
-      LOAD_ACCOUNT_POSITIONS: "LOAD_ACCOUNT_POSITIONS"
+      LOAD_ACCOUNT_POSITIONS: "LOAD_ACCOUNT_POSITIONS",
     };
 
     beforeAll(() => {
@@ -41,39 +41,39 @@ describe("modules/events/actions/log-handlers.js", () => {
         .mockImplementation(log => ({
           type: ACTIONS.UPDATE_LOGGED_TRANSACTIONS,
           data: {
-            log
-          }
+            log,
+          },
         }));
       loadReportingWindowBoundsSpy = jest
         .spyOn(loadReportingWindowBoundsModule, "loadReportingWindowBounds")
         .mockImplementation(() => ({
-          type: ACTIONS.LOAD_REPORTING_WINDOW
+          type: ACTIONS.LOAD_REPORTING_WINDOW,
         }));
       getWinningBalanceSpy = jest
         .spyOn(getWinningBalanceModule, "getWinningBalance")
         .mockImplementation(marketIds => ({
           type: ACTIONS.GET_WINNING_BALANCE,
           data: {
-            marketIds
-          }
+            marketIds,
+          },
         }));
       loadMarketOpenOrdersSpy = jest
         .spyOn(loadMarketOpenOrdersModule, "loadMarketOpenOrders")
         .mockImplementation(options => ({
           type: ACTIONS.LOAD_MARKET_OPEN_ORDERS,
           data: {
-            marketId: options.marketId
-          }
+            marketId: options.marketId,
+          },
         }));
       loadMarketAccountPositions = jest
         .spyOn(loadAccountPositionsModule, "loadMarketAccountPositions")
         .mockImplementation(() => ({
-          type: ACTIONS.LOAD_ACCOUNT_POSITIONS
+          type: ACTIONS.LOAD_ACCOUNT_POSITIONS,
         }));
       updateAssetsSpy = jest
         .spyOn(updateAssetsModule, "updateAssets")
         .mockImplementation(() => ({
-          type: "UPDATE_ASSETS"
+          type: "UPDATE_ASSETS",
         }));
     });
 
@@ -94,34 +94,34 @@ describe("modules/events/actions/log-handlers.js", () => {
         .mockImplementation(() => false);
       const state = {
         loginAccount: {
-          address: "0xb0b"
-        }
+          address: "0xb0b",
+        },
       };
       store = configureMockStore([thunk])({
-        ...state
+        ...state,
       });
       const log = {
         marketId: "0xdeadbeef",
-        account: "0xb0b"
+        account: "0xb0b",
       };
       store.dispatch(handleCompleteSetsSoldLog(log));
       expect(store.getActions()).toEqual([
         {
-          type: ACTIONS.UPDATE_ASSETS
+          type: ACTIONS.UPDATE_ASSETS,
         },
         {
           type: ACTIONS.UPDATE_LOGGED_TRANSACTIONS,
           data: {
-            log
-          }
+            log,
+          },
         },
         {
-          type: ACTIONS.LOAD_ACCOUNT_POSITIONS
+          type: ACTIONS.LOAD_ACCOUNT_POSITIONS,
         },
         {
           type: ACTIONS.GET_WINNING_BALANCE,
-          data: { marketIds: ["0xdeadbeef"] }
-        }
+          data: { marketIds: ["0xdeadbeef"] },
+        },
       ]);
     });
 
@@ -132,13 +132,13 @@ describe("modules/events/actions/log-handlers.js", () => {
       store = configureMockStore([thunk])({
         ...{
           loginAccount: {
-            address: "0xb0b"
-          }
-        }
+            address: "0xb0b",
+          },
+        },
       });
       const log = {
         marketId: "0xdeadbeef",
-        account: "0xa11ce"
+        account: "0xa11ce",
       };
       store.dispatch(handleCompleteSetsSoldLog(log));
       expect(store.getActions()).toHaveLength(0);
@@ -151,18 +151,18 @@ describe("modules/events/actions/log-handlers.js", () => {
       store = configureMockStore([thunk])({
         ...{
           loginAccount: {
-            address: "0xb0b"
-          }
-        }
+            address: "0xb0b",
+          },
+        },
       });
       const log = {
         marketId: "0xdeadbeef",
-        target: "0xb0b"
+        target: "0xb0b",
       };
       store.dispatch(handleTokensMintedLog(log));
       expect(store.getActions()).toEqual([
         { type: ACTIONS.UPDATE_ASSETS },
-        { type: ACTIONS.LOAD_REPORTING_WINDOW }
+        { type: ACTIONS.LOAD_REPORTING_WINDOW },
       ]);
     });
 
@@ -173,13 +173,13 @@ describe("modules/events/actions/log-handlers.js", () => {
       store = configureMockStore([thunk])({
         ...{
           loginAccount: {
-            address: "0xb0b111"
-          }
-        }
+            address: "0xb0b111",
+          },
+        },
       });
       const log = {
         marketId: "0xdeadbeef",
-        target: "0xb0b"
+        target: "0xb0b",
       };
       store.dispatch(handleTokensMintedLog(log));
       expect(store.getActions()).toHaveLength(0);
@@ -192,35 +192,35 @@ describe("modules/events/actions/log-handlers.js", () => {
       store = configureMockStore([thunk])({
         ...{
           loginAccount: {
-            address: "0xb0b"
+            address: "0xb0b",
           },
           marketsData: {
-            "0xdeadbeef": {}
-          }
-        }
+            "0xdeadbeef": {},
+          },
+        },
       });
       const log = {
         market: "0xdeadbeef",
-        sender: "0xb0b"
+        sender: "0xb0b",
       };
       store.dispatch(handleTradingProceedsClaimedLog(log));
       expect(store.getActions()).toEqual([
         {
-          type: ACTIONS.UPDATE_ASSETS
+          type: ACTIONS.UPDATE_ASSETS,
         },
         {
           type: ACTIONS.UPDATE_LOGGED_TRANSACTIONS,
           data: {
-            log
-          }
+            log,
+          },
         },
         {
-          type: ACTIONS.LOAD_ACCOUNT_POSITIONS
+          type: ACTIONS.LOAD_ACCOUNT_POSITIONS,
         },
         {
           type: ACTIONS.GET_WINNING_BALANCE,
-          data: { marketIds: ["0xdeadbeef"] }
-        }
+          data: { marketIds: ["0xdeadbeef"] },
+        },
       ]);
     });
 
@@ -231,16 +231,16 @@ describe("modules/events/actions/log-handlers.js", () => {
       store = configureMockStore([thunk])({
         ...{
           loginAccount: {
-            address: "0xb0b11"
+            address: "0xb0b11",
           },
           marketsData: {
-            "0xdeadbeef": {}
-          }
-        }
+            "0xdeadbeef": {},
+          },
+        },
       });
       const log = {
         market: "0xdeadbeef",
-        sender: "0xb0b"
+        sender: "0xb0b",
       };
       store.dispatch(handleTradingProceedsClaimedLog(log));
       expect(store.getActions()).toHaveLength(0);

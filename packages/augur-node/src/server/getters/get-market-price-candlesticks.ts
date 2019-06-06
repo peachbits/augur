@@ -32,7 +32,7 @@ export interface Candlestick {
 }
 
 export interface UICandlesticks {
-  [outcome: number]: Array<Candlestick>;
+  [outcome: number]: Candlestick[];
 }
 
 function getPeriodStarttime(globalStarttime: number, periodStartime: number, period: number) {
@@ -50,11 +50,11 @@ export async function getMarketPriceCandlesticks(db: Knex, augur: {}, params: t.
   if (params.start != null) query.where("blocks.timestamp", ">=", params.start);
   if (params.end != null) query.where("blocks.timestamp", "<=", params.end);
   if (params.outcome) query.where("outcome", params.outcome);
-  const tradesRows: Array<MarketPriceHistoryRow> = await query;
+  const tradesRows: MarketPriceHistoryRow[] = await query;
   const tradeRowsByOutcome = _.groupBy(tradesRows, "outcome");
   return _.mapValues(tradeRowsByOutcome, (outcomeTradeRows) => {
     const outcomeTradeRowsByPeriod = _.groupBy(outcomeTradeRows, (tradeRow) => getPeriodStarttime(params.start || 0, tradeRow.timestamp, params.period || 60));
-    return _.map(outcomeTradeRowsByPeriod, (trades: Array<MarketPriceHistoryRow>, startTimestamp): Candlestick => {
+    return _.map(outcomeTradeRowsByPeriod, (trades: MarketPriceHistoryRow[], startTimestamp): Candlestick => {
       return {
         startTimestamp: parseInt(startTimestamp, 10),
         start: _.minBy(trades, "timestamp")!.price.toString(),

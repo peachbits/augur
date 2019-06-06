@@ -43,7 +43,7 @@ export const marketsFilledOrders = createSelector(
       markets,
       marketsObj: keyObjectsById(markets),
       ordersObj: keyObjectsById(allFilledOrders),
-      filledOrders: allFilledOrders
+      filledOrders: allFilledOrders,
     };
   }
 );
@@ -77,8 +77,8 @@ const filterMarketsByStatus = (marketIds, marketsPositionsRecentlyTraded) =>
         ...market,
         recentlyTraded: marketsPositionsRecentlyTraded[market.id] || 0,
         filledOrders,
-        userOpenOrders: getUserOpenOrders(m)
-      }
+        userOpenOrders: getUserOpenOrders(m),
+      },
     ];
   }, []);
 

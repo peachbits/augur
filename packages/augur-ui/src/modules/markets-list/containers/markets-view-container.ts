@@ -50,8 +50,8 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
 const Markets = withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps,
-  )(MarketsView),
+    mapDispatchToProps
+  )(MarketsView)
 );
 
 export default Markets;

@@ -69,7 +69,7 @@ export interface MarketData {
   minPrice: BigNumber;
   numTicks: number;
   marketType: string;
-  outcomes: Array<Outcomes>;
+  outcomes: Outcomes[];
   scalarDenomination: string;
   universe: string;
   tickSize: BigNumber;
@@ -98,7 +98,7 @@ export interface Universe {
   forkThreshold?: BigNumber;
 }
 export interface AccountShareBalances {
-  [marketId: string]: Array<string>;
+  [marketId: string]: string[];
 }
 export interface Versions {
   augurui: string | null;
@@ -150,9 +150,9 @@ export interface ReportingWindowStats {
     unclaimedRep: FormattedNumber;
     unclaimedForkEth: FormattedNumber;
     unclaimedForkRepStaked: FormattedNumber;
-    feeWindows: Array<string>;
+    feeWindows: string[];
     forkedMarket: string | null;
-    nonforkedMarkets: Array<string>;
+    nonforkedMarkets: string[];
     feeWindowEthFees: string;
     feeWindowRepStaked: string;
   };
@@ -165,7 +165,7 @@ export interface PendingQueue {
   };
 }
 export interface PendingOrders {
-  [marketId: string]: Array<Order>;
+  [marketId: string]: Order[];
 }
 
 export interface OrderBook {
@@ -216,7 +216,7 @@ export interface Notification {
   buttonAction: ButtonActionType;
   Template: ReactNode;
   market: Market;
-  markets: Array<string>;
+  markets: string[];
   claimReportingFees?: object;
   totalProceeds?: number;
 }
@@ -247,7 +247,7 @@ export interface Order {
 
 export interface LiquidityOrders {
   [marketId: string]: {
-    [outcome: number]: Array<LiquidityOrder>;
+    [outcome: number]: LiquidityOrder[];
   };
 }
 
@@ -305,16 +305,16 @@ export interface NewMarket {
   tag1: string;
   tag2: string;
   settlementFee: number;
-  orderBook: {[outcome: number]: Array<LiquidityOrder> };
-  orderBookSorted: {[outcome: number]: Array<LiquidityOrder> };
-  orderBookSeries: {[outcome: number]: Array<LiquidityOrder> };
+  orderBook: {[outcome: number]: LiquidityOrder[] };
+  orderBookSorted: {[outcome: number]: LiquidityOrder[] };
+  orderBookSeries: {[outcome: number]: LiquidityOrder[] };
   initialLiquidityEth: any; // TODO: big number type
   initialLiquidityGas: any; // TODO: big number type
   creationError: string;
 }
 
 export interface FilledOrders {
-  [account: string]: Array<FilledOrder>;
+  [account: string]: FilledOrder[];
 }
 export interface FilledOrder {
   creator: string;
@@ -330,19 +330,19 @@ export interface FilledOrder {
 }
 
 export interface TradingHistory {
-  trades: Array<FilledOrder>;
+  trades: FilledOrder[];
 }
 
 export interface MarketTradingHistory {
   [marketId: string]: TradingHistory;
 }
 export interface MarketsInReporting {
-  designated?: Array<string>;
-  open?: Array<string>;
-  upcoming?: Array<string>;
-  awaiting?: Array<string>;
-  dispute?: Array<string>;
-  resolved?: Array<string>;
+  designated?: string[];
+  open?: string[];
+  upcoming?: string[];
+  awaiting?: string[];
+  dispute?: string[];
+  resolved?: string[];
 }
 export interface GasPriceInfo {
   average: number;
@@ -400,7 +400,7 @@ export interface Category {
   categoryName: string;
   nonFinalizedOpenInterest: string;
   openInterest: string;
-  tags: Array<string>;
+  tags: string[];
 }
 
 export interface Blockchain {
@@ -510,7 +510,7 @@ export interface WindowApp extends Window {
 }
 
 type ButtonActionType = (
-  event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+  event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>
 ) => void;
 
 export type NodeStyleCallback = (err: Error | string | null, result?: any) => void;

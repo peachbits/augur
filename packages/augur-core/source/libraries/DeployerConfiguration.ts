@@ -7,8 +7,8 @@ const PRODUCTION_CASH_CONTRACT_ADDRESS = "0x000000000000000000000000000000000000
 
 export class DeployerConfiguration {
     public readonly contractInputPath: string;
-    public readonly contractAddressesOutputPath: string;
-    public readonly uploadBlockNumbersOutputPath: string;
+    public readonly contractAddressesOutputPath?: string;
+    public readonly uploadBlockNumbersOutputPath?: string;
     public readonly augurAddress: string|undefined;
     public readonly createGenesisUniverse: boolean;
     public readonly useNormalTime: boolean;
@@ -33,10 +33,10 @@ export class DeployerConfiguration {
         this.useNormalTime = isProduction || useNormalTime;
         this.legacyRepAddress = legacyRepAddress;
         this.cashAddress = cashAddress;
-        this.writeArtifacts = artifactOutputRoot !== null;
 
         this.contractInputPath = path.join(contractInputRoot, 'contracts.json');
 
+      this.writeArtifacts = artifactOutputRoot !== null;
         if (artifactOutputRoot !== null) {
           this.contractAddressesOutputPath = path.join(artifactOutputRoot, 'addresses.json');
           this.uploadBlockNumbersOutputPath = path.join(artifactOutputRoot, 'upload-block-numbers.json');

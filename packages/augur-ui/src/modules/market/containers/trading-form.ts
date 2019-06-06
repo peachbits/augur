@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(
       updateModal({
         type: MODAL_MARKET_REVIEW_TRADE,
-        ...modal
+        ...modal,
       })
     ),
   onSubmitPlaceTrade: (
@@ -61,9 +61,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         tradeInProgress,
         doNotCreateOrders,
         callback,
-        onComplete
+        onComplete,
       })
-    )
+    ),
 });
 
 const mergeProps = (sP, dP, oP) => {
@@ -76,7 +76,7 @@ const mergeProps = (sP, dP, oP) => {
     ...oP,
     ...sP,
     ...dP,
-    marketReviewTradeSeen: !!marketReviewTradeSeen
+    marketReviewTradeSeen: !!marketReviewTradeSeen,
   };
 };
 

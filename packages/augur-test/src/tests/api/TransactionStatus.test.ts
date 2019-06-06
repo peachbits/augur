@@ -17,8 +17,8 @@ import { TransactionStatus, TransactionMetadata } from "contract-dependencies-et
   }, 120000);
   
   test("TransactionStatus :: transaction status updates", async () => {
-    const transactions: Array<TransactionMetadata> = [];
-    const statuses: Array<TransactionStatus> = [];
+    const transactions: TransactionMetadata[] = [];
+    const statuses: TransactionStatus[] = [];
     const hashes: Array<string | undefined> = [];
     john.augur.registerTransactionStatusCallback("Test", (transaction, status, hash) => {
         if (transaction.name != "createYesNoMarket") return;

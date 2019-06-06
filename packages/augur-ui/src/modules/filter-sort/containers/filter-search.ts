@@ -19,7 +19,7 @@ const mapStateToProps = (state, { location }) => {
 };
 
 const FilterSearchContainer = withRouter(
-  connect(mapStateToProps)(FilterSearch),
+  connect(mapStateToProps)(FilterSearch)
 ) as any;
 
 export default FilterSearchContainer;

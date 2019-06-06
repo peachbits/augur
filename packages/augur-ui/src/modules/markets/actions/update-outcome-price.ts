@@ -10,7 +10,7 @@ export function updateOutcomePrice(
     data: {
       marketId,
       outcomeId,
-      price
-    }
+      price,
+    },
   };
 }

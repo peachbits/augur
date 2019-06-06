@@ -24,6 +24,6 @@ export const getSelectedTagsAndCategoriesFromLocation = location => {
     selectedCategoryName,
     keywords,
     selectedTagNames,
-    balanceOfSearchParams
+    balanceOfSearchParams,
   };
 };

@@ -8,7 +8,7 @@ export function unfork(forked, prefix = false) {
   if (forked !== null && forked !== undefined && forked.constructor !== Object) {
     let unforked = bignum(forked);
     if (BigNumber.isBigNumber(unforked)) {
-      let superforked = unforked.plus(UINT256_MAX_VALUE);
+      const superforked = unforked.plus(UINT256_MAX_VALUE);
       if (superforked.gte(BYTES_32) && superforked.lt(UINT256_MAX_VALUE)) {
         unforked = superforked;
       }

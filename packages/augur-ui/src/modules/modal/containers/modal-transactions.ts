@@ -28,7 +28,7 @@ const mergeProps = (sP: any, dP: any, oP: any) => ({
     endTime: number,
     coin: string,
     action: string,
-    cb: NodeStyleCallback,
+    cb: NodeStyleCallback
   ) => {
     augur.augurNode.submitRequest(
       "getAccountTransactionHistory",
@@ -41,7 +41,7 @@ const mergeProps = (sP: any, dP: any, oP: any) => ({
         latestTransactionTime: endTime,
       },
       // @ts-ignore
-      cb,
+      cb
     );
   },
 });
@@ -50,6 +50,6 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-  )(Transactions),
+    mergeProps
+  )(Transactions)
 );

@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => {
     scalarDenomination,
   } = selectMarket(ownProps.marketId);
   const bucketedPriceTimeSeries = selectBucketedPriceTimeSeries(
-    ownProps.marketId,
+    ownProps.marketId
   );
 
   return {

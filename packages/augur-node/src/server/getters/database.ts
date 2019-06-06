@@ -40,11 +40,11 @@ export async function queryModifierDB<T>(
   query: Knex.QueryBuilder,
   defaultSortBy: string,
   defaultSortOrder: string,
-  sortLimitParams: Partial<SortLimit>): Promise<Array<T>> {
+  sortLimitParams: Partial<SortLimit>): Promise<T[]> {
   query = query.orderBy(sortLimitParams.sortBy || defaultSortBy, sortDirection(sortLimitParams.isSortDescending, defaultSortOrder));
   if (sortLimitParams.limit != null) query = query.limit(sortLimitParams.limit);
   if (sortLimitParams.offset != null) query = query.offset(sortLimitParams.offset);
-  return await query;
+  return query;
 }
 
 async function queryModifierUserland<T>(
@@ -52,8 +52,8 @@ async function queryModifierUserland<T>(
   query: Knex.QueryBuilder,
   defaultSortBy: string,
   defaultSortOrder: string,
-  sortLimitParams: Partial<SortLimit>,
-): Promise<Array<T>> {
+  sortLimitParams: Partial<SortLimit>
+): Promise<T[]> {
   type RowWithSort = T & { xMySorterFieldx: BigNumber };
 
   let sortField: string = defaultSortBy;
@@ -66,12 +66,13 @@ async function queryModifierUserland<T>(
     }
   }
 
-  const rows: Array<RowWithSort> = await query.select(db.raw(`?? as "xMySorterFieldx"`, [sortField]));
+  const rows: RowWithSort[] = await query.select(db.raw(`?? as "xMySorterFieldx"`, [sortField]));
   const ascendingSorter = (left: RowWithSort, right: RowWithSort) => safeBigNumberCompare(left.xMySorterFieldx, right.xMySorterFieldx);
   const descendingSorter = (left: RowWithSort, right: RowWithSort) => safeBigNumberCompare(right.xMySorterFieldx, left.xMySorterFieldx);
   const results = rows.sort(sortDescending ? descendingSorter : ascendingSorter);
-  if (sortLimitParams.limit == null && sortLimitParams.offset == null)
+  if (sortLimitParams.limit == null && sortLimitParams.offset == null) {
     return results;
+  }
   return results.slice(sortLimitParams.offset || 0, sortLimitParams.limit || results.length);
 }
 
@@ -80,8 +81,8 @@ export async function queryModifier<T>(
   query: Knex.QueryBuilder,
   defaultSortBy: string,
   defaultSortOrder: string,
-  sortLimitParams: Partial<SortLimit>,
-): Promise<Array<T>> {
+  sortLimitParams: Partial<SortLimit>
+): Promise<T[]> {
   const sortFieldName = (sortLimitParams.sortBy || defaultSortBy || "").split(".").pop();
   if (sortFieldName !== "" && isFieldBigNumber(sortFieldName!)) {
     return queryModifierUserland<T>(db, query, defaultSortBy, defaultSortOrder, sortLimitParams);
@@ -146,7 +147,7 @@ export function reshapeMarketsRowToUIMarketInfo(row: MarketsRowWithTime, outcome
     }),
     {
       consensus,
-    },
+    }
   );
 }
 
@@ -158,7 +159,7 @@ export function reshapeDisputeTokensRowToUIDisputeTokenInfo(disputeTokenRow: Dis
   });
 }
 
-export function getMarketsWithReportingState(db: Knex, selectColumns?: Array<string>): Knex.QueryBuilder {
+export function getMarketsWithReportingState(db: Knex, selectColumns?: string[]): Knex.QueryBuilder {
   // TODO: turn leftJoin() into join() once we take care of market_state on market creation
   const columns = selectColumns ? selectColumns.slice() : ["markets.*", "market_state.reportingState as reportingState", "blocks.timestamp as creationTime"];
   return db
@@ -169,7 +170,7 @@ export function getMarketsWithReportingState(db: Knex, selectColumns?: Array<str
 }
 
 export function normalizePayouts(payoutRow: Payout<BigNumber>): NormalizedPayout<BigNumber> {
-  const payout: Array<BigNumber> = [];
+  const payout: BigNumber[] = [];
   for (let i = 0; i < 8; i++) {
     const payoutNumerator = payoutRow[("payout" + i) as keyof Payout<BigNumber>] as BigNumber | null;
     if (payoutNumerator == null) break;
@@ -197,7 +198,7 @@ export function uiStakeInfoToFixed(stakeInfo: UIStakeInfo<BigNumber>): UIStakeIn
 }
 
 export async function queryTradingHistoryParams(db: Knex, params: t.TypeOf<typeof TradingHistoryParams>) {
-  return new Promise<Array<TradingHistoryRow>>((resolve, reject) => {
+  return new Promise<TradingHistoryRow[]>((resolve, reject) => {
     queryTradingHistory(
       db,
       params.universe,
@@ -212,7 +213,7 @@ export async function queryTradingHistoryParams(db: Knex, params: t.TypeOf<typeo
       params.limit,
       params.offset,
       params.ignoreSelfTrades,
-      (err: Error | null, userTradingHistory?: Array<TradingHistoryRow>): void => {
+      (err: Error | null, userTradingHistory?: TradingHistoryRow[]): void => {
         if (err) return reject(err);
         resolve(userTradingHistory);
       });
@@ -233,7 +234,7 @@ export function queryTradingHistory(
   limit: number | null | undefined,
   offset: number | null | undefined,
   ignoreSelfTrades: boolean | null | undefined,
-  callback: GenericCallback<Array<TradingHistoryRow>>,
+  callback: GenericCallback<TradingHistoryRow[]>
 ): void {
   if (universe == null && marketId == null) throw new Error("Must provide reference to universe, specify universe or marketId");
   const query = db
@@ -273,15 +274,15 @@ export function queryTradingHistory(
     .catch(callback);
 }
 
-export function groupByAndSum<T extends Dictionary>(rows: Array<T>, groupFields: Array<string>, sumFields: Array<string>): Array<T> {
+export function groupByAndSum<T extends Dictionary>(rows: T[], groupFields: string[], sumFields: string[]): T[] {
   return _.chain(rows)
     .groupBy((row) => _.values(_.pick(row, groupFields)))
     .values()
-    .map((groupedRows: Array<T>): T => {
+    .map((groupedRows: T[]): T => {
       return _.reduce(groupedRows, (result: T | undefined, row: T): T => {
         if (typeof result === "undefined") return row;
 
-        const mapped = _.map(row, (value: BigNumber | number | null, key: string): Array<any> => {
+        const mapped = _.map(row, (value: BigNumber | number | null, key: string): any[] => {
           const previousValue = result[key];
           if (sumFields.indexOf(key) === -1 || typeof previousValue === "undefined" || value === null || typeof value === "undefined") {
             return [key, value];
@@ -290,7 +291,7 @@ export function groupByAndSum<T extends Dictionary>(rows: Array<T>, groupFields:
           } else {
             return [key, value + previousValue];
           }
-        }) as Array<any>;
+        }) as any[];
 
         return _.fromPairs(mapped) as T;
       }) as T;
@@ -299,13 +300,13 @@ export function groupByAndSum<T extends Dictionary>(rows: Array<T>, groupFields:
 }
 
 // TODO: This return type is not correct, an empty rows array returns undefined, but the '!' implies it does not
-export function sumBy<T extends Dictionary, K extends keyof T>(rows: Array<T>, ...sumFields: Array<K>): Pick<T, K> {
+export function sumBy<T extends Dictionary, K extends keyof T>(rows: T[], ...sumFields: K[]): Pick<T, K> {
   return _.chain(rows)
     .map((row) => _.pick(row, sumFields))
     .reduce((result: Pick<T, K>, row: Pick<T, K>): Pick<T, K> => {
       if (typeof result === "undefined") return row;
 
-      const mapped = _.map(row, (value: T[K], key: K): Array<any> => {
+      const mapped = _.map(row, (value: T[K], key: K): any[] => {
         const previousValue = result[key];
         if (sumFields.indexOf(key) === -1 || typeof previousValue === "undefined" || value === null || typeof value === "undefined") {
           return [key, value];
@@ -316,7 +317,7 @@ export function sumBy<T extends Dictionary, K extends keyof T>(rows: Array<T>, .
         }
 
         return [key, value];
-      }) as Array<any>;
+      }) as any[];
 
       return _.fromPairs(mapped) as Pick<T, K>;
     })
@@ -328,9 +329,9 @@ export function getCashAddress(augur: Augur) {
 }
 
 // move to database utils.
-export async function batchAndCombine<T, K>(lookupIds: Array<K>, dataFetch: (chunkLookupIds: Array<K>) => Promise<Array<T>>) {
+export async function batchAndCombine<T, K>(lookupIds: K[], dataFetch: (chunkLookupIds: K[]) => Promise<T[]>) {
   const chunkedIds = _.chunk(lookupIds, MAX_DB_CHUNK_SIZE);
-  const result: Array<Array<T>> = [];
+  const result: T[][] = [];
 
   for (const chunk of chunkedIds) result.push(await dataFetch(chunk));
 

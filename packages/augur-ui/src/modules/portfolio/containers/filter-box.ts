@@ -7,7 +7,7 @@ import { pick } from "lodash";
 import { createMarketsStateObject } from "modules/portfolio/helpers/create-markets-state-object";
 
 const mapStateToProps = state => ({
-  currentAugurTimestamp: state.blockchain.currentAugurTimestamp
+  currentAugurTimestamp: state.blockchain.currentAugurTimestamp,
 });
 
 const mapDispatchToProps = dispatch => ({});
@@ -30,7 +30,7 @@ const mergeProps = (sP, dP, oP) => {
     ...oP,
     ...sP,
     dataObj: marketsObj,
-    data: marketsByState
+    data: marketsByState,
   };
 };
 

@@ -21,27 +21,27 @@ describe("modules/markets/helpers/build-create-market", () => {
   augur.createMarket.createYesNoMarket = jest.fn(() => {});
 
   const {
-    buildCreateMarket
+    buildCreateMarket,
   } = require("modules/markets/helpers/build-create-market");
 
   test(`should build new market data for categorical market`, () => {
     const state = {
       universe: {
-        id: "1010101"
+        id: "1010101",
       },
       contractAddresses: {
-        Cash: "domnination"
+        Cash: "domnination",
       },
       loginAccount: {
         meta: {
-          test: "object"
+          test: "object",
         },
-        address: "0x1233"
+        address: "0x1233",
       },
       newMarket: {
         description: "test description",
         endTime: {
-          timestamp: 1234567890000
+          timestamp: 1234567890000,
         },
         expirySource: "",
         settlementFee: 2,
@@ -51,8 +51,8 @@ describe("modules/markets/helpers/build-create-market", () => {
         category: "test category",
         tags: [],
         type: CATEGORICAL,
-        outcomes: ["one", "two"]
-      }
+        outcomes: ["one", "two"],
+      },
     };
     const store = mockStore(state);
     const actual = buildCreateMarket(
@@ -72,11 +72,11 @@ describe("modules/markets/helpers/build-create-market", () => {
       _extraInfo: {
         longDescription: "",
         resolutionSource: "",
-        tags: []
+        tags: [],
       },
       _outcomes: ["one", "two"],
       _topic: "TEST CATEGORY",
-      _feePerEthInWei: "0x470de4df820000"
+      _feePerEthInWei: "0x470de4df820000",
     };
 
     expect(actual.formattedNewMarket).toEqual(expected);
@@ -88,21 +88,21 @@ describe("modules/markets/helpers/build-create-market", () => {
   test(`should market object for yes/no  market`, () => {
     const state = {
       universe: {
-        id: "1010101"
+        id: "1010101",
       },
       contractAddresses: {
-        Cash: "domnination"
+        Cash: "domnination",
       },
       loginAccount: {
         meta: {
-          test: "object"
+          test: "object",
         },
-        address: "0x1233"
+        address: "0x1233",
       },
       newMarket: {
         description: "test description",
         endTime: {
-          timestamp: 1234567890000
+          timestamp: 1234567890000,
         },
         expirySource: "",
         settlementFee: 2,
@@ -112,8 +112,8 @@ describe("modules/markets/helpers/build-create-market", () => {
         detailsText: "",
         category: "test category",
         tags: [],
-        type: YES_NO
-      }
+        type: YES_NO,
+      },
     };
 
     const store = mockStore(state);
@@ -134,10 +134,10 @@ describe("modules/markets/helpers/build-create-market", () => {
       _extraInfo: {
         longDescription: "",
         resolutionSource: "",
-        tags: []
+        tags: [],
       },
       _topic: "TEST CATEGORY",
-      _feePerEthInWei: "0x470de4df820000"
+      _feePerEthInWei: "0x470de4df820000",
     };
 
     expect(actual.formattedNewMarket).toEqual(expected);
@@ -147,21 +147,21 @@ describe("modules/markets/helpers/build-create-market", () => {
   test(`should build market object for scalar market`, () => {
     const state = {
       universe: {
-        id: "1010101"
+        id: "1010101",
       },
       contractAddresses: {
-        Cash: "domnination"
+        Cash: "domnination",
       },
       loginAccount: {
         meta: {
-          test: "object"
+          test: "object",
         },
-        address: "0x1233"
+        address: "0x1233",
       },
       newMarket: {
         description: "test description",
         endTime: {
-          timestamp: 1234567890000
+          timestamp: 1234567890000,
         },
         expirySource: "",
         settlementFee: 2,
@@ -175,8 +175,8 @@ describe("modules/markets/helpers/build-create-market", () => {
         scalarSmallNum: "-10", // string for the test case, normally a BigNumber
         scalarBigNum: "10", // string for the test case, normally a BigNumber
         scalarDenomination: "%",
-        tickSize: 1000
-      }
+        tickSize: 1000,
+      },
     };
     const store = mockStore(state);
     const actual = buildCreateMarket(
@@ -197,13 +197,13 @@ describe("modules/markets/helpers/build-create-market", () => {
         _scalarDenomination: "%",
         longDescription: "",
         resolutionSource: "",
-        tags: []
+        tags: [],
       },
       _maxPrice: "10",
       _minPrice: "-10",
       tickSize: 1000,
       _topic: "TEST CATEGORY",
-      _feePerEthInWei: "0x470de4df820000"
+      _feePerEthInWei: "0x470de4df820000",
     };
 
     expect(actual.formattedNewMarket).toEqual(expected);

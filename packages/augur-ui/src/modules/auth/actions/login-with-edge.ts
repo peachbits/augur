@@ -30,10 +30,10 @@ export const loginWithEdgeEthereumWallet = (
             .then(signed => callback(null, prefixHex(signed)))
             .catch(e => callback(e));
         },
-        accountType: ACCOUNT_TYPES.EDGE
+        accountType: ACCOUNT_TYPES.EDGE,
       },
       name: edgeUiAccount.username,
-      edgeUiAccount
+      edgeUiAccount,
     })
   );
 };

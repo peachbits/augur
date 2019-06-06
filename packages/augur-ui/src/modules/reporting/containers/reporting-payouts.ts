@@ -3,7 +3,7 @@ import MarketReportingPayouts from "modules/reporting/components/reporting-payou
 
 const mapStateToProps = state => ({
   isMobile: state.appStatus.isMobile,
-  isMobileSmall: state.appStatus.isMobileSmall
+  isMobileSmall: state.appStatus.isMobileSmall,
 });
 
 export default connect(mapStateToProps)(MarketReportingPayouts);

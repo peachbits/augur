@@ -51,7 +51,7 @@ const getOrderBookKeys = memoize((marketDepth, minPrice, maxPrice) => {
     min,
     mid: createBigNumber(mid()),
     spread: spread(),
-    max
+    max,
   };
 });
 

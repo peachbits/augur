@@ -17,11 +17,11 @@ export const selectLoginAccountTotals = createSelector(
     }
     return formatPercent(
       createBigNumber(totals.unrealizedRevenue24hChangePercent || ZERO).times(
-        100,
+        100
       ),
       {
         decimalsRounded: 2,
-      },
+      }
     ).formatted;
-  },
+  }
 );

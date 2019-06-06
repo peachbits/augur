@@ -14,7 +14,7 @@ export default function(blockchain = DEFAULT_STATE, { type, data }: BaseAction):
     case UPDATE_BLOCKCHAIN:
       return {
         ...blockchain,
-        ...data.blockchainData
+        ...data.blockchainData,
       };
     case RESET_STATE:
       return DEFAULT_STATE;

@@ -53,7 +53,7 @@ describe("events/actions/disconnect-handlers", () => {
           state.connection.isConnectedToAugurNode = isConnected;
           return {
             type: "UPDATE_AUGUR_NODE_CONNECTION_STATUS",
-            isConnected: false
+            isConnected: false,
           };
         });
     });
@@ -69,11 +69,11 @@ describe("events/actions/disconnect-handlers", () => {
         connection: {
           isConnected: true,
           isConnectedToAugurNode: true,
-          isReconnectionPaused: false
-        }
+          isReconnectionPaused: false,
+        },
       };
       params = {
-        history: mockHistory
+        history: mockHistory,
       };
 
       store = mockStore.mockStore(state);
@@ -87,11 +87,11 @@ describe("events/actions/disconnect-handlers", () => {
               connection: {
                 isConnected: true,
                 isConnectedToAugurNode: false,
-                isReconnectionPaused: false
+                isReconnectionPaused: false,
               },
-              env: undefined
-            }
-          }
+              env: undefined,
+            },
+          },
         },
         { type: "UPDATE_AUGUR_NODE_CONNECTION_STATUS", isConnected: false },
         {
@@ -102,11 +102,11 @@ describe("events/actions/disconnect-handlers", () => {
               connection: {
                 isConnected: true,
                 isConnectedToAugurNode: false,
-                isReconnectionPaused: false
+                isReconnectionPaused: false,
               },
-              env: undefined
-            }
-          }
+              env: undefined,
+            },
+          },
         },
         {
           type: "UPDATE_MODAL",
@@ -116,13 +116,13 @@ describe("events/actions/disconnect-handlers", () => {
               connection: {
                 isConnected: true,
                 isConnectedToAugurNode: false,
-                isReconnectionPaused: false
+                isReconnectionPaused: false,
               },
-              env: undefined
-            }
-          }
+              env: undefined,
+            },
+          },
         },
-        { type: "CONNECT_AUGUR" }
+        { type: "CONNECT_AUGUR" },
       ]);
       done();
     });
@@ -174,14 +174,14 @@ describe("events/actions/disconnect-handlers", () => {
 
     test("handled an ethereumNode disconnection event with pausedReconnection", done => {
       params = {
-        history: mockHistory
+        history: mockHistory,
       };
       state = {
         connection: {
           isConnected: true,
           isConnectedToAugurNode: true,
-          isReconnectionPaused: false
-        }
+          isReconnectionPaused: false,
+        },
       };
       store = mockStore.mockStore(state);
       store.dispatch(handleEthereumDisconnect(params.history));

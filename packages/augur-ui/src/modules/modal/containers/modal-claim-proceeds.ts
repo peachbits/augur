@@ -27,7 +27,7 @@ const mapStateToProps = (state: AppState) => ({
     // @ts-ignore
     CLAIM_SHARES_GAS_COST,
     { decimalsRounded: 4 },
-    getGasPrice(state),
+    getGasPrice(state)
   ),
   accountShareBalances: state.accountShareBalances,
   currentTimestamp: selectCurrentTimestampInSeconds(state),
@@ -38,15 +38,15 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
   claimTradingProceeds: (marketId: string, callback: NodeStyleCallback) =>
     dispatch(claimTradingProceeds(marketId, callback)),
   claimMultipleTradingProceeds: (
-    marketIds: Array<string>,
-    callback: NodeStyleCallback,
+    marketIds: string[],
+    callback: NodeStyleCallback
   ) => dispatch(claimMultipleTradingProceeds(marketIds, callback)),
 });
 
 const mergeProps = (sP: any, dP: any, oP: any) => {
   const marketIdsToTest = Object.keys(sP.accountShareBalances);
-  const markets: Array<ActionRowsProps> = [];
-  const marketIds: Array<string> = [];
+  const markets: ActionRowsProps[] = [];
+  const marketIds: string[] = [];
   let totalProceeds: any = createBigNumber(0); // BigNumber @type required
   marketIdsToTest.forEach((marketId) => {
     const market = selectMarket(marketId);
@@ -60,7 +60,7 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
         canClaimProceeds(
           market.finalizationTime,
           market.outstandingReturns,
-          sP.currentTimestamp,
+          sP.currentTimestamp
         ) &&
         winningOutcomeShares.value > 0
       ) {
@@ -87,7 +87,7 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
   });
   const totalGas = formatEther(
     // @ts-ignore
-    createBigNumber(sP.gasCost).times(markets.length),
+    createBigNumber(sP.gasCost).times(markets.length)
   );
   const multiMarket = markets.length > 1 ? "s" : "";
   totalProceeds = formatEther(totalProceeds);
@@ -139,6 +139,6 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-  )(Proceeds),
+    mergeProps
+  )(Proceeds)
 );

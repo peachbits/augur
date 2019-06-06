@@ -78,30 +78,30 @@ function help() {
           {
             env: "ETHEREUM_HTTP",
             Description:
-              "The http(s) address of your ethereum endpoint (default: http://localhost:8545)"
+              "The http(s) address of your ethereum endpoint (default: http://localhost:8545)",
           },
           {
             env: "AUGUR_WS",
             Description:
               "The websocket uri of your augur endpoint, only for " +
-              chalk.bold("create-orders")
+              chalk.bold("create-orders"),
           },
           {
             env: "ETHEREUM_PRIVATE_KEY",
             Description:
-              "HEX Private Key used for transactions on this eth node"
+              "HEX Private Key used for transactions on this eth node",
           },
           {
             env: "GAS_PRICE_IN_NANOETH",
             Description:
-              "The transaction gas price to use, specified in nanoeth (default: consties)"
-          }
+              "The transaction gas price to use, specified in nanoeth (default: consties)",
+          },
         ],
         {
           columnSplitter: " - ",
           minWidth: 20,
           maxWidth: 80,
-          showHeaders: false
+          showHeaders: false,
         }
       )
     );
@@ -113,37 +113,37 @@ function help() {
           {
             env: "AURA_PRIVATE_KEY",
             description:
-              "Override key used to deploy to Aura, defaults to the dev key"
+              "Override key used to deploy to Aura, defaults to the dev key",
           },
           {
             env: "CLIQUE_PRIVATE_KEY",
             description:
-              "Override key used to deploy to Clique, defaults to the dev key"
+              "Override key used to deploy to Clique, defaults to the dev key",
           },
           {
             env: "RINKEBY_PRIVATE_KEY",
             description:
               "Set key used to deploy to Rinkeby, default is blank and " +
-              chalk.bold("will error if not set")
+              chalk.bold("will error if not set"),
           },
           {
             env: "ROPSTEN_PRIVATE_KEY",
             description:
               "Set key used to deploy to Ropsten, default is blank and " +
-              chalk.bold("will error if not set")
+              chalk.bold("will error if not set"),
           },
           {
             env: "THUNDER_PRIVATE_KEY",
             description:
               "Set key used to deploy to Thunder, default is blank and " +
-              chalk.bold("will error if not set")
-          }
+              chalk.bold("will error if not set"),
+          },
         ],
         {
           columnSplitter: " - ",
           minWidth: 20,
           maxWidth: 80,
-          showHeaders: false
+          showHeaders: false,
         }
       )
     );
@@ -154,19 +154,19 @@ function help() {
           {
             env: "PRODUCTION",
             description:
-              "[true, false] If true force USE_NORMAL_TIME to true and potentially other optimizations. (default: false)"
+              "[true, false] If true force USE_NORMAL_TIME to true and potentially other optimizations. (default: false)",
           },
           {
             env: "USE_NORMAL_TIME",
             description:
-              "[true, false] Should time flow normally or be adjusted using the custom time management (default: true)"
-          }
+              "[true, false] Should time flow normally or be adjusted using the custom time management (default: true)",
+          },
         ],
         {
           columnSplitter: " - ",
           minWidth: 20,
           maxWidth: 80,
-          showHeaders: false
+          showHeaders: false,
         }
       )
     );
@@ -208,7 +208,7 @@ async function runCommandForNetwork(networkConfiguration: NetworkConfiguration, 
         const accounts = [{
           secretKey: networkConfiguration.privateKey,
           publicKey: computeAddress(`0x${networkConfiguration.privateKey!}`),
-          balance: 0
+          balance: 0,
         }];
 
         console.log(JSON.stringify(accounts, null, 2));
@@ -255,7 +255,7 @@ async function runCommandForNetwork(networkConfiguration: NetworkConfiguration, 
             address,
             fromBlock: uploadBlock,
             toBlock: "latest",
-            topics: []
+            topics: [],
           });
 
           const logsWithBlockNumber = logs.map((log) => ({
@@ -266,7 +266,7 @@ async function runCommandForNetwork(networkConfiguration: NetworkConfiguration, 
             transactionLogIndex: log.transactionLogIndex || 0,
             blockNumber: (log.blockNumber || 0),
             blockHash: log.blockHash || "0",
-            removed: log.removed || false
+            removed: log.removed || false,
           }));
 
           const parsedLogs = augur.events.parseLogs(logsWithBlockNumber);
@@ -337,7 +337,7 @@ async function runCommandForNetwork(networkConfiguration: NetworkConfiguration, 
   }
 }
 
-async function runCannedData(command: COMMANDS, networks: Array<NETWORKS>): Promise<void> {
+async function runCannedData(command: COMMANDS, networks: NETWORKS[]): Promise<void> {
   const deployerConfiguration = DeployerConfiguration.create(
     path.join(__dirname, "../../../augur-artifacts/src"),
     path.join(__dirname, "../../../augur-artifacts/src")
@@ -345,7 +345,7 @@ async function runCannedData(command: COMMANDS, networks: Array<NETWORKS>): Prom
   const networkConfigurations = networks.map((network) => NetworkConfiguration.create(network));
   // This is done in two steps on purpose, create validates the envs and will throw an error
   // if it doesn't work
-  for (let networkConfiguration of networkConfigurations) {
+  for (const networkConfiguration of networkConfigurations) {
     await runCommandForNetwork(networkConfiguration, command, deployerConfiguration);
   }
 

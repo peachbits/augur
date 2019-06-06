@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
         type: MODAL_CLAIM_FEES,
         cb,
         ...reportingFees,
-      }),
+      })
     ),
   sellCompleteSetsModal: (marketId: any, numCompleteSets: any, cb: NodeStyleCallback) =>
     dispatch(
@@ -50,7 +50,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
         marketId,
         numCompleteSets,
         cb,
-      }),
+      })
     ),
   unsignedOrdersModal: (marketId: string, cb: Function) =>
     dispatch(
@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
         type: MODAL_UNSIGNED_ORDERS,
         marketId,
         cb,
-      }),
+      })
     ),
   openOrdersModal: (marketId: string, cb: Function) =>
     dispatch(
@@ -66,15 +66,15 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
         type: MODAL_OPEN_ORDERS,
         marketId,
         cb,
-      }),
+      })
     ),
 });
 
 const NotificationsContainer = withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps,
-  )(Notifications),
+    mapDispatchToProps
+  )(Notifications)
 );
 
 export default NotificationsContainer;

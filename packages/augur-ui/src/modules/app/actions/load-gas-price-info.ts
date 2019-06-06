@@ -27,7 +27,7 @@ export function loadGasPriceInfo(callback: NodeStyleCallback = logError) {
         dispatch(
           updateGasPriceInfo({
             ...result,
-            blockNumber: blockchain.currentBlockNumber
+            blockNumber: blockchain.currentBlockNumber,
           })
         );
       });
@@ -56,14 +56,14 @@ function getGasPriceValues(defaultGasPrice: any, callback: DataCallback) {
       callback({
         average,
         fast,
-        safeLow
+        safeLow,
       });
     })
     .catch(() =>
       callback({
         average: defaultGasPrice.average,
         fast: 0,
-        safeLow: 0
+        safeLow: 0,
       })
     );
 }
@@ -76,6 +76,6 @@ async function setDefaultGasInfo() {
   return {
     average: gasPriceValue,
     fast: gasPriceValue,
-    safeLow: gasPriceValue
+    safeLow: gasPriceValue,
   };
 }

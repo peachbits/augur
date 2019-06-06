@@ -5,7 +5,7 @@ import { selectBlockInfoData } from "modules/block-info/selectors/block-info-dat
 
 const mapStateToProps = (state: AppState) => ({
   syncInfo: selectBlockInfoData(state),
-  isLogged: state.authStatus.isLogged
+  isLogged: state.authStatus.isLogged,
 });
 
 export default connect(mapStateToProps)(BlockInfoData);

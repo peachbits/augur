@@ -6,13 +6,13 @@ import { toggleFavorite } from "modules/markets/actions/update-favorites";
 
 const mapStateToProps = (state, ownProps) => ({
   isLogged: state.authStatus.isLogged,
-  isFavorite: !!state.favorites[ownProps.id]
+  isFavorite: !!state.favorites[ownProps.id],
 });
 
 const mapDispatchToProps = dispatch => ({
   collectMarketCreatorFees: (getBalanceOnly, marketId, callback) =>
     dispatch(collectMarketCreatorFees(getBalanceOnly, marketId, callback)),
-  toggleFavorite: marketId => dispatch(toggleFavorite(marketId))
+  toggleFavorite: marketId => dispatch(toggleFavorite(marketId)),
 });
 
 const ConnectedMarketPreview = connect(

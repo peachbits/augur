@@ -42,7 +42,7 @@ export function getNetworkId(): number {
   return networkId;
 }
 
-export async function getAccounts(): Promise<Array<string>> {
+export async function getAccounts(): Promise<string[]> {
   const Augur = augurSdk.get();
   const accounts = await Augur.provider.listAccounts();
   return accounts.map((a: string) => a.toLowerCase());

@@ -41,7 +41,7 @@ export const selectBlockInfoData = createSelector(
         percent,
         blocksBehind,
         highestBlockBn,
-        lastProcessedBlockBn
+        lastProcessedBlockBn,
       };
     }
     return null;

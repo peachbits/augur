@@ -9,18 +9,18 @@ const DEFAULT_STATE: MarketTradingHistory = {};
 
 export default function(
   tradingHistory: MarketTradingHistory = DEFAULT_STATE,
-  { type, data }: BaseAction,
+  { type, data }: BaseAction
 ): MarketTradingHistory {
   switch (type) {
     case UPDATE_MARKET_TRADING_HISTORY:
       return {
         ...tradingHistory,
-        [data.marketId]: data.marketTradingHistory
+        [data.marketId]: data.marketTradingHistory,
       };
     case BULK_MARKET_TRADING_HISTORY:
       return {
         ...tradingHistory,
-        ...data.keyedMarketTradingHistory
+        ...data.keyedMarketTradingHistory,
       };
     case RESET_STATE:
       return DEFAULT_STATE;

@@ -7,13 +7,13 @@ export default function isAugurJSVersionsEqual() {
         resolve({
           isEqual: false,
           augurNode: res && res.version,
-          augurjs: augur && augur.version
+          augurjs: augur && augur.version,
         });
       }
       resolve({
         isEqual: true,
         augurNode: res && res.version,
-        augurjs: augur && augur.version
+        augurjs: augur && augur.version,
       });
     });
   });

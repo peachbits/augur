@@ -76,7 +76,7 @@ export async function createSeedFile(filePath: string = DEFAULT_SEED_FILE): Prom
 
   const leveledDB = levelup(db);
 
-  const payload: Array<LevelDBRow> = [];
+  const payload: LevelDBRow[] = [];
   await new Promise((resolve, reject) => {
     leveledDB.createReadStream({
       keyAsBuffer: false,

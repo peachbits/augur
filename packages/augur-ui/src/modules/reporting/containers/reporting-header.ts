@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
   forkReputationGoal: state.universe.forkReputationGoal,
   isForkingMarketFinalized: state.universe.isForkingMarketFinalized,
   isLogged: state.authStatus.isLogged,
-  universe: (state.universe || {}).id
+  universe: (state.universe || {}).id,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -25,13 +25,13 @@ const mapDispatchToProps = dispatch => ({
   },
   loadReportingWindowBounds: () => dispatch(loadReportingWindowBounds()),
   updateModal: modal => dispatch(updateModal(modal)),
-  finalizeMarket: marketId => dispatch(sendFinalizeMarket(marketId))
+  finalizeMarket: marketId => dispatch(sendFinalizeMarket(marketId)),
 });
 
 const mergeProps = (sP, dP, oP) => ({
   ...oP,
   ...sP,
-  ...dP
+  ...dP,
 });
 
 export default connect(

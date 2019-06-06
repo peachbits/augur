@@ -88,5 +88,5 @@ async function marketPendingOrphanCheck(db: Knex, orderData: OrdersRow<string>) 
   };
   const result: { count: number } = await db.first(db.raw("count(*) as count")).from("pending_orphan_checks").where(pendingOrderData);
   if (result.count > 0) return;
-  return await db.insert(pendingOrderData).into("pending_orphan_checks");
+  return db.insert(pendingOrderData).into("pending_orphan_checks");
 }

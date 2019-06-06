@@ -15,7 +15,7 @@ export const shapeGetOrders = (orders, marketId, orderState) => {
 
       marketOrders[outcome] = {
         ...marketOrders[outcome],
-        [orderTypeLabel]: filteredOrders
+        [orderTypeLabel]: filteredOrders,
       };
     });
   });

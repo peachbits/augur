@@ -17,27 +17,27 @@ export function bulkMarketTradingHistory(keyedMarketTradingHistory: MarketTradin
   return {
     type: BULK_MARKET_TRADING_HISTORY,
     data: {
-      keyedMarketTradingHistory
-    }
+      keyedMarketTradingHistory,
+    },
   };
 }
 
 export function updateMarketTradingHistory(
   marketId: string,
-  marketTradingHistory: TradingHistory,
+  marketTradingHistory: TradingHistory
 ) {
   return {
     type: UPDATE_MARKET_TRADING_HISTORY,
     data: {
       marketId,
-      marketTradingHistory
-    }
+      marketTradingHistory,
+    },
   };
 }
 
 export function updateUserTradingHistory(
   account: string,
-  userFilledOrders: TradingHistory,
+  userFilledOrders: TradingHistory
 ) {
   return {
     type: UPDATE_USER_TRADING_HISTORY,
@@ -51,15 +51,15 @@ export function updateUserTradingHistory(
 export function updateUserMarketTradingHistory(
   account: string,
   marketId: string,
-  userFilledOrders: TradingHistory,
+  userFilledOrders: TradingHistory
 ) {
   return {
     type: UPDATE_USER_MARKET_TRADING_HISTORY,
     data: {
       account,
       marketId,
-      userFilledOrders
-    }
+      userFilledOrders,
+    },
   };
 }
 
@@ -87,20 +87,20 @@ export const loadUserMarketTradingHistory = (
       (err: any, { marketIds = [], tradingHistory = {} }: any) => {
         if (marketIdAggregator && marketIdAggregator(marketIds));
         if (callback) callback(err, tradingHistory);
-      },
-    ),
+      }
+    )
   );
 };
 
 export const loadUserMarketTradingHistoryInternal = (
   options: any,
-  callback: NodeStyleCallback,
+  callback: NodeStyleCallback
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { loginAccount, universe } = getState();
   if (!loginAccount.address) return callback(null, []);
   const allOptions = Object.assign(
     { account: loginAccount.address, universe: universe.id },
-    options,
+    options
   );
   getTradingHistory(allOptions, (err: any, tradingHistory: any) => {
     if (err) return callback(err, {});
@@ -113,7 +113,7 @@ export const loadUserMarketTradingHistoryInternal = (
             const userTradedMarketIds = [
               ...new Set(
                 tradingHistory.reduce((p, t) => [...p, t.marketId], [])
-              )
+              ),
             ];
             const marketIds = [userTradedMarketIds, finalizedMarkets].reduce(
               (a, b) => a.filter((c: string) => !b.includes(c))
@@ -133,7 +133,7 @@ export const loadUserMarketTradingHistoryInternal = (
               }
             );
           }
-        }),
+        })
       );
     }
 
@@ -143,7 +143,7 @@ export const loadUserMarketTradingHistoryInternal = (
           loginAccount.address,
           allOptions.marketId,
           tradingHistory
-        ),
+        )
       );
     } else {
       dispatch(updateUserTradingHistory(loginAccount.address, tradingHistory));
@@ -155,17 +155,17 @@ export const loadUserMarketTradingHistoryInternal = (
 const getTradingHistory = (options: any, callback: NodeStyleCallback) => {
   const allOptions = Object.assign(
     { sortBy: "timestamp", isSortDescending: true },
-    options,
+    options
   );
   augur.augurNode.submitRequest(
     "getTradingHistory",
     {
-      ...allOptions
+      ...allOptions,
     },
     (err: any, tradingHistory: any) => {
       if (err) return callback(err);
       if (tradingHistory == null) return callback(null);
       callback(null, tradingHistory);
-    },
+    }
   );
 };

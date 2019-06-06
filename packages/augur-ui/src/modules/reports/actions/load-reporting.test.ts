@@ -16,11 +16,11 @@ describe("loadReporting action", () => {
 
   const initialStoreState = {
     universe: {
-      id: universeAddress
+      id: universeAddress,
     },
     loginAccount: {
-      address: loginAccountAddress
-    }
+      address: loginAccountAddress,
+    },
   };
 
   let mockStore;
@@ -37,8 +37,8 @@ describe("loadReporting action", () => {
       return {
         type: "LOAD_MARKETS_INFO_IF_NOT_LOADED",
         data: {
-          marketIds
-        }
+          marketIds,
+        },
       };
     });
 
@@ -60,7 +60,7 @@ describe("loadReporting action", () => {
         method,
         {
           reportingState,
-          ...expectedParams
+          ...expectedParams,
         },
         expect.any(Function)
       );
@@ -77,7 +77,7 @@ describe("loadReporting action", () => {
       {
         sortBy: "endTime",
         universe: universeAddress,
-        designatedReporter: loginAccountAddress
+        designatedReporter: loginAccountAddress,
       },
       ["1111"]
     );
@@ -88,7 +88,7 @@ describe("loadReporting action", () => {
       {
         sortBy: "endTime",
         universe: universeAddress,
-        designatedReporter: loginAccountAddress
+        designatedReporter: loginAccountAddress,
       },
       ["2222", "3333"]
     );
@@ -99,7 +99,7 @@ describe("loadReporting action", () => {
       constants.REPORTING_STATE.OPEN_REPORTING,
       {
         sortBy: "endTime",
-        universe: universeAddress
+        universe: universeAddress,
       },
       ["4444"]
     );
@@ -107,16 +107,16 @@ describe("loadReporting action", () => {
     const expected = [
       {
         data: { marketIds: ["1111"] },
-        type: "UPDATE_UPCOMING_DESIGNATED_REPORTING_MARKETS"
+        type: "UPDATE_UPCOMING_DESIGNATED_REPORTING_MARKETS",
       },
       {
         data: { marketIds: ["2222", "3333"] },
-        type: "UPDATE_DESIGNATED_REPORTING_MARKETS"
+        type: "UPDATE_DESIGNATED_REPORTING_MARKETS",
       },
       {
         data: { marketIds: ["4444"] },
-        type: "UPDATE_OPEN_REPORTING_MARKETS"
-      }
+        type: "UPDATE_OPEN_REPORTING_MARKETS",
+      },
     ];
     const actual = store.getActions();
     // actions include load market info actions

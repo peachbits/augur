@@ -19,7 +19,7 @@ export const loadReporting = (
   const { universe, loginAccount } = getState();
   const designatedReportingParams = {
     universe: universe.id,
-    designatedReporter: loginAccount.address
+    designatedReporter: loginAccount.address,
   };
 
   if (marketIdsParam) {
@@ -28,9 +28,9 @@ export const loadReporting = (
         marketIdsParam,
         (err: any, marketData: any) => {
           if (err) return logError(err);
-          const preReporting: Array<string> = [];
-          const designatedReporting: Array<string> = [];
-          const openReporting: Array<string> = [];
+          const preReporting: string[] = [];
+          const designatedReporting: string[] = [];
+          const openReporting: string[] = [];
           if (marketData) {
             Object.keys(marketData).forEach(marketId => {
               const state = marketData[marketId].reportingState;
@@ -63,9 +63,9 @@ export const loadReporting = (
         {
           reportingState: constants.REPORTING_STATE.PRE_REPORTING,
           sortBy: "endTime",
-          ...designatedReportingParams
+          ...designatedReportingParams,
         },
-        (err: any, marketIds: Array<string>) => {
+        (err: any, marketIds: string[]) => {
           if (err) return resolve(err);
           if (!marketIds || marketIds.length === 0 || !loginAccount.address) {
             dispatch(updateUpcomingDesignatedReportingMarkets([]));
@@ -83,9 +83,9 @@ export const loadReporting = (
         {
           reportingState: constants.REPORTING_STATE.DESIGNATED_REPORTING,
           sortBy: "endTime",
-          ...designatedReportingParams
+          ...designatedReportingParams,
         },
-        (err: any, marketIds: Array<string>) => {
+        (err: any, marketIds: string[]) => {
           if (err) return resolve(err);
           if (!marketIds || marketIds.length === 0 || !loginAccount.address) {
             dispatch(updateDesignatedReportingMarkets([]));
@@ -104,9 +104,9 @@ export const loadReporting = (
       {
         reportingState: constants.REPORTING_STATE.OPEN_REPORTING,
         sortBy: "endTime",
-        universe: universe.id
+        universe: universe.id,
       },
-      (err: any, marketIds: Array<string>) => {
+      (err: any, marketIds: string[]) => {
         if (err) return resolve(err);
         if (!marketIds || marketIds.length === 0) {
           dispatch(updateOpenMarkets([]));

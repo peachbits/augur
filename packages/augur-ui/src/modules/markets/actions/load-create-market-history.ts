@@ -14,7 +14,7 @@ export function loadCreateMarketHistory(
     dispatch(
       loadCreateMarketHistoryInternal(
         options,
-        (err: any, marketIds: Array<string> = []) => {
+        (err: any, marketIds: string[] = []) => {
           if (marketIdAggregator) marketIdAggregator(marketIds);
           if (callback) callback(err, marketIds);
         }
@@ -28,7 +28,7 @@ export function loadCreateMarketHistory(
       if (!loginAccount.address) return callback(null);
       augur.markets.getMarkets(
         { ...options, creator: loginAccount.address, universe: universe.id },
-        (err: any, marketsCreatedByUser: Array<string>) => {
+        (err: any, marketsCreatedByUser: string[]) => {
           // note: marketsCreatedByUser is an array of market IDs
           if (err) return callback(err);
           if (

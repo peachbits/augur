@@ -13,7 +13,7 @@ const DEFAULT_STATE: TransacitonData = {};
 
 export default function(
   transactionsData: TransacitonData = DEFAULT_STATE,
-  { type, data }: BaseAction,
+  { type, data }: BaseAction
 ): TransacitonData {
   switch (type) {
     case UPDATE_TRANSACTIONS_DATA:
@@ -26,7 +26,7 @@ export default function(
           };
           return p;
         },
-        { ...transactionsData },
+        { ...transactionsData }
       );
     case DELETE_TRANSACTIONS_WITH_TRANSACTION_HASH:
       return Object.keys(transactionsData).reduce((p, transactionId) => {

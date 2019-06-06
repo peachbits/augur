@@ -24,7 +24,7 @@ export async function startAugurListeners(augur: Augur): Promise<BlockAndLogStre
     eventLogDBRouter,
     getEventTopics: augur.events.getEventTopics,
     getBlockByHash: dependencies.getBlockByHash,
-    listenForNewBlocks: dependencies.startPollingForBlocks
+    listenForNewBlocks: dependencies.startPollingForBlocks,
   });
 
   _.forEach(logProcessors.Augur, (value, event) => {
@@ -34,14 +34,14 @@ export async function startAugurListeners(augur: Augur): Promise<BlockAndLogStre
     blockAndLogStreamerListener.listenForEvent(event,
       (blockIdentifier, logs=[]) => {
         logs.forEach((log) => {
-          if (log["extraInfo"] != null && typeof log["extraInfo"] === "string") log["extraInfo"] = JSON.parse(log["extraInfo"])
-          onAdd(log)
+          if (log["extraInfo"] != null && typeof log["extraInfo"] === "string") log["extraInfo"] = JSON.parse(log["extraInfo"]);
+          onAdd(log);
         });
       },
       (blockIdentifier, logs=[]) => {
         logs.forEach((log) => {
-          if (log["extraInfo"] != null && typeof log["extraInfo"] === "string") log["extraInfo"] = JSON.parse(log["extraInfo"])
-          onRemove(log)
+          if (log["extraInfo"] != null && typeof log["extraInfo"] === "string") log["extraInfo"] = JSON.parse(log["extraInfo"]);
+          onRemove(log);
         });
       });
   });

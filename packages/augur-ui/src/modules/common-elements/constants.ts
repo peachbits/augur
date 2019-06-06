@@ -32,7 +32,7 @@ export const NETWORK_NAMES = {
   3: "Ropsten",
   4: "Rinkeby",
   42: "Kovan",
-  12346: "Private"
+  12346: "Private",
 };
 // network name to id map
 export const NETWORK_IDS = {
@@ -43,13 +43,13 @@ export const NETWORK_IDS = {
   Private1: "101",
   Private2: "102",
   Private3: "103",
-  Private4: "104"
+  Private4: "104",
 };
 
 export const GAS_SPEED_LABELS = {
   STANDARD: "Standard",
   FAST: "Fast",
-  SLOW: "Slow"
+  SLOW: "Slow",
 };
 // augurNode
 export const AUGUR_NODE_URL = "augur_node";
@@ -69,7 +69,7 @@ export const AUTH_TYPES = {
   [REGISTER]: REGISTER,
   [LOGIN]: LOGIN,
   [IMPORT]: IMPORT,
-  [LOGOUT]: LOGOUT
+  [LOGOUT]: LOGOUT,
 };
 
 export const DEFAULT_AUTH_TYPE = REGISTER;
@@ -87,22 +87,22 @@ export const ACCOUNT_TYPES = {
 
 export const WALLET_TYPE = {
   SOFTWARE: "software",
-  HARDWARE: "hardware"
+  HARDWARE: "hardware",
 };
 
 export const ERROR_TYPES = {
   UNABLE_TO_CONNECT: {
     header: "Unable To Connect",
-    subheader: "Please install the MetaMask browser plug-in from Metamask.io"
+    subheader: "Please install the MetaMask browser plug-in from Metamask.io",
   },
   NOT_SIGNED_IN: {
     header: "Unable To Connect",
-    subheader: "Please make sure you are signed in to your account."
+    subheader: "Please make sure you are signed in to your account.",
   },
   INCORRECT_FORMAT: {
     header: "Incorrect Format",
-    subheader: `Please enter a derivative path with the format "${DEFAULT_DERIVATION_PATH}"`
-  }
+    subheader: `Please enter a derivative path with the format "${DEFAULT_DERIVATION_PATH}"`,
+  },
 };
 
 const DEFAULT_ITEM_INDEX = 0;
@@ -111,27 +111,27 @@ export const ITEMS = [
     param: ACCOUNT_TYPES.METAMASK,
     title: "Metamask / Web 3 Provider",
     icon: MetaMask,
-    type: WALLET_TYPE.SOFTWARE
+    type: WALLET_TYPE.SOFTWARE,
   },
   {
     param: ACCOUNT_TYPES.TREZOR,
     title: "Trezor",
     icon: Trezor,
-    type: WALLET_TYPE.HARDWARE
+    type: WALLET_TYPE.HARDWARE,
   },
   {
     param: ACCOUNT_TYPES.LEDGER,
     title: "Ledger",
     icon: Ledger,
-    type: WALLET_TYPE.HARDWARE
-  }
+    type: WALLET_TYPE.HARDWARE,
+  },
 ];
 if (!process.env.AUGUR_HOSTED) {
   ITEMS.unshift({
     param: ACCOUNT_TYPES.EDGE,
     title: "Edge",
     icon: Edge,
-    type: WALLET_TYPE.SOFTWARE
+    type: WALLET_TYPE.SOFTWARE,
   });
 }
 ITEMS[DEFAULT_ITEM_INDEX].default = true;
@@ -141,7 +141,7 @@ export const MOBILE_MENU_STATES = {
   CLOSED: 0,
   SIDEBAR_OPEN: 1,
   FIRSTMENU_OPEN: 2,
-  SUBMENU_OPEN: 3
+  SUBMENU_OPEN: 3,
 };
 
 export const SUB_MENU = "subMenu";
@@ -200,12 +200,12 @@ export const REPORTING_STATE = {
   FORKING: "FORKING",
   AWAITING_NO_REPORT_MIGRATION: "AWAITING_NO_REPORT_MIGRATION",
   AWAITING_FORK_MIGRATION: "AWAITING_FORK_MIGRATION",
-}
+};
 
 // TODO: this no longer exists and can be removed during refactor of claiming winnings
 export const CONTRACT_INTERVAL = {
   CLAIM_PROCEEDS_WAIT_TIME: 0,
-}
+};
 
 // # Market States
 export const ALL_MARKETS = "all";
@@ -230,7 +230,7 @@ export const MARKET_STATUS_MESSAGES = {
   FORKING: "Forking",
   AWAITING_NO_REPORT_MIGRATION: "Awaiting No Report Migrated",
   AWAITING_FORK_MIGRATION: "Awaiting Fork Migration",
-  WAITING_PERIOD_ENDS: "Waiting period ends"
+  WAITING_PERIOD_ENDS: "Waiting period ends",
 };
 
 // Market Header
@@ -321,36 +321,36 @@ export const RANGES = [
   {
     duration: 60,
     label: "Past minute",
-    tickInterval: axis => axis.ticks(timeSecond.every(30))
+    tickInterval: axis => axis.ticks(timeSecond.every(30)),
   },
   {
     duration: 3600,
     label: "Past hour",
-    tickInterval: axis => axis.ticks(timeMinute.every(10))
+    tickInterval: axis => axis.ticks(timeMinute.every(10)),
   },
   {
     duration: 86400,
     label: "Past day",
-    tickInterval: axis => axis.ticks(timeHour.every(3))
+    tickInterval: axis => axis.ticks(timeHour.every(3)),
   },
   {
     duration: 604800,
     label: "Past week",
     isDefault: true,
     tickInterval: axis =>
-      axis.ticks(timeDay.every(1)).tickFormat(timeFormat("%a %d"))
+      axis.ticks(timeDay.every(1)).tickFormat(timeFormat("%a %d")),
   },
   {
     duration: 2629800,
     label: "Past month",
-    tickInterval: axis => axis.ticks(timeDay.every(6))
+    tickInterval: axis => axis.ticks(timeDay.every(6)),
   },
   {
     duration: 31557600,
     label: "Past year",
     tickInterval: axis =>
-      axis.ticks(timeMonth.every(1)).tickFormat(timeFormat("%b"))
-  }
+      axis.ticks(timeMonth.every(1)).tickFormat(timeFormat("%b")),
+  },
 ];
 
 export const PERIOD_RANGES = {
@@ -358,26 +358,26 @@ export const PERIOD_RANGES = {
     period: 3600,
     format: "{value:%H:%M}",
     crosshair: "{value:%H:%M}",
-    range: 24 * 3600 * 1000 // 1 day
+    range: 24 * 3600 * 1000, // 1 day
   },
   43200: {
     period: 43200,
     format: "{value:%H:%M}",
     crosshair: "{value:%H:%M}",
-    range: 7 * 24 * 3600 * 1000 // 1 week
+    range: 7 * 24 * 3600 * 1000, // 1 week
   },
   86400: {
     period: 86400,
     format: "{value:%b %d}",
     crosshair: "{value:%b %d}",
-    range: 30 * 24 * 3600 * 1000 // month
+    range: 30 * 24 * 3600 * 1000, // month
   },
   604800: {
     period: 604800,
     format: "{value:%b %d}",
     crosshair: "{value:%b %d}",
-    range: 6 * 30 * 24 * 3600 * 1000 // 6 months
-  }
+    range: 6 * 30 * 24 * 3600 * 1000, // 6 months
+  },
 };
 
 export const DEFAULT_PERIODS_VALUE = 86400;
@@ -385,20 +385,20 @@ export const DEFAULT_SHORT_PERIODS_VALUE = 3600;
 export const PERIODS = [
   {
     value: 3600,
-    label: "Hourly"
+    label: "Hourly",
   },
   {
     value: 43200,
-    label: "12 Hour"
+    label: "12 Hour",
   },
   {
     value: 86400,
-    label: "Daily"
+    label: "Daily",
   },
   {
     value: 604800,
-    label: "Weekly"
-  }
+    label: "Weekly",
+  },
 ];
 
 // # Precision Constants
@@ -613,12 +613,12 @@ export const MATCH_ASK = "match_ask";
 export const VOLUME_ETH_SHARES = [
   {
     value: ETH,
-    label: ETH
+    label: ETH,
   },
   {
     value: SHARES,
-    label: SHARES
-  }
+    label: SHARES,
+  },
 ];
 
 // Account Summary - Your Overview
@@ -684,14 +684,14 @@ export const TIMEFRAMES = {
   DAY: "24 hr",
   WEEK: "1 Week",
   MONTH: "1 Month",
-  ALL: "All Time"
+  ALL: "All Time",
 };
 
 export const TIMEFRAME_OPTIONS = [
   { label: TIMEFRAMES.DAY, periodInterval: 86400, id: 0 },
   { label: TIMEFRAMES.WEEK, periodInterval: 604800, id: 1 },
   { label: TIMEFRAMES.MONTH, periodInterval: 2592000, id: 2 },
-  { label: TIMEFRAMES.ALL, periodInterval: 0, id: 3 }
+  { label: TIMEFRAMES.ALL, periodInterval: 0, id: 3 },
 ];
 
 // Pending Queue Types

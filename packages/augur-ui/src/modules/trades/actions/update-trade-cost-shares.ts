@@ -54,7 +54,7 @@ export function updateTradeCost({
       outcome,
       accountPositions,
       accountShareBalances,
-      callback,
+      callback
     );
   };
 }
@@ -113,7 +113,7 @@ export function updateTradeShares({
     const scaledPrice = createBigNumber(limitPrice).plus(marketMinPrice.abs());
 
     let newShares = createBigNumber(maxCost).dividedBy(
-      marketRange.minus(scaledPrice),
+      marketRange.minus(scaledPrice)
     );
     if (side === BUY) {
       newShares = createBigNumber(maxCost).dividedBy(scaledPrice);
@@ -134,7 +134,7 @@ export function updateTradeShares({
       outcome,
       accountPositions,
       accountShareBalances,
-      callback,
+      callback
     );
   };
 }
@@ -149,7 +149,7 @@ function runSimulateTrade(
   outcome: any,
   accountPositions: any,
   accountShareBalances: any,
-  callback: NodeStyleCallback,
+  callback: NodeStyleCallback
 ) {
   let userShareBalance = new Array(market.numOutcomes).fill("0");
   let userNetPositions = new Array(market.numOutcomes).fill("0");
@@ -231,7 +231,7 @@ function runSimulateTrade(
     buildDisplayTrade({
       ...tradeInfo,
       outcomeId,
-    }),
+    })
   );
 
   if (callback) callback(null, { ...order, ...simulatedTrade, displayTrade });

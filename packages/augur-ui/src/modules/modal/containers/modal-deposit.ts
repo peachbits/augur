@@ -48,8 +48,8 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
                 ),
                 signature:
                   "0x1b5fb567ee206a35bc2973885216338e019a672302fdae2faa8ee6d208da9c478671901e963befb93cd87e55f09d19b9caf8a84eaaf2c3d431b8ce59447934f35503",
-                exchangeAddress: "0x35dd2932454449b14cee11a94d3674a936d5d7b2"
-              }
+                exchangeAddress: "0x35dd2932454449b14cee11a94d3674a936d5d7b2",
+              },
             ],
             additionalAssetMetaDataMap: {
               "0xf47261b00000000000000000000000004c7493b70f16bec1e087bf74a31d095f9b8f9c40": {
@@ -57,17 +57,17 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
                 decimals: 18,
                 primaryColor: "#512D80",
                 symbol: "rep",
-                name: "Augur"
-              }
+                name: "Augur",
+              },
             },
-            networkId: 42
+            networkId: 42,
           },
           {
             availableAssetDatas: [],
             defaultSelectedAssetData: assetData,
             orderSource: "https://api.radarrelay.com/0x/v2",
-            networkId: 1
-          }
+            networkId: 1,
+          },
         ];
 
         const currentNetworkId = getNetworkId();
@@ -80,7 +80,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
         zeroExInstant.render(currentNetworkParams, "#app");
       }
     );
-  }
+  },
 });
 
 function airSwapOnClick(e) {
@@ -102,21 +102,21 @@ function airSwapOnClick(e) {
       },
       onComplete(txid: string) {
         console.info("AirSwap trade complete", txid);
-      }
+      },
     },
-    document.getElementById("app"),
+    document.getElementById("app")
   );
 }
 
 const mergeProps = (sP: any, dP: any, oP: any) => {
   const show0xInstant = [NETWORK_IDS.Mainnet, NETWORK_IDS.Kovan].includes(
-    sP.augurNodeNetworkId,
+    sP.augurNodeNetworkId
   );
   const showAirSwap = NETWORK_IDS.Mainnet === sP.augurNodeNetworkId;
   return {
     title: "Receive Funds",
     description: [
-      "Send Ethereum (ETH) or Reputation (REP) to the wallet you have connected to trade on Augur."
+      "Send Ethereum (ETH) or Reputation (REP) to the wallet you have connected to trade on Augur.",
     ],
     closeAction: () => dP.closeModal(),
     depositInfo:
@@ -132,7 +132,7 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
       address: sP.address,
       showQR: true,
       copyable: true,
-      title: "Your connected wallet address"
+      title: "Your connected wallet address",
     },
     buttons: [],
   };
@@ -142,6 +142,6 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-  )(Message),
+    mergeProps
+  )(Message)
 );

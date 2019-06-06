@@ -25,7 +25,7 @@ export const CLEAR_ALL_MARKET_ORDERS = "CLEAR_ALL_MARKET_ORDERS";
 
 export const loadPendingLiquidityOrders = (pendingLiquidityOrders: OrderBook) => ({
   type: LOAD_PENDING_LIQUIDITY_ORDERS,
-  data: { pendingLiquidityOrders }
+  data: { pendingLiquidityOrders },
 });
 
 export const addMarketLiquidityOrders = ({
@@ -35,37 +35,37 @@ export const addMarketLiquidityOrders = ({
   type: ADD_MARKET_LIQUIDITY_ORDERS,
   data: {
     liquidityOrders,
-    marketId
-  }
+    marketId,
+  },
 });
 
 export const clearMarketLiquidityOrders = (marketId: string) => ({
   type: CLEAR_ALL_MARKET_ORDERS,
-  data: { marketId }
+  data: { marketId },
 });
 
 export const updateLiquidityOrder = ({
   order,
   updates,
   marketId,
-  outcomeId
+  outcomeId,
 }: BaseAction) => ({
   type: UPDATE_LIQUIDITY_ORDER,
   data: {
     order,
     updates,
     marketId,
-    outcomeId
-  }
+    outcomeId,
+  },
 });
 
 export const removeLiquidityOrder = ({
   marketId,
   outcomeId,
-  orderId
+  orderId,
 }: BaseAction) => ({
   type: REMOVE_LIQUIDITY_ORDER,
-  data: { marketId, outcomeId, orderId }
+  data: { marketId, outcomeId, orderId },
 });
 
 export const sendLiquidityOrder = (options: any) => (
@@ -85,7 +85,7 @@ export const sendLiquidityOrder = (options: any) => (
     loginAccount,
     orderCB,
     seriesCB,
-    outcome
+    outcome,
   } = options;
   const outcomeIndex =
     marketType === CATEGORICAL ? marketOutcomesArray.indexOf(outcome) : 1; // NOTE -- Both Scalar + Binary only trade against one outcome, that of outcomeId 1
@@ -98,7 +98,7 @@ export const sendLiquidityOrder = (options: any) => (
     numTicks,
     orderType,
     minDisplayPrice: minPrice || 0,
-    maxDisplayPrice: maxPrice || 1
+    maxDisplayPrice: maxPrice || 1,
   });
   const { onChainAmount, onChainPrice, cost } = tradeCost;
   const sendOrder = () => {
@@ -120,8 +120,8 @@ export const sendLiquidityOrder = (options: any) => (
             updates: {
               onSent: true,
               orderId: res.callReturn,
-              txhash: res.hash
-            }
+              txhash: res.hash,
+            },
           })
         );
         orderCB();
@@ -135,7 +135,7 @@ export const sendLiquidityOrder = (options: any) => (
           err
         );
         orderCB();
-      }
+      },
     });
   };
 
@@ -148,7 +148,7 @@ export const sendLiquidityOrder = (options: any) => (
         },
         approveCallback: (err: any, res: any) => {
           if (err) return seriesCB(err);
-        }
+        },
       })
     );
   };
@@ -218,7 +218,7 @@ export const startOrderSending = (options: any) => (
               loginAccount,
               orderCB,
               seriesCB,
-              outcome
+              outcome,
             })
           );
         },

@@ -26,7 +26,7 @@ import { Action } from "redux";
 
 const REQUIRED_GENESIS_SUPPLY = createBigNumber(
   "1100000000000000000000000",
-  10,
+  10
 );
 
 interface UniverseDate {
@@ -55,7 +55,7 @@ export function loadUniverseInfo(callback: NodeStyleCallback = logError) {
       universeData.market = forkingMarket;
       universeData.reportableOutcomes = selectReportableOutcomes(
         forkingMarket.marketType,
-        forkingMarket.outcomes,
+        forkingMarket.outcomes
       );
       universeData.winningChildUniverseId = universe.winningChildUniverse;
     }
@@ -71,7 +71,7 @@ export function loadUniverseInfo(callback: NodeStyleCallback = logError) {
             universeData,
             { id: parentUniverseId },
             { id: parentUniverseId },
-            callback,
+            callback
           );
         }
 
@@ -91,7 +91,7 @@ export function loadUniverseInfo(callback: NodeStyleCallback = logError) {
                     universeData,
                     parentUniverseData,
                     { id: grandParentUniverseId },
-                    callback,
+                    callback
                   );
                 }
 
@@ -104,15 +104,15 @@ export function loadUniverseInfo(callback: NodeStyleCallback = logError) {
                       universeData,
                       parentUniverseData,
                       grandParentUniverseData,
-                      callback,
+                      callback
                     );
-                  },
+                  }
                 );
-              },
+              }
             );
-          },
+          }
         );
-      },
+      }
     );
   };
 }
@@ -132,14 +132,14 @@ function getUniverseInfo(universeId: string, callback: NodeStyleCallback) {
       if (err) return callback(err);
       augur.markets.getMarketsInfo(
         { marketIds: [forkingMarket] },
-        (err: any, marketsDataArray: Array<any>) => {
+        (err: any, marketsDataArray: any[]) => {
           if (err) return callback(err);
           universeData.market = marketsDataArray[0];
           universeData.reportableOutcomes = selectReportableOutcomes(
             // @ts-ignore
             universeData.market.marketType,
             // @ts-ignore
-            universeData.market.outcomes,
+            universeData.market.outcomes
           );
           augur.api.Market.isFinalized(
             { tx: { to: forkingMarket } },
@@ -154,13 +154,13 @@ function getUniverseInfo(universeId: string, callback: NodeStyleCallback) {
                   if (err) return callback(err);
                   universeData.winningChildUniverseId = winningChildUniverse;
                   return callback(null, universeData);
-                },
+                }
               );
-            },
+            }
           );
-        },
+        }
       );
-    },
+    }
   );
 }
 
@@ -170,7 +170,7 @@ function getUniversesInfoWithParentContext(
   currentUniverseData: any,
   parentUniverseData: any,
   grandParentUniverseData: any,
-  callback: NodeStyleCallback,
+  callback: NodeStyleCallback
 ) {
   augur.augurNode.submitRequest(
     "getUniversesInfo",
@@ -195,7 +195,7 @@ function getUniversesInfoWithParentContext(
               // give default value of 0, there might have been error
               obj.openInterest = openInterest || 0;
               callback(err, obj);
-            },
+            }
           );
         },
         (err) => {
@@ -215,7 +215,7 @@ function getUniversesInfoWithParentContext(
               if (universeData.parentUniverse === currentUniverseData.id) {
                 universeData.description = getUniverseName(
                   currentUniverseData,
-                  universeData,
+                  universeData
                 );
                 universeData.isWinningUniverse =
                   currentUniverseData.winningChildUniverseId ===
@@ -226,7 +226,7 @@ function getUniversesInfoWithParentContext(
               ) {
                 universeData.description = getUniverseName(
                   parentUniverseData,
-                  universeData,
+                  universeData
                 );
                 universeData.isWinningUniverse =
                   parentUniverseData.winningChildUniverseId ===
@@ -239,7 +239,7 @@ function getUniversesInfoWithParentContext(
               } else {
                 universeData.description = getUniverseName(
                   grandParentUniverseData,
-                  universeData,
+                  universeData
                 );
                 universeData.isWinningUniverse =
                   grandParentUniverseData.winningChildUniverseId ===
@@ -247,11 +247,11 @@ function getUniversesInfoWithParentContext(
                 acc.parent = universeData;
               }
               return acc;
-            }, initialMapping),
+            }, initialMapping)
           );
-        },
+        }
       );
-    },
+    }
   );
 }
 
@@ -264,7 +264,7 @@ function getUniverseName(parentUniverseData: any, universeData: any) {
   const outcomeId = calculatePayoutNumeratorsValue(
     parentUniverseData.market,
     universeData.payout,
-    universeData.isInvalid,
+    universeData.isInvalid
   ).toString();
   if (parentUniverseData.market.marketType === SCALAR) {
     return outcomeId;
@@ -305,7 +305,7 @@ export function getForkingInfo(universe: Universe, callback: NodeStyleCallback =
 function updateUniverseIfForkingDataChanged(
   dispatch: ThunkDispatch<void, any, Action>,
   oldUniverseData: Universe,
-  universeData: Universe,
+  universeData: Universe
 ) {
   if (
     (universeData.id && oldUniverseData.id !== universeData.id) ||

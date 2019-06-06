@@ -52,7 +52,7 @@ test("State API :: Trading :: getTradingHistory", async () => {
   await db.sync(john.augur, mock.constants.chunkSize, 0);
 
   // Get trades by user
-  let trades: Array<MarketTradingHistory> = await api.route("getTradingHistory", {
+  let trades: MarketTradingHistory[] = await api.route("getTradingHistory", {
     account: mary.account,
   });
 
@@ -141,7 +141,7 @@ test("State API :: Trading :: getOrders", async () => {
   // Get only Open orders
   orders = await api.route("getOrders", {
     marketId: market.address,
-    orderState: "OPEN"
+    orderState: "OPEN",
   });
 
   await expect (orders).toEqual({});
@@ -149,7 +149,7 @@ test("State API :: Trading :: getOrders", async () => {
   // Get Canceled orders
   orders = await api.route("getOrders", {
     marketId: market.address,
-    orderState: "CANCELED"
+    orderState: "CANCELED",
   });
 
   order = orders[market.address][0]["0"][orderId];
@@ -168,7 +168,7 @@ test("State API :: Trading :: getOrders", async () => {
   // Get orders for the market after the initial time
   orders = await api.route("getOrders", {
     marketId: market.address,
-    latestCreationTime: initialTimestamp.plus(1).toNumber()
+    latestCreationTime: initialTimestamp.plus(1).toNumber(),
   });
 
   order = orders[market.address][0]["0"][orderId];
@@ -177,7 +177,7 @@ test("State API :: Trading :: getOrders", async () => {
   // Get order for the market before the new time
   orders = await api.route("getOrders", {
     marketId: market.address,
-    earliestCreationTime: initialTimestamp.plus(1).toNumber()
+    earliestCreationTime: initialTimestamp.plus(1).toNumber(),
   });
 
   order = orders[market.address][0]["0"][newOrderId];

@@ -12,11 +12,11 @@ describe("app/actions/re-init-augur", () => {
       connection: {
         isConnected: false,
         isConnectedToAugurNode: true,
-        isReconnectionPaused: false
-      }
+        isReconnectionPaused: false,
+      },
     },
     params: {
-      history: { push: arg => expect(arg).toEqual(arg, "/categories") }
+      history: { push: arg => expect(arg).toEqual(arg, "/categories") },
     },
     mockDebounce: (func, wait) => {
       expect(wait).toBe(3000);
@@ -33,11 +33,11 @@ describe("app/actions/re-init-augur", () => {
               connection: {
                 isConnected: false,
                 isConnectedToAugurNode: true,
-                isReconnectionPaused: false
+                isReconnectionPaused: false,
               },
-              env: undefined
-            }
-          }
+              env: undefined,
+            },
+          },
         },
         {
           type: "UPDATE_MODAL",
@@ -47,11 +47,11 @@ describe("app/actions/re-init-augur", () => {
               connection: {
                 isConnected: false,
                 isConnectedToAugurNode: true,
-                isReconnectionPaused: false
+                isReconnectionPaused: false,
               },
-              env: undefined
-            }
-          }
+              env: undefined,
+            },
+          },
         },
         {
           type: "UPDATE_MODAL",
@@ -61,11 +61,11 @@ describe("app/actions/re-init-augur", () => {
               connection: {
                 isConnected: false,
                 isConnectedToAugurNode: true,
-                isReconnectionPaused: false
+                isReconnectionPaused: false,
               },
-              env: undefined
-            }
-          }
+              env: undefined,
+            },
+          },
         },
         {
           type: "UPDATE_MODAL",
@@ -75,17 +75,17 @@ describe("app/actions/re-init-augur", () => {
               connection: {
                 isConnected: false,
                 isConnectedToAugurNode: true,
-                isReconnectionPaused: false
+                isReconnectionPaused: false,
               },
-              env: undefined
-            }
-          }
+              env: undefined,
+            },
+          },
         },
         { type: "CONNECT_AUGUR" },
         { type: "CONNECT_AUGUR" },
         { type: "CONNECT_AUGUR" },
-        { type: "CONNECT_AUGUR" }
-      ])
+        { type: "CONNECT_AUGUR" },
+      ]),
   };
 
   describe.each([t1])("Re-init Augur", t => {

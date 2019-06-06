@@ -6,6 +6,6 @@ export const updateOrderBook = ({ marketId, orderBook }: Orderbook) => ({
   type: UPDATE_ORDER_BOOK,
   data: {
     marketId,
-    orderBook
-  }
+    orderBook,
+  },
 });

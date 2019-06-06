@@ -24,17 +24,17 @@ export const generateTrade = memoize(
       (outcomeTradeInProgress && outcomeTradeInProgress.limitPrice) || null;
     const totalFee = createBigNumber(
       (outcomeTradeInProgress && outcomeTradeInProgress.totalFee) || "0",
-      10,
+      10
     );
     const feePercent =
       (outcomeTradeInProgress && outcomeTradeInProgress.feePercent) || "0";
     const totalCost = createBigNumber(
       (outcomeTradeInProgress && outcomeTradeInProgress.totalCost) || "0",
-      10,
+      10
     );
     const shareCost = createBigNumber(
       (outcomeTradeInProgress && outcomeTradeInProgress.shareCost) || "0",
-      10,
+      10
     );
     const marketType = (market && market.marketType) || null;
     const minPrice = createBigNumber(market.minPrice);
@@ -50,7 +50,7 @@ export const generateTrade = memoize(
           shareCost,
           sharesFilledAvgPrice,
           settlementFee,
-          outcomeTradeInProgress.reversal,
+          outcomeTradeInProgress.reversal
         )
       : null;
 
@@ -65,7 +65,7 @@ export const generateTrade = memoize(
       minPrice,
       maxPrice,
       marketType,
-      settlementFee,
+      settlementFee
     );
 
     const totalOrderValue = calculateTotalOrderValue(
@@ -74,7 +74,7 @@ export const generateTrade = memoize(
       side,
       minPrice,
       maxPrice,
-      marketType,
+      marketType
     );
 
     return {
@@ -117,7 +117,7 @@ export const generateTrade = memoize(
       }), // These are actually shares, but they can be formatted like ETH
     };
   },
-  { max: 5 },
+  { max: 5 }
 );
 
 const formatEtherValue = (value, options = {}) =>
@@ -125,6 +125,6 @@ const formatEtherValue = (value, options = {}) =>
     value,
     Object.assign(
       { decimalsRounded: constants.UPPER_FIXED_PRECISION_BOUND },
-      options,
-    ),
+      options
+    )
   );

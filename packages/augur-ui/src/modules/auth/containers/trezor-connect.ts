@@ -8,7 +8,7 @@ const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
   loginWithTrezor: (address, connect, addressPath) =>
     dispatch(loginWithTrezor(address, connect, addressPath)),
-  logout: () => dispatch(logout())
+  logout: () => dispatch(logout()),
 });
 
 export default connect(

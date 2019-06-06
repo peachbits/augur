@@ -12,13 +12,13 @@ const mapDispatchToProps = () => ({});
 
 const mergeProps = (sP: AppState) => {
   const { expectedNetwork } = sP.modal;
-  const description: Array<string> | undefined = [];
+  const description: string[] | undefined = [];
   if (isMetaMask()) {
     description.push(`MetaMask is connected to the wrong Ethereum network.`);
     description.push(`Please set the MetaMask network to: ${expectedNetwork}.`);
   } else {
     description.push(
-      `Your Ethereum node and Augur node are connected to different networks.`,
+      `Your Ethereum node and Augur node are connected to different networks.`
     );
     description.push(`Please connect to a ${expectedNetwork} Ethereum node.`);
   }
@@ -34,6 +34,6 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-  )(Message),
+    mergeProps
+  )(Message)
 );

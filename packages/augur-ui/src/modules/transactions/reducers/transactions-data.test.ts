@@ -81,6 +81,6 @@ describe(`modules/transactions/reducers/transactions-data.js`, () => {
         state.transactionsData = transactionsData;
         expect(reducer(state.transactionsData, action)).toEqual(actual);
       });
-    },
+    }
   );
 });

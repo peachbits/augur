@@ -4,7 +4,7 @@ export const UPDATE_INITIAL_REPORTER_REP_BALANCE =
 
 export const updateInitialReportersData = initialReportersDataUpdated => ({
   type: UPDATE_INITIAL_REPORTERS_DATA,
-  data: { initialReportersDataUpdated }
+  data: { initialReportersDataUpdated },
 });
 export const updateInitialReporterRepBalance = (
   initialReporterID,
@@ -13,6 +13,6 @@ export const updateInitialReporterRepBalance = (
   type: UPDATE_INITIAL_REPORTER_REP_BALANCE,
   data: {
     initialReporterID,
-    repBalance
-  }
+    repBalance,
+  },
 });

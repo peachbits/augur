@@ -38,7 +38,7 @@ async function queryUniverse(db: Knex, marketId: Address): Promise<Address> {
   return market.universe;
 }
 
-export async function getUserTradingPositions(db: Knex, augur: Augur, params: t.TypeOf<typeof UserTradingPositionsParams>): Promise<Array<TradingPosition>> {
+export async function getUserTradingPositions(db: Knex, augur: Augur, params: t.TypeOf<typeof UserTradingPositionsParams>): Promise<TradingPosition[]> {
   if (params.universe == null && params.marketId == null) throw new Error("Must provide reference to universe, specify universe or marketId");
   if (params.account == null) throw new Error("Missing required parameter: account");
 
@@ -59,7 +59,7 @@ export async function getUserTradingPositions(db: Knex, augur: Augur, params: t.
   if (_.isEmpty(profitsPerMarket)) return [];
 
   let positions = _.chain(profitsPerMarket)
-    .mapValues((profits: Array<ProfitLossResult>, key: string) => {
+    .mapValues((profits: ProfitLossResult[], key: string) => {
       const [marketId, outcome] = key.split(",");
       const lastProfit = _.last(profits)!;
       return Object.assign(
@@ -68,7 +68,7 @@ export async function getUserTradingPositions(db: Knex, augur: Augur, params: t.
           outcome: parseInt(outcome, 10),
           netPosition: lastProfit.position,
         },
-        lastProfit,
+        lastProfit
       );
     })
     .values()
@@ -80,7 +80,7 @@ export async function getUserTradingPositions(db: Knex, augur: Augur, params: t.
   // If there is only ONE missing outcome, then the user is short that outcome, in which case we want
   // to calculate its netPositions
   positions = _.chain(byMarket)
-    .mapValues((outcomes: Array<TradingPosition>, marketId: string) => {
+    .mapValues((outcomes: TradingPosition[], marketId: string) => {
       const numOutcomes = numOutcomesByMarket[marketId];
       const marketType = marketTypesByMarket[marketId];
 

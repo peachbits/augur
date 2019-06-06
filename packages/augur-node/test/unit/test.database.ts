@@ -10,4 +10,4 @@ export async function setupTestDb() {
   return db.migrate.latest(env.migrations)
     .then(() => db.seed.run(env.seeds))
     .then(() => db);
-};
+}

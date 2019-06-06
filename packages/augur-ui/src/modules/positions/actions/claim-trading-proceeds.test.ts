@@ -21,11 +21,11 @@ describe(`modules/positions/actions/claim-trading-proceeds.js`, () => {
     const state = {
       universe: {
         id: "0xb1",
-        currentReportingWindowAddress: 7
+        currentReportingWindowAddress: 7,
       },
       loginAccount: {
-        address: "0xb0b"
-      }
+        address: "0xb0b",
+      },
     };
     const store = mockStore(state);
     store.dispatch(claimTradingProceeds(null));
@@ -40,11 +40,11 @@ describe(`modules/positions/actions/claim-trading-proceeds.js`, () => {
     const state = {
       universe: {
         id: "0xb1",
-        currentReportingWindowAddress: 7
+        currentReportingWindowAddress: 7,
       },
       loginAccount: {
-        address: null
-      }
+        address: null,
+      },
     };
     const store = mockStore(state);
     store.dispatch(claimTradingProceeds("0xmarketId"));
@@ -59,11 +59,11 @@ describe(`modules/positions/actions/claim-trading-proceeds.js`, () => {
     const state = {
       universe: {
         id: "0xb1",
-        currentReportingWindowAddress: 7
+        currentReportingWindowAddress: 7,
       },
       loginAccount: {
-        address: "0xb0b"
-      }
+        address: "0xb0b",
+      },
     };
 
     const marketId = "0x0000001";
@@ -78,11 +78,11 @@ describe(`modules/positions/actions/claim-trading-proceeds.js`, () => {
     const state = {
       universe: {
         id: "0xb1",
-        currentReportingWindowAddress: 7
+        currentReportingWindowAddress: 7,
       },
       loginAccount: {
-        address: "0xb0b"
-      }
+        address: "0xb0b",
+      },
     };
 
     augur.api.ClaimTradingProceeds.claimTradingProceeds = jest.fn(value => {

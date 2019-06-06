@@ -14,7 +14,7 @@ const inGwei = createBigNumber(gasPrice).dividedBy(
 const DEFAULT_STATE: GasPriceInfo = {
   average: formatGasCost(inGwei).value,
   fast: formatGasCost(inGwei).value,
-  safeLow: formatGasCost(inGwei).value
+  safeLow: formatGasCost(inGwei).value,
 };
 
 export default function(gasPriceInfo: GasPriceInfo = DEFAULT_STATE, { type, data }: BaseAction): GasPriceInfo {
@@ -22,7 +22,7 @@ export default function(gasPriceInfo: GasPriceInfo = DEFAULT_STATE, { type, data
     case UPDATE_GAS_INFO:
       return {
         ...gasPriceInfo,
-        ...data.gasPriceInfo
+        ...data.gasPriceInfo,
       };
     case RESET_STATE:
       return DEFAULT_STATE;

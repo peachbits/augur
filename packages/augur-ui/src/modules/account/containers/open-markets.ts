@@ -15,7 +15,7 @@ const mapStateToProps = (state: AppState) => {
   const timestamps = getMarketsPositionsRecentlyTraded();
 
   const markets = getPositionsMarkets(timestamps, positions).sort(
-    (a: any, b: any) => b.recentlyTraded.timestamp - a.recentlyTraded.timestamp,
+    (a: any, b: any) => b.recentlyTraded.timestamp - a.recentlyTraded.timestamp
   );
 
   const marketsObj = markets.reduce((obj: any, market: any) => {
@@ -24,7 +24,7 @@ const mapStateToProps = (state: AppState) => {
   }, {});
 
   const marketsPick = markets.map((
-    market: any, // when these things change then component will re-render/re-sort
+    market: any // when these things change then component will re-render/re-sort
   ) => pick(market, ["id", "description", "reportingState", "recentlyTraded"]));
 
   return {
@@ -53,7 +53,7 @@ const getPositionsMarkets = memoize(
             },
           ];
     }, []),
-  { max: 1 },
+  { max: 1 }
 );
 
 export default OpenMarketsContainer;

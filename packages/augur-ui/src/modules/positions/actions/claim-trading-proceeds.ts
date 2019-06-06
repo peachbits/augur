@@ -47,12 +47,13 @@ const claimTradingProceeds = (
 };
 
 export const claimMultipleTradingProceeds = (
-  marketIds: Array<string>,
+  marketIds: string[],
   callback: NodeStyleCallback = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { loginAccount } = getState();
-  if (!loginAccount.address || !marketIds || !marketIds.length)
+  if (!loginAccount.address || !marketIds || !marketIds.length) {
     return callback(null);
+  }
 
   eachOfLimit(
     marketIds,
@@ -75,7 +76,7 @@ export const claimMultipleTradingProceeds = (
     (err) => {
       if (err !== null) console.error("ERROR: ", err);
       callback(err);
-    },
+    }
   );
 };
 

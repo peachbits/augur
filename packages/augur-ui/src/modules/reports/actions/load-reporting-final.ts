@@ -16,13 +16,13 @@ export const loadReportingFinal = (callback: NodeStyleCallback = logError) => (
     {
       reportingState: [
         constants.REPORTING_STATE.FINALIZED,
-        constants.REPORTING_STATE.AWAITING_FINALIZATION
+        constants.REPORTING_STATE.AWAITING_FINALIZATION,
       ],
       sortBy: "endTime",
       isSortDescending: true,
-      universe: universe.id
+      universe: universe.id,
     },
-    (err: any, resolvedMarketIds: Array<string>) => {
+    (err: any, resolvedMarketIds: string[]) => {
       if (err) return callback(err);
 
       if (!resolvedMarketIds || resolvedMarketIds.length === 0) {

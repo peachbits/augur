@@ -53,7 +53,7 @@ export const loadAccountDataFromLocalStorage = (address: string) => (
         alerts,
         pendingLiquidityOrders,
         pendingOrders,
-        gasPriceInfo
+        gasPriceInfo,
       } = storedAccountData;
       if (alerts) {
         alerts.map(n => dispatch(addAlert(n)));
@@ -82,7 +82,7 @@ export const loadAccountDataFromLocalStorage = (address: string) => (
         dispatch(
           updateGasPriceInfo({
             userDefinedGasPrice:
-              gasPriceInfo.userDefinedGasPrice
+              gasPriceInfo.userDefinedGasPrice,
           })
         );
         dispatch(registerUserDefinedGasPriceFunction());

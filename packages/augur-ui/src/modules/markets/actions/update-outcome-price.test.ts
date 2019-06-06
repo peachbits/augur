@@ -10,8 +10,8 @@ describe(`modules/markets/actions/update-outcome-price.js`, () => {
       data: {
         marketId,
         outcomeId,
-        price
-      }
+        price,
+      },
     };
     expect(action.updateOutcomePrice(marketId, outcomeId, price)).toEqual(
       expected

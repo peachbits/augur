@@ -19,7 +19,7 @@ export const loadDisputing = (callback: NodeStyleCallback = logError) => (
   const args = {
     sortBy: "endTime",
     isSortDescending: false,
-    universe: universe.id
+    universe: universe.id,
   };
   async.parallel(
     [
@@ -29,9 +29,9 @@ export const loadDisputing = (callback: NodeStyleCallback = logError) => (
           {
             reportingState: [
               constants.REPORTING_STATE.CROWDSOURCING_DISPUTE,
-              constants.REPORTING_STATE.AWAITING_FORK_MIGRATION
+              constants.REPORTING_STATE.AWAITING_FORK_MIGRATION,
             ],
-            ...args
+            ...args,
           },
           (err: any, result: any) => {
             if (err) return next(err);
@@ -45,14 +45,14 @@ export const loadDisputing = (callback: NodeStyleCallback = logError) => (
           "getMarkets",
           {
             reportingState: constants.REPORTING_STATE.AWAITING_NEXT_WINDOW,
-            ...args
+            ...args,
           },
           (err: any, result: any) => {
             if (err) return next(err);
             dispatch(updateAwaitingDisputeMarkets(result));
             next(null);
           }
-        )
+        ),
     ],
     err => {
       if (err) callback(err);

@@ -10,21 +10,21 @@ describe("modules/markets/actions/estimate-submit-new-market.js", () => {
   const newBinaryMarket = { properties: "value", type: YES_NO };
   const state = {
     universe: {
-      id: "1010101"
+      id: "1010101",
     },
     contractAddresses: {
-      Cash: "domnination"
+      Cash: "domnination",
     },
     loginAccount: {
       meta: {
-        test: "object"
+        test: "object",
       },
-      address: "0x1233"
-    }
+      address: "0x1233",
+    },
   };
 
   const {
-    estimateSubmitNewMarket
+    estimateSubmitNewMarket,
   } = require("modules/markets/actions/estimate-submit-new-market");
 
   describe(`get gas cost estimation`, () => {
@@ -32,11 +32,11 @@ describe("modules/markets/actions/estimate-submit-new-market.js", () => {
       buildCreateMarket.mockImplementationOnce(() => ({
         createMarket: jest.fn(value => {
           value.onSent({
-            callReturn: "marketId"
+            callReturn: "marketId",
           });
           value.onSuccess("GAS COST");
         }),
-        formattedNewMarket: {}
+        formattedNewMarket: {},
       }));
     });
 

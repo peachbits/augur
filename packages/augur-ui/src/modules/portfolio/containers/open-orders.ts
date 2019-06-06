@@ -11,7 +11,7 @@ const mapDispatchToProps = dispatch => ({
   claimTradingProceeds: marketId =>
     dispatch(
       updateModal({ type: constants.MODAL_CLAIM_TRADING_PROCEEDS, marketId })
-    )
+    ),
 });
 
 const OpenOrdersContainer = connect(

@@ -154,9 +154,10 @@ export class ContractCompiler {
             inputJson.settings.outputSelection["*"]["*"].push("evm.deployedBytecode.sourceMap");
             inputJson.settings.outputSelection["*"]["*"].push("evm.methodIdentifiers");
         }
-        for (var file in files) {
+
+        for (const file in files) {
             const filePath = filePaths[file].replace(this.configuration.contractSourceRoot, "").replace(/\\/g, "/").replace(/^\//, "");;
-            inputJson.sources[filePath] = { content : files[file] };
+            inputJson.sources[filePath] = { content : files[file] as string };
         }
 
         return inputJson;

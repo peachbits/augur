@@ -21,16 +21,16 @@ const mapStateToProps = (state: AppState) => ({
         // @ts-ignore
         TRANSFER_ETH_GAS_COST,
         { decimalsRounded: 4 },
-        getGasPrice(state),
-      ),
+        getGasPrice(state)
+      )
     ),
     rep: formatEtherEstimate(
       formatGasCostToEther(
         // @ts-ignore
         TRANSFER_REP_GAS_COST,
         { decimalsRounded: 4 },
-        getGasPrice(state),
-      ),
+        getGasPrice(state)
+      )
     ),
   },
 });
@@ -55,6 +55,6 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-  )(WithdrawForm),
+    mergeProps
+  )(WithdrawForm)
 );

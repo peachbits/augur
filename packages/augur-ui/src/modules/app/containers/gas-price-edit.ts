@@ -21,12 +21,12 @@ const mapStateToProps = (state: AppState) => {
   return {
     modal: state.modal,
     userDefinedGasPrice: userDefined,
-    gasPriceSpeed
+    gasPriceSpeed,
   };
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
-  updateModal: (modal: any) => dispatch(updateModal(modal))
+  updateModal: (modal: any) => dispatch(updateModal(modal)),
 });
 
 export default withRouter(

@@ -7,34 +7,34 @@ export const UPDATE_IS_ALERT_VISIBLE = "UPDATE_IS_ALERT_VISIBLE";
 export function updateCurrentBasePath(data: string) {
   return {
     type: UPDATE_CURRENT_BASE_PATH,
-    data
+    data,
   };
 }
 
 export function updateCurrentInnerNavType(data: any) {
   return {
     type: UPDATE_CURRENT_INNER_NAV_TYPE,
-    data
+    data,
   };
 }
 
 export function updateMobileMenuState(data: number) {
   return {
     type: UPDATE_MOBILE_MENU_STATE,
-    data
+    data,
   };
 }
 
 export function updateIsAlertVisible(data: boolean) {
   return {
     type: UPDATE_IS_ALERT_VISIBLE,
-    data
+    data,
   };
 }
 
 export function updateSidebarStatus(data: any) {
   return {
     type: UPDATE_SIDEBAR_STATUS,
-    data
+    data,
   };
 }

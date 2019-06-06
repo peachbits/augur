@@ -13,14 +13,14 @@ import { Action } from "redux";
 const mapStateToProps = (state: AppState) => {
   const { alerts } = selectInfoAlertsAndSeenCount(state);
   return {
-    alerts
+    alerts,
   };
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
   updateAlert: (id: string, alert: any) => dispatch(updateAlert(id, alert)),
   removeAlert: (id: string) => dispatch(removeAlert(id)),
-  clearAlerts: () => dispatch(clearAlerts())
+  clearAlerts: () => dispatch(clearAlerts()),
 });
 
 const AlertsContainer = connect(

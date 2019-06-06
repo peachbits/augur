@@ -15,10 +15,10 @@ describe("modules/app/actions/update-app-status.js", () => {
         type: UPDATE_APP_STATUS,
         data: {
           statusKey: IS_MOBILE,
-          value: true
-        }
+          value: true,
+        },
       });
-    }
+    },
   };
 
   const t3 = {
@@ -30,10 +30,10 @@ describe("modules/app/actions/update-app-status.js", () => {
         type: UPDATE_APP_STATUS,
         data: {
           statusKey: IS_MOBILE_SMALL,
-          value: true
-        }
+          value: true,
+        },
       });
-    }
+    },
   };
 
   describe.each([t2, t3])("Update app status tests", t => {

@@ -26,7 +26,7 @@ describe(`modules/orders/reducers/order-books.js`, () => {
                 outcome: "2",
                 owner: "0x7c0d52faab596c08f484e3478aebc6205f3f5d8c",
                 price: "0.35",
-                type: "buy"
+                type: "buy",
               },
               "0x8ef900c8aad3c4f7b65a055643d54db7b9a506a542b1270047a314da931e37fb": {
                 amount: "50",
@@ -37,12 +37,12 @@ describe(`modules/orders/reducers/order-books.js`, () => {
                 outcome: "1",
                 owner: "0x457435fbcd49475847f69898f933ffefc33388fc",
                 price: "0.25",
-                type: "buy"
-              }
-            }
-          }
-        }
-      }
+                type: "buy",
+              },
+            },
+          },
+        },
+      },
     };
     const expectedOutput = {
       ...thisTestState.orderBooks,
@@ -58,7 +58,7 @@ describe(`modules/orders/reducers/order-books.js`, () => {
               outcome: "2",
               owner: "0x7c0d52faab596c08f484e3478aebc6205f3f5d8c",
               price: "0.35",
-              type: "buy"
+              type: "buy",
             },
             "0x8ef900c8aad3c4f7b65a055643d54db7b9a506a542b1270047a314da931e37fb": {
               amount: "50",
@@ -69,11 +69,11 @@ describe(`modules/orders/reducers/order-books.js`, () => {
               outcome: "1",
               owner: "0x457435fbcd49475847f69898f933ffefc33388fc",
               price: "0.25",
-              type: "buy"
-            }
-          }
-        }
-      }
+              type: "buy",
+            },
+          },
+        },
+      },
     };
 
     expect(reducer(thisTestState.orderBooks, action)).toEqual(expectedOutput);

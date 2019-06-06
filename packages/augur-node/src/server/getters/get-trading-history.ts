@@ -22,8 +22,8 @@ export const TradingHistoryParams = t.intersection([
 ]);
 
 // Look up a user or market trading history. Must provide universe OR market. Outcome and orderType are optional parameters.
-export async function getTradingHistory(db: Knex, augur: Augur, params: t.TypeOf<typeof TradingHistoryParams>): Promise<Array<UITrade>> {
-  const userTradingHistory: Array<TradingHistoryRow> = await queryTradingHistoryParams(db, params);
+export async function getTradingHistory(db: Knex, augur: Augur, params: t.TypeOf<typeof TradingHistoryParams>): Promise<UITrade[]> {
+  const userTradingHistory: TradingHistoryRow[] = await queryTradingHistoryParams(db, params);
   return userTradingHistory.map((trade: TradingHistoryRow): UITrade => {
     return Object.assign(_.pick(trade, [
       "transactionHash",

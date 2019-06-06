@@ -100,14 +100,14 @@ test("State API :: Markets :: getMarkets", async () => {
 
   await db.sync(john.augur, mock.constants.chunkSize, 0);
 
-  let markets: Array<MarketInfo>;
+  let markets: MarketInfo[];
 
   // Test non-existent universe address
   const nonexistentAddress = "0x1111111111111111111111111111111111111111";
   let errorMessage = "";
   try {
-    let markets: Array<MarketInfo> = await api.route("getMarkets", {
-      universe: nonexistentAddress
+    const markets: MarketInfo[] = await api.route("getMarkets", {
+      universe: nonexistentAddress,
     });
   } catch (error) {
     errorMessage = error.message;
@@ -117,7 +117,7 @@ test("State API :: Markets :: getMarkets", async () => {
   // Test creator
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    creator: ACCOUNTS[0].publicKey
+    creator: ACCOUNTS[0].publicKey,
   });
   expect(markets).toEqual(
     [
@@ -126,20 +126,20 @@ test("State API :: Markets :: getMarkets", async () => {
       categoricalMarket1.address,
       categoricalMarket2.address,
       scalarMarket1.address,
-      scalarMarket2.address
+      scalarMarket2.address,
     ]
   );
 
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    creator: nonexistentAddress
+    creator: nonexistentAddress,
   });
   expect(markets).toEqual([]);
 
   // Test designatedReporter
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    designatedReporter: ACCOUNTS[0].publicKey
+    designatedReporter: ACCOUNTS[0].publicKey,
   });
   expect(markets).toEqual(
     [
@@ -148,38 +148,38 @@ test("State API :: Markets :: getMarkets", async () => {
       categoricalMarket1.address,
       categoricalMarket2.address,
       scalarMarket1.address,
-      scalarMarket2.address
+      scalarMarket2.address,
     ]
   );
 
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    designatedReporter: nonexistentAddress
+    designatedReporter: nonexistentAddress,
   });
   expect(markets).toEqual([]);
 
   // Test maxFee
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    maxFee: "0.05"
+    maxFee: "0.05",
   });
   expect(markets).toEqual([]);
 
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    maxFee: "0.06"
+    maxFee: "0.06",
   });
   expect(markets).toEqual(
     [
       yesNoMarket1.address,
       yesNoMarket2.address,
-      categoricalMarket1.address
+      categoricalMarket1.address,
     ]
   );
 
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    maxFee: "0.11"
+    maxFee: "0.11",
   });
   expect(markets).toEqual(
     [
@@ -188,7 +188,7 @@ test("State API :: Markets :: getMarkets", async () => {
       categoricalMarket1.address,
       categoricalMarket2.address,
       scalarMarket1.address,
-      scalarMarket2.address
+      scalarMarket2.address,
     ]
   );
 
@@ -218,7 +218,7 @@ test("State API :: Markets :: getMarkets", async () => {
       categoricalMarket1.address,
       categoricalMarket2.address,
       scalarMarket1.address,
-      scalarMarket2.address
+      scalarMarket2.address,
     ]
   );
 
@@ -230,7 +230,7 @@ test("State API :: Markets :: getMarkets", async () => {
     [
       yesNoMarket1.address,
       categoricalMarket1.address,
-      scalarMarket1.address
+      scalarMarket1.address,
     ]
   );
 
@@ -253,7 +253,7 @@ test("State API :: Markets :: getMarkets", async () => {
     [
       yesNoMarket1.address,
       categoricalMarket1.address,
-      scalarMarket1.address
+      scalarMarket1.address,
     ]
   );
 
@@ -278,7 +278,7 @@ test("State API :: Markets :: getMarkets", async () => {
   // Test disputeWindow
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    disputeWindow: NULL_ADDRESS
+    disputeWindow: NULL_ADDRESS,
   });
   expect(markets).toEqual(
     [
@@ -287,14 +287,14 @@ test("State API :: Markets :: getMarkets", async () => {
       categoricalMarket1.address,
       categoricalMarket2.address,
       scalarMarket1.address,
-      scalarMarket2.address
+      scalarMarket2.address,
     ]
   );
 
   // Test reportingState
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    reportingState: MarketInfoReportingState.DESIGNATED_REPORTING
+    reportingState: MarketInfoReportingState.DESIGNATED_REPORTING,
   });
   expect(markets).toEqual(
     [
@@ -303,13 +303,13 @@ test("State API :: Markets :: getMarkets", async () => {
       categoricalMarket1.address,
       categoricalMarket2.address,
       scalarMarket1.address,
-      scalarMarket2.address
+      scalarMarket2.address,
     ]
   );
 
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    reportingState: MarketInfoReportingState.PRE_REPORTING
+    reportingState: MarketInfoReportingState.PRE_REPORTING,
   });
   expect(markets).toEqual([]);
 
@@ -321,16 +321,16 @@ test("State API :: Markets :: getMarkets", async () => {
   await db.sync(john.augur, mock.constants.chunkSize, 0);
 
   // Retest disputeWindow & reportingState
-  let disputeWindow = await yesNoMarket1.getDisputeWindow_();
+  const disputeWindow = await yesNoMarket1.getDisputeWindow_();
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    disputeWindow
+    disputeWindow,
   });
   expect(markets).toEqual([yesNoMarket1.address]);
 
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    reportingState: MarketInfoReportingState.DESIGNATED_REPORTING
+    reportingState: MarketInfoReportingState.DESIGNATED_REPORTING,
   });
   expect(markets).toEqual(
     [
@@ -338,13 +338,13 @@ test("State API :: Markets :: getMarkets", async () => {
       categoricalMarket1.address,
       categoricalMarket2.address,
       scalarMarket1.address,
-      scalarMarket2.address
+      scalarMarket2.address,
     ]
   );
 
   markets = await api.route("getMarkets", {
     universe: universe.address,
-    reportingState: MarketInfoReportingState.CROWDSOURCING_DISPUTE
+    reportingState: MarketInfoReportingState.CROWDSOURCING_DISPUTE,
   });
   expect(markets).toEqual([yesNoMarket1.address]);
 
@@ -352,8 +352,8 @@ test("State API :: Markets :: getMarkets", async () => {
     universe: universe.address,
     reportingState: [
       MarketInfoReportingState.CROWDSOURCING_DISPUTE,
-      MarketInfoReportingState.DESIGNATED_REPORTING
-    ]
+      MarketInfoReportingState.DESIGNATED_REPORTING,
+    ],
   });
   expect(markets).toEqual(
     [
@@ -362,7 +362,7 @@ test("State API :: Markets :: getMarkets", async () => {
       categoricalMarket1.address,
       categoricalMarket2.address,
       scalarMarket1.address,
-      scalarMarket2.address
+      scalarMarket2.address,
     ]);
 }, 120000);
 
@@ -406,13 +406,13 @@ test("State API :: Markets :: getMarketPriceHistory", async () => {
 
   await db.sync(john.augur, mock.constants.chunkSize, 0);
 
-  let yesNoMarketPriceHistory = await api.route("getMarketPriceHistory", {
-    marketId: yesNoMarket.address
+  const yesNoMarketPriceHistory = await api.route("getMarketPriceHistory", {
+    marketId: yesNoMarket.address,
   });
   expect(yesNoMarketPriceHistory).toMatchObject(
     {
       "0": [{"amount": "8000000000000", "price": "22"}, {"amount": "4000000000000", "price": "22"}],
-      "1": [{"amount": "7000000000000", "price": "22"}, {"amount": "2000000000000", "price": "22"}]
+      "1": [{"amount": "7000000000000", "price": "22"}, {"amount": "2000000000000", "price": "22"}],
     }
   );
   for (let outcome = 0; outcome < yesNoMarketPriceHistory.length; outcome++) {
@@ -424,13 +424,13 @@ test("State API :: Markets :: getMarketPriceHistory", async () => {
     }
   }
 
-  let categoricalMarketPriceHistory = await api.route("getMarketPriceHistory", {
-    marketId: categoricalMarket.address
+  const categoricalMarketPriceHistory = await api.route("getMarketPriceHistory", {
+    marketId: categoricalMarket.address,
   });
   expect(categoricalMarketPriceHistory).toMatchObject(
     {
       "0": [{"amount": "8000000000000", "price": "22"}, {"amount": "4000000000000", "price": "22"}],
-      "1": [{"amount": "6000000000000", "price": "22"}, {"amount": "4000000000000", "price": "22"}]
+      "1": [{"amount": "6000000000000", "price": "22"}, {"amount": "4000000000000", "price": "22"}],
     }
   );
   for (let outcome = 0; outcome < categoricalMarketPriceHistory.length; outcome++) {
@@ -522,7 +522,7 @@ test("State API :: Markets :: getMarketPriceCandlesticks", async () => {
   await db.sync(john.augur, mock.constants.chunkSize, 0);
 
   let yesNoMarketPriceCandlesticks = await api.route("getMarketPriceCandlesticks", {
-    marketId: yesNoMarket.address
+    marketId: yesNoMarket.address,
   });
   expect(yesNoMarketPriceCandlesticks).toMatchObject(
     { '0':
@@ -582,10 +582,10 @@ test("State API :: Markets :: getMarketPriceCandlesticks", async () => {
           min: '20',
           max: '20',
           volume: '140000000000000',
-          shareVolume: '7000000000000' } ]
+          shareVolume: '7000000000000' } ],
     }
   );
-  for (let outcome in yesNoMarketPriceCandlesticks) {
+  for (const outcome in yesNoMarketPriceCandlesticks) {
     for (let candlestickIndex = 0; candlestickIndex < yesNoMarketPriceCandlesticks[outcome]; candlestickIndex++) {
       expect(yesNoMarketPriceCandlesticks[outcome][candlestickIndex]["startTimestamp"]).toBeInstanceOf(Number);
     }
@@ -620,10 +620,10 @@ test("State API :: Markets :: getMarketPriceCandlesticks", async () => {
           min: '20',
           max: '20',
           volume: '140000000000000',
-          shareVolume: '7000000000000' } ]
+          shareVolume: '7000000000000' } ],
     }
   );
-  for (let outcome in yesNoMarketPriceCandlesticks) {
+  for (const outcome in yesNoMarketPriceCandlesticks) {
     for (let candlestickIndex = 0; candlestickIndex < yesNoMarketPriceCandlesticks[outcome]; candlestickIndex++) {
       expect(yesNoMarketPriceCandlesticks[outcome][candlestickIndex]["startTimestamp"]).toBeInstanceOf(Number);
     }
@@ -670,12 +670,12 @@ test("State API :: Markets :: getMarketsInfo", async () => {
 
   await db.sync(john.augur, mock.constants.chunkSize, 0);
 
-  let markets: Array<MarketInfo> = await api.route("getMarketsInfo", {
+  let markets: MarketInfo[] = await api.route("getMarketsInfo", {
     marketIds: [
       yesNoMarket.address,
       categoricalMarket.address,
-      scalarMarket.address
-    ]
+      scalarMarket.address,
+    ],
   });
 
   expect(markets[0].reportingState).toBe(MarketInfoReportingState.PRE_REPORTING);
@@ -692,8 +692,8 @@ test("State API :: Markets :: getMarketsInfo", async () => {
     marketIds: [
       yesNoMarket.address,
       categoricalMarket.address,
-      scalarMarket.address
-    ]
+      scalarMarket.address,
+    ],
   });
 
   expect(markets[0].reportingState).toBe(MarketInfoReportingState.DESIGNATED_REPORTING);
@@ -710,8 +710,8 @@ test("State API :: Markets :: getMarketsInfo", async () => {
     marketIds: [
       yesNoMarket.address,
       categoricalMarket.address,
-      scalarMarket.address
-    ]
+      scalarMarket.address,
+    ],
   });
 
   expect(markets[0].reportingState).toBe(MarketInfoReportingState.OPEN_REPORTING);
@@ -723,7 +723,7 @@ test("State API :: Markets :: getMarketsInfo", async () => {
     new BigNumber(100),
     new BigNumber(0),
     new BigNumber(0),
-    new BigNumber(0)
+    new BigNumber(0),
   ];
   await john.doInitialReport(categoricalMarket, categoricalMarketPayoutSet);
 
@@ -737,8 +737,8 @@ test("State API :: Markets :: getMarketsInfo", async () => {
     marketIds: [
       yesNoMarket.address,
       categoricalMarket.address,
-      scalarMarket.address
-    ]
+      scalarMarket.address,
+    ],
   });
 
   expect(markets[0].reportingState).toBe(MarketInfoReportingState.CROWDSOURCING_DISPUTE);
@@ -749,11 +749,11 @@ test("State API :: Markets :: getMarketsInfo", async () => {
   for (let disputeRound = 1; disputeRound <= 11; disputeRound++) {
     if (disputeRound % 2 !== 0) {
       await mary.contribute(yesNoMarket, yesPayoutSet, new BigNumber(25000));
-      let remainingToFill = await john.getRemainingToFill(yesNoMarket, yesPayoutSet);
+      const remainingToFill = await john.getRemainingToFill(yesNoMarket, yesPayoutSet);
       await mary.contribute(yesNoMarket, yesPayoutSet, remainingToFill);
     } else {
       await john.contribute(yesNoMarket, noPayoutSet, new BigNumber(25000));
-      let remainingToFill = await john.getRemainingToFill(yesNoMarket, noPayoutSet);
+      const remainingToFill = await john.getRemainingToFill(yesNoMarket, noPayoutSet);
       await john.contribute(yesNoMarket, noPayoutSet, remainingToFill);
     }
   }
@@ -764,8 +764,8 @@ test("State API :: Markets :: getMarketsInfo", async () => {
     marketIds: [
       yesNoMarket.address,
       categoricalMarket.address,
-      scalarMarket.address
-    ]
+      scalarMarket.address,
+    ],
   });
 
   expect(markets[0].reportingState).toBe(MarketInfoReportingState.AWAITING_NEXT_WINDOW);
@@ -781,8 +781,8 @@ test("State API :: Markets :: getMarketsInfo", async () => {
     marketIds: [
       yesNoMarket.address,
       categoricalMarket.address,
-      scalarMarket.address
-    ]
+      scalarMarket.address,
+    ],
   });
 
   expect(markets[0].reportingState).toBe(MarketInfoReportingState.CROWDSOURCING_DISPUTE);
@@ -793,11 +793,11 @@ test("State API :: Markets :: getMarketsInfo", async () => {
   for (let disputeRound = 12; disputeRound <= 19; disputeRound++) {
     if (disputeRound % 2 !== 0) {
       await mary.contribute(yesNoMarket, yesPayoutSet, new BigNumber(25000));
-      let remainingToFill = await john.getRemainingToFill(yesNoMarket, yesPayoutSet);
+      const remainingToFill = await john.getRemainingToFill(yesNoMarket, yesPayoutSet);
       await mary.contribute(yesNoMarket, yesPayoutSet, remainingToFill);
     } else {
       await john.contribute(yesNoMarket, noPayoutSet, new BigNumber(25000));
-      let remainingToFill = await john.getRemainingToFill(yesNoMarket, noPayoutSet);
+      const remainingToFill = await john.getRemainingToFill(yesNoMarket, noPayoutSet);
       await john.contribute(yesNoMarket, noPayoutSet, remainingToFill);
     }
     newTime = newTime.plus(SECONDS_IN_A_DAY * 7);
@@ -808,7 +808,7 @@ test("State API :: Markets :: getMarketsInfo", async () => {
 
   // Fork market
   await john.contribute(yesNoMarket, noPayoutSet, new BigNumber(25000));
-  let remainingToFill = await john.getRemainingToFill(yesNoMarket, noPayoutSet);
+  const remainingToFill = await john.getRemainingToFill(yesNoMarket, noPayoutSet);
   await john.contribute(yesNoMarket, noPayoutSet, remainingToFill);
 
   await db.sync(john.augur, mock.constants.chunkSize, 0);
@@ -817,8 +817,8 @@ test("State API :: Markets :: getMarketsInfo", async () => {
     marketIds: [
       yesNoMarket.address,
       categoricalMarket.address,
-      scalarMarket.address
-    ]
+      scalarMarket.address,
+    ],
   });
 
   expect(markets).toMatchObject(
@@ -978,7 +978,7 @@ test("State API :: Markets :: getTopics", async () => {
       'categorical topic 2\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000',
       'scalar topic 1\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000',
       'scalar topic 2\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000',
-      ' \u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000'
-    ],
+      ' \u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000',
+    ]
   );
 }, 120000);

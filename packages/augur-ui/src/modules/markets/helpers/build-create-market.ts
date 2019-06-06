@@ -32,14 +32,14 @@ export const buildCreateMarket = (
     _extraInfo: {
       longDescription: newMarket.detailsText,
       resolutionSource: newMarket.expirySource,
-      tags
-    }
+      tags,
+    },
   };
 
   if (isEstimate) {
     formattedNewMarket.tx = {
       estimateGas: true,
-      gas: augur.constants.DEFAULT_MAX_GAS
+      gas: augur.constants.DEFAULT_MAX_GAS,
     };
   }
   let createMarket;

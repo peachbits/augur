@@ -7,7 +7,7 @@ export const updateDisputeCrowdsourcersData = (
   disputeCrowdsourcersDataUpdated: any
 ) => ({
   type: UPDATE_DISPUTE_CROWDSOURCERS_DATA,
-  data: { disputeCrowdsourcersDataUpdated }
+  data: { disputeCrowdsourcersDataUpdated },
 });
 
 export const updateDisputeCrowdsourcersBalance = (
@@ -17,6 +17,6 @@ export const updateDisputeCrowdsourcersBalance = (
   type: UPDATE_DISPUTE_CROWDSOURCERS_BALANCE,
   data: {
     disputeCrowdsourcerID,
-    balance
-  }
+    balance,
+  },
 });

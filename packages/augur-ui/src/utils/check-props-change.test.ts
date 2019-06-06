@@ -4,11 +4,11 @@ describe("checkPropsChange", () => {
   const obj1 = {
     attr1: "47",
     attr2: 2,
-    attr3: true
+    attr3: true,
   };
 
   const obj2 = Object.assign({}, obj1, {
-    attr1: "46"
+    attr1: "46",
   });
 
   describe("when nothing has changed", () => {

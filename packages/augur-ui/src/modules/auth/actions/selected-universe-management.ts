@@ -28,8 +28,8 @@ export const setSelectedUniverse = (selectedUniverseId: string | null = null) =>
           ...accountStorage,
           selectedUniverse: {
             ...accountStorage.selectedUniverse,
-            [augurNodeNetworkId]: selectedUniverseId || defaultUniverseId
-          }
+            [augurNodeNetworkId]: selectedUniverseId || defaultUniverseId,
+          },
         })
       );
     }

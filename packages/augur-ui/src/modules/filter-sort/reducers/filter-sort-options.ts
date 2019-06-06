@@ -20,7 +20,7 @@ const DEFAULT_STATE: FilterSortOptions = {
   [MARKET_SORT]: MARKET_OPEN_INTEREST,
   [MARKET_MAX_FEES]: MAX_FEE_05_PERCENT,
   [TRANSACTION_PERIOD]: DAY,
-  [HAS_OPEN_ORDERS]: false
+  [HAS_OPEN_ORDERS]: false,
 };
 
 const KEYS = Object.keys(DEFAULT_STATE);
@@ -32,11 +32,12 @@ export default function(
   switch (type) {
     case UPDATE_FILTER_SORT_OPTIONS: {
       const { optionKey, optionValue } = data;
-      if (KEYS.includes(optionKey))
+      if (KEYS.includes(optionKey)) {
         return {
           ...filterSortOptions,
-          [optionKey]: optionValue
+          [optionKey]: optionValue,
         };
+      }
       return filterSortOptions;
     }
     case RESET_STATE:

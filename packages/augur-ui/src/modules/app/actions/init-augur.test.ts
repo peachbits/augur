@@ -9,8 +9,8 @@ jest.mock("services/augurjs");
 
 jest.mock("modules/app/actions/update-env", () => ({
   updateEnv: () => ({
-    type: "UPDATE_ENV"
-  })
+    type: "UPDATE_ENV",
+  }),
 }));
 jest.mock("modules/app/actions/update-connection");
 jest.mock("modules/contracts/actions/update-contract-addresses");
@@ -27,14 +27,14 @@ jest.mock("config/network.json", () => ({
       ws: "ws://127.0.0.1:8546",
       pollingIntervalMilliseconds: 500,
       blockRetention: 100,
-      connectionTimeout: 60000
+      connectionTimeout: 60000,
     },
     universe: null,
     debug: {
       connect: true,
-      broadcast: false
-    }
-  }
+      broadcast: false,
+    },
+  },
 }));
 
 jest.mock("services/augurjs", () => ({
@@ -44,32 +44,32 @@ jest.mock("services/augurjs", () => ({
       constants: {
         ACCOUNT_TYPES: {
           UNLOCKED_ETHEREUM_NODE: "unlockedEthereumNode",
-          METAMASK: "metaMask"
-        }
-      }
+          METAMASK: "metaMask",
+        },
+      },
     },
     contracts: { addresses: { 4: { Universe: "0xb0b" } } },
-    connect: jest.fn(() => {})
+    connect: jest.fn(() => {}),
   },
-  connect: jest.fn(() => {})
+  connect: jest.fn(() => {}),
 }));
 
 describe("modules/app/actions/init-augur.js", () => {
   const ethereumNodeConnectionInfo = {
     http: "http://some.eth.node.com",
-    ws: "wss://some.eth.ws.node.com"
+    ws: "wss://some.eth.ws.node.com",
   };
   const middleware = [thunk];
   const mockStore = configureMockStore(middleware);
   const augurNodeWS = "wss://some.web.socket.com";
   const mockEnv = {
     "augur-node": augurNodeWS,
-    "ethereum-node": ethereumNodeConnectionInfo
+    "ethereum-node": ethereumNodeConnectionInfo,
   };
   const realSetInterval = global.setInterval;
   const store = mockStore({
     ...realStore.getState(),
-    env: mockEnv
+    env: mockEnv,
   });
 
   beforeAll(() => {
@@ -102,10 +102,10 @@ describe("modules/app/actions/init-augur.js", () => {
           contracts: {},
           abi: {
             functions: {},
-            events: {}
-          }
+            events: {},
+          },
         },
-        augurNode: augurNodeWS
+        augurNode: augurNodeWS,
       });
     };
 
@@ -119,7 +119,7 @@ describe("modules/app/actions/init-augur.js", () => {
             { type: "UPDATE_CONNECTION_STATUS" },
             { type: "UPDATE_AUGUR_NODE_CONNECTION_STATUS" },
             { type: "REGISTER_TRANSACTION_RELAY" },
-            { type: "CLOSE_MODAL" }
+            { type: "CLOSE_MODAL" },
           ]);
         })
       );
@@ -133,10 +133,10 @@ describe("modules/app/actions/init-augur.js", () => {
             contracts: {},
             abi: {
               functions: {},
-              events: {}
-            }
+              events: {},
+            },
           },
-          augurNode: augurNodeWS
+          augurNode: augurNodeWS,
         });
       };
       augur.api = jest.fn(() => {});
@@ -155,7 +155,7 @@ describe("modules/app/actions/init-augur.js", () => {
             { type: "UPDATE_AUGUR_NODE_CONNECTION_STATUS" },
             { type: "REGISTER_TRANSACTION_RELAY" },
             { type: "CLOSE_MODAL" },
-            { type: "LOGOUT" }
+            { type: "LOGOUT" },
           ]);
         })
       );
@@ -169,10 +169,10 @@ describe("modules/app/actions/init-augur.js", () => {
             contracts: {},
             abi: {
               functions: {},
-              events: {}
-            }
+              events: {},
+            },
           },
-          augurNode: augurNodeWS
+          augurNode: augurNodeWS,
         });
       };
       augur.api = jest.fn(() => {});
@@ -180,8 +180,8 @@ describe("modules/app/actions/init-augur.js", () => {
       augur.Contracts = {
         addresses: {
           4: { Universe: "0xb0b" },
-          3: { Universe: "0xc41231e2" }
-        }
+          3: { Universe: "0xc41231e2" },
+        },
       };
 
       augur.rpc.eth = { accounts: cb => cb(null, []) };
@@ -197,7 +197,7 @@ describe("modules/app/actions/init-augur.js", () => {
             { type: "UPDATE_AUGUR_NODE_CONNECTION_STATUS" },
             { type: "REGISTER_TRANSACTION_RELAY" },
             { type: "UPDATE_MODAL" },
-            { type: "LOGOUT" }
+            { type: "LOGOUT" },
           ]);
         })
       );
@@ -212,10 +212,10 @@ describe("modules/app/actions/init-augur.js", () => {
               contracts: {},
               abi: {
                 functions: {},
-                events: {}
-              }
+                events: {},
+              },
             },
-            augurNode: augurNodeWS
+            augurNode: augurNodeWS,
           });
         };
         augur.api = jest.fn(() => {});
@@ -233,7 +233,7 @@ describe("modules/app/actions/init-augur.js", () => {
               { type: "UPDATE_AUGUR_NODE_CONNECTION_STATUS" },
               { type: "REGISTER_TRANSACTION_RELAY" },
               { type: "CLOSE_MODAL" },
-              { type: "SET_LOGIN_ACCOUNT" }
+              { type: "SET_LOGIN_ACCOUNT" },
             ]);
           })
         );
@@ -247,10 +247,10 @@ describe("modules/app/actions/init-augur.js", () => {
               contracts: {},
               abi: {
                 functions: {},
-                events: {}
-              }
+                events: {},
+              },
             },
-            augurNode: augurNodeWS
+            augurNode: augurNodeWS,
           });
         };
         augur.api = jest.fn(() => {});
@@ -281,18 +281,18 @@ describe("modules/app/actions/init-augur.js", () => {
               contracts: {},
               abi: {
                 functions: {},
-                events: {}
-              }
+                events: {},
+              },
             },
-            augurNode: undefined
+            augurNode: undefined,
           });
         };
 
         augur.Contracts = {
           addresses: {
             4: { Universe: "0xb0b" },
-            3: { Universe: "0xc41231e2" }
-          }
+            3: { Universe: "0xc41231e2" },
+          },
         };
 
         augur.rpc.eth = { accounts: cb => cb(null, []) };
@@ -306,10 +306,10 @@ describe("modules/app/actions/init-augur.js", () => {
                 contracts: {},
                 abi: {
                   functions: {},
-                  events: {}
-                }
+                  events: {},
+                },
               },
-              augurNode: undefined
+              augurNode: undefined,
             });
             expect(store.getActions()).deepEqual([]);
           })
@@ -320,23 +320,23 @@ describe("modules/app/actions/init-augur.js", () => {
         augur.mockConnect = (env, cb) => {
           cb(null, {
             ethereumNode: undefined,
-            augurNode: augurNodeWS
+            augurNode: augurNodeWS,
           });
         };
 
         augur.Contracts = {
           addresses: {
             4: { Universe: "0xb0b" },
-            3: { Universe: "0xc41231e2" }
-          }
+            3: { Universe: "0xc41231e2" },
+          },
         };
         augur.api = jest.fn(() => {});
         augur.rpc = jest.fn(() => {});
         augur.rpc.Constants = {
           ACCOUNT_TYPES: {
             UNLOCKED_ETHEREUM_NODE: "unlockedEthereumNode",
-            METAMASK: "metaMask"
-          }
+            METAMASK: "metaMask",
+          },
         };
 
         augur.rpc.eth = { accounts: cb => cb(null, []) };
@@ -346,7 +346,7 @@ describe("modules/app/actions/init-augur.js", () => {
             expect(err).toBeNull();
             expect(connInfo).deepEqual({
               ethereumNode: undefined,
-              augurNode: augurNodeWS
+              augurNode: augurNodeWS,
             });
             expect(store.getActions()).deepEqual([]);
           })
@@ -359,7 +359,7 @@ describe("modules/app/actions/init-augur.js", () => {
             { error: 2000, message: "There was a mistake." },
             {
               ethereumNode: undefined,
-              augurNode: undefined
+              augurNode: undefined,
             }
           );
         };
@@ -368,8 +368,8 @@ describe("modules/app/actions/init-augur.js", () => {
         augur.Contracts = {
           addresses: {
             4: { Universe: "0xb0b" },
-            3: { Universe: "0xc41231e2" }
-          }
+            3: { Universe: "0xc41231e2" },
+          },
         };
 
         augur.rpc.eth = { accounts: cb => cb(null, []) };
@@ -378,11 +378,11 @@ describe("modules/app/actions/init-augur.js", () => {
           connectAugur({}, mockEnv, false, (err, connInfo) => {
             expect(err).deepEqual({
               error: 2000,
-              message: "There was a mistake."
+              message: "There was a mistake.",
             });
             expect(connInfo).deepEqual({
               ethereumNode: undefined,
-              augurNode: undefined
+              augurNode: undefined,
             });
             expect(store.getActions()).toHaveLength(0);
           })

@@ -18,8 +18,8 @@ describe("utils/edit-endpoint-params.js", () => {
         set href(value) {
           spy(value);
         },
-        reload() {}
-      }
+        reload() {},
+      },
     };
   });
 
@@ -42,7 +42,7 @@ describe("utils/edit-endpoint-params.js", () => {
     describe("when only the same ethereum-node-http is passed", () => {
       test("should not update location", () => {
         editEndpointParams(windowRef, {
-          ethereumNodeHTTP: "http://127.0.0.1:8545"
+          ethereumNodeHTTP: "http://127.0.0.1:8545",
         });
         expect(spy.called).toBeFalsy();
       });
@@ -51,7 +51,7 @@ describe("utils/edit-endpoint-params.js", () => {
     describe("when only the same ethereum-node-ws is passed", () => {
       test("should not update location", () => {
         editEndpointParams(windowRef, {
-          ethereumNodeWS: "ws://127.0.0.1:8546"
+          ethereumNodeWS: "ws://127.0.0.1:8546",
         });
         expect(spy.called).toBeFalsy();
       });
@@ -63,7 +63,7 @@ describe("utils/edit-endpoint-params.js", () => {
   describe("when only a new augur-node is passed", () => {
     test("should update the augur-node endpoint in the url search string", () => {
       editEndpointParams(windowRef, {
-        augurNode: "ws://different-endpoint:100000"
+        augurNode: "ws://different-endpoint:100000",
       });
       expect(
         spy.calledWith(
@@ -76,7 +76,7 @@ describe("utils/edit-endpoint-params.js", () => {
   describe("when only a new ethereum-node-http is passed", () => {
     test("should update the ehtereum-node-http in the url search string", () => {
       editEndpointParams(windowRef, {
-        ethereumNodeHTTP: "http://111.1.1.1:1111"
+        ethereumNodeHTTP: "http://111.1.1.1:1111",
       });
       expect(
         spy.calledWith(
@@ -89,7 +89,7 @@ describe("utils/edit-endpoint-params.js", () => {
   describe("when only a new ethereum-node-ws is passed", () => {
     test("should update the ethereum-node-ws in the url search string", () => {
       editEndpointParams(windowRef, {
-        ethereumNodeWS: "ws://222.2.2.2:2222"
+        ethereumNodeWS: "ws://222.2.2.2:2222",
       });
       expect(
         spy.calledWith(

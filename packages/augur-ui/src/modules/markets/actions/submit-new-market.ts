@@ -49,7 +49,7 @@ export function submitNewMarket(
               dispatch(
                 addMarketLiquidityOrders({
                   marketId: res.callReturn,
-                  liquidityOrders: newMarket.orderBook
+                  liquidityOrders: newMarket.orderBook,
                 })
               );
               // orders submission will be kicked off from handleMarketCreatedLog event
@@ -63,7 +63,7 @@ export function submitNewMarket(
             console.error("ERROR create market failed:", err);
             callback(err);
             dispatch(invalidateMarketCreation(err.message));
-          }
+          },
         });
       })
     );
@@ -82,7 +82,7 @@ function getHasApproval(hasOrders: Boolean, callback: NodeStyleCallback) {
           approveCallback: (err: any, res: any) => {
             if (err) return callback(err);
             callback(null);
-          }
+          },
         })
       );
     } else {

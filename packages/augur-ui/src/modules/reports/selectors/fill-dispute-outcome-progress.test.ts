@@ -13,14 +13,14 @@ describe(`modules/reports/selectors/fill-dispute-outcome-progress.js`, () => {
       bondSizeCurrent: 12588500976562500000,
       completedStake: "0",
       stakeCurrent: "1699361165364583300",
-      accountStakeCurrent: "0"
+      accountStakeCurrent: "0",
     };
     const disputeBond = 12588500976562500000;
     const actual = fillDisputeOutcomeProgess(disputeBond, outcome);
     const expected = {
       ...outcome,
       percentageComplete: 13.4993,
-      percentageAccount: 0
+      percentageAccount: 0,
     };
     expect(actual).toEqual(expected);
   });
@@ -29,14 +29,14 @@ describe(`modules/reports/selectors/fill-dispute-outcome-progress.js`, () => {
     const outcome = {
       bondSizeCurrent: 2098083496093750000,
       stakeCurrent: "2098083496093750000",
-      accountStakeCurrent: "1098083496093750000"
+      accountStakeCurrent: "1098083496093750000",
     };
     const disputeBond = 6294250488281250000;
     const actual = fillDisputeOutcomeProgess(disputeBond, outcome);
     const expected = {
       ...outcome,
       percentageComplete: 47.6625,
-      percentageAccount: 52.3374
+      percentageAccount: 52.3374,
     };
     expect(actual).toEqual(expected);
   });
@@ -45,14 +45,14 @@ describe(`modules/reports/selectors/fill-dispute-outcome-progress.js`, () => {
     const outcome = {
       bondSizeCurrent: 2098083496093750000,
       stakeCurrent: "1098083496093750000",
-      accountStakeCurrent: "0"
+      accountStakeCurrent: "0",
     };
     const disputeBond = 6294250488281250000;
     const actual = fillDisputeOutcomeProgess(disputeBond, outcome);
     const expected = {
       ...outcome,
       percentageComplete: 52.3374,
-      percentageAccount: 0
+      percentageAccount: 0,
     };
     expect(actual).toEqual(expected);
   });
@@ -62,14 +62,14 @@ describe(`modules/reports/selectors/fill-dispute-outcome-progress.js`, () => {
       bondSizeCurrent: 6294250488281250000,
       stakeCurrent: "349680582682291650",
       completedStake: "0",
-      accountStakeCurrent: "133333582682291650"
+      accountStakeCurrent: "133333582682291650",
     };
     const disputeBond = 6294250488281250000;
     const actual = fillDisputeOutcomeProgess(disputeBond, outcome);
     const expected = {
       ...outcome,
       percentageComplete: 3.4372,
-      percentageAccount: 2.1183
+      percentageAccount: 2.1183,
     };
     expect(actual).toEqual(expected);
   });
@@ -79,14 +79,14 @@ describe(`modules/reports/selectors/fill-dispute-outcome-progress.js`, () => {
       bondSizeCurrent: 20000000000000000000,
       stakeCurrent: "12000000000000000000",
       completedStake: "0",
-      accountStakeCurrent: "2000000000000000000"
+      accountStakeCurrent: "2000000000000000000",
     };
     const disputeBond = 20000000000000000000;
     const actual = fillDisputeOutcomeProgess(disputeBond, outcome);
     const expected = {
       ...outcome,
       percentageComplete: 50,
-      percentageAccount: 10
+      percentageAccount: 10,
     };
     expect(actual).toEqual(expected);
   });
@@ -96,14 +96,14 @@ describe(`modules/reports/selectors/fill-dispute-outcome-progress.js`, () => {
       bondSizeCurrent: 4000000000000000000,
       stakeCurrent: "2000000000000000000",
       completedStake: "0",
-      accountStakeCurrent: "2000000000000000000"
+      accountStakeCurrent: "2000000000000000000",
     };
     const disputeBond = 2000000000000000000;
     const actual = fillDisputeOutcomeProgess(disputeBond, outcome);
     const expected = {
       ...outcome,
       percentageComplete: 0,
-      percentageAccount: 50
+      percentageAccount: 50,
     };
     expect(actual).toEqual(expected);
   });
@@ -113,14 +113,14 @@ describe(`modules/reports/selectors/fill-dispute-outcome-progress.js`, () => {
       bondSizeCurrent: 2000000000000000000,
       completedStake: "0",
       stakeCurrent: "1000000000000000000",
-      accountStakeCurrent: 0
+      accountStakeCurrent: 0,
     };
     const disputeBond = 2000000000000000000;
     const actual = fillDisputeOutcomeProgess(disputeBond, outcome);
     const expected = {
       ...outcome,
       percentageComplete: 50,
-      percentageAccount: 0
+      percentageAccount: 0,
     };
     expect(actual).toEqual(expected);
   });
@@ -130,14 +130,14 @@ describe(`modules/reports/selectors/fill-dispute-outcome-progress.js`, () => {
       bondSizeCurrent: 10,
       stakeCurrent: "7.5",
       completedStake: "0",
-      accountStakeCurrent: "0"
+      accountStakeCurrent: "0",
     };
     const disputeBond = 10;
     const actual = fillDisputeOutcomeProgess(disputeBond, outcome);
     const expected = {
       ...outcome,
       percentageComplete: 75,
-      percentageAccount: 0
+      percentageAccount: 0,
     };
     expect(actual).toEqual(expected);
   });
@@ -147,14 +147,14 @@ describe(`modules/reports/selectors/fill-dispute-outcome-progress.js`, () => {
       bondSizeCurrent: 10,
       stakeCurrent: "5",
       completedStake: "0",
-      accountStakeCurrent: "0"
+      accountStakeCurrent: "0",
     };
     const disputeBond = 10;
     const actual = fillDisputeOutcomeProgess(disputeBond, outcome);
     const expected = {
       ...outcome,
       percentageComplete: 50,
-      percentageAccount: 0
+      percentageAccount: 0,
     };
     expect(actual).toEqual(expected);
   });
@@ -164,14 +164,14 @@ describe(`modules/reports/selectors/fill-dispute-outcome-progress.js`, () => {
       bondSizeCurrent: 0,
       stakeCurrent: "0",
       completedStake: "0",
-      accountStakeCurrent: "0"
+      accountStakeCurrent: "0",
     };
     const disputeBond = 0;
     const actual = fillDisputeOutcomeProgess(disputeBond, outcome);
     const expected = {
       ...outcome,
       percentageComplete: 0,
-      percentageAccount: 0
+      percentageAccount: 0,
     };
     expect(actual).toEqual(expected);
   });
@@ -182,7 +182,7 @@ describe(`modules/reports/selectors/fill-dispute-outcome-progress.js`, () => {
     const actual = fillDisputeOutcomeProgess(disputeBond, outcome);
     const expected = {
       percentageComplete: 0,
-      percentageAccount: 0
+      percentageAccount: 0,
     };
     expect(actual).toEqual(expected);
   });
@@ -193,7 +193,7 @@ describe(`modules/reports/selectors/fill-dispute-outcome-progress.js`, () => {
     const actual = fillDisputeOutcomeProgess(disputeBond, outcome);
     const expected = {
       percentageComplete: 0,
-      percentageAccount: 0
+      percentageAccount: 0,
     };
     expect(actual).toEqual(expected);
   });

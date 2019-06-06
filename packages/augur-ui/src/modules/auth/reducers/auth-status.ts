@@ -13,7 +13,7 @@ const DEFAULT_STATE: AuthStatus = {
   [IS_LOGGED]: false,
   [EDGE_CONTEXT]: undefined,
   [EDGE_LOADING]: false,
-  [IS_CONNECTION_TRAY_OPEN]: false
+  [IS_CONNECTION_TRAY_OPEN]: false,
 };
 
 const KEYS = Object.keys(DEFAULT_STATE);
@@ -25,11 +25,12 @@ export default function(
   switch (type) {
     case UPDATE_AUTH_STATUS: {
       const { statusKey, value } = data;
-      if (KEYS.includes(statusKey))
+      if (KEYS.includes(statusKey)) {
         return {
           ...authStatus,
-          [statusKey]: value
+          [statusKey]: value,
         };
+      }
       return authStatus;
     }
     case RESET_STATE:

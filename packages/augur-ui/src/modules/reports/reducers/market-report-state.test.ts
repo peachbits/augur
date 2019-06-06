@@ -19,7 +19,7 @@ describe("market report state", () => {
     upcoming: [],
     awaiting: [],
     dispute: [],
-    resolved: []
+    resolved: [],
   };
 
   describe("default state", () => {
@@ -36,7 +36,7 @@ describe("market report state", () => {
       test("should replace upcoming attribute with data payload", () => {
         const result = reducer(defaultState, {
           type: UPDATE_UPCOMING_DESIGNATED_REPORTING_MARKETS,
-          data: { marketIds }
+          data: { marketIds },
         });
         expect({
           designated: [],
@@ -44,7 +44,7 @@ describe("market report state", () => {
           upcoming: marketIds,
           awaiting: [],
           dispute: [],
-          resolved: []
+          resolved: [],
         }).toEqual(result);
       });
     });
@@ -53,7 +53,7 @@ describe("market report state", () => {
       test("should replace designated attribute with data payload", () => {
         const result = reducer(defaultState, {
           type: UPDATE_DESIGNATED_REPORTING_MARKETS,
-          data: { marketIds }
+          data: { marketIds },
         });
         expect({
           designated: marketIds,
@@ -61,7 +61,7 @@ describe("market report state", () => {
           upcoming: [],
           awaiting: [],
           dispute: [],
-          resolved: []
+          resolved: [],
         }).toEqual(result);
       });
     });
@@ -70,7 +70,7 @@ describe("market report state", () => {
       test("should replace open attribute with data payload", () => {
         const result = reducer(defaultState, {
           type: UPDATE_OPEN_REPORTING_MARKETS,
-          data: { marketIds }
+          data: { marketIds },
         });
         expect({
           designated: [],
@@ -78,7 +78,7 @@ describe("market report state", () => {
           upcoming: [],
           awaiting: [],
           dispute: [],
-          resolved: []
+          resolved: [],
         }).toEqual(result);
       });
     });
@@ -87,7 +87,7 @@ describe("market report state", () => {
       test("should replace open attribute with data payload", () => {
         const result = reducer(defaultState, {
           type: UPDATE_AWAITING_DISPUTE_MARKETS,
-          data: { marketIds }
+          data: { marketIds },
         });
         expect({
           designated: [],
@@ -95,7 +95,7 @@ describe("market report state", () => {
           upcoming: [],
           resolved: [],
           awaiting: marketIds,
-          dispute: []
+          dispute: [],
         }).toEqual(result);
       });
     });
@@ -104,7 +104,7 @@ describe("market report state", () => {
       test("should replace open attribute with data payload", () => {
         const result = reducer(defaultState, {
           type: UPDATE_CROWD_DISPUTE_MARKETS,
-          data: { marketIds }
+          data: { marketIds },
         });
         expect({
           designated: [],
@@ -112,7 +112,7 @@ describe("market report state", () => {
           upcoming: [],
           resolved: [],
           awaiting: [],
-          dispute: marketIds
+          dispute: marketIds,
         }).toEqual(result);
       });
     });
@@ -121,7 +121,7 @@ describe("market report state", () => {
       test("should replace resolved attribute with data payload", () => {
         const result = reducer(defaultState, {
           type: UPDATE_RESOLVED_REPORTING_MARKETS,
-          data: { marketIds }
+          data: { marketIds },
         });
         expect({
           designated: [],
@@ -129,7 +129,7 @@ describe("market report state", () => {
           upcoming: [],
           resolved: marketIds,
           awaiting: [],
-          dispute: []
+          dispute: [],
         }).toEqual(result);
       });
     });

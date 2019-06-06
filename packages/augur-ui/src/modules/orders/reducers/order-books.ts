@@ -17,7 +17,7 @@ export default function(orderBooks = DEFAULT_STATE, { type, data }: BaseAction):
       );
       return {
         ...newOrderBooks,
-        [marketId]: orderBook
+        [marketId]: orderBook,
       };
     }
     case RESET_STATE:

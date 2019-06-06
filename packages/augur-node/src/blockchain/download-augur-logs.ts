@@ -15,18 +15,18 @@ interface BlockDetailsByBlock {
   [blockNumber: number]: BlockDetail;
 }
 
-function extractBlockNumbers(batchOfAugurLogs: Array<FormattedEventLog>): Array<number> {
+function extractBlockNumbers(batchOfAugurLogs: FormattedEventLog[]): number[] {
   const ublockNumbers = _.map(batchOfAugurLogs, "blockNumber");
   const blockNumbers = _.compact<number>(ublockNumbers);
   return _.uniq<number>(blockNumbers);
 }
 
-function getBlockNumbersInRange(blockRange: BlockRange): Array<number> {
+function getBlockNumbersInRange(blockRange: BlockRange): number[] {
   const middleBlockNumber = Math.floor((blockRange.fromBlock + blockRange.toBlock) / 2);
   return _.uniq([blockRange.fromBlock, middleBlockNumber, blockRange.toBlock]);
 }
 
-async function fetchAllBlockDetails(augur: Augur, blockNumbers: Array<number>): Promise<BlockDetailsByBlock> {
+async function fetchAllBlockDetails(augur: Augur, blockNumbers: number[]): Promise<BlockDetailsByBlock> {
   return new Promise<BlockDetailsByBlock>((resolve, reject) => {
     if (blockNumbers.length === 0) return resolve([]);
     console.log(`Fetching blocks details from ${blockNumbers[0]} to ${blockNumbers[blockNumbers.length - 1]}`);
@@ -52,8 +52,8 @@ async function fetchAllBlockDetails(augur: Augur, blockNumbers: Array<number>): 
   });
 }
 
-async function processBatchOfLogs(db: Knex, augur: Augur, allAugurLogs: Array<ParsedLogWithEventName>, blockNumbers: Array<number>, blockDetailsByBlock: BlockDetailsByBlock) {
-  const logsByBlock: { [blockNumber: number]: Array<ParsedLogWithEventName> } = _.groupBy(allAugurLogs, (log) => log.blockNumber);
+async function processBatchOfLogs(db: Knex, augur: Augur, allAugurLogs: ParsedLogWithEventName[], blockNumbers: number[], blockDetailsByBlock: BlockDetailsByBlock) {
+  const logsByBlock: { [blockNumber: number]: ParsedLogWithEventName[] } = _.groupBy(allAugurLogs, (log) => log.blockNumber);
   for (const blockNumber of blockNumbers) {
     const blockDetail = blockDetailsByBlock[blockNumber];
     const logs = logsByBlock[blockNumber];
@@ -72,7 +72,7 @@ async function processBatchOfLogs(db: Knex, augur: Augur, allAugurLogs: Array<Pa
     const dbWriteFunctions = await Promise.all(dbWritePromises);
     await db.transaction(async (trx: Knex.Transaction) => {
       await processBlockByBlockDetails(trx, augur, blockDetail, true);
-      await each(logs, async (log) => await insertTransactionHash(trx, blockNumber, log.transactionHash));
+      await each(logs, async (log) => insertTransactionHash(trx, blockNumber, log.transactionHash));
       logger.info(`Processing ${dbWriteFunctions.length} logs`);
       for (const dbWriteFunction of dbWriteFunctions) {
         await dbWriteFunction(trx);
@@ -83,7 +83,7 @@ async function processBatchOfLogs(db: Knex, augur: Augur, allAugurLogs: Array<Pa
 
 export async function downloadAugurLogs(db: Knex, augur: Augur, fromBlock: number, endBlockNumber: number, blocksPerChunk: number | undefined = 50): Promise<void> {
   logger.info(`Getting Augur logs from block ${fromBlock} to block ${endBlockNumber}`);
-  let lastBlockDetails = new Promise<BlockDetailsByBlock>((resolve) => resolve([]));
+  const lastBlockDetails = new Promise<BlockDetailsByBlock>((resolve) => resolve([]));
   let highestSyncedBlockNumber = fromBlock;
   const goalBlock = endBlockNumber;
 
@@ -91,7 +91,7 @@ export async function downloadAugurLogs(db: Knex, augur: Augur, fromBlock: numbe
     const toBlock = Math.min(highestSyncedBlockNumber + blocksPerChunk, endBlockNumber);
     const eventNames = Object.keys(logProcessors.Augur);
 
-    const promises = eventNames.map(async (eventName): Promise<Array<ParsedLogWithEventName>> => {
+    const promises = eventNames.map(async (eventName): Promise<ParsedLogWithEventName[]> => {
       const logs = await augur.events.getLogs(eventName, highestSyncedBlockNumber, toBlock);
       return logs.map((log) => ({ ...log, eventName }));
     });
@@ -102,7 +102,7 @@ export async function downloadAugurLogs(db: Knex, augur: Augur, fromBlock: numbe
 
     const blockNumbers = (logs.length > 0 ? extractBlockNumbers(logs) : getBlockNumbersInRange({
       fromBlock: highestSyncedBlockNumber,
-      toBlock
+      toBlock,
     })).sort();
 
     const blockDetail = await fetchAllBlockDetails(augur, blockNumbers);

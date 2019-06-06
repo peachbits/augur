@@ -31,7 +31,7 @@ export function claimReportingFeesForkedMarket(
     const payload = {
       ...options,
       meta: loginAccount.meta,
-      redeemer: loginAccount.address
+      redeemer: loginAccount.address,
     };
 
     augur.reporting.claimReportingFeesForkedMarket(
@@ -57,10 +57,10 @@ export function redeemStake(options: any, callback: NodeStyleCallback = logError
       onFailed,
       nonforkedMarkets,
       feeWindows,
-      estimateGas
+      estimateGas,
     } = options;
 
-    const reportingParticipants: Array<string> = [];
+    const reportingParticipants: string[] = [];
     nonforkedMarkets.forEach((nonforkedMarket: any) => {
       if (nonforkedMarket.initialReporter) {
         reportingParticipants.push(nonforkedMarket.initialReporter);
@@ -70,7 +70,7 @@ export function redeemStake(options: any, callback: NodeStyleCallback = logError
       });
     });
 
-    const promises: Array<any> = [];
+    const promises: any[] = [];
 
     batchContractIds(feeWindows, reportingParticipants).map(batch =>
       promises.push(
@@ -85,7 +85,7 @@ export function redeemStake(options: any, callback: NodeStyleCallback = logError
             onSent,
             dispatch,
             onSuccess: resolve,
-            onFailed: reject
+            onFailed: reject,
           })
         )
       )
@@ -110,8 +110,8 @@ export function redeemStake(options: any, callback: NodeStyleCallback = logError
   };
 
   function batchContractIds(
-    feeWindows: Array<any>,
-    reportingParticipants: Array<string>
+    feeWindows: any[],
+    reportingParticipants: string[]
   ) {
     const batches = [];
     const feeWindowBatchSize = Math.ceil(
@@ -122,8 +122,9 @@ export function redeemStake(options: any, callback: NodeStyleCallback = logError
     );
 
     // max case, assuming FEE_WINDOW_BATCH_SIZE number of fee windows and CROWDSOURCER_BATCH_SIZE number of crowdsourcers can run in one tx.
-    if (feeWindowBatchSize < 2 && crowdsourcerBatchSize < 2)
+    if (feeWindowBatchSize < 2 && crowdsourcerBatchSize < 2) {
       return [{ feeWindows, reportingParticipants }];
+    }
 
     // fee windows
     for (let i = 0; i < feeWindowBatchSize; i++) {
@@ -132,7 +133,7 @@ export function redeemStake(options: any, callback: NodeStyleCallback = logError
           i * FEE_WINDOW_BATCH_SIZE,
           i * FEE_WINDOW_BATCH_SIZE + FEE_WINDOW_BATCH_SIZE
         ),
-        reportingParticipants: []
+        reportingParticipants: [],
       });
     }
 
@@ -142,7 +143,7 @@ export function redeemStake(options: any, callback: NodeStyleCallback = logError
         reportingParticipants: reportingParticipants.slice(
           i * CROWDSOURCER_BATCH_SIZE,
           i * CROWDSOURCER_BATCH_SIZE + CROWDSOURCER_BATCH_SIZE
-        )
+        ),
       });
     }
 
@@ -160,13 +161,13 @@ export function redeemStake(options: any, callback: NodeStyleCallback = logError
       onFailed,
       universeId,
       loginAccount,
-      estimateGas
+      estimateGas,
     } = options;
     augur.api.Universe.redeemStake({
       meta: loginAccount.meta,
       tx: {
         to: universeId,
-        estimateGas: !!options.estimateGas
+        estimateGas: !!options.estimateGas,
       },
       _feeWindows: feeWindows,
       _reportingParticipants: reportingParticipants,
@@ -185,7 +186,7 @@ export function redeemStake(options: any, callback: NodeStyleCallback = logError
         if (!!estimateGas && onFailed) onFailed(0);
         pendingId && dispatch(removePendingData(pendingId, CLAIM_STAKE_FEES));
         onFailed && onFailed();
-      }
+      },
     });
   }
 }

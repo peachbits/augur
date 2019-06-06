@@ -9,7 +9,7 @@ import { AppState } from "store";
 
 export const loadMarketOpenOrders = (marketId: string, callback: NodeStyleCallback = logError) => (
   dispatch: ThunkDispatch<void, any, Action>,
-  getState: () => AppState,
+  getState: () => AppState
 ) => {
   const { marketsData } = getState();
   if (marketId == null) {

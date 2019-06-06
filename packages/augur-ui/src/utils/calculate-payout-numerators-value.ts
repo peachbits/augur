@@ -4,8 +4,8 @@ import { MarketData } from "modules/types";
 
 export default function calculatePayoutNumeratorsValue(
   market: MarketData,
-  payout: Array<number>,
-  isInvalid: boolean,
+  payout: number[],
+  isInvalid: boolean
 ): string | null {
   const { maxPrice, minPrice, numTicks, marketType } = market;
   const isScalar = marketType === SCALAR;
@@ -17,7 +17,7 @@ export default function calculatePayoutNumeratorsValue(
   if (isScalar) {
     const longPayout = createBigNumber(payout[1], 10);
     const priceRange = createBigNumber(maxPrice, 10).minus(
-      createBigNumber(minPrice, 10),
+      createBigNumber(minPrice, 10)
     );
     // calculation: ((longPayout * priceRange) / numTicks) + minPrice
     return longPayout

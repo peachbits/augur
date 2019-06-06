@@ -9,11 +9,12 @@ import { AppState } from "store";
 
 export const getAugurNodeNetworkId = (callback: NodeStyleCallback = logError) => (
   dispatch: ThunkDispatch<void, any, Action>,
-  getState: () => AppState,
+  getState: () => AppState
 ) => {
   const { connection } = getState();
-  if (connection.augurNodeNetworkId != null)
+  if (connection.augurNodeNetworkId != null) {
     return callback(null, connection.augurNodeNetworkId);
+  }
     // @ts-ignore
   augur.augurNode.getSyncData((err: any, contractAddresses: any) => {
     if (err) return callback(err);

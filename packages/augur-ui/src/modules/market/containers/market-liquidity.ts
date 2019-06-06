@@ -18,7 +18,7 @@ const mapStateToProps = (state, ownProps) => ({
   isMobileSmall: state.appStatus.isMobileSmall,
   availableEth: getValue(state, "loginAccount.eth") || "0",
   loginAccount: state.loginAccount,
-  gasPrice: getGasPrice(state)
+  gasPrice: getGasPrice(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => ({
   removeLiquidityOrder: data => dispatch(removeLiquidityOrder(data)),
   submitLiquidityOrders: data => dispatch(startOrderSending(data)),
   updateModal: data => dispatch(updateModal({ type: MODAL_CONFIRM, ...data })),
-  closeModal: () => dispatch(closeModal())
+  closeModal: () => dispatch(closeModal()),
 });
 
 const MarketLiquidityContainer = withRouter(

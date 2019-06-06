@@ -26,7 +26,7 @@ const findMarketByDesc = (
   marketDescription: string,
   callback: NodeStyleCallback = logError
 ) => dispatch => {
-  const marketsData: Array<MarketData> = selectMarkets(store.getState());
+  const marketsData: MarketData[] = selectMarkets(store.getState());
   const market = marketsData.find(
     market => market.description === marketDescription
   );
@@ -217,6 +217,6 @@ export const helpers = (store: any) => {
     convertUnixToFormattedDate: (date): Promise<any> =>
       new Promise(resolve =>
         dispatch(convertUnixToFormattedDateTime(date, resolve))
-      )
+      ),
   };
 };

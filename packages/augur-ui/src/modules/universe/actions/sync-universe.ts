@@ -12,7 +12,7 @@ const GET_UNIVERSE_INFO_EVERY_X_BLOCKS = 100;
 // Synchronize front-end universe state with blockchain universe state.
 const syncUniverse = (blockNumber: number, callback: NodeStyleCallback = logError) => (
   dispatch: ThunkDispatch<void, any, Action>,
-  getState: () => AppState,
+  getState: () => AppState
 ) => {
   const { universe } = getState();
   if (!blockNumber || blockNumber % GET_UNIVERSE_INFO_EVERY_X_BLOCKS === 0) {

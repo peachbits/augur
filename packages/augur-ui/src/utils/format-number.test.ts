@@ -16,8 +16,8 @@ describe("utils/format-number.js", () => {
         rounded: "1000.1",
         denomination: " ETH",
         full: "1,000.1000 ETH",
-        fullPrecision: "1000.1"
-      }
+        fullPrecision: "1000.1",
+      },
     },
     {
       func: "formatEtherEstimate",
@@ -32,8 +32,8 @@ describe("utils/format-number.js", () => {
         rounded: "1000.1",
         denomination: " ETH (estimated)",
         full: "1,000.1000 ETH (estimated)",
-        fullPrecision: "1000.1"
-      }
+        fullPrecision: "1000.1",
+      },
     },
     {
       func: "formatPercent",
@@ -48,8 +48,8 @@ describe("utils/format-number.js", () => {
         rounded: "1000",
         denomination: "%",
         full: "1,000.10%",
-        fullPrecision: "1000.1"
-      }
+        fullPrecision: "1000.1",
+      },
     },
     {
       func: "formatShares",
@@ -64,8 +64,8 @@ describe("utils/format-number.js", () => {
         rounded: "1000.1",
         denomination: " Shares",
         full: "1,000.1000 Shares",
-        fullPrecision: "1000.1"
-      }
+        fullPrecision: "1000.1",
+      },
     },
     {
       func: "formatShares",
@@ -81,8 +81,8 @@ describe("utils/format-number.js", () => {
         rounded: "1",
         denomination: " Share",
         full: "1.0000 Share",
-        fullPrecision: "1"
-      }
+        fullPrecision: "1",
+      },
     },
     {
       func: "formatRep",
@@ -97,8 +97,8 @@ describe("utils/format-number.js", () => {
         rounded: "1000",
         denomination: " REP",
         full: "1,000.1000 REP",
-        fullPrecision: "1000.1"
-      }
+        fullPrecision: "1000.1",
+      },
     },
     {
       func: "formatRepTokens",
@@ -113,9 +113,9 @@ describe("utils/format-number.js", () => {
         rounded: "1000.1",
         denomination: " REP Tokens",
         full: "1,000.10 REP Tokens",
-        fullPrecision: "1000.1"
-      }
-    }
+        fullPrecision: "1000.1",
+      },
+    },
   ];
 
   utils.forEach(currentUtil => {
@@ -143,8 +143,8 @@ describe("utils/format-number.js", () => {
         rounded: "0",
         denomination: " ETH",
         full: "0.000034 ETH",
-        fullPrecision: "0.0000340524"
-      }
+        fullPrecision: "0.0000340524",
+      },
     },
     {
       func: "formatShares",
@@ -159,9 +159,9 @@ describe("utils/format-number.js", () => {
         rounded: "0",
         denomination: " Shares",
         full: "0.000034 Shares",
-        fullPrecision: "0.0000340524"
-      }
-    }
+        fullPrecision: "0.0000340524",
+      },
+    },
   ];
 
   utils2.forEach(currentUtil => {
@@ -189,8 +189,8 @@ describe("utils/format-number.js", () => {
         rounded: "0.001",
         denomination: " ETH",
         full: "0.0010 ETH",
-        fullPrecision: "0.000998"
-      }
+        fullPrecision: "0.000998",
+      },
     },
     {
       func: "formatShares",
@@ -205,9 +205,9 @@ describe("utils/format-number.js", () => {
         rounded: "0.0009",
         denomination: " Shares",
         full: "0.0010 Shares",
-        fullPrecision: "0.000998"
-      }
-    }
+        fullPrecision: "0.000998",
+      },
+    },
   ];
 
   utils3.forEach(currentUtil => {
@@ -235,8 +235,8 @@ describe("utils/format-number.js", () => {
         rounded: "0",
         denomination: " ETH",
         full: "0.00000021 ETH",
-        fullPrecision: "0.00000021034"
-      }
+        fullPrecision: "0.00000021034",
+      },
     },
     {
       func: "formatShares",
@@ -251,9 +251,9 @@ describe("utils/format-number.js", () => {
         rounded: "0",
         denomination: " Shares",
         full: "0.00000021 Shares",
-        fullPrecision: "0.00000021034"
-      }
-    }
+        fullPrecision: "0.00000021034",
+      },
+    },
   ];
 
   utils4.forEach(currentUtil => {
@@ -281,8 +281,8 @@ describe("utils/format-number.js", () => {
         rounded: "0",
         denomination: " ETH",
         full: "0.0000 ETH",
-        fullPrecision: "0.0000000000234"
-      }
+        fullPrecision: "0.0000000000234",
+      },
     },
     {
       func: "formatShares",
@@ -297,9 +297,9 @@ describe("utils/format-number.js", () => {
         rounded: "0",
         denomination: " Shares",
         full: "0.0000 Shares",
-        fullPrecision: "0.0000000000234"
-      }
-    }
+        fullPrecision: "0.0000000000234",
+      },
+    },
   ];
 
   utils5.forEach(currentUtil => {
@@ -327,8 +327,8 @@ describe("utils/format-number.js", () => {
         rounded: "0",
         denomination: " ETH",
         full: "0.0000 ETH",
-        fullPrecision: "-0.0000000000234"
-      }
+        fullPrecision: "-0.0000000000234",
+      },
     },
     {
       func: "formatShares",
@@ -343,9 +343,9 @@ describe("utils/format-number.js", () => {
         rounded: "0",
         denomination: " Shares",
         full: "0.0000 Shares",
-        fullPrecision: "-0.0000000000234"
-      }
-    }
+        fullPrecision: "-0.0000000000234",
+      },
+    },
   ];
 
   utils6.forEach(currentUtil => {
@@ -373,8 +373,8 @@ describe("utils/format-number.js", () => {
         rounded: "0",
         denomination: " ETH",
         full: "-0.000040 ETH",
-        fullPrecision: "-0.00004"
-      }
+        fullPrecision: "-0.00004",
+      },
     },
     {
       func: "formatShares",
@@ -389,9 +389,9 @@ describe("utils/format-number.js", () => {
         rounded: "0",
         denomination: " Shares",
         full: "-0.000040 Shares",
-        fullPrecision: "-0.00004"
-      }
-    }
+        fullPrecision: "-0.00004",
+      },
+    },
   ];
 
   utils7.forEach(currentUtil => {
@@ -415,7 +415,7 @@ describe("utils/format-number.js", () => {
           rounded: "-",
           denomination: "",
           full: "-",
-          fullPrecision: "0"
+          fullPrecision: "0",
         };
 
         expect(formatNumber.formatNone()).toEqual(out);
@@ -449,7 +449,7 @@ describe("utils/format-number.js", () => {
     describe("format attoETH", () => {
       test("should return a properly formatted attoETH number", () => {
         const result = formatNumber.formatAttoEth("349680582682291650", {
-          decimals: 4
+          decimals: 4,
         });
         expect(result.formatted).toEqual("0.3497");
       });
@@ -458,7 +458,7 @@ describe("utils/format-number.js", () => {
     describe("format attoREP", () => {
       test("should return a properly formatted attoREP number", () => {
         const result = formatNumber.formatAttoRep("349680582682291650", {
-          decimals: 4
+          decimals: 4,
         });
         expect(result.formatted).toBe("0.3497");
       });
@@ -467,7 +467,7 @@ describe("utils/format-number.js", () => {
     describe("format largish attoREP", () => {
       test("should return a properly formatted attoREP number", () => {
         const result = formatNumber.formatAttoRep("3496805826822916500000", {
-          decimals: 4
+          decimals: 4,
         });
 
         expect(result.formatted).toBe("3,496.8058");

@@ -3,13 +3,13 @@ import { Address, SearchRow } from "../../types";
 import { SearchProvider } from "./provider";
 
 export class SearchPostgres implements SearchProvider {
-  public db: Knex;
+  db: Knex;
 
   constructor(db: Knex) {
     this.db = db;
   }
 
-  public async migrateUp(): Promise<any> {
+  async migrateUp(): Promise<any> {
       await this.db.schema.table("markets", (markets) => {
         markets.specificType("searchProperties", "tsvector");
       });
@@ -27,22 +27,22 @@ export class SearchPostgres implements SearchProvider {
       await this.db.schema.raw(`CREATE INDEX market_search_idx ON markets USING gin("searchProperties");`);
   }
 
-  public async migrateDown(): Promise<any> {
+  async migrateDown(): Promise<any> {
     await this.db.schema.raw(`DROP INDEX market_search_idx IF EXISTS`);
     await this.db.schema.table("markets", (markets) => {
       markets.dropColumn("searchProperties");
     });
   }
 
-  public async addSearchData(search: SearchRow): Promise<any> {
+  async addSearchData(search: SearchRow): Promise<any> {
     return Promise.resolve();
   }
 
-  public async removeSeachData(marketId: Address): Promise<any> {
+  async removeSeachData(marketId: Address): Promise<any> {
     return Promise.resolve();
   }
 
-  public searchBuilder(builder: Knex.QueryBuilder, query: string): Knex.QueryBuilder {
+  searchBuilder(builder: Knex.QueryBuilder, query: string): Knex.QueryBuilder {
     return builder.select("marketId").from("markets").whereRaw(`"searchProperties" @@ to_tsquery(?)`, [query]);
   }
 }

@@ -41,6 +41,6 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergedProps,
-  )(ModalNetworkConnect),
+    mergedProps
+  )(ModalNetworkConnect)
 ) as any;

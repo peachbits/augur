@@ -30,13 +30,13 @@ interface DisputeRound {
 }
 
 interface DisputesResult {
-  markets: Array<MarketsRowWithTime>;
-  stakesCompleted: Array<StakeRow>;
-  stakesCurrent: Array<ActiveCrowdsourcer>;
-  accountStakesCompleted: Array<StakeRow>;
-  accountStakesCurrent: Array<StakeRow>;
+  markets: MarketsRowWithTime[];
+  stakesCompleted: StakeRow[];
+  stakesCurrent: ActiveCrowdsourcer[];
+  accountStakesCompleted: StakeRow[];
+  accountStakesCurrent: StakeRow[];
   payouts: Array<PayoutRow<BigNumber>>;
-  disputeRound: Array<DisputeRound>;
+  disputeRound: DisputeRound[];
 }
 
 interface StakeRow extends Payout<BigNumber> {
@@ -66,16 +66,16 @@ function isActiveMarketState(reportingState: ReportingState|null|undefined) {
   return activeMarketStates.indexOf(reportingState) !== -1;
 }
 
-async function getCurrentStakes(db: Knex, marketIds: Array<Address>) {
-  const results: Array<ActiveCrowdsourcer> = await db("crowdsourcers").select(["marketId", "payoutId", "amountStaked", "size"])
+async function getCurrentStakes(db: Knex, marketIds: Address[]) {
+  const results: ActiveCrowdsourcer[] = await db("crowdsourcers").select(["marketId", "payoutId", "amountStaked", "size"])
     .whereNull("completed")
     .whereIn("crowdsourcers.marketId", marketIds);
 
   return groupByAndSum(results, ["marketId", "payoutId"], ["amountStaked", "size"]);
 }
 
-async function getCompletedStakes(db: Knex, marketIds: Array<Address>) {
-  const results: Array<StakeRow> = await db.select("marketId", "payoutId", "amountStaked")
+async function getCompletedStakes(db: Knex, marketIds: Address[]) {
+  const results: StakeRow[] = await db.select("marketId", "payoutId", "amountStaked")
     .from((builder: QueryBuilder) => {
       return builder
         .from("crowdsourcers")
@@ -92,7 +92,7 @@ async function getCompletedStakes(db: Knex, marketIds: Array<Address>) {
   return groupByAndSum(results, ["marketId", "payoutId"], ["amountStaked"]);
 }
 
-async function getAccountStakes(db: Knex, marketIds: Array<Address>, account: Address|undefined, completed: boolean): Promise<Array<any>> {
+async function getAccountStakes(db: Knex, marketIds: Address[], account: Address|undefined, completed: boolean): Promise<any[]> {
   if (account == null) {
     return [];
   }
@@ -113,7 +113,7 @@ async function getAccountStakes(db: Knex, marketIds: Array<Address>, account: Ad
   } else {
     query.whereNull("crowdsourcers.completed");
   }
-  const results: Array<StakeRow> = await query;
+  const results: StakeRow[] = await query;
   return groupByAndSum(results, ["marketId", "payoutId"], ["amountStaked"]);
 }
 
@@ -123,13 +123,13 @@ function calculateBondSize(totalCompletedStakeOnAllPayouts: BigNumber, completed
 
 export async function getDisputeInfo(db: Knex, augur: Augur, params: t.TypeOf<typeof DisputeInfoParams>): Promise<Array<UIStakeInfo<string>|null>> {
   const cleanMarketIds = _.compact(params.marketIds);
-  const markets: Array<MarketsRowWithTime> = await getMarketsWithReportingState(db).whereIn("markets.marketId", cleanMarketIds);
+  const markets: MarketsRowWithTime[] = await getMarketsWithReportingState(db).whereIn("markets.marketId", cleanMarketIds);
   const payouts: Array<PayoutRow<BigNumber>> = await db("payouts").whereIn("marketId", cleanMarketIds);
-  const stakesCompleted: Array<StakeRow> = await getCompletedStakes(db, cleanMarketIds);
-  const stakesCurrent: Array<ActiveCrowdsourcer> = await getCurrentStakes(db, cleanMarketIds);
-  const accountStakesCurrent: Array<StakeRow> = await getAccountStakes(db, cleanMarketIds, params.account, false);
-  const accountStakesCompleted: Array<StakeRow> = await getAccountStakes(db, cleanMarketIds, params.account, true);
-  const disputeRound: Array<DisputeRound> = await db("crowdsourcers").select("marketId").count("* as disputeRound").groupBy("crowdsourcers.marketId").where("crowdsourcers.completed", 1).whereIn("crowdsourcers.marketId", cleanMarketIds);
+  const stakesCompleted: StakeRow[] = await getCompletedStakes(db, cleanMarketIds);
+  const stakesCurrent: ActiveCrowdsourcer[] = await getCurrentStakes(db, cleanMarketIds);
+  const accountStakesCurrent: StakeRow[] = await getAccountStakes(db, cleanMarketIds, params.account, false);
+  const accountStakesCompleted: StakeRow[] = await getAccountStakes(db, cleanMarketIds, params.account, true);
+  const disputeRound: DisputeRound[] = await db("crowdsourcers").select("marketId").count("* as disputeRound").groupBy("crowdsourcers.marketId").where("crowdsourcers.completed", 1).whereIn("crowdsourcers.marketId", cleanMarketIds);
   if (!markets) throw new Error("Could not retrieve markets");
   const disputeDetailsByMarket =
     _.map(cleanMarketIds, (marketId: Address): DisputesResult => {
@@ -152,7 +152,7 @@ function reshapeStakeRowToUIStakeInfo(stakeRows: DisputesResult): UIStakeInfo<st
   const totalCompletedStakeOnAllPayouts = _.reduce(
     stakeRows.stakesCompleted,
     (result: BigNumber, completedStake: StakeRow): BigNumber => result.plus(completedStake.amountStaked),
-    ZERO,
+    ZERO
   );
 
   const stakeCompletedByPayout: { [payoutId: number]: StakeRow } = _.keyBy(stakeRows.stakesCompleted, "payoutId");
@@ -201,7 +201,7 @@ function reshapeStakeRowToUIStakeInfo(stakeRows: DisputesResult): UIStakeInfo<st
         stakeCurrent: stakeCurrentOnPayout,
         stakeCompleted,
         tentativeWinning: !!payout.tentativeWinning,
-      },
+      }
     );
   });
 

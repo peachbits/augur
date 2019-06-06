@@ -7,7 +7,7 @@ describe("modules/markets/helpers/get-tags-and-categories-from-location.js", () 
   const composedGetTagsAndCategoriesFromLocation = compose(
     getSelectedTagsAndCategoriesFromLocation,
     searchStr => ({
-      search: searchStr
+      search: searchStr,
     })
   );
 
@@ -25,7 +25,7 @@ describe("modules/markets/helpers/get-tags-and-categories-from-location.js", () 
         selectedCategoryName: "Augur",
         keywords: "test keywords",
         selectedTagNames: ["Ethereum", "trading"],
-        balanceOfSearchParams: {}
+        balanceOfSearchParams: {},
       });
     });
   });
@@ -40,7 +40,7 @@ describe("modules/markets/helpers/get-tags-and-categories-from-location.js", () 
         selectedCategoryName: "Augur",
         keywords: undefined,
         selectedTagNames: [],
-        balanceOfSearchParams: {}
+        balanceOfSearchParams: {},
       });
     });
   });
@@ -55,7 +55,7 @@ describe("modules/markets/helpers/get-tags-and-categories-from-location.js", () 
         selectedCategoryName: undefined,
         keywords: undefined,
         selectedTagNames: [],
-        balanceOfSearchParams: {}
+        balanceOfSearchParams: {},
       });
     });
   });
@@ -74,7 +74,7 @@ describe("modules/markets/helpers/get-tags-and-categories-from-location.js", () 
         selectedCategoryName: undefined,
         keywords: undefined,
         selectedTagNames: [],
-        balanceOfSearchParams: {}
+        balanceOfSearchParams: {},
       });
     });
   });
@@ -93,8 +93,8 @@ describe("modules/markets/helpers/get-tags-and-categories-from-location.js", () 
         selectedTagNames: [],
         balanceOfSearchParams: {
           page: "1",
-          cats: "what"
-        }
+          cats: "what",
+        },
       });
     });
   });

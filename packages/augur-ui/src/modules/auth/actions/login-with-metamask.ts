@@ -17,14 +17,14 @@ export const loginWithMetaMask = (callback: NodeStyleCallback = logError) => (
     callback(null, account);
   };
 
-  getAccounts().then((accounts: Array<string>) => {
+  getAccounts().then((accounts: string[]) => {
     const account = accounts[0];
     if (account) {
       success(account);
     } else {
       windowRef.ethereum
         .enable()
-        .then((resolve: Array<any>) => success(resolve[0]), failure);
+        .then((resolve: any[]) => success(resolve[0]), failure);
     }
   }).catch((err: Error) => {
     if (err) return failure();

@@ -86,7 +86,7 @@ export async function getOrders(db: Knex, augur: {}, params: t.TypeOf<typeof Ord
         canceledTransactionHash: row.canceledTransactionHash,
         canceledBlockNumber: row.canceledBlockNumber,
         canceledTime: row.canceledTime,
-      },
+      }
     );
   });
   return orders;

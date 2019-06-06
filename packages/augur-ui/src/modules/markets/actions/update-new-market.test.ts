@@ -27,9 +27,9 @@ describe("modules/markets/actions/update-new-market.js", () => {
       {
         type: UPDATE_NEW_MARKET,
         data: {
-          newMarketData: { isValid: false }
-        }
-      }
+          newMarketData: { isValid: false },
+        },
+      },
     ];
 
     expect(actions).toEqual(expected);
@@ -41,8 +41,8 @@ describe("modules/markets/actions/update-new-market.js", () => {
     const expected = {
       type: ADD_ORDER_TO_NEW_MARKET,
       data: {
-        order: { test: "test" }
-      }
+        order: { test: "test" },
+      },
     };
 
     expect(actions).toEqual(expected);
@@ -54,8 +54,8 @@ describe("modules/markets/actions/update-new-market.js", () => {
     const expected = {
       type: REMOVE_ORDER_FROM_NEW_MARKET,
       data: {
-        order: { test: "test" }
-      }
+        order: { test: "test" },
+      },
     };
 
     expect(actions).toEqual(expected);
@@ -67,8 +67,8 @@ describe("modules/markets/actions/update-new-market.js", () => {
     const expected = {
       type: UPDATE_NEW_MARKET,
       data: {
-        newMarketData: { test: "test" }
-      }
+        newMarketData: { test: "test" },
+      },
     };
 
     expect(actions).toEqual(expected);
@@ -78,7 +78,7 @@ describe("modules/markets/actions/update-new-market.js", () => {
     const actions = clearNewMarket();
 
     const expected = {
-      type: CLEAR_NEW_MARKET
+      type: CLEAR_NEW_MARKET,
     };
 
     expect(actions).toEqual(expected);

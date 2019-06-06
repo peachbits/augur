@@ -12,7 +12,7 @@ export default function(disputeBond, outcome) {
     bondSizeCurrent,
     stakeCurrent,
     accountStakeCurrent,
-    tentativeWinning
+    tentativeWinning,
   } = outcome;
 
   if (tentativeWinning) return outcome;

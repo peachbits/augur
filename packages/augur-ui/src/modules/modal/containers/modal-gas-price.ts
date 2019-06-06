@@ -20,12 +20,12 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
     dispatch(updateGasPriceInfo({ userDefinedGasPrice }));
     dispatch(closeModal());
     dispatch(registerUserDefinedGasPriceFunction());
-  }
+  },
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps,
-  )(Gas),
+    mapDispatchToProps
+  )(Gas)
 );

@@ -11,26 +11,26 @@ describe("modules/markets/helpers/order-for-market-depth.js", () => {
         {
           shares: formatShares(0.001),
           price: formatEther(0.28),
-          cumulativeShares: createBigNumber("0.001")
+          cumulativeShares: createBigNumber("0.001"),
         },
         {
           shares: formatShares(0.003),
           price: formatEther(0.4),
-          cumulativeShares: createBigNumber("0.006")
-        }
+          cumulativeShares: createBigNumber("0.006"),
+        },
       ],
       asks: [
         {
           shares: formatShares(0.002),
           price: formatEther(0.35),
-          cumulativeShares: createBigNumber("0.003")
+          cumulativeShares: createBigNumber("0.003"),
         },
         {
           shares: formatShares(0.003),
           price: formatEther(0.4),
-          cumulativeShares: createBigNumber("0.006")
-        }
-      ]
+          cumulativeShares: createBigNumber("0.006"),
+        },
+      ],
     };
   });
 

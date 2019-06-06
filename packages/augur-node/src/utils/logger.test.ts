@@ -2,16 +2,16 @@ import { Logger, LoggerInterface } from "./logger/logger";
 
 describe("utils/logger", () => {
   class ExampleLogger implements LoggerInterface {
-    public error(...err: Array<string | Error>) {
+    error(...err: Array<string | Error>) {
     }
 
-    public warn(...msg: Array<string>) {
+    warn(...msg: string[]) {
     }
 
-    public info(...msg: Array<string>) {
+    info(...msg: string[]) {
     }
 
-    public debug(...msg: Array<string>) {
+    debug(...msg: string[]) {
     }
   }
 

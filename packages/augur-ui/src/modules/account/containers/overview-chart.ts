@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
     endTime: number,
     periodInterval: number,
     marketId: string,
-    callback: NodeStyleCallback,
+    callback: NodeStyleCallback
   ) =>
     dispatch(
       getProfitLoss({
@@ -33,13 +33,13 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
         periodInterval,
         marketId,
         callback,
-      }),
+      })
     ),
 });
 
 const OverviewChartContainer = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(OverviewChart);
 
 export default OverviewChartContainer;

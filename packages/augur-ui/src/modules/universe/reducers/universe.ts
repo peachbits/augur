@@ -6,7 +6,7 @@ const DEFAULT_STATE: Universe = {};
 
 export default function(
   universe: Universe = DEFAULT_STATE,
-  { type, data }: BaseAction,
+  { type, data }: BaseAction
 ): Universe {
   switch (type) {
     case UPDATE_UNIVERSE: {

@@ -16,7 +16,7 @@ interface MarketRow {
   numTicks: BigNumber;
 }
 
-function getVolumesFromTrades(marketOutcomes: Array<MinimalTradeRow>, minPrice: BigNumber) {
+function getVolumesFromTrades(marketOutcomes: MinimalTradeRow[], minPrice: BigNumber) {
   const volumes = _.reduce(marketOutcomes, (acc, trade) => {
     const tradeAmount = new BigNumber(trade.amount);
     const tradePrice = new BigNumber(trade.price);
@@ -42,7 +42,7 @@ exports.up = async (knex: Knex): Promise<any> => {
   });
 
   if (marketShareVolumeCreated || outcomeShareVolumeCreated) {
-    const tradeRows: Array<MinimalTradeRow> = await knex("trades").select(["price", "amount", "marketId", "outcome"]);
+    const tradeRows: MinimalTradeRow[] = await knex("trades").select(["price", "amount", "marketId", "outcome"]);
     const tradeRowsByMarket = _.groupBy(tradeRows, "marketId" );
     for (const marketId in tradeRowsByMarket) {
       if (!tradeRowsByMarket.hasOwnProperty(marketId)) continue;

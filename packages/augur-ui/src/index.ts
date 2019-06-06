@@ -10,8 +10,8 @@ module.exports = (isDev = true) => {
     return devMiddleware(compiler, {
       publicPath: config.output.publicPath,
       stats: {
-        colors: true
-      }
+        colors: true,
+      },
     });
   }
 

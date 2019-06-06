@@ -9,7 +9,7 @@ export const ADD_PENDING_ORDER = "ADD_PENDING_ORDER";
 export const REMOVE_PENDING_ORDER = "REMOVE_PENDING_ORDER";
 export const LOAD_PENDING_ORDERS = "LOAD_PENDING_ORDERS";
 
-export const loadPendingOrders = (pendingOrders: Array<Order>) => ({
+export const loadPendingOrders = (pendingOrders: Order[]) => ({
   type: LOAD_PENDING_ORDERS,
   data: { pendingOrders },
 });
@@ -19,12 +19,12 @@ export const addPendingOrder = (pendingOrder: Order, marketId: string) => ({
   data: {
     pendingOrder,
     marketId,
-  }
+  },
 });
 
 export const removePendingOrder = (id: string, marketId: string) => ({
   type: REMOVE_PENDING_ORDER,
-  data: { id, marketId }
+  data: { id, marketId },
 });
 
 export const clearPendingOrders = () => (

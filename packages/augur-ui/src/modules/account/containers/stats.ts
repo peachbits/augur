@@ -58,8 +58,8 @@ const StatsContainer: any = withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-  )(Stats),
+    mergeProps
+  )(Stats)
 );
 
 export default StatsContainer;

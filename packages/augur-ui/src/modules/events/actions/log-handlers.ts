@@ -53,7 +53,7 @@ const handleAlertUpdate = (
       log,
       status: "Confirmed",
       linkPath: makePath(TRANSACTIONS),
-      seen: false // Manually set to false to ensure alert
+      seen: false, // Manually set to false to ensure alert
     })
   );
 };
@@ -84,7 +84,7 @@ export const handleMarketStateLog = (log: any) => (dispatch: ThunkDispatch<void,
 
 export const handleMarketCreatedLog = (log: any) => (
   dispatch: ThunkDispatch<void, any, Action>,
-  getState: () => AppState,
+  getState: () => AppState
 ) => {
   const isStoredTransaction =
     log.marketCreator === getState().loginAccount.address;
@@ -184,8 +184,9 @@ export const handleOrderCreatedLog = (log: any) => (
     dispatch(loadAccountOpenOrders({ marketId: log.marketId }));
     dispatch(loadAccountPositionsTotals());
   }
-  if (isCurrentMarket(log.marketId))
+  if (isCurrentMarket(log.marketId)) {
     dispatch(loadMarketOpenOrders(log.marketId));
+  }
 };
 
 export const handleOrderCanceledLog = (log: any) => (
@@ -201,8 +202,9 @@ export const handleOrderCanceledLog = (log: any) => (
     dispatch(loadAccountOpenOrders({ marketId: log.marketId }));
     dispatch(loadAccountPositionsTotals());
   }
-  if (isCurrentMarket(log.marketId))
+  if (isCurrentMarket(log.marketId)) {
     dispatch(loadMarketOpenOrders(log.marketId));
+  }
 };
 
 export const handleOrderFilledLog = (log: any) => (
@@ -229,8 +231,9 @@ export const handleOrderFilledLog = (log: any) => (
   // always reload account positions on trade so we get up to date PL data.
   dispatch(loadUserPositionsAndBalances(log.marketId));
   dispatch(loadMarketTradingHistory({ marketId: log.marketId }));
-  if (isCurrentMarket(log.marketId))
+  if (isCurrentMarket(log.marketId)) {
     dispatch(loadMarketOpenOrders(log.marketId));
+  }
 };
 
 export const handleTradingProceedsClaimedLog = (log: any) => (
@@ -310,10 +313,10 @@ export const handleMarketFinalizedLog = (log: any) => (
               blockNumber: log.blockNumber,
               log,
               params: {
-                type: "finalize"
+                type: "finalize",
               },
               status: "Confirmed",
-              linkPath: makePath(MY_MARKETS)
+              linkPath: makePath(MY_MARKETS),
             })
           );
         } else if (!doesntExist) {
@@ -401,7 +404,7 @@ export const handleApprovalLog = (log: any) => (
       updateAlert(log.transactionHash, {
         id: log.transactionHash,
         status: "Confirmed",
-        timestamp: selectCurrentTimestampInSeconds(getState())
+        timestamp: selectCurrentTimestampInSeconds(getState()),
       })
     );
   }

@@ -19,15 +19,15 @@ describe("modules/alerts/reducers/alerts", () => {
       type: ADD_ALERT,
       data: {
         alert: {
-          id: "0xTEST"
-        }
-      }
+          id: "0xTEST",
+        },
+      },
     });
 
     expect(actual).toEqual([
       {
-        id: "0xTEST"
-      }
+        id: "0xTEST",
+      },
     ]);
   });
 
@@ -36,22 +36,22 @@ describe("modules/alerts/reducers/alerts", () => {
       alerts(
         [
           {
-            id: "0xTEST"
-          }
+            id: "0xTEST",
+          },
         ],
         {
           type: ADD_ALERT,
           data: {
             alert: {
-              id: "0xTEST"
-            }
-          }
+              id: "0xTEST",
+            },
+          },
         }
       )
     ).toEqual([
       {
-        id: "0xTEST"
-      }
+        id: "0xTEST",
+      },
     ]);
   });
 
@@ -60,12 +60,12 @@ describe("modules/alerts/reducers/alerts", () => {
       alerts(
         [
           {
-            id: "0xTEST"
-          }
+            id: "0xTEST",
+          },
         ],
         {
           type: REMOVE_ALERT,
-          data: { id: "0xTEST" }
+          data: { id: "0xTEST" },
         }
       )
     ).toHaveLength(0);
@@ -76,13 +76,13 @@ describe("modules/alerts/reducers/alerts", () => {
       alerts(
         [
           {
-            id: "0xTEST0"
+            id: "0xTEST0",
           },
           {
             id: "0xTest1",
             seen: true,
-            title: "old object"
-          }
+            title: "old object",
+          },
         ],
         {
           type: UPDATE_ALERT,
@@ -90,20 +90,20 @@ describe("modules/alerts/reducers/alerts", () => {
             id: "0xTest1",
             alert: {
               seen: false,
-              title: "new object"
-            }
-          }
+              title: "new object",
+            },
+          },
         }
       )
     ).toEqual([
       {
-        id: "0xTEST0"
+        id: "0xTEST0",
       },
       {
         id: "0xTest1",
         seen: true,
-        title: "new object"
-      }
+        title: "new object",
+      },
     ]);
   });
 
@@ -114,25 +114,25 @@ describe("modules/alerts/reducers/alerts", () => {
           [
             {
               id: "0xTEST0",
-              level: alertLevels.INFO
+              level: alertLevels.INFO,
             },
             {
               id: "0xTEST1",
-              level: alertLevels.CRITICAL
-            }
+              level: alertLevels.CRITICAL,
+            },
           ],
           {
             type: CLEAR_ALERTS,
             data: {
-              level: alertLevels.INFO
-            }
+              level: alertLevels.INFO,
+            },
           }
         )
       ).toEqual([
         {
           id: "0xTEST1",
-          level: alertLevels.CRITICAL
-        }
+          level: alertLevels.CRITICAL,
+        },
       ]);
     });
   });

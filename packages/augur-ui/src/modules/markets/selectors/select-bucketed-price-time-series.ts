@@ -46,7 +46,7 @@ export const bucketedPriceTimeSeries = createCachedSelector(
         priceTimeSeries: selectPriceTimeSeries(
           outcomesData[oId],
           marketTradeHistory
-        )
+        ),
       })) || [];
     const currentTime = currentTimestamp || Date.now();
     return bucketedPriceTimeSeriesInternal(creationTime, currentTime, outcomes);
@@ -90,7 +90,7 @@ const bucketedPriceTimeSeriesInternal = (
   }, {});
 
   return {
-    priceTimeSeries
+    priceTimeSeries,
   };
 };
 
@@ -107,8 +107,9 @@ function splitTradesByTimeBucket(priceTimeSeries, timeBuckets) {
     const start = timeBuckets[i];
     const end = timeBuckets[i + 1];
     const result = getTradeInTimeRange(timeSeries, start, end);
-    if (result.trades.length > 0)
+    if (result.trades.length > 0) {
       series.push({ ...head(result.trades), timestamp: start });
+    }
     timeSeries = result.trimmedTimeSeries;
   }
   return series;
@@ -119,7 +120,7 @@ function getTradeInTimeRange(timeSeries, startTime, endTime) {
   if (!timeSeries || timeSeries.length === 0) {
     return {
       trades: bucket,
-      trimmedTimeSeries: timeSeries
+      trimmedTimeSeries: timeSeries,
     };
   }
 
@@ -135,6 +136,6 @@ function getTradeInTimeRange(timeSeries, startTime, endTime) {
     trimmedTimeSeries: pullAll(timeSeries, bucket),
     trades: bucket
       .sort((a, b) => b.logIndex - a.logIndex)
-      .sort((a, b) => b.timestamp - a.timestamp)
+      .sort((a, b) => b.timestamp - a.timestamp),
   };
 }

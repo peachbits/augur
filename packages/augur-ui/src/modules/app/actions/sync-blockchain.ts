@@ -13,7 +13,7 @@ const MAINNET_ID = "1";
 
 export const syncBlockchain = (cb: Function) => (
   dispatch: ThunkDispatch<void, any, Action>,
-  getState: () => AppState,
+  getState: () => AppState
 ) => {
   const networkId = getNetworkId();
   const { gasPriceInfo } = getState();
@@ -28,7 +28,7 @@ export const syncBlockchain = (cb: Function) => (
 
   const BNblockNumber = createBigNumber(currentBlockNumber);
   const BNGasBlockNumberLimit = createBigNumber(
-      gasPriceInfo.blockNumber || "0",
+      gasPriceInfo.blockNumber || "0"
     ).plus(GET_GAS_BLOCK_LIMIT);
 
   if (
@@ -46,7 +46,7 @@ export const syncBlockchain = (cb: Function) => (
         updateBlockchain({
           highestBlock: res.highestBlock.number,
           lastProcessedBlock: res.lastProcessedBlock.number,
-        }),
+        })
       );
     }
   });

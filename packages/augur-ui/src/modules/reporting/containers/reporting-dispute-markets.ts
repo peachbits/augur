@@ -40,14 +40,14 @@ const mapStateToProps = (state, { history }) => {
     forkEndTime,
     forkingMarketId: forkingMarket,
     disputableMarketIds,
-    upcomingDisputableMarketIds
+    upcomingDisputableMarketIds,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   loadMarkets: () => dispatch(loadDisputing()),
   loadDisputingDetails: (marketIds, cb) =>
-    dispatch(loadDisputingDetails(marketIds, cb))
+    dispatch(loadDisputingDetails(marketIds, cb)),
 });
 
 const ReportingDisputeContainer = connect(

@@ -25,7 +25,7 @@ export interface ForkedMarket {
   marketId: Address;
   universe: Address;
   isFinalized: boolean;
-  crowdsourcers: Array<CrowdsourcerState>;
+  crowdsourcers: CrowdsourcerState[];
   initialReporter: InitialReporterState|null;
 }
 
@@ -35,7 +35,7 @@ export interface NonforkedMarket {
   crowdsourcersAreDisavowed: boolean;
   isFinalized: boolean;
   isMigrated: boolean;
-  crowdsourcers: Array<Address>;
+  crowdsourcers: Address[];
   initialReporter: Address|null;
 }
 
@@ -47,12 +47,12 @@ export interface FeeDetails {
     lostRep: string;
   };
   forkedMarket: ForkedMarket|null;
-  nonforkedMarkets: Array<NonforkedMarket>;
+  nonforkedMarkets: NonforkedMarket[];
 }
 
 interface FormattedMarketInfo {
   forkedMarket: ForkedMarket|null;
-  nonforkedMarkets: Array<NonforkedMarket>;
+  nonforkedMarkets: NonforkedMarket[];
 }
 
 interface DisputeWindowCompletionStakeRow {
@@ -116,7 +116,7 @@ async function getUniverse(db: Knex, universe: Address): Promise<Address> {
   return currentUniverseRow.universe;
 }
 
-function formatMarketInfo(initialReporters: Array<UnclaimedInitialReporterRow>, crowdsourcers: Array<UnclaimedCrowdsourcerRow>, forkedMarket: ForkedMarket) {
+function formatMarketInfo(initialReporters: UnclaimedInitialReporterRow[], crowdsourcers: UnclaimedCrowdsourcerRow[], forkedMarket: ForkedMarket) {
   if (forkedMarket) {
     forkedMarket.crowdsourcers = [];
   }
@@ -194,8 +194,8 @@ async function getMarketsReportingParticipants(db: Knex, reporter: Address, univ
     .where("markets.universe", universe)
     .join("market_state", "markets.marketId", "market_state.marketId");
 
-  const initialReporters: Array<UnclaimedInitialReporterRow> = await initialReportersQuery;
-  const crowdsourcers: Array<UnclaimedCrowdsourcerRow> = await crowdsourcersQuery;
+  const initialReporters: UnclaimedInitialReporterRow[] = await initialReportersQuery;
+  const crowdsourcers: UnclaimedCrowdsourcerRow[] = await crowdsourcersQuery;
   const forkedMarket: ForkedMarket = await forkedMarketQuery;
   return formatMarketInfo(initialReporters, crowdsourcers, forkedMarket);
 }
@@ -235,8 +235,8 @@ async function getStakedRepResults(db: Knex, reporter: Address, universe: Addres
       [ReportingState.AWAITING_FINALIZATION, ReportingState.FINALIZED, DisputeWindowState.PAST, ReportingState.AWAITING_FORK_MIGRATION]))
     .where("initial_reports.reporter", reporter)
     .whereNot("initial_reports.redeemed", 1);
-  const crowdsourcers: Array<DisputeWindowCompletionStakeRow> = await crowdsourcerQuery;
-  const initialReporters: Array<InitialReporterStakeRow> = await initialReportersQuery;
+  const crowdsourcers: DisputeWindowCompletionStakeRow[] = await crowdsourcerQuery;
+  const initialReporters: InitialReporterStakeRow[] = await initialReportersQuery;
   const marketDisputed: AddressMap = {};
   let fees = _.reduce(crowdsourcers, (acc: RepStakeResults, disputeWindowCompletionStake: DisputeWindowCompletionStakeRow) => {
     const disavowed = disputeWindowCompletionStake.disavowed || disputeWindowCompletionStake.needsDisavowal;
@@ -275,8 +275,8 @@ export async function getReportingFees(db: Knex, augur: Augur, params: t.TypeOf<
       lostRep,
       unclaimedForkRepStaked,
       unclaimedRepEarned,
-      unclaimedRepStaked
-    }
+      unclaimedRepStaked,
+    },
   } = await getStakedRepResults(db, params.reporter, params.universe);
   const result: FormattedMarketInfo = await getMarketsReportingParticipants(db, params.reporter, currentUniverse);
   const response = {

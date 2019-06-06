@@ -26,7 +26,7 @@ export default function(
     potentialFork: false,
     stakeCompleted: "0",
     stakeRemaining: newOutcomeDisputeBond,
-    tentativeWinning: false
+    tentativeWinning: false,
   };
   const addDefaultStakeOutcomes = outcomes.reduce((p, o) => {
     const result = [...p, Object.assign(o, defaultStake)];
@@ -87,8 +87,9 @@ export default function(
 
   const allDisputedOutcomes = [tentativeWinner, ...sortedOutcomes];
   // check that market invalid is in list
-  if (allDisputedOutcomes.find(o => o.id === invalidMarketId))
+  if (allDisputedOutcomes.find(o => o.id === invalidMarketId)) {
     return allDisputedOutcomes;
+  }
 
   return [...allDisputedOutcomes, invalidOutcome];
 }

@@ -17,7 +17,7 @@ export const migrateMarketThroughFork = (
   augur.api.Market.migrateThroughOneFork({
     tx: {
       to: marketId,
-      estimateGas
+      estimateGas,
     },
     meta: loginAccount.meta,
     onSent: () => {
@@ -35,6 +35,6 @@ export const migrateMarketThroughFork = (
       }
       return callback(null, res);
     },
-    onFailed: (err: any) => callback(err)
+    onFailed: (err: any) => callback(err),
   });
 };

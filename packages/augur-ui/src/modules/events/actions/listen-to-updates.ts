@@ -42,7 +42,7 @@ export const listenToUpdates = (history: any) => (
   augur.events.stopAugurNodeEventListeners();
   augur.events.startBlockListeners({
     onAdded: (block: any) => dispatch(handleNewBlock(block)),
-    onRemoved: (block: any) => dispatch(handleNewBlock(block))
+    onRemoved: (block: any) => dispatch(handleNewBlock(block)),
   });
   augur.events.startAugurNodeEventListeners(
     {
@@ -86,7 +86,7 @@ export const listenToUpdates = (history: any) => (
       TimestampSet: dispatch(wrapLogHandler()),
       FeeWindowRedeemed: dispatch(wrapLogHandler(handleFeeWindowRedeemedLog)),
       UniverseCreated: dispatch(wrapLogHandler()),
-      Approval: dispatch(wrapLogHandler(handleApprovalLog))
+      Approval: dispatch(wrapLogHandler(handleApprovalLog)),
     },
     logError
   );

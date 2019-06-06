@@ -14,7 +14,7 @@ describe("purchase participation tokens tests", () => {
   const { store } = mockStore;
 
   const ACTIONS = {
-    CLOSE_MODAL: { type: "CLOSE_MODAL" }
+    CLOSE_MODAL: { type: "CLOSE_MODAL" },
   };
 
   beforeEach(() => {
@@ -59,7 +59,7 @@ describe("purchase participation tokens tests", () => {
       _attotokens: speedomatic.fix("10.25", "hex"),
       onSent: expect.any(Function),
       onSuccess: expect.any(Function),
-      onFailed: expect.any(Function)
+      onFailed: expect.any(Function),
     });
   });
 

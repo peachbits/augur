@@ -15,14 +15,14 @@ const mapStateToProps = (state, ownProps) => {
     forkThreshold: state.universe.forkThreshold,
     outcomes: disputeOutcomes[ownProps.market.id],
     market: ownProps.market,
-    isMobile: state.appStatus.isMobile
+    isMobile: state.appStatus.isMobile,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   loadMarketsDisputeInfo: (marketId, callback) =>
     dispatch(loadMarketsDisputeInfo([marketId], callback)),
-  addUpdateAccountDispute: data => dispatch(addUpdateAccountDispute(data))
+  addUpdateAccountDispute: data => dispatch(addUpdateAccountDispute(data)),
 });
 
 const mergeProps = (sP, dP, oP) => {
@@ -34,7 +34,7 @@ const mergeProps = (sP, dP, oP) => {
     accountDisputeData,
     loadMarketsDisputeInfo: (marketId, callback) =>
       dP.loadMarketsDisputeInfo([marketId], callback),
-    addUpdateAccountDispute: data => dP.addUpdateAccountDispute(data)
+    addUpdateAccountDispute: data => dP.addUpdateAccountDispute(data),
   };
 };
 

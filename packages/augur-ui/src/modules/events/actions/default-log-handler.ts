@@ -8,8 +8,9 @@ export const defaultLogHandler = (log: any) => (
   dispatch: ThunkDispatch<void, any, Action>,
   getState: () => AppState
 ) => {
-  if (log.transactionHash == null)
+  if (log.transactionHash == null) {
     return console.error("transaction hash not found", log);
+  }
   getTransaction(log.transactionHash).then((transaction: any) => {
     const isOwnTransaction =
       transaction.from === getState().loginAccount.address;

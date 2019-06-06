@@ -16,14 +16,14 @@ const mapStateToProps = state => {
     isLogged: state.authStatus.isLogged,
     markets,
     marketIds: { designated, open, upcoming },
-    universe: state.universe.id
+    universe: state.universe.id,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   loadReporting: cb => dispatch(loadReporting(null, cb)),
   loadMarketsInfoIfNotLoaded: marketIds =>
-    dispatch(loadMarketsInfoIfNotLoaded(marketIds))
+    dispatch(loadMarketsInfoIfNotLoaded(marketIds)),
 });
 
 const ReportingReportingContainer = withRouter(

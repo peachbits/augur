@@ -24,7 +24,7 @@ export function makeDbMock() {
   }
 
   class MockPouchDB extends PouchDB {
-    public allDocs<Model>(options?: any): Promise<any> {
+    allDocs<Model>(options?: any): Promise<any> {
       if (fail()) {
         throw Error("This was an intentional, mocked failure of allDocs");
       }
@@ -35,7 +35,7 @@ export function makeDbMock() {
       }
     }
 
-    public get<Model>(docId: any, options?: any): Promise<any> {
+    get<Model>(docId: any, options?: any): Promise<any> {
       if (fail()) {
         throw Error("This was an intentional, mocked failure of get");
       }
@@ -46,7 +46,7 @@ export function makeDbMock() {
       }
     }
 
-    public put<Model>(doc: any, options?: any): Promise<any> {
+    put<Model>(doc: any, options?: any): Promise<any> {
       if (fail()) {
         throw Error("This was an intentional, mocked failure of put");
       }
@@ -111,7 +111,7 @@ export function makeDbMock() {
       augur.customEvents,
       augur.userSpecificEvents,
       makeFactory(),
-      makeBlockAndLogStreamerListener(),
+      makeBlockAndLogStreamerListener()
     ),
   };
 }

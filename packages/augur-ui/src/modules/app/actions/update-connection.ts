@@ -11,7 +11,7 @@ export const UPDATE_IS_RECONNECTION_PAUSED = "UPDATE_IS_RECONNECTION_PAUSED";
 export function updateConnectionStatus(isConnected: boolean) {
   return {
     type: UPDATE_CONNECTION_STATUS,
-    data: { isConnected }
+    data: { isConnected },
   };
 }
 
@@ -22,7 +22,7 @@ export function updateConnectionStatus(isConnected: boolean) {
 export function updateAugurNodeConnectionStatus(isConnectedToAugurNode: boolean) {
   return {
     type: UPDATE_AUGUR_NODE_CONNECTION_STATUS,
-    data: { isConnectedToAugurNode }
+    data: { isConnectedToAugurNode },
   };
 }
 
@@ -33,7 +33,7 @@ export function updateAugurNodeConnectionStatus(isConnectedToAugurNode: boolean)
 export function updateAugurNodeNetworkId(augurNodeNetworkId: number) {
   return {
     type: UPDATE_AUGUR_NODE_NETWORK_ID,
-    data: { augurNodeNetworkId }
+    data: { augurNodeNetworkId },
   };
 }
 
@@ -44,6 +44,6 @@ export function updateAugurNodeNetworkId(augurNodeNetworkId: number) {
 export function updateIsReconnectionPaused(isReconnectionPaused: boolean) {
   return {
     type: UPDATE_IS_RECONNECTION_PAUSED,
-    data: { isReconnectionPaused }
+    data: { isReconnectionPaused },
   };
 }

@@ -5,24 +5,24 @@ import { BlockAndLogStreamerListener } from "./db/BlockAndLogStreamerListener";
 const settings = require("./settings.json");
 
 export class Controller {
-  public db: DB;
+  db: DB;
 
-  public constructor(
+  constructor(
     private augur: Augur,
     private networkId: number,
     private blockstreamDelay: number,
     private defaultStartSyncBlockNumber: number,
-    private trackedUsers: Array<string>,
+    private trackedUsers: string[],
     private pouchDBFactory: PouchDBFactoryType,
-    private blockAndLogStreamerListener: BlockAndLogStreamerListener,
+    private blockAndLogStreamerListener: BlockAndLogStreamerListener
   ) {
   }
 
-  public fullTextSearch(eventName: string, query: string): Array<object> {
+  fullTextSearch(eventName: string, query: string): object[] {
     return this.db.fullTextSearch(eventName, query);
   }
 
-  public async createDb() {
+  async createDb() {
     this.db = await DB.createAndInitializeDB(
       this.networkId,
       this.blockstreamDelay,
@@ -32,11 +32,11 @@ export class Controller {
       this.augur.customEvents,
       this.augur.userSpecificEvents,
       this.pouchDBFactory,
-      this.blockAndLogStreamerListener,
+      this.blockAndLogStreamerListener
     );
   }
 
-  public async run(): Promise<void> {
+  async run(): Promise<void> {
     try {
       this.db = await DB.createAndInitializeDB(
         this.networkId,
@@ -47,12 +47,12 @@ export class Controller {
         this.augur.customEvents,
         this.augur.userSpecificEvents,
         this.pouchDBFactory,
-        this.blockAndLogStreamerListener,
+        this.blockAndLogStreamerListener
       );
       await this.db.sync(
         this.augur,
         settings.chunkSize,
-        settings.blockstreamDelay,
+        settings.blockstreamDelay
       );
 
       this.blockAndLogStreamerListener.listenForBlockRemoved(this.db.rollback.bind(this.db));

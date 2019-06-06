@@ -19,12 +19,12 @@ const mapStateToProps = (state, ownProps) => ({
   finalizationTime: selectMarket(ownProps.id).finalizationTime,
   isForking: state.universe.isForking,
   isForkingMarketFinalized: state.universe.isForkingMarketFinalized,
-  forkingMarket: state.universe.forkingMarket
+  forkingMarket: state.universe.forkingMarket,
 });
 
 const mapDispatchToProps = dispatch => ({
   updateModal: modal => dispatch(updateModal(modal)),
-  finalizeMarket: (marketId, cb) => dispatch(sendFinalizeMarket(marketId, cb))
+  finalizeMarket: (marketId, cb) => dispatch(sendFinalizeMarket(marketId, cb)),
 });
 
 const MarketPropertiesContainer = withRouter(

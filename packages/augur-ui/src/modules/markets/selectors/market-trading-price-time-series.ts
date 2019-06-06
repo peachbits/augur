@@ -20,7 +20,7 @@ export const marketTradingPriceTimeSeries = (marketPriceHistory, outcome) => {
       type: item.type,
       date,
       time,
-      key: date + item.time + item.price + item.amount + i
+      key: date + item.time + item.price + item.amount + i,
     };
     const dayItems = p[date] || [];
     return { ...p, [date]: [...dayItems, trade] };

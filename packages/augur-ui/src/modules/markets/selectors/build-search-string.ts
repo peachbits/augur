@@ -3,7 +3,7 @@ export const buildSearchString = (keywords, tags) => {
   const propertyTranslation = [
     { find: "title:", replace: "shortDescription:" },
     { find: "details:", replace: "longDescription:" },
-    { find: "source:", replace: "resolutionSource:" }
+    { find: "source:", replace: "resolutionSource:" },
   ];
 
   let keywordSearch =

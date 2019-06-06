@@ -28,7 +28,7 @@ export async function processUniverseForkedLog(augur: Augur, log: FormattedEvent
     });
     await db("markets").increment("needsDisavowal", 1).where({ universe: log.universe }).whereNot("marketId", forkingMarket);
     await db("universes").update("forked", true).where({ universe: log.universe });
-    const marketsToRevert: Array<MarketsContractAddressRow> = await getMarketsWithReportingState(db).from("markets").select("markets.marketId")
+    const marketsToRevert: MarketsContractAddressRow[] = await getMarketsWithReportingState(db).from("markets").select("markets.marketId")
       .where({ universe: log.universe })
       .whereIn("reportingState", [ReportingState.AWAITING_FINALIZATION, ReportingState.CROWDSOURCING_DISPUTE, ReportingState.AWAITING_NEXT_WINDOW]);
     await each(marketsToRevert, async (marketIdRow: MarketsContractAddressRow) => {

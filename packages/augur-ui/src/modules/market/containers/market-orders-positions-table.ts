@@ -40,14 +40,14 @@ const mapStateToProps = (state, ownProps) => {
     outcomes: market.outcomes || [],
     openOrders,
     market,
-    filledOrders
+    filledOrders,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   claimTradingProceeds: (marketId, cb) =>
     dispatch(updateModal({ type: MODAL_CLAIM_TRADING_PROCEEDS, marketId, cb })),
-  cancelAllOpenOrders: (orders, cb) => dispatch(cancelAllOpenOrders(orders, cb))
+  cancelAllOpenOrders: (orders, cb) => dispatch(cancelAllOpenOrders(orders, cb)),
 });
 
 const MarketOrdersPositionsTableContainer = withRouter(

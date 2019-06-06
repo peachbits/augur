@@ -28,7 +28,7 @@ export const selectAggregateOrderBook = memoize(
     if (marketOrderBook == null) {
       return {
         [BIDS]: [],
-        [ASKS]: []
+        [ASKS]: [],
       };
     }
 
@@ -44,7 +44,7 @@ export const selectAggregateOrderBook = memoize(
         SELL,
         marketOrderBook,
         orderCancellation
-      ).sort(sortPricePointsByPriceAsc)
+      ).sort(sortPricePointsByPriceAsc),
     };
   },
   { max: 100 }
@@ -114,7 +114,7 @@ const selectAggregatePricePoints = memoize(
       .filter(order => order.orderState !== CANCELED)
       .map(order => ({
         ...order,
-        isOfCurrentUser: isOrderOfUser(order, currentUserAddress)
+        isOfCurrentUser: isOrderOfUser(order, currentUserAddress),
       }))
       .reduce(reduceSharesCountByPrice, {});
 
@@ -124,7 +124,7 @@ const selectAggregatePricePoints = memoize(
         shares: formatShares(shareCountPerPrice[price].shares),
         price: formatEther(price),
         sharesEscrowed: formatShares(shareCountPerPrice[price].sharesEscrowed),
-        tokensEscrowed: formatEther(shareCountPerPrice[price].tokensEscrowed)
+        tokensEscrowed: formatEther(shareCountPerPrice[price].tokensEscrowed),
       };
       return obj;
     });
@@ -149,7 +149,7 @@ function reduceSharesCountByPrice(aggregateOrdersPerPrice, order) {
         shares: ZERO,
         sharesEscrowed: ZERO,
         tokensEscrowed: ZERO,
-        isOfCurrentUser: false
+        isOfCurrentUser: false,
       };
     }
     aggregateOrdersPerPrice[key].shares = aggregateOrdersPerPrice[

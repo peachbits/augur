@@ -25,9 +25,9 @@ describe("modules/alerts/actions/alerts", () => {
             level: alertLevels.INFO,
             networkId: null,
             seen: false,
-            universe: undefined
-          }
-        }
+            universe: undefined,
+          },
+        },
       });
     });
 
@@ -40,7 +40,7 @@ describe("modules/alerts/actions/alerts", () => {
     test("overrode the default alert level with the value passed in the alert object param", () => {
       const actual = store.dispatch(
         updateAlerts.addAlert({
-          level: alertLevels.CRITICAL
+          level: alertLevels.CRITICAL,
         })
       ).data.alert.level;
 
@@ -54,7 +54,7 @@ describe("modules/alerts/actions/alerts", () => {
 
       expect(actual).toEqual({
         type: updateAlerts.REMOVE_ALERT,
-        data: { id: 1 }
+        data: { id: 1 },
       });
     });
   });
@@ -63,7 +63,7 @@ describe("modules/alerts/actions/alerts", () => {
     test("returned the expected object", () => {
       const actual = store.dispatch(
         updateAlerts.updateAlert(1, {
-          testing: "test_update"
+          testing: "test_update",
         })
       );
 
@@ -72,9 +72,9 @@ describe("modules/alerts/actions/alerts", () => {
         data: {
           id: 1,
           alert: {
-            testing: "test_update"
-          }
-        }
+            testing: "test_update",
+          },
+        },
       });
     });
   });
@@ -86,8 +86,8 @@ describe("modules/alerts/actions/alerts", () => {
       expect(actual).toEqual({
         type: updateAlerts.CLEAR_ALERTS,
         data: {
-          level: alertLevels.INFO
-        }
+          level: alertLevels.INFO,
+        },
       });
     });
 

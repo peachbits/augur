@@ -1,6 +1,6 @@
 import { Augur } from "@augurproject/sdk";
 import { BigNumber } from "../types";
-import { EthersProvider } from "@augurproject/ethersjs-provider";
+// import { EthersProvider } from "@augurproject/ethersjs-provider";
 //
 // var chalk = require("chalk/types");
 // var speedomatic = require("speedomatic/build/index");

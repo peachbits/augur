@@ -56,6 +56,6 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-  )(UnsignedOrders),
+    mergeProps
+  )(UnsignedOrders)
 );

@@ -14,7 +14,7 @@ export const MarketsClosingInDateRangeParams = t.intersection([
   SortLimitParams,
 ]);
 
-export async function getMarketsClosingInDateRange(db: Knex, augur: {}, params: t.TypeOf<typeof MarketsClosingInDateRangeParams>): Promise<Array<Address>> {
+export async function getMarketsClosingInDateRange(db: Knex, augur: {}, params: t.TypeOf<typeof MarketsClosingInDateRangeParams>): Promise<Address[]> {
   const query = db.select("marketId").from("markets").whereBetween("endTime", [params.earliestClosingTime, params.latestClosingTime]).where("universe", params.universe);
   const rows = await queryModifier<MarketsContractAddressRow>(db, query, "endTime", "desc", params);
   return rows.map((row: MarketsContractAddressRow): Address => row.marketId);

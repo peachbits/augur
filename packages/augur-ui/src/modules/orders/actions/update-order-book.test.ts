@@ -21,7 +21,7 @@ describe(`modules/orders/actions/update-order-book.js`, () => {
               "0x000000000000000000000000000000000000000000000000000000000000000a",
             worseOrderId:
               "0x000000000000000000000000000000000000000000000000000000000000000b",
-            gasPrice: "20000000000"
+            gasPrice: "20000000000",
           },
           "0xf": {
             amount: "1.1111",
@@ -35,17 +35,17 @@ describe(`modules/orders/actions/update-order-book.js`, () => {
               "0x000000000000000000000000000000000000000000000000000000000000000a",
             worseOrderId:
               "0x000000000000000000000000000000000000000000000000000000000000000b",
-            gasPrice: "20000000001"
-          }
-        }
-      }
+            gasPrice: "20000000001",
+          },
+        },
+      },
     };
     const expectedOutput = {
       type: UPDATE_ORDER_BOOK,
       data: {
         marketId,
-        orderBook
-      }
+        orderBook,
+      },
     };
     expect(updateOrderBook({ marketId, orderBook })).toEqual(expectedOutput);
   });

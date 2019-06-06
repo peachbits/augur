@@ -11,7 +11,7 @@ const mapStateToProps = state => {
   const filteredMarkets = Object.keys(favorites).reduce(
     (filtered, marketId) => [
       ...filtered,
-      { ...selectMarket(marketId), favoriteAddedData: favorites[marketId] }
+      { ...selectMarket(marketId), favoriteAddedData: favorites[marketId] },
     ],
     []
   );
@@ -20,12 +20,12 @@ const mapStateToProps = state => {
     isLogged: state.authStatus.isLogged,
     markets: filteredMarkets,
     currentAugurTimestamp: state.blockchain.currentAugurTimestamp,
-    reportingWindowStatsEndTime: state.reportingWindowStats.endTime
+    reportingWindowStatsEndTime: state.reportingWindowStats.endTime,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  toggleFavorite: marketId => dispatch(toggleFavorite(marketId))
+  toggleFavorite: marketId => dispatch(toggleFavorite(marketId)),
 });
 
 const FavoritesContainer = withRouter(

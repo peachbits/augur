@@ -21,7 +21,7 @@ function getDatabasePathFromNetworkId(networkId: string, filenameTemplate: strin
   return path.join(databaseDir || path.join(__dirname, "../../"), format(filenameTemplate, networkId, DB_VERSION));
 }
 
-function getUploadBlockPathFromNetworkId(networkId: string, databaseDir: string|undefined, filenameTemplate: string = "upload-block-%s") {
+function getUploadBlockPathFromNetworkId(networkId: string, databaseDir: string|undefined, filenameTemplate = "upload-block-%s") {
   return path.join(databaseDir || path.join(__dirname, "../../"), format(filenameTemplate, networkId));
 }
 
@@ -118,7 +118,7 @@ export async function createDbAndConnect(errorCallback: ErrorCallback|undefined,
     const connectOptions = Object.assign(
       { ethereumNode: { http: network.http, ws: network.ws }, startBlockStreamOnConnect: false },
       network.propagationDelayWaitMillis != null ? { propagationDelayWaitMillis: network.propagationDelayWaitMillis } : {},
-      network.maxRetries != null ? { maxRetries: network.maxRetries } : {},
+      network.maxRetries != null ? { maxRetries: network.maxRetries } : {}
     );
 
     resolve(checkAndInitializeAugurDb(augur, databaseDir));

@@ -8,7 +8,7 @@ describe(`modules/reports/actions/get-payout-numerators.js`, () => {
     minPrice: createBigNumber(-10),
     numTicks: "1300",
     numOutcomes: 2,
-    marketType: SCALAR
+    marketType: SCALAR,
   };
 
   const marketScalar = {
@@ -16,7 +16,7 @@ describe(`modules/reports/actions/get-payout-numerators.js`, () => {
     minPrice: createBigNumber(0),
     numTicks: "10000",
     numOutcomes: 2,
-    marketType: SCALAR
+    marketType: SCALAR,
   };
 
   const marketBinary = {
@@ -24,7 +24,7 @@ describe(`modules/reports/actions/get-payout-numerators.js`, () => {
     minPrice: createBigNumber(0),
     numTicks: "10000",
     numOutcomes: 2,
-    marketType: YES_NO
+    marketType: YES_NO,
   };
 
   const marketCategorical = {
@@ -32,7 +32,7 @@ describe(`modules/reports/actions/get-payout-numerators.js`, () => {
     minPrice: createBigNumber(0),
     numTicks: "10003",
     numOutcomes: 7,
-    marketType: CATEGORICAL
+    marketType: CATEGORICAL,
   };
 
   describe("scalar 75", () => {

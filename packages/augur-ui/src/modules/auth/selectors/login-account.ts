@@ -27,16 +27,16 @@ export const selectLoginAccount = createSelector(
       ...genAccountProperties,
       rep: formatRep(loginAccount.rep, {
         zeroStyled: false,
-        decimalsRounded: 4
+        decimalsRounded: 4,
       }),
       dai: formatDai(loginAccount.dai, {
         zeroStyled: false,
-        decimalsRounded: 4
+        decimalsRounded: 4,
       }),
       eth: formatEther(loginAccount.eth, {
         zeroStyled: false,
-        decimalsRounded: 4
-      })
+        decimalsRounded: 4,
+      }),
     };
   }
 );
@@ -62,7 +62,7 @@ export const selectAccountFunds = createSelector(
     return {
       totalAvailableTradingBalance,
       totalFrozenFunds,
-      totalAccountValue
+      totalAccountValue,
     };
   }
 );

@@ -12,7 +12,7 @@ const mutatePeriod = map(
     startTimestamp,
     volume,
     tokenVolume,
-    shareVolume
+    shareVolume,
   }) => ({
     period: startTimestamp * 1000,
     open: parseFloat(start),
@@ -20,7 +20,7 @@ const mutatePeriod = map(
     low: parseFloat(min),
     close: parseFloat(end),
     volume: parseFloat(volume),
-    shareVolume: parseFloat(shareVolume || tokenVolume)
+    shareVolume: parseFloat(shareVolume || tokenVolume),
   })
 );
 

@@ -6,20 +6,20 @@ interface AskBid {
 }
 
 interface BuySell {
-  buy: Array<AskBid>;
-  sell: Array<AskBid>;
+  buy: AskBid[];
+  sell: AskBid[];
 }
 
 export interface OrderBook {
   [outcome: string]: BuySell;
 }
 
-const singleOutcomeAsks: Array<AskBid> = [
+const singleOutcomeAsks: AskBid[] = [
   { shares: "10.01", price: "0.31" },
   { shares: "20.02", price: "0.35" },
   { shares: "30.03", price: "0.40" },
 ];
-const singleOutcomeBids: Array<AskBid> = [
+const singleOutcomeBids: AskBid[] = [
   { shares: "10.01", price: "0.28" },
   { shares: "20.02", price: "0.25" },
   { shares: "30.03", price: "0.19" },
@@ -34,7 +34,7 @@ const yesNoOrderBook: OrderBook = {
 export interface ExtraInfo {
   resolutionSource?: string;
   description: string;
-  tags: Array<string>;
+  tags: string[];
   longDescription?: string;
   _scalarDenomination?: string;
 }
@@ -44,7 +44,7 @@ export interface CannedMarket {
   minPrice?: string;
   maxPrice?: string;
   tickSize?: string;
-  outcomes?: Array<string>;
+  outcomes?: string[];
   affiliateFeeDivisor: number;
   topic: string;
   extraInfo: ExtraInfo;
@@ -84,7 +84,7 @@ const inFiveMonths = addMonths(today, 2);
 const inSixMonths = addMonths(today, 3);
 const thisYear = today.getUTCFullYear();
 
-function massageMarkets(markets: Array<CannedMarket>): Array<CannedMarket> {
+function massageMarkets(markets: CannedMarket[]): CannedMarket[] {
   return markets.map((market): CannedMarket => {
     if (market.outcomes) {
       market.outcomes = market.outcomes.map(formatBytes32String);
@@ -93,7 +93,7 @@ function massageMarkets(markets: Array<CannedMarket>): Array<CannedMarket> {
   });
 }
 
-export const cannedMarkets: Array<CannedMarket> = massageMarkets([
+export const cannedMarkets: CannedMarket[] = massageMarkets([
   {
     marketType: "yesNo",
     endTime: inOneMonths.getTime() / 1000,

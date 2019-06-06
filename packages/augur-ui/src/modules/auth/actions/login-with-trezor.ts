@@ -23,8 +23,8 @@ export default function loginWithTrezor(
           signer: async (...args: any) => {
             trezorSigner(connect, addressPath, dispatch, args);
           },
-          accountType: ACCOUNT_TYPES.TREZOR
-        }
+          accountType: ACCOUNT_TYPES.TREZOR,
+        },
       })
     );
   };

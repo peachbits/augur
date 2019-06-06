@@ -17,7 +17,7 @@ export const selectAuthorOwnedMarkets = createSelector(
     );
     return filteredMarkets.map(m => ({
       ...m,
-      recentlyTraded: getLastTradeTimestamp(marketTradingHistory[m.id])
+      recentlyTraded: getLastTradeTimestamp(marketTradingHistory[m.id]),
     }));
   }
 );

@@ -24,11 +24,12 @@ export const loadAccountOpenOrders = (
 
 const loadUserAccountOrders = (options = {}, callback: NodeStyleCallback) => (
   dispatch: ThunkDispatch<void, any, Action>,
-  getState: () => AppState,
+  getState: () => AppState
 ) => {
   const { universe, loginAccount } = getState();
-  if (!options.orderState)
+  if (!options.orderState) {
     options.orderState = augur.constants.ORDER_STATE.OPEN;
+  }
   augur.trading.getOrders(
     { ...options, creator: loginAccount.address, universe: universe.id },
     (err, orders) => {
@@ -38,7 +39,7 @@ const loadUserAccountOrders = (options = {}, callback: NodeStyleCallback) => (
   );
 };
 
-const postProcessing = (marketIds: Array<string>, dispatch: ThunkDispatch<void, any, Action>, orders: any, callback: NodeStyleCallback | undefined) => {
+const postProcessing = (marketIds: string[], dispatch: ThunkDispatch<void, any, Action>, orders: any, callback: NodeStyleCallback | undefined) => {
   marketIds.forEach(marketId =>
     dispatch(updateOrderBook(shapeGetOrders(orders, marketId)))
   );

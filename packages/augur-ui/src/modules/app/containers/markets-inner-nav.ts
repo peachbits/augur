@@ -27,7 +27,7 @@ const mapStateToProps = (
     selectedCategoryName,
     selectedTagNames,
     balanceOfSearchParams,
-    keywords
+    keywords,
   } = getSelectedTagsAndCategoriesFromLocation(location);
 
   const { isMobile } = state.appStatus;
@@ -38,7 +38,7 @@ const mapStateToProps = (
   const onClick = ((location, history, toggleTagFn) => tag => () => {
     const p = {
       ...balanceOfSearchParams,
-      [CATEGORY_PARAM_NAME]: selectedCategoryName
+      [CATEGORY_PARAM_NAME]: selectedCategoryName,
     };
 
     if (keywords) {
@@ -54,20 +54,20 @@ const mapStateToProps = (
 
     history.push({
       ...location,
-      search: makeQuery(p)
+      search: makeQuery(p),
     });
   })(location, history, toggleTagFn);
 
   const makeCategoryLink = categoryClicked => {
     const link = {
-      pathname: makePath(MARKETS)
+      pathname: makePath(MARKETS),
     };
     if (
       categoryClicked !== selectedCategoryName ||
       !isEmpty(selectedTagNames)
     ) {
       const query = {
-        [CATEGORY_PARAM_NAME]: categoryClicked
+        [CATEGORY_PARAM_NAME]: categoryClicked,
       };
       if (keywords) {
         query[FILTER_SEARCH_PARAM] = keywords;
@@ -84,7 +84,7 @@ const mapStateToProps = (
     onClick: () => {
       if (isMobile) openSubMenu();
     },
-    link: makeCategoryLink(c.categoryName)
+    link: makeCategoryLink(c.categoryName),
   }));
 
   const selectedCategoryTagMenuItems = (() => {
@@ -98,19 +98,19 @@ const mapStateToProps = (
       label: tagAggregation.tagName,
       isSelected: selectedTagNames.includes(tagAggregation.tagName),
       onClick: onClick(tagAggregation.tagName),
-      visible: true
+      visible: true,
     }));
   })();
 
   return {
     isMobile,
     menuItems: selectedCategoryMenuItems,
-    submenuItems: selectedCategoryTagMenuItems
+    submenuItems: selectedCategoryTagMenuItems,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  updateMobileMenuState: data => dispatch(updateMobileMenuState(data))
+  updateMobileMenuState: data => dispatch(updateMobileMenuState(data)),
 });
 const MarketsInnerNavContainer = compose(
   withRouter,

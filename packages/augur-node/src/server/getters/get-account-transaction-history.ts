@@ -95,6 +95,6 @@ export async function getAccountTransactionHistory(db: Knex, augur: {}, params: 
       transactionHash: "0x2000000000000000000000000000000000000000",
       numCreatorShares: "0",
       numCreatorTokens: "0",
-    }
+    },
   ];
 }

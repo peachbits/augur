@@ -8,7 +8,7 @@ import { Action } from "redux";
 
 export const getForkMigrationTotals = (
   universeId: string,
-  callback: NodeStyleCallback = logError,
+  callback: NodeStyleCallback = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { marketsData, universe } = getState();
 
@@ -32,7 +32,7 @@ export const getForkMigrationTotals = (
               const payoutKey: string | null = calculatePayoutNumeratorsValue(
                 forkingMarket,
                 cur.payout,
-                cur.isInvalid,
+                cur.isInvalid
               );
               acc[payoutKey == null ? isInvalidKey : payoutKey] = {
                 repTotal: cur.repTotal,
@@ -40,10 +40,10 @@ export const getForkMigrationTotals = (
                 isInvalid: !!cur.isInvalid,
               };
               return acc;
-            }, {}),
+            }, {})
           );
-        },
+        }
       );
-    },
+    }
   );
 };

@@ -62,25 +62,25 @@ export const selectFilledOrders = (state: AppState) => state.filledOrders;
 
 export const selectCurrentTimestamp = createSelector(
   selectBlockchainState,
-  (blockchain) => blockchain.currentAugurTimestamp * 1000,
+  (blockchain) => blockchain.currentAugurTimestamp * 1000
 );
 
 export const selectCurrentTimestampInSeconds = createSelector(
   selectBlockchainState,
-  (blockchain) => blockchain.currentAugurTimestamp,
+  (blockchain) => blockchain.currentAugurTimestamp
 );
 
 export const selectUniverseReportingPeriodDurationInSeconds = createSelector(
   selectUniverseState,
-  (universe) => universe.reportingPeriodDurationInSeconds,
+  (universe) => universe.reportingPeriodDurationInSeconds
 );
 
 export const selectUniverseReportPeriod = createSelector(
   selectUniverseState,
-  (universe) => universe.currentReportingWindowAddress,
+  (universe) => universe.currentReportingWindowAddress
 );
 
 export const selectLoginAccountAddress = createSelector(
   selectLoginAccountState,
-  (loginAccount) => loginAccount.address,
+  (loginAccount) => loginAccount.address
 );

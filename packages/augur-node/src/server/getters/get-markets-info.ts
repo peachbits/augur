@@ -31,7 +31,7 @@ export async function getMarketsInfo(db: Knex, augur: {}, params: t.TypeOf<typeo
   });
 }
 
-export async function getUIMarketsInfo(db: Knex, marketIds: Array<Address>): Promise<Array<UIMarketInfo<string>>> {
+export async function getUIMarketsInfo(db: Knex, marketIds: Address[]): Promise<Array<UIMarketInfo<string>>> {
   const marketsQuery: Knex.QueryBuilder = getMarketsWithReportingState(db);
   const cleanedMarketIds = _.compact(marketIds);
   marketsQuery.whereIn("markets.marketId", cleanedMarketIds);

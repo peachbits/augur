@@ -8,7 +8,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { Action } from "redux";
 
 export const loadDisputingDetails = (
-  marketIds: Array<string>,
+  marketIds: string[],
   callback: NodeStyleCallback = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>) => {
   dispatch(

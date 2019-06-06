@@ -59,7 +59,7 @@ export const selectUserOpenOrders = createCachedSelector(
             orderBook,
             orderCancellation,
             market.description,
-            getOutcomeName(market, outcomes[outcomeId]),
+            getOutcomeName(market, outcomes[outcomeId])
           )
         )
         .filter(collection => collection.length !== 0)
@@ -187,9 +187,9 @@ function getUserOpenOrders(
             orderId: id,
             marketId,
             outcome: outcomeId,
-            orderTypeLabel: type
+            orderTypeLabel: type,
           })
         );
-      }
+      },
     }));
 }

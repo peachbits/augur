@@ -1,5 +1,5 @@
-export function listWordsUnderLength(str: string, maxLength: number): Array<string> {
-  const wordsList: Array<string> = [];
+export function listWordsUnderLength(str: string, maxLength: number): string[] {
+  const wordsList: string[] = [];
   let currentLength = 0;
 
   if (!str || !str.length) {

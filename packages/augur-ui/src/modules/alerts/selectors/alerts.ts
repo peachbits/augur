@@ -33,7 +33,7 @@ export const selectInfoAlertsAndSeenCount = createSelector(
     const sortedAlerts = filteredAlerts
       .map((alert, i) => ({
         ...alert,
-        index: i
+        index: i,
       }))
       .sort((a, b) => getValue(b, "timestamp") - getValue(a, "timestamp"));
 
@@ -44,7 +44,7 @@ export const selectInfoAlertsAndSeenCount = createSelector(
 
     return {
       unseenCount,
-      alerts: sortedAlerts
+      alerts: sortedAlerts,
     };
   }
 );

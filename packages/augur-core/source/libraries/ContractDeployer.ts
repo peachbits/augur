@@ -42,8 +42,8 @@ export class ContractDeployer {
         console.log(`\n\n-----------------
 Deploying to: ${networkConfiguration.networkName}
     compiled contracts: ${deployerConfiguration.contractInputPath}
-    contract address: ${deployerConfiguration.contractAddressesOutputPath}
-    upload blocks #s: ${deployerConfiguration.uploadBlockNumbersOutputPath}
+    contract address: ${deployerConfiguration.contractAddressesOutputPath || 'n/a'}
+    upload blocks #s: ${deployerConfiguration.uploadBlockNumbersOutputPath || 'n/a'}
 `);
         await contractDeployer.deploy();
     }
@@ -101,8 +101,8 @@ Deploying to: ${networkConfiguration.networkName}
         }
 
         if (this.configuration.writeArtifacts) {
-          await this.generateUploadBlockNumberFile(blockNumber);
-          await this.generateAddressMappingFile();
+          await this.generateUploadBlockNumberFile(this.configuration.uploadBlockNumbersOutputPath as string, blockNumber);
+          await this.generateAddressMappingFile(this.configuration.contractAddressesOutputPath as string);
         }
 
         return this.generateCompleteAddressMapping();
@@ -339,7 +339,7 @@ Deploying to: ${networkConfiguration.networkName}
 
         const networkId = (await this.provider.getNetwork()).chainId;
         let addressMapping: NetworkAddressMapping  = {};
-        if (await exists(this.configuration.contractAddressesOutputPath)) {
+        if (this.configuration.contractAddressesOutputPath && await exists(this.configuration.contractAddressesOutputPath)) {
             let existingAddressFileData: string = await readFile(this.configuration.contractAddressesOutputPath, 'utf8');
             addressMapping = JSON.parse(existingAddressFileData);
         }
@@ -347,9 +347,14 @@ Deploying to: ${networkConfiguration.networkName}
         return JSON.stringify(addressMapping, null, ' ');
     }
 
-    private async generateAddressMappingFile(): Promise<void> {
+    private async generateAddressMappingFile(contractAddressesOutputPath: string): Promise<void> {
         const addressMappingJson = await this.generateAddressMapping();
-        await writeFile(this.configuration.contractAddressesOutputPath, addressMappingJson, 'utf8')
+        await writeFile(contractAddressesOutputPath, addressMappingJson, 'utf8')
+    }
+
+    private async generateUploadBlockNumberFile(uploadBlockNumbersOutputPath: string, blockNumber: number): Promise<void> {
+      const blockNumberMapping = await this.generateUploadBlockNumberMapping(blockNumber);
+      await writeFile(uploadBlockNumbersOutputPath, blockNumberMapping, 'utf8')
     }
 
     private async generateUploadBlockNumberMapping(blockNumber: number): Promise<string> {
@@ -357,17 +362,11 @@ Deploying to: ${networkConfiguration.networkName}
 
         const networkId = (await this.provider.getNetwork()).chainId;
         let blockNumberMapping: UploadBlockNumberMapping  = {};
-        if (await exists(this.configuration.uploadBlockNumbersOutputPath)) {
+        if (this.configuration.uploadBlockNumbersOutputPath && await exists(this.configuration.uploadBlockNumbersOutputPath)) {
             let existingBlockNumberData: string = await readFile(this.configuration.uploadBlockNumbersOutputPath, 'utf8');
             blockNumberMapping = JSON.parse(existingBlockNumberData);
         }
         blockNumberMapping[networkId] = blockNumber;
         return JSON.stringify(blockNumberMapping, null, '  ');
     }
-
-    private async generateUploadBlockNumberFile(blockNumber: number): Promise<void> {
-        const blockNumberMapping = await this.generateUploadBlockNumberMapping(blockNumber);
-        await writeFile(this.configuration.uploadBlockNumbersOutputPath, blockNumberMapping, 'utf8')
-    }
-
 }

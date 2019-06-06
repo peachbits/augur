@@ -48,7 +48,7 @@ test("UserSynableDB.sync", async () => {
     sender,
     [stringTo32ByteHex("big"), stringTo32ByteHex("small")],
     "boba",
-    JSON.stringify({ description: "Will big or small boba be the most popular in 2019?" }),
+    JSON.stringify({ description: "Will big or small boba be the most popular in 2019?" })
   );
 
   const tokensTransferredEventDefinition = john.augur.userSpecificEvents.find((x) => x.name === "TokensTransferred");
@@ -62,7 +62,7 @@ test("UserSynableDB.sync", async () => {
     tokensTransferredEventDefinition.name,
     sender,
     tokensTransferredEventDefinition.numAdditionalTopics,
-    tokensTransferredEventDefinition.userTopicIndicies,
+    tokensTransferredEventDefinition.userTopicIndicies
   );
   await db.sync(augur, mock.constants.chunkSize, mock.constants.blockstreamDelay, highestAvailableBlockNumber);
 

@@ -22,7 +22,7 @@ export const buildDisplayTrade = (trade) => {
   const useShares = addOutcomeShares.lte(bnNumShares);
   const cost = Math.min(
     bnNumShares.toNumber(),
-    bnExistingShares.abs().toNumber(),
+    bnExistingShares.abs().toNumber()
   );
 
   if (
@@ -31,7 +31,7 @@ export const buildDisplayTrade = (trade) => {
       outcomeIndex,
       numShares,
       shareBalances,
-      side,
+      side
     )
   ) {
     const mirror = sum(userShareBalance, userNetPositions);
@@ -82,7 +82,7 @@ const buyingAllOutcomes = (
   outcomeIndex,
   numShares,
   shareBalances,
-  side,
+  side
 ) => {
   if (side !== BUY) return false;
   // check if user is selling shares when buying all outcomes
@@ -96,7 +96,7 @@ const buyingAllOutcomes = (
   const resulting = modUserShareBalance.map((value) =>
     createBigNumber(value)
       .minus(minValue)
-      .toString(),
+      .toString()
   );
   return areEqual(resulting, shareBalances);
 };

@@ -12,7 +12,7 @@ function makeUICategory(
       nonFinalizedOpenInterest: "0",
       numberOfMarketsWithThisTag: 1,
       openInterest: "0",
-      tagName
+      tagName,
     };
   }
   const tags = [];
@@ -22,13 +22,13 @@ function makeUICategory(
     categoryName,
     nonFinalizedOpenInterest: "0",
     openInterest: "0",
-    tags
+    tags,
   };
 }
 
 export function appendCategoryIfNew(
   dispatch: ThunkDispatch<void, any, Action>,
-  categories: Array<any>,
+  categories: any[],
   marketWithMaybeNewCategory: any
 ) {
   const isExistingCategory = categories.find(
@@ -42,7 +42,7 @@ export function appendCategoryIfNew(
           marketWithMaybeNewCategory.category,
           marketWithMaybeNewCategory.tags[0],
           marketWithMaybeNewCategory.tags[1]
-        )
+        ),
       ])
     );
   }

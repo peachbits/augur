@@ -30,7 +30,7 @@ async function createCannedMarket(person: ContractAPI, can: CannedMarket): Promi
         new BigNumber(affiliateFeeDivisor),
         designatedReporter,
         can.topic,
-        JSON.stringify(can.extraInfo),
+        JSON.stringify(can.extraInfo)
       );
       break;
     case "scalar":
@@ -55,7 +55,7 @@ async function createCannedMarket(person: ContractAPI, can: CannedMarket): Promi
         [minPrice, maxPrice],
         numTicks,
         can.topic,
-        JSON.stringify(can.extraInfo),
+        JSON.stringify(can.extraInfo)
       );
       break;
     case "categorical":
@@ -70,7 +70,7 @@ async function createCannedMarket(person: ContractAPI, can: CannedMarket): Promi
         designatedReporter,
         can.outcomes,
         can.topic,
-        JSON.stringify(can.extraInfo),
+        JSON.stringify(can.extraInfo)
       );
       break;
     default:
@@ -106,7 +106,7 @@ async function placeOrder(person: ContractAPI,
   console.log("Shares:", attoShares.toString());
   console.log("Price:", attoPrice.toString());
 
-  return await person.placeOrder(
+  return person.placeOrder(
     market.address,
     orderType,
     attoShares,
@@ -114,7 +114,7 @@ async function placeOrder(person: ContractAPI,
     outcome,
     betterOrderId,
     worseOrderId,
-    tradeGroupId,
+    tradeGroupId
   );
 }
 

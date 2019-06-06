@@ -44,7 +44,7 @@ async function incrementOutcomeVolume(db: Knex, marketId: Address, outcome: numb
   if (outcomesRow === undefined) throw new Error(`No outcome for incrementOutcomeVolume: marketId=${marketId} outcome=${outcome}`);
   const newShareVolume = amount.plus(outcomesRow.shareVolume);
   let vft = volumeForTrade(marketsRow.numTicks, tradesRow);
-  if (!isIncrease) vft = vft.multipliedBy(new BigNumber(-1));;
+  if (!isIncrease) vft = vft.multipliedBy(new BigNumber(-1));
   const newVolume = outcomesRow.volume.plus(vft);
   await db("outcomes").update({ volume: newVolume.toString(), shareVolume: newShareVolume.toString() }).where({ marketId, outcome });
 }

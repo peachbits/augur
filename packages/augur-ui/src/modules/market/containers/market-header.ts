@@ -22,12 +22,12 @@ const mapStateToProps = (state, ownProps) => {
     isForking: state.universe.isForking,
     market,
     isFavorite: !!state.favorites[ownProps.marketId],
-    currentAugurTimestamp: state.blockchain.currentAugurTimestamp
+    currentAugurTimestamp: state.blockchain.currentAugurTimestamp,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  toggleFavorite: marketId => dispatch(toggleFavorite(marketId))
+  toggleFavorite: marketId => dispatch(toggleFavorite(marketId)),
 });
 
 const MarketHeaderContainer = withRouter(

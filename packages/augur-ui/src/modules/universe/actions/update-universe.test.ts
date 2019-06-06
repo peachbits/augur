@@ -19,7 +19,7 @@ describe(`modules/universe/actions/update-universe.js`, () => {
         isReportRevealPhase: true,
         reportPeriod: 18,
         periodLength: 900,
-      }),
+      })
     );
     expect(store.getActions()).toEqual([
       {

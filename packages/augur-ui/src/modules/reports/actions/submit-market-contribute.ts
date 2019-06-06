@@ -16,7 +16,7 @@ export const submitMarketContribute = ({
   amount,
   history,
   returnPath = REPORTING_DISPUTE_MARKETS,
-  callback: NodeStyleCallback = logError
+  callback: NodeStyleCallback = logError,
 }: any) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { loginAccount, marketsData } = getState();
   const outcome = parseFloat(selectedOutcome);
@@ -52,6 +52,6 @@ export const submitMarketContribute = ({
     },
     onFailed: (err: any) => {
       callback(err);
-    }
+    },
   });
 };

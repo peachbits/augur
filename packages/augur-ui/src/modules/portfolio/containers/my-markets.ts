@@ -17,13 +17,13 @@ const mapStateToProps = state => {
     pendingLiquidityOrders: state.pendingLiquidityOrders,
     outcomes: marketDisputeOutcomes() || {},
     currentAugurTimestamp: state.blockchain.currentAugurTimestamp,
-    reportingWindowStatsEndTime: state.reportingWindowStats.endTime
+    reportingWindowStatsEndTime: state.reportingWindowStats.endTime,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   collectMarketCreatorFees: (getBalanceOnly, marketId, callback) =>
-    dispatch(collectMarketCreatorFees(getBalanceOnly, marketId, callback))
+    dispatch(collectMarketCreatorFees(getBalanceOnly, marketId, callback)),
 });
 
 const MyMarketsContainer = withRouter(

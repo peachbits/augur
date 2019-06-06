@@ -25,7 +25,7 @@ export interface MarketWinnings {
   winnings: BigNumber;
 }
 
-export async function getWinningBalance(db: Knex, augur: {}, params: t.TypeOf<typeof WinningBalanceParams>): Promise<Array<MarketWinnings>> {
+export async function getWinningBalance(db: Knex, augur: {}, params: t.TypeOf<typeof WinningBalanceParams>): Promise<MarketWinnings[]> {
   const marketsQuery: Knex.QueryBuilder = getMarketsWithReportingState(db, ["markets.marketId", "balances.balance", "balances.owner", "shareTokens.outcome", "payouts.*"]);
   marketsQuery.whereIn("markets.marketId", params.marketIds);
   marketsQuery.whereIn("reportingState", [ReportingState.FINALIZED, ReportingState.AWAITING_FINALIZATION]);
@@ -44,7 +44,7 @@ export async function getWinningBalance(db: Knex, augur: {}, params: t.TypeOf<ty
       .on("payouts.marketId", "markets.marketId")
       .andOn("payouts.winning", db.raw("1"));
   });
-  const winningPayoutRows: Array<WinningPayoutRows> = await marketsQuery;
+  const winningPayoutRows: WinningPayoutRows[] = await marketsQuery;
   const calculatedWinnings = _.map(winningPayoutRows, (winningPayoutRow) => {
     const payoutKey = `payout${winningPayoutRow.outcome}` as keyof PayoutRow<BigNumber>;
     const payout = winningPayoutRow[payoutKey] as BigNumber;

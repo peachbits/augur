@@ -24,7 +24,7 @@ export default function(callback: NodeStyleCallback = logError) {
           id,
           status,
           timestamp: getTime(getState()),
-        }),
+        })
       );
     augur.api.Universe.getReputationToken(
       { tx: { to: universeID } },
@@ -47,7 +47,7 @@ export default function(callback: NodeStyleCallback = logError) {
             logError(res);
           },
         });
-      },
+      }
     );
   };
 }

@@ -47,7 +47,7 @@ export const positionSummary = memoize(
       }),
       unrealizedPercent: formatPercent(
         timesHundred(unrealizedPercent || ZERO),
-        { decimalsRounded: 2 },
+        { decimalsRounded: 2 }
       ),
       totalCost: formatEther(unrealizedCost),
       totalValue: formatEther(unrealizedRevenue),
@@ -57,7 +57,7 @@ export const positionSummary = memoize(
         timesHundred(unrealizedRevenue24hChangePercent),
         {
           decimalsRounded: 2,
-        },
+        }
       ),
       totalPercent: formatPercent(timesHundred(totalPercent || ZERO), {
         decimalsRounded: 2,
@@ -66,7 +66,7 @@ export const positionSummary = memoize(
   },
   {
     max: 50,
-  },
+  }
 );
 
 const timesHundred = (value) => createBigNumber(value).times(100);

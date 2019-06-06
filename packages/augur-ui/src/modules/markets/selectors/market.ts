@@ -121,13 +121,15 @@ const assembleMarket = (
   const market = {
     ...marketData,
     description: marketData.description || "",
-    id: marketId
+    id: marketId,
   };
 
-  if (typeof market.minPrice !== "undefined")
+  if (typeof market.minPrice !== "undefined") {
     market.minPrice = createBigNumber(market.minPrice);
-  if (typeof market.maxPrice !== "undefined")
+  }
+  if (typeof market.maxPrice !== "undefined") {
     market.maxPrice = createBigNumber(market.maxPrice);
+  }
 
   switch (market.marketType) {
     case YES_NO:
@@ -172,7 +174,7 @@ const assembleMarket = (
     {
       positiveSign: false,
       decimals: 4,
-      decimalsRounded: 4
+      decimalsRounded: 4,
     }
   );
   market.marketCreatorFeeRatePercent = formatPercent(
@@ -180,19 +182,19 @@ const assembleMarket = (
     {
       positiveSign: false,
       decimals: 4,
-      decimalsRounded: 4
+      decimalsRounded: 4,
     }
   );
   market.settlementFeePercent = formatPercent(marketData.settlementFee * 100, {
     positiveSign: false,
     decimals: 4,
-    decimalsRounded: 4
+    decimalsRounded: 4,
   });
   market.openInterest = formatEther(marketData.openInterest, {
-    positiveSign: false
+    positiveSign: false,
   });
   market.volume = formatEther(marketData.volume, {
-    positiveSign: false
+    positiveSign: false,
   });
 
   market.resolutionSource = market.resolutionSource
@@ -239,8 +241,8 @@ const assembleMarket = (
         id: outcomeId,
         marketId,
         lastPrice: formatEther(outcomeData.price || 0, {
-          positiveSign: false
-        })
+          positiveSign: false,
+        }),
       };
       if (volume && volume.eq(ZERO)) {
         outcome.lastPrice.formatted = "—";
@@ -253,7 +255,7 @@ const assembleMarket = (
             decimalsRounded: 1,
             denomination: "",
             positiveSign: false,
-            zeroStyled: true
+            zeroStyled: true,
           });
           // format-number thinks 0 is '-', need to correct
           if (outcome.lastPrice.fullPrecision === "0") {
@@ -269,7 +271,7 @@ const assembleMarket = (
             decimalsRounded: 1,
             denomination: "",
             positiveSign: false,
-            zeroStyled: true
+            zeroStyled: true,
           });
         }
         // format-number thinks 0 is '-', need to correct
@@ -281,12 +283,12 @@ const assembleMarket = (
         outcome.lastPricePercent = formatPercent(
           outcome.lastPrice.value * 100,
           {
-            positiveSign: false
+            positiveSign: false,
           }
         );
       } else {
         outcome.lastPricePercent = formatPercent(100 / market.numOutcomes, {
-          positiveSign: false
+          positiveSign: false,
         });
       }
 
@@ -322,7 +324,7 @@ const assembleMarket = (
       : CATEGORICAL_SCALAR_INDETERMINATE_OUTCOME_ID;
   market.reportableOutcomes.push({
     id: indeterminateOutcomeId,
-    name: INDETERMINATE_OUTCOME_NAME
+    name: INDETERMINATE_OUTCOME_NAME,
   });
 
   market.myPositionsSummary = {};
@@ -360,7 +362,7 @@ const assembleMarket = (
   //   - the percentage of correct reports (for binaries only)
   if (marketData.consensus) {
     market.consensus = {
-      ...marketData.consensus
+      ...marketData.consensus,
     };
     if (market.reportableOutcomes.length) {
       const { payout, isInvalid } = market.consensus;

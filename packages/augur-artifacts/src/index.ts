@@ -13,7 +13,7 @@ export type NetworkId =
     | '101'
     | '102'
     | '103'
-    | '104'
+    | '104';
 
 export interface ContractAddresses {
     Universe: string;

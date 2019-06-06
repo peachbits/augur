@@ -27,7 +27,7 @@ import { PRECISION } from "../../constants";
 interface IOutcomes {
   numOutcomes: number;
   outcomeNames: Array<string | number | null>;
-  shareTokens: Array<string>;
+  shareTokens: string[];
 }
 
 function getOutcomesFromLog(augur: Augur, log: FormattedEventLog) {
@@ -47,7 +47,7 @@ function getOutcomesFromLog(augur: Augur, log: FormattedEventLog) {
       resolve({
         numOutcomes,
         outcomeNames,
-        shareTokens
+        shareTokens,
       });
     });
   });
@@ -70,19 +70,19 @@ export async function processMarketCreatedLog(augur: Augur, log: FormattedEventL
     return async (db: Knex) => {
       const designatedReportStakeRow: { balance: BigNumber } = await db("balances_detail").first("balance").where({
         owner: log.market,
-        symbol: "REP"
+        symbol: "REP",
       });
       if (designatedReportStakeRow == null) throw new Error(`No REP balance on market: ${log.market} (${log.transactionHash}`);
       const marketStateDataToInsert: { [index: string]: string | number | boolean } = {
         marketId: log.market,
         reportingState: ReportingState.PRE_REPORTING,
-        blockNumber: log.blockNumber
+        blockNumber: log.blockNumber,
       };
       let query = db.insert(marketStateDataToInsert).into("market_state");
       if (db.client.config.client !== "sqlite3") {
         query = query.returning("marketStateId");
       }
-      const marketStateRow: Array<number> = await query;
+      const marketStateRow: number[] = await query;
       if (!marketStateRow || !marketStateRow.length) throw new Error("No market state ID");
       const marketStateId = marketStateRow[0];
       const extraInfo: MarketCreatedLogExtraInfo = (log.extraInfo != null && typeof log.extraInfo === "object") ? log.extraInfo : {};
@@ -110,11 +110,11 @@ export async function processMarketCreatedLog(augur: Augur, log: FormattedEventL
         universe: log.universe,
         numOutcomes: getOutcomes.numOutcomes,
         marketStateId,
-        disputeWindow: disputeWindow,
+        disputeWindow,
         endTime: endTime.toNumber(),
-        designatedReporter: designatedReporter,
+        designatedReporter,
         designatedReportStake: convertFixedPointToDecimal(designatedReportStakeRow.balance, WEI_PER_ETHER),
-        numTicks: numTicks,
+        numTicks,
         feeDivisor: log.feeDivisor,
         initialReportSize: null,
         reportingFeeRate: convertDivisorToRate(reportingFeeDivisor),
@@ -125,17 +125,17 @@ export async function processMarketCreatedLog(augur: Augur, log: FormattedEventL
         forking: 0,
         needsMigration: 0,
         needsDisavowal: 0,
-        finalizationBlockNumber: null
+        finalizationBlockNumber: null,
       };
       const outcomesDataToInsert: Partial<OutcomesRow<string>> = formatBigNumberAsFixed<Partial<OutcomesRow<BigNumber>>, Partial<OutcomesRow<string>>>({
         marketId: log.market,
         price: new BigNumber(log.prices[0]).plus(new BigNumber(log.prices[1])).div(new BigNumber(getOutcomes.numOutcomes)),
         volume: ZERO,
-        shareVolume: ZERO
+        shareVolume: ZERO,
       });
       const tokensDataToInsert: Partial<TokensRow> = {
         marketId: log.market,
-        symbol: "shares"
+        symbol: "shares",
       };
       await db.insert(marketsDataToInsert).into("markets");
       const searchProvider = createSearchProvider(db);
@@ -144,15 +144,15 @@ export async function processMarketCreatedLog(augur: Augur, log: FormattedEventL
       }
       await db.batchInsert("outcomes", getOutcomes.shareTokens.map((_: Address, outcome: number): Partial<OutcomesRow<string>> => Object.assign({
         outcome,
-        description: outcome === 0 ? "Invalid" : getOutcomes.outcomeNames[outcome - 1]
+        description: outcome === 0 ? "Invalid" : getOutcomes.outcomeNames[outcome - 1],
       }, outcomesDataToInsert)), getOutcomes.numOutcomes);
       await db.batchInsert("tokens", getOutcomes.shareTokens.map((contractAddress: Address, outcome: number): Partial<TokensRow> => Object.assign({
         contractAddress,
-        outcome
+        outcome,
       }, tokensDataToInsert)), getOutcomes.numOutcomes);
       await db.batchInsert("token_supply", getOutcomes.shareTokens.map((contractAddress: Address): Partial<TokensRow> => Object.assign({
         token: contractAddress,
-        supply: "0"
+        supply: "0",
       })), getOutcomes.numOutcomes);
 
 
@@ -163,7 +163,7 @@ export async function processMarketCreatedLog(augur: Augur, log: FormattedEventL
         token: ETHER,
         sender: log.marketCreator,
         recipient: log.market,
-        value: validityBondAttoeth
+        value: validityBondAttoeth,
       }).into("transfers");
       augurEmitter.emit(SubscriptionEventNames.MarketCreated, Object.assign(
         { creationTime: getCurrentTime() },

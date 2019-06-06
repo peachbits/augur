@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
   categories: state.categories,
   isMobileSmall: state.appStatus.isMobileSmall,
   currentTimestamp: selectCurrentTimestamp(state),
-  gasPrice: getGasPrice(state)
+  gasPrice: getGasPrice(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -31,7 +31,7 @@ const mapDispatchToProps = dispatch => ({
   submitNewMarket: (data, history, cb) =>
     dispatch(submitNewMarket(data, history, cb)),
   estimateSubmitNewMarket: (data, callback) =>
-    dispatch(estimateSubmitNewMarket(data, callback))
+    dispatch(estimateSubmitNewMarket(data, callback)),
 });
 
 const CreateMarket = withRouter(

@@ -20,14 +20,14 @@ const mapStateToProps = (state, ownProps) => {
       market.designatedReporter === state.loginAccount.address,
     tentativeWinner:
       disputeOutcomes[ownProps.marketId] &&
-      disputeOutcomes[ownProps.marketId].find(o => o.tentativeWinning)
+      disputeOutcomes[ownProps.marketId].find(o => o.tentativeWinning),
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   finalizeMarket: (marketId, cb) => dispatch(sendFinalizeMarket(marketId, cb)),
   claimTradingProceeds: (marketId, cb) =>
-    dispatch(updateModal({ type: MODAL_CLAIM_TRADING_PROCEEDS, marketId, cb }))
+    dispatch(updateModal({ type: MODAL_CLAIM_TRADING_PROCEEDS, marketId, cb })),
 });
 
 const MarketHeaderReportingContainer = withRouter(

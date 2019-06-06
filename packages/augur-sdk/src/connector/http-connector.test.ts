@@ -1,14 +1,14 @@
 import { HTTPConnector } from "./http-connector";
-import { Markets } from "../state/api/Markets"
+import { Markets } from "../state/api/Markets";
 
 jest.mock("cross-fetch", () => {
   return {
     __esModule: true,
     default: () => ({
       json: ()=> ({
-        someValue: "yo"
-      })
-    })
+        someValue: "yo",
+      }),
+    }),
   };
 });
 

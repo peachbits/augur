@@ -8,7 +8,7 @@ export function unfix(n, encoding?) {
   if (n && n !== "0x" && !n.error && !n.message) {
     if (encoding) encoding = encoding.toLowerCase();
     if (Array.isArray(n)) {
-      let len = n.length;
+      const len = n.length;
       unfixed = new Array(len);
       for (let i = 0; i < len; ++i) {
         unfixed[i] = unfix(n[i], encoding);

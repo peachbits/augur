@@ -58,7 +58,7 @@ const mergeProps = (sP, dP, oP) => {
   const gasCost = formatGasCostToEther(
     NEW_ORDER_GAS_ESTIMATE.times(numberOfTransactions).toFixed(),
     { decimalsRounded: 4 },
-    sP.gasPrice,
+    sP.gasPrice
   );
   const bnAllowance = createBigNumber(sP.loginAccount.allowance, 10);
   const {
@@ -135,6 +135,6 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-  )(UnsignedOrders),
+    mergeProps
+  )(UnsignedOrders)
 );

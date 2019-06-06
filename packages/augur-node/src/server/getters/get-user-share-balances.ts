@@ -21,7 +21,7 @@ interface ShareTokenBalances {
 }
 
 export interface MarketBalances {
-  [market: string]: Array<string>;
+  [market: string]: string[];
 }
 
 export async function getUserShareBalances(db: Knex, augur: Augur, params: t.TypeOf<typeof UserShareBalancesParams>): Promise<MarketBalances> {
@@ -46,11 +46,11 @@ export async function getUserShareBalances(db: Knex, augur: Augur, params: t.Typ
     .orderBy("tokens.outcome")
     .whereIn("tokens.marketId", params.marketIds);
 
-  const balances: Array<ShareTokenBalances> = await query;
+  const balances: ShareTokenBalances[] = await query;
 
   return _.chain(balances)
     .groupBy((row) => row.marketId)
-    .mapValues((groupedBalances: Array<ShareTokenBalances>) => {
+    .mapValues((groupedBalances: ShareTokenBalances[]) => {
       return groupedBalances.map((row) => {
         if (row.balance === null) return "0";
         const tickSize = numTicksToTickSize(row.numTicks, row.minPrice, row.maxPrice);

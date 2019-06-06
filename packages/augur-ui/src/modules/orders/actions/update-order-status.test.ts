@@ -12,7 +12,7 @@ describe("modules/orders/actions/update-order-status.js", () => {
           status: CLOSE_DIALOG_CLOSING,
           marketId: "marketId",
           outcome: 2,
-          orderTypeLabel: BUY
+          orderTypeLabel: BUY,
         })
       );
       expect(store.getActions()).toHaveLength(0);
@@ -26,7 +26,7 @@ describe("modules/orders/actions/update-order-status.js", () => {
           status: CLOSE_DIALOG_CLOSING,
           marketId: "nonExistingMarketId",
           outcome: 2,
-          orderTypeLabel: BUY
+          orderTypeLabel: BUY,
         })
       );
       expect(store.getActions()).toHaveLength(0);
@@ -41,7 +41,7 @@ describe("modules/orders/actions/update-order-status.js", () => {
           status: CLOSE_DIALOG_CLOSING,
           marketId: "testMarketId",
           outcome: 2,
-          orderTypeLabel: BUY
+          orderTypeLabel: BUY,
         })
       );
       expect(store.getActions()).toEqual([
@@ -52,9 +52,9 @@ describe("modules/orders/actions/update-order-status.js", () => {
               "0xdbd851cc394595f9c50f32c1554059ec343471b49f84a4b72c44589a25f70ff3",
             status: CLOSE_DIALOG_CLOSING,
             marketId: "testMarketId",
-            orderType: BUY
-          }
-        }
+            orderType: BUY,
+          },
+        },
       ]);
     });
   });

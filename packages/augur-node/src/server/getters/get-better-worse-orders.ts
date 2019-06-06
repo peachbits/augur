@@ -29,7 +29,7 @@ interface OrderRow {
 
 export async function getBetterWorseOrders(db: Knex, augur: {}, params: t.TypeOf<typeof BetterWorseOrdersParams>): Promise<BetterWorseResult> {
   const ordersQuery = db("orders").select("orderId", "price").where({ orderState: "OPEN", ..._.pick(params, ["marketId", "outcome", "orderType"])});
-  const orders: Array<OrderRow> = await ordersQuery;
+  const orders: OrderRow[] = await ordersQuery;
   const priceBN = new BigNumber(params.price);
   const [lesserOrders, greaterOrders] = _.partition(orders, (order) => order.price.lt(priceBN));
   const greaterOrder = _.reduce(greaterOrders, (result, order) => (result.orderId === null || order.price.lt(result.price) ? order : result), { orderId: null, price: ZERO });

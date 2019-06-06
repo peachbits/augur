@@ -14,14 +14,14 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
   closeModal: () => dispatch(closeModal()),
   approveAccount: (onSent: Function, onSuccess: Function) =>
-    dispatch(approveAccount(onSent, onSuccess))
+    dispatch(approveAccount(onSent, onSuccess)),
 });
 
 const mergeProps = (sP: any, dP: any, oP: any) => ({
   title: "Approve Augur",
   description: [
     `In order to trade on Augur you must first approve the Augur Contracts to move Ether on your behalf. You will be unable to trade until approval has completed.`,
-    `After clicking "Approve" you will be asked to sign a transaction, followed by a second transaction to complete your requested trade.`
+    `After clicking "Approve" you will be asked to sign a transaction, followed by a second transaction to complete your requested trade.`,
   ],
   closeAction: () => {
     sP.modal.approveCallback("close_modal");
@@ -33,15 +33,15 @@ const mergeProps = (sP: any, dP: any, oP: any) => ({
       action: () => {
         dP.approveAccount(sP.modal.approveOnSent, sP.modal.approveCallback);
         dP.closeModal();
-      }
-    }
-  ]
+      },
+    },
+  ],
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-  )(Message),
+    mergeProps
+  )(Message)
 );

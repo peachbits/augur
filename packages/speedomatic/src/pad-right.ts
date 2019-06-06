@@ -4,7 +4,7 @@ import { prefixHex } from "./prefix-hex";
 
 export function padRight(s, chunkLength = 64, hasPrefix = false) {
   s = strip0xPrefix(s);
-  let multiple = chunkLength * (chunk(s.length, chunkLength) || 1);
+  const multiple = chunkLength * (chunk(s.length, chunkLength) || 1);
   while (s.length < multiple) {
     s += "0";
   }

@@ -13,12 +13,12 @@ export default function(favorites = DEFAULT_STATE, { type, data }: BaseAction): 
     case UPDATE_FAVORITES:
       return {
         ...favorites,
-        ...data.favorites
+        ...data.favorites,
       };
     case TOGGLE_FAVORITE: {
       const { marketId, timestamp } = data;
       const newFavorites = {
-        ...favorites
+        ...favorites,
       };
       if (newFavorites[marketId]) {
         delete newFavorites[marketId];

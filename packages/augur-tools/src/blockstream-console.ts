@@ -6,12 +6,12 @@ const STARTUP_BLOCKS = parseInt(process.env.STARTUP_BLOCKS || "5");
 const ETHEREUM_HTTP = process.env.ETHEREUM_HTTP || "http://127.0.0.1:8545";
 const ADAPTER_TYPE = process.env.ADAPTER_TYPE || "ethrpc";
 const LOG_FILTER = {
-  address: process.env.FILTER_ADDRESS || "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
+  address: process.env.FILTER_ADDRESS || "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 };
 
 function startPollingForBlocks(blockstream: BlockAndLogStreamer<Block, Log>, getBlockByNumber: GetBlockByString) {
   setInterval(async function () {
-    let block = await getBlockByNumber("latest");
+    const block = await getBlockByNumber("latest");
     if (block === null) return console.warn("bad block");
     blockstream.reconcileNewBlock(block);
   }, POLLING_FREQUENCY);
@@ -26,13 +26,13 @@ function describeBlock(block: Block) {
 }
 
 function setupLogging(blockstream: BlockAndLogStreamer<Block, Log>) {
-  blockstream.addLogFilter(LOG_FILTER)
+  blockstream.addLogFilter(LOG_FILTER);
 
   blockstream.subscribeToOnBlockAdded((block: Block) => {
-    console.log("BLOCK Added " + describeBlock(block))
+    console.log("BLOCK Added " + describeBlock(block));
   });
   blockstream.subscribeToOnBlockRemoved((block: Block) => {
-    console.log("BLOCK Removed " + describeBlock(block))
+    console.log("BLOCK Removed " + describeBlock(block));
   });
   blockstream.subscribeToOnLogsAdded((blockHash, logs) => {
     if (logs.length > 0) {

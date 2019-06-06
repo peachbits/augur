@@ -84,7 +84,7 @@ const mapStateToProps = state => {
     forkEndTime: state.universe.forkEndTime,
     forkingMarketId: state.universe.forkingMarket,
     disputableMarketIds,
-    upcomingDisputableMarketIds
+    upcomingDisputableMarketIds,
   };
 };
 
@@ -97,7 +97,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(loadMarketsInfoIfNotLoaded(marketIds)),
   toggleFavorite: marketId => dispatch(toggleFavorite(marketId)),
   loadDisputingDetails: (marketIds, cb) =>
-    dispatch(loadDisputingDetails(marketIds, cb))
+    dispatch(loadDisputingDetails(marketIds, cb)),
 });
 
 export default withRouter(

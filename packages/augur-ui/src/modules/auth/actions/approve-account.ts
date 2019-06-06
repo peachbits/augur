@@ -18,7 +18,7 @@ export function checkAccountAllowance(callback: NodeStyleCallback = logError) {
       augur.api.Cash.allowance(
         {
           _owner: loginAccount.address,
-          _spender: augur.contracts.addresses[getNetworkId()].Augur
+          _spender: augur.contracts.addresses[getNetworkId()].Augur,
         },
         (err: any, allowance: string) => {
           if (err) callback(err);
@@ -50,11 +50,11 @@ export function approveAccount(
           updateAlert(res.hash, {
             id: res.hash,
             status: "Failed",
-            timestamp: selectCurrentTimestampInSeconds(getState())
+            timestamp: selectCurrentTimestampInSeconds(getState()),
           })
         );
         logError(res);
-      }
+      },
     });
   };
 }

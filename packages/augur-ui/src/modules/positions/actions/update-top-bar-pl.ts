@@ -8,11 +8,12 @@ import { Action } from "redux";
 
 export const updateTopBarPL = (
   options: any = {},
-  callback: NodeStyleCallback = logError,
+  callback: NodeStyleCallback = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { universe, loginAccount } = getState();
-  if (loginAccount.address == null || universe.id == null)
+  if (loginAccount.address == null || universe.id == null) {
     return callback(null);
+  }
   augur.augurNode.submitRequest(
     "getProfitLoss",
     {
@@ -30,8 +31,8 @@ export const updateTopBarPL = (
           // @ts-ignore
           realizedPL: data[data.length - 1].realized,
           realizedPLPercent: data[data.length - 1].realizedPercent,
-        }),
+        })
       );
-    },
+    }
   );
 };

@@ -39,9 +39,9 @@ export function formatDate(d): DateFormattedObject {
   const date: Date = d instanceof Date ? d : new Date(0);
 
   // UTC Time Formatting
-  const utcTime: Array<number> = [date.getUTCHours(), date.getUTCMinutes()];
-  const utcTimeTwelve: Array<string> = getTwelveHourTime(utcTime);
-  const utcTimeWithSeconds: Array<string> = [
+  const utcTime: number[] = [date.getUTCHours(), date.getUTCMinutes()];
+  const utcTimeTwelve: string[] = getTwelveHourTime(utcTime);
+  const utcTimeWithSeconds: string[] = [
     ("0" + date.getUTCHours()).slice(-2),
     ("0" + date.getUTCMinutes()).slice(-2),
     ("0" + date.getUTCSeconds()).slice(-2),
@@ -49,13 +49,13 @@ export function formatDate(d): DateFormattedObject {
   const utcAMPM: string = ampm(("0" + date.getUTCHours()).slice(-2));
 
   // Locat Time Formatting
-  const localTime: Array<number> = [date.getHours(), date.getMinutes()];
+  const localTime: number[] = [date.getHours(), date.getMinutes()];
   const localAMPM: string = ampm(localTime[0].toString());
-  const localTimeTwelve: Array<string> = getTwelveHourTime(localTime);
+  const localTimeTwelve: string[] = getTwelveHourTime(localTime);
   const localOffset: number = (date.getTimezoneOffset() / 60) * -1;
   const localOffsetFormatted: string =
     localOffset > 0 ? `+${localOffset}` : localOffset.toString();
-  const timezone: string = `(${
+  const timezone = `(${
     date.toLocaleTimeString("en-us", { timeZoneName: "short" }).split(" ")[2]
   })`;
 
@@ -65,7 +65,7 @@ export function formatDate(d): DateFormattedObject {
     formatted: `${
       months[date.getUTCMonth()]
     } ${date.getUTCDate()}, ${date.getUTCFullYear()} ${utcTimeTwelve.join(
-      ":",
+      ":"
     )} ${utcAMPM}`, // UTC time
     formattedShortDate: `${("0" + date.getUTCDate()).slice(-2)}${
       shortMonths[date.getUTCMonth()]
@@ -77,7 +77,7 @@ export function formatDate(d): DateFormattedObject {
     formattedLocal: `${
       months[date.getMonth()]
     } ${date.getDate()}, ${date.getFullYear()} ${localTimeTwelve.join(
-      ":",
+      ":"
     )} ${localAMPM} (UTC ${localOffsetFormatted})`, // local time
     formattedLocalShortDate: `${
       shortMonths[date.getMonth()]
@@ -88,13 +88,13 @@ export function formatDate(d): DateFormattedObject {
     formattedLocalShortTime: `${
       shortMonths[date.getMonth()]
     } ${date.getDate()}, ${date.getFullYear()} ${localTimeTwelve.join(
-      ":",
+      ":"
     )} ${localAMPM} (UTC ${localOffsetFormatted})`, // local time
     full: date.toUTCString(),
     timestamp: date.getTime() / 1000,
     utcLocalOffset: localOffset,
     clockTimeLocal: `${localTimeTwelve.join(
-      ":",
+      ":"
     )} ${localAMPM} (UTC ${localOffsetFormatted})`,
     formattedSimpleData: `${
       months[date.getMonth()]
@@ -106,12 +106,12 @@ export function formatDate(d): DateFormattedObject {
     formattedTimezone: `${
       months[date.getMonth()]
     } ${date.getDate()}, ${date.getFullYear()} ${localTimeTwelve.join(
-      ":",
+      ":"
     )} ${localAMPM} ${timezone} (Local timezone)`,
     formattedUtc: `${
       months[date.getUTCMonth()]
     } ${date.getUTCDate()}, ${date.getUTCFullYear()} ${utcTimeTwelve.join(
-      ":",
+      ":"
     )} ${utcAMPM} (UTC 0)`,
   };
 }
@@ -126,8 +126,8 @@ function convertToTwelveHour(value: number): number {
   return hour || 12;
 }
 
-function getTwelveHourTime(time: Array<number>): Array<string> {
-  const values: Array<string> = new Array(time.length);
+function getTwelveHourTime(time: number[]): string[] {
+  const values: string[] = new Array(time.length);
   values[0] = convertToTwelveHour(time[0]).toString();
   values[1] = time[1].toString();
   if (time[1] < 10) values[1] = "0" + time[1];
@@ -135,13 +135,13 @@ function getTwelveHourTime(time: Array<number>): Array<string> {
   return values;
 }
 
-export function convertUnixToFormattedDate(integer: number = 0) {
+export function convertUnixToFormattedDate(integer = 0) {
   return formatDate(moment.unix(integer).toDate());
 }
 
 export function getBeginDate(
   currentAugurTimestampInMilliseconds: number,
-  periodString: string,
+  periodString: string
 ): number | null {
   const date = moment(currentAugurTimestampInMilliseconds);
   let beginDate = date.subtract(1, "day");
@@ -159,7 +159,7 @@ export function getBeginDate(
 
 export function dateHasPassed(
   currentAugurTimestampInMilliseconds: number,
-  unixTimestamp: number,
+  unixTimestamp: number
 ): boolean {
   const date = moment(currentAugurTimestampInMilliseconds).utc();
   return date.unix() > unixTimestamp;
@@ -177,7 +177,7 @@ export function getHoursRemaining(endUnixTimestamp: number, startUnixTimestamp: 
   if (startUnixTimestamp > endUnixTimestamp) return 0;
   const remainingTicks = endUnixTimestamp - startUnixTimestamp;
   return Math.floor(
-    (remainingTicks / NUMBER_OF_SECONDS_IN_A_DAY) * HOURS_IN_A_DAY,
+    (remainingTicks / NUMBER_OF_SECONDS_IN_A_DAY) * HOURS_IN_A_DAY
   );
 }
 
@@ -188,7 +188,7 @@ export function getMinutesRemaining(endUnixTimestamp: number, startUnixTimestamp
   return Math.floor(
     (remainingTicks / NUMBER_OF_SECONDS_IN_A_DAY) *
       HOURS_IN_A_DAY *
-      MINUTES_IN_A_HOUR,
+      MINUTES_IN_A_HOUR
   );
 }
 
@@ -201,13 +201,13 @@ export function getSecondsRemaining(endUnixTimestamp: number, startUnixTimestamp
     (remainingTicks / NUMBER_OF_SECONDS_IN_A_DAY) *
       HOURS_IN_A_DAY *
       MINUTES_IN_A_HOUR *
-      MINUTES_IN_A_HOUR,
+      MINUTES_IN_A_HOUR
   );
 }
 
 export function getHoursMinusDaysRemaining(
   endUnixTimestamp: number,
-  startUnixTimestamp: number,
+  startUnixTimestamp: number
 ): number {
   const getDays = getDaysRemaining(endUnixTimestamp, startUnixTimestamp);
   const hours = getDays * 24;
@@ -216,7 +216,7 @@ export function getHoursMinusDaysRemaining(
 
 export function getMinutesMinusHoursRemaining(
   endUnixTimestamp: number,
-  startUnixTimestamp: number,
+  startUnixTimestamp: number
 ): number {
   const getHours = getHoursRemaining(endUnixTimestamp, startUnixTimestamp);
   const hours = getHours * 60;
@@ -231,7 +231,7 @@ export function getMarketAgeInDays(creationTimeTimestamp: number, currentTimesta
 
 export function getSecondsMinusMinutesRemaining(
   endUnixTimestamp: number,
-  startUnixTimestamp: number,
+  startUnixTimestamp: number
 ): number {
   const getMinutes = getMinutesRemaining(endUnixTimestamp, startUnixTimestamp);
   const minutes = getMinutes * 60;

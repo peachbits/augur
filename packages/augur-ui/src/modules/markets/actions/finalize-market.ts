@@ -8,7 +8,7 @@ import { AppState } from "store";
 
 export const sendFinalizeMarket = (marketId, callback: NodeStyleCallback = logError) => (
   dispatch: ThunkDispatch<void, any, Action>,
-  getState: () => AppState,
+  getState: () => AppState
 ) => {
   console.log("finalize market called");
   const { loginAccount } = getState();
@@ -20,6 +20,6 @@ export const sendFinalizeMarket = (marketId, callback: NodeStyleCallback = logEr
     onSuccess: () => {
       callback(null);
     },
-    onFailed: err => callback(err)
+    onFailed: err => callback(err),
   });
 };

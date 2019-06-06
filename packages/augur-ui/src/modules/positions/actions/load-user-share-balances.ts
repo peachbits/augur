@@ -8,8 +8,8 @@ import { Action } from "redux";
 export const LOAD_USER_SHARE_BALANCES = "LOAD_USER_SHARE_BALANCES";
 
 export const loadUsershareBalances = (
-  marketIds: Array<string>,
-  callback: NodeStyleCallback = logError,
+  marketIds: string[],
+  callback: NodeStyleCallback = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { loginAccount } = getState();
   if (loginAccount.address == null) return callback(null);
@@ -23,7 +23,7 @@ export const loadUsershareBalances = (
       if (err) return callback(err);
       dispatch({ type: LOAD_USER_SHARE_BALANCES, data });
       callback(null, data);
-    },
+    }
   );
 };
 

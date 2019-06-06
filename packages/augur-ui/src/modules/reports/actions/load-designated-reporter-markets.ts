@@ -15,19 +15,19 @@ export const loadDesignatedReporterMarkets = (
   const {
     DESIGNATED_REPORTING,
     OPEN_REPORTING,
-    PRE_REPORTING
+    PRE_REPORTING,
   } = constants.REPORTING_STATE;
 
   const designatedReportingQuery = {
     universe: universe.id,
     reporter: loginAccount.address,
     reportingState: [DESIGNATED_REPORTING, OPEN_REPORTING, PRE_REPORTING],
-    designatedReporter: loginAccount.address
+    designatedReporter: loginAccount.address,
   };
 
   augur.markets.getMarkets(
     designatedReportingQuery,
-    (err: any, marketIds: Array<string>) => {
+    (err: any, marketIds: string[]) => {
       if (err) return callback(err);
       dispatch(
         loadMarketsInfoIfNotLoaded(marketIds, (err: any) => {

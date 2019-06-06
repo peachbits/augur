@@ -19,7 +19,7 @@ describe("modules/auth/helpers/ledger-signer", () => {
     closeModal.mockImplementation(() => ({ type: "stubbedCloseModal" }));
 
     ledgerLib = {
-      signTransaction: jest.fn()
+      signTransaction: jest.fn(),
     };
 
     store.clearActions();
@@ -28,17 +28,17 @@ describe("modules/auth/helpers/ledger-signer", () => {
   test("should dispatch the expected actions when signing succeeds", async () => {
     const expected = [
       {
-        type: "stubbedUpdateModal"
+        type: "stubbedUpdateModal",
       },
       {
-        type: "stubbedCloseModal"
-      }
+        type: "stubbedCloseModal",
+      },
     ];
 
     ledgerLib.signTransaction.mockResolvedValue({
       r: "blah",
       s: "test",
-      v: "bob"
+      v: "bob",
     });
 
     await ledgerSigner(
@@ -55,11 +55,11 @@ describe("modules/auth/helpers/ledger-signer", () => {
     let actual;
     const expected = [
       {
-        type: "stubbedUpdateModal"
+        type: "stubbedUpdateModal",
       },
       {
-        type: "stubbedUpdateModal"
-      }
+        type: "stubbedUpdateModal",
+      },
     ];
 
     ledgerLib.signTransaction.mockRejectedValue();

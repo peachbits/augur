@@ -5,7 +5,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { Action } from "redux";
 
 export const checkIfMainnet = (callback: NodeStyleCallback = logError) => (
-  dispatch: ThunkDispatch<void, any, Action>,
+  dispatch: ThunkDispatch<void, any, Action>
 ) => {
   dispatch(
     getAugurNodeNetworkId((err: any, augurNodeNetworkId: string) => {

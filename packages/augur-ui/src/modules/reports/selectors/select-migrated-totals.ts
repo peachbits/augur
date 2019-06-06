@@ -17,8 +17,8 @@ export default function(reportableOutcomes, forkMigrationTotals) {
           rep: "0",
           name: outcome.name,
           winner: false,
-          isInvalid: outcome.id === invalidMarketId
-        }
+          isInvalid: outcome.id === invalidMarketId,
+        },
       ];
       return result;
     }, []);
@@ -35,11 +35,11 @@ export default function(reportableOutcomes, forkMigrationTotals) {
         id: curOutcomeId,
         rep: formatAttoRep(forkMigrationOutcomeData.repTotal, {
           decimals: 4,
-          roundUp: true
+          roundUp: true,
         }),
         name: outcome ? outcome.name : curOutcomeId,
         winner: forkMigrationOutcomeData.winner,
-        isInvalid
+        isInvalid,
       };
       return [...totals, value];
     },
@@ -56,8 +56,8 @@ export default function(reportableOutcomes, forkMigrationTotals) {
           id: outcome.id,
           rep: { formatted: "0", fullPrecision: 0 },
           name: outcome.name,
-          winner: false
-        }
+          winner: false,
+        },
       ];
     }, processTotals)
     .sort((a, b) =>

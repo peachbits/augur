@@ -21,5 +21,5 @@ export const selectLoginAccountPositionsMarkets = createSelector(
       return [];
     }
     return markets.filter((market) => positions[market.id] != null);
-  },
+  }
 );

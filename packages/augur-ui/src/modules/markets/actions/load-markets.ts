@@ -21,7 +21,7 @@ import { AppState } from "store";
 // From here we populate the marketsData
 export const loadMarkets = (type: any, callback: NodeStyleCallback = logError) => (
   dispatch: ThunkDispatch<void, any, Action>,
-  getState: () => AppState,
+  getState: () => AppState
 ) => {
   const { universe } = getState();
   const params = { universe: universe.id };
@@ -32,7 +32,7 @@ export const loadMarkets = (type: any, callback: NodeStyleCallback = logError) =
     const marketsData = marketsArray.reduce(
       (p: any, id: string) => ({
         ...p,
-        [id]: { id }
+        [id]: { id },
       }),
       {}
     );
@@ -47,7 +47,7 @@ export const loadMarketsByFilter = (filterOptions: any, cb:Function = () => {}) 
   getState: () => AppState
 ) => {
   const { universe } = getState();
-  const filter: Array<any> = [];
+  const filter: any[] = [];
   const sort: any = {};
   const parallelParams: any = {};
   switch (filterOptions.sort) {
@@ -93,7 +93,7 @@ export const loadMarketsByFilter = (filterOptions: any, cb:Function = () => {}) 
     search: filterOptions.search,
     maxFee: parseFloat(filterOptions.maxFee),
     hasOrders: filterOptions.hasOrders,
-    ...sort
+    ...sort,
   };
   switch (filterOptions.filter) {
     case MARKET_REPORTING: {
@@ -103,7 +103,7 @@ export const loadMarketsByFilter = (filterOptions: any, cb:Function = () => {}) 
         REPORTING_STATE.OPEN_REPORTING,
         REPORTING_STATE.CROWDSOURCING_DISPUTE,
         REPORTING_STATE.AWAITING_NEXT_WINDOW,
-        REPORTING_STATE.AWAITING_FORK_MIGRATION
+        REPORTING_STATE.AWAITING_FORK_MIGRATION,
       ]);
       filter.forEach(filterType => {
         parallelParams[filterType] = (next: Function) =>
@@ -118,7 +118,7 @@ export const loadMarketsByFilter = (filterOptions: any, cb:Function = () => {}) 
       // resolved markets only:
       filter.push([
         REPORTING_STATE.AWAITING_FINALIZATION,
-        REPORTING_STATE.FINALIZED
+        REPORTING_STATE.FINALIZED,
       ]);
       filter.forEach(filterType => {
         parallelParams[filterType] = (next: Function) =>
@@ -143,7 +143,7 @@ export const loadMarketsByFilter = (filterOptions: any, cb:Function = () => {}) 
     }
   }
   parallel(parallelParams, (err: any, filteredMarkets: any) => {
-    let finalizedMarketList: Array<any> = [];
+    let finalizedMarketList: any[] = [];
     if (err) return cb(err);
     filter.forEach(filterType => {
       if (

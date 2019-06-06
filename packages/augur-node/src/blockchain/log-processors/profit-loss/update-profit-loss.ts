@@ -38,9 +38,9 @@ interface MarketData {
   minPrice: BigNumber;
 }
 
-export async function updateProfitLossBuyShares(db: Knex, marketId: Address, account: Address, tokensSpent: BigNumber, outcomes: Array<number>, transactionHash: string): Promise<void> {
+export async function updateProfitLossBuyShares(db: Knex, marketId: Address, account: Address, tokensSpent: BigNumber, outcomes: number[], transactionHash: string): Promise<void> {
   const tokensSpentPerOutcome = tokensSpent.div(outcomes.length);
-  const moneySpentRows: Array<OutcomeMoneySpent> = await db
+  const moneySpentRows: OutcomeMoneySpent[] = await db
     .select(["outcome", "moneySpent"])
     .from("profit_loss_timeseries")
     .where({ account, transactionHash, marketId })
@@ -54,7 +54,7 @@ export async function updateProfitLossBuyShares(db: Knex, marketId: Address, acc
   }
 }
 
-export async function updateProfitLossSellEscrowedShares(db: Knex, marketId: Address, numShares: BigNumber, account: Address, outcomes: Array<number>, tokensReceived: BigNumber, transactionHash: string): Promise<void> {
+export async function updateProfitLossSellEscrowedShares(db: Knex, marketId: Address, numShares: BigNumber, account: Address, outcomes: number[], tokensReceived: BigNumber, transactionHash: string): Promise<void> {
   const tokensReceivedPerOutcome = tokensReceived.div(outcomes.length);
   const timestamp = getCurrentTime();
 
@@ -98,9 +98,9 @@ export async function updateProfitLossSellEscrowedShares(db: Knex, marketId: Add
   }
 }
 
-export async function updateProfitLossSellShares(db: Knex, marketId: Address, numShares: BigNumber, account: Address, outcomes: Array<number>, tokensReceived: BigNumber, transactionHash: string): Promise<void> {
+export async function updateProfitLossSellShares(db: Knex, marketId: Address, numShares: BigNumber, account: Address, outcomes: number[], tokensReceived: BigNumber, transactionHash: string): Promise<void> {
   const tokensReceivedPerOutcome = tokensReceived.div(outcomes.length);
-  const updateDataRows: Array<UpdateData> = await db
+  const updateDataRows: UpdateData[] = await db
     .select(["account", "numOwned", "moneySpent", "profit", "transactionHash", "outcome", "numEscrowed"])
     .from("profit_loss_timeseries")
     .where({ account, marketId, transactionHash })
@@ -191,8 +191,8 @@ export async function updateProfitLossRemoveRow(db: Knex, transactionHash: strin
     .where({ transactionHash });
 }
 
-export async function updateProfitLossNumEscrowed(db: Knex, marketId: Address, numEscrowedDelta: BigNumber, account: Address, outcomes: Array<number>, transactionHash: string): Promise<void> {
-  const numEscrowedRows: Array<OutcomeNumEscrowed> = await db
+export async function updateProfitLossNumEscrowed(db: Knex, marketId: Address, numEscrowedDelta: BigNumber, account: Address, outcomes: number[], transactionHash: string): Promise<void> {
+  const numEscrowedRows: OutcomeNumEscrowed[] = await db
     .select(["outcome", "numEscrowed"])
     .from("profit_loss_timeseries")
     .where({ account, transactionHash, marketId })

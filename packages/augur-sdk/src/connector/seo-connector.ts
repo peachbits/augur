@@ -20,7 +20,7 @@ export class SEOConnector extends Connector {
   private api: API;
   private events = new Subscriptions(augurEmitter);
 
-  public async connect(params?: any): Promise<any> {
+  async connect(params?: any): Promise<any> {
     Sync.start({ adapter: "memory" });
 
     const ethersProvider = new EthersProvider(new JsonRpcProvider(settings.ethNodeURLs[4]), 10, 0, 40);
@@ -35,22 +35,22 @@ export class SEOConnector extends Connector {
     this.api = new API(augur, controller.db);
   }
 
-  public async disconnect(): Promise<any> {
+  async disconnect(): Promise<any> {
     return;
   }
 
-  public bindTo<R, P>(f: (db: any, augur: any, params: P) => R): (params: P) => Promise<R> {
+  bindTo<R, P>(f: (db: any, augur: any, params: P) => R): (params: P) => Promise<R> {
     return async (params: P): Promise<R> => {
       return this.api.route(f.name, params);
     };
   }
 
-  public on(eventName: SubscriptionEventNames | string, callback: Callback): void {
+  on(eventName: SubscriptionEventNames | string, callback: Callback): void {
     const subscription: string = this.events.subscribe(eventName, callback);
     this.subscriptions[eventName] = { id: subscription, callback };
   }
 
-  public off(eventName: SubscriptionEventNames | string): void {
+  off(eventName: SubscriptionEventNames | string): void {
     const subscription = this.subscriptions[eventName].id;
     delete this.subscriptions[eventName];
     return this.events.unsubscribe(subscription);

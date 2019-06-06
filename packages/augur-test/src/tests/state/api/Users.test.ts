@@ -79,11 +79,11 @@ test("State API :: Users :: getProfitLoss & getProfitLossSummary ", async () => 
     const market2 = await john.createReasonableYesNoMarket(john.augur.contracts.universe);
 
     const startTime = await john.getTimestamp();
-    let timestamp = startTime;
+    const timestamp = startTime;
 
     const day = 60 * 60 * 24;
 
-    const trades: Array<PLTradeData> = [
+    const trades: PLTradeData[] = [
         {
             "direction": LONG,
             "outcome": YES,
@@ -120,10 +120,10 @@ test("State API :: Users :: getProfitLoss & getProfitLossSummary ", async () => 
             "market": market2,
             "timestamp": startTime.plus(32 * day).toNumber(),
             "unrealizedPL": -1.5,
-        }
+        },
     ];
 
-    for (let trade of trades) {
+    for (const trade of trades) {
         await john.setTimestamp(new BigNumber(trade.timestamp));
         await doTrade(trade, trade.market);
     }
@@ -131,7 +131,7 @@ test("State API :: Users :: getProfitLoss & getProfitLossSummary ", async () => 
     await db.sync(
         john.augur,
         mock.constants.chunkSize,
-        0,
+        0
     );
 
     const profitLoss = await api.route("getProfitLoss", {
@@ -140,7 +140,7 @@ test("State API :: Users :: getProfitLoss & getProfitLossSummary ", async () => 
         startTime: startTime.toNumber(),
     });
 
-    for (let trade of trades) {
+    for (const trade of trades) {
         const plFrame = _.find(profitLoss, (pl) => {
             return new BigNumber(pl.timestamp).gte(trade.timestamp);
         });
@@ -154,8 +154,8 @@ test("State API :: Users :: getProfitLoss & getProfitLossSummary ", async () => 
         account: mary.account,
     });
 
-    const oneDayPLSummary = profitLossSummary["1"]
-    const thirtyDayPLSummary = profitLossSummary["30"]
+    const oneDayPLSummary = profitLossSummary["1"];
+    const thirtyDayPLSummary = profitLossSummary["30"];
 
     await expect(Number.parseFloat(oneDayPLSummary.realized)).toEqual(0.5);
     await expect(Number.parseFloat(oneDayPLSummary.unrealized)).toEqual(0.5);
@@ -170,7 +170,7 @@ test("State API :: Users :: getProfitLoss & getProfitLossSummary ", async () => 
 test("State API :: Users :: getUserTradingPositions binary-1", async () => {
     const market = await john.createReasonableYesNoMarket(john.augur.contracts.universe);
 
-    const trades: Array<UTPTradeData> = [
+    const trades: UTPTradeData[] = [
         {
             "direction": SHORT,
             "outcome": YES,
@@ -179,7 +179,7 @@ test("State API :: Users :: getUserTradingPositions binary-1", async () => {
             "position": -10,
             "avgPrice": .65,
             "realizedPL": 0,
-            "frozenFunds": 3.5
+            "frozenFunds": 3.5,
         }, {
             "direction": LONG,
             "outcome": YES,
@@ -188,7 +188,7 @@ test("State API :: Users :: getUserTradingPositions binary-1", async () => {
             "position": -7,
             "avgPrice": .65,
             "realizedPL": .21,
-            "frozenFunds": 2.45
+            "frozenFunds": 2.45,
         }, {
             "direction": SHORT,
             "outcome": YES,
@@ -197,7 +197,7 @@ test("State API :: Users :: getUserTradingPositions binary-1", async () => {
             "position": -20,
             "avgPrice": .63,
             "realizedPL": .21,
-            "frozenFunds": 7.39
+            "frozenFunds": 7.39,
         }, {
             "direction": LONG,
             "outcome": YES,
@@ -206,7 +206,7 @@ test("State API :: Users :: getUserTradingPositions binary-1", async () => {
             "position": -10,
             "avgPrice": .63,
             "realizedPL": 1.51,
-            "frozenFunds": 3.69
+            "frozenFunds": 3.69,
         }, {
             "direction": LONG,
             "outcome": YES,
@@ -215,9 +215,9 @@ test("State API :: Users :: getUserTradingPositions binary-1", async () => {
             "position": -3,
             "avgPrice": .63,
             "realizedPL": 4.87,
-            "frozenFunds": 1.1
-        }
-    ]
+            "frozenFunds": 1.1,
+        },
+    ];
 
     await processTrades(trades, market, john.augur.contracts.universe.address);
 }, 60000);
@@ -225,7 +225,7 @@ test("State API :: Users :: getUserTradingPositions binary-1", async () => {
 test("State API :: Users :: getUserTradingPositions cat3-1", async () => {
     const market = await john.createReasonableMarket(john.augur.contracts.universe, [stringTo32ByteHex("A"), stringTo32ByteHex("B"), stringTo32ByteHex("C")]);
 
-    const trades: Array<UTPTradeData> = [
+    const trades: UTPTradeData[] = [
         {
             "direction": LONG,
             "outcome": A,
@@ -234,7 +234,7 @@ test("State API :: Users :: getUserTradingPositions cat3-1", async () => {
             "position": 1,
             "avgPrice": .4,
             "realizedPL": 0,
-            "frozenFunds": 0.4
+            "frozenFunds": 0.4,
         }, {
             "direction": SHORT,
             "outcome": B,
@@ -243,7 +243,7 @@ test("State API :: Users :: getUserTradingPositions cat3-1", async () => {
             "position": -2,
             "avgPrice": .2,
             "realizedPL": 0,
-            "frozenFunds": 1.6
+            "frozenFunds": 1.6,
         }, {
             "direction": LONG,
             "outcome": C,
@@ -252,7 +252,7 @@ test("State API :: Users :: getUserTradingPositions cat3-1", async () => {
             "position": 1,
             "avgPrice": .3,
             "realizedPL": 0,
-            "frozenFunds": .3
+            "frozenFunds": .3,
         }, {
             "direction": SHORT,
             "outcome": A,
@@ -261,9 +261,9 @@ test("State API :: Users :: getUserTradingPositions cat3-1", async () => {
             "position": 0,
             "avgPrice": 0,
             "realizedPL": .3,
-            "frozenFunds": 0
-        }
-    ]
+            "frozenFunds": 0,
+        },
+    ];
 
     await processTrades(trades, market, john.augur.contracts.universe.address);
 }, 60000);
@@ -271,7 +271,7 @@ test("State API :: Users :: getUserTradingPositions cat3-1", async () => {
 test("State API :: Users :: getUserTradingPositions cat3-2", async () => {
     const market = await john.createReasonableMarket(john.augur.contracts.universe, [stringTo32ByteHex("A"), stringTo32ByteHex("B"), stringTo32ByteHex("C")]);
 
-    const trades: Array<UTPTradeData> = [
+    const trades: UTPTradeData[] = [
         {
             "direction": SHORT,
             "outcome": A,
@@ -280,7 +280,7 @@ test("State API :: Users :: getUserTradingPositions cat3-2", async () => {
             "position": -5,
             "avgPrice": .4,
             "realizedPL": 0,
-            "frozenFunds": 3
+            "frozenFunds": 3,
         }, {
             "direction": SHORT,
             "outcome": B,
@@ -289,7 +289,7 @@ test("State API :: Users :: getUserTradingPositions cat3-2", async () => {
             "position": -3,
             "avgPrice": .35,
             "realizedPL": 0,
-            "frozenFunds": -1.05
+            "frozenFunds": -1.05,
         }, {
             "direction": SHORT,
             "outcome": C,
@@ -298,7 +298,7 @@ test("State API :: Users :: getUserTradingPositions cat3-2", async () => {
             "position": -10,
             "avgPrice": .3,
             "realizedPL": 0,
-            "frozenFunds": 2
+            "frozenFunds": 2,
         }, {
             "direction": LONG,
             "outcome": C,
@@ -307,9 +307,9 @@ test("State API :: Users :: getUserTradingPositions cat3-2", async () => {
             "position": -2,
             "avgPrice": .3,
             "realizedPL": 1.6,
-            "frozenFunds": -0.6
-        }
-    ]
+            "frozenFunds": -0.6,
+        },
+    ];
 
     await processTrades(trades, market, john.augur.contracts.universe.address);
 }, 60000);
@@ -317,7 +317,7 @@ test("State API :: Users :: getUserTradingPositions cat3-2", async () => {
 test("State API :: Users :: getUserTradingPositions cat3-3", async () => {
     const market = await john.createReasonableMarket(john.augur.contracts.universe, [stringTo32ByteHex("A"), stringTo32ByteHex("B"), stringTo32ByteHex("C")]);
 
-    const trades: Array<UTPTradeData> = [
+    const trades: UTPTradeData[] = [
         {
             "direction": LONG,
             "outcome": INVALID,
@@ -326,7 +326,7 @@ test("State API :: Users :: getUserTradingPositions cat3-3", async () => {
             "position": 5,
             "avgPrice": .05,
             "realizedPL": 0,
-            "frozenFunds": .25
+            "frozenFunds": .25,
         },
         {
             "direction": LONG,
@@ -336,7 +336,7 @@ test("State API :: Users :: getUserTradingPositions cat3-3", async () => {
             "position": 10,
             "avgPrice": .15,
             "realizedPL": 0,
-            "frozenFunds": 1.5
+            "frozenFunds": 1.5,
         }, {
             "direction": LONG,
             "outcome": B,
@@ -345,7 +345,7 @@ test("State API :: Users :: getUserTradingPositions cat3-3", async () => {
             "position": 25,
             "avgPrice": .1,
             "realizedPL": 0,
-            "frozenFunds": 2.5
+            "frozenFunds": 2.5,
         }, {
             "direction": LONG,
             "outcome": C,
@@ -354,7 +354,7 @@ test("State API :: Users :: getUserTradingPositions cat3-3", async () => {
             "position": 5,
             "avgPrice": .6,
             "realizedPL": 0,
-            "frozenFunds": -2
+            "frozenFunds": -2,
         }, {
             "direction": SHORT,
             "outcome": B,
@@ -363,7 +363,7 @@ test("State API :: Users :: getUserTradingPositions cat3-3", async () => {
             "position": 12,
             "avgPrice": .1,
             "realizedPL": 1.3,
-            "frozenFunds": 1.2
+            "frozenFunds": 1.2,
         }, {
             "direction": SHORT,
             "outcome": C,
@@ -372,7 +372,7 @@ test("State API :: Users :: getUserTradingPositions cat3-3", async () => {
             "position": 2,
             "avgPrice": .6,
             "realizedPL": .6,
-            "frozenFunds": -0.8
+            "frozenFunds": -0.8,
         }, {
             "direction": SHORT,
             "outcome": A,
@@ -381,9 +381,9 @@ test("State API :: Users :: getUserTradingPositions cat3-3", async () => {
             "position": 0,
             "avgPrice": 0,
             "realizedPL": -.5,
-            "frozenFunds": 2
-        }
-    ]
+            "frozenFunds": 2,
+        },
+    ];
 
     await processTrades(trades, market, john.augur.contracts.universe.address);
 }, 60000);
@@ -391,7 +391,7 @@ test("State API :: Users :: getUserTradingPositions cat3-3", async () => {
 test("State API :: Users :: getUserTradingPositions scalar", async () => {
     const market = await john.createReasonableScalarMarket(john.augur.contracts.universe);
 
-    const trades: Array<UTPTradeData> = [
+    const trades: UTPTradeData[] = [
         {
             "direction": LONG,
             "outcome": YES,
@@ -400,7 +400,7 @@ test("State API :: Users :: getUserTradingPositions scalar", async () => {
             "position": 2,
             "avgPrice": 200,
             "realizedPL": 0,
-            "frozenFunds": 300
+            "frozenFunds": 300,
         }, {
             "direction": LONG,
             "outcome": YES,
@@ -409,7 +409,7 @@ test("State API :: Users :: getUserTradingPositions scalar", async () => {
             "position": 5,
             "avgPrice": 188,
             "realizedPL": 0,
-            "frozenFunds": 690
+            "frozenFunds": 690,
         }, {
             "direction": SHORT,
             "outcome": YES,
@@ -418,7 +418,7 @@ test("State API :: Users :: getUserTradingPositions scalar", async () => {
             "position": 1,
             "avgPrice": 188,
             "realizedPL": 56,
-            "frozenFunds": 138
+            "frozenFunds": 138,
         }, {
             "direction": SHORT,
             "outcome": YES,
@@ -427,7 +427,7 @@ test("State API :: Users :: getUserTradingPositions scalar", async () => {
             "position": -10,
             "avgPrice": 205,
             "realizedPL": 73,
-            "frozenFunds": 450
+            "frozenFunds": 450,
         }, {
             "direction": LONG,
             "outcome": YES,
@@ -436,21 +436,21 @@ test("State API :: Users :: getUserTradingPositions scalar", async () => {
             "position": -3,
             "avgPrice": 205,
             "realizedPL": 458,
-            "frozenFunds": 135
-        }
-    ]
+            "frozenFunds": 135,
+        },
+    ];
 
     await processTrades(trades, market, john.augur.contracts.universe.address, new BigNumber(50), new BigNumber(250));
 }, 60000);
 
-async function processTrades(tradeData: Array<UTPTradeData>, market: ContractInterfaces.Market, universe: string, minPrice: BigNumber = DEFAULT_MIN_PRICE, maxPrice: BigNumber = DEFAULT_DISPLAY_RANGE) : Promise<void> {
-    for (let trade of tradeData) {
+async function processTrades(tradeData: UTPTradeData[], market: ContractInterfaces.Market, universe: string, minPrice: BigNumber = DEFAULT_MIN_PRICE, maxPrice: BigNumber = DEFAULT_DISPLAY_RANGE) : Promise<void> {
+    for (const trade of tradeData) {
         await doTrade(trade, market, minPrice, maxPrice);
 
         await db.sync(
             john.augur,
             mock.constants.chunkSize,
-            0,
+            0
         );
 
         const { tradingPositions } = await api.route("getUserTradingPositions", {
@@ -459,13 +459,13 @@ async function processTrades(tradeData: Array<UTPTradeData>, market: ContractInt
             marketId: market.address,
         });
 
-        const tradingPosition = _.find(tradingPositions, (position) => { return position.outcome == trade.outcome; });
+        const tradingPosition = _.find(tradingPositions, (position) => position.outcome == trade.outcome);
 
         await expect(tradingPosition.netPosition).toEqual(trade.position.toString());
         await expect(tradingPosition.averagePrice).toEqual(trade.avgPrice.toString());
         await expect(tradingPosition.realized).toEqual(trade.realizedPL.toString());
         await expect(tradingPosition.frozenFunds).toEqual(trade.frozenFunds.toString());
-    };
+    }
 }
 
 async function doTrade(trade: TradeData, market: ContractInterfaces.Market, minPrice: BigNumber = DEFAULT_MIN_PRICE, maxPrice: BigNumber = DEFAULT_DISPLAY_RANGE) : Promise<void> {

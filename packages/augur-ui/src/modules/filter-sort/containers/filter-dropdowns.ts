@@ -14,7 +14,7 @@ import { updateMobileMenuState } from "modules/app/actions/update-sidebar-status
 const mapStateToProps = state => ({
   defaultFilter: state.filterSortOptions.marketFilter,
   defaultSort: state.filterSortOptions.marketSort,
-  defaultMaxFee: state.filterSortOptions.maxFee
+  defaultMaxFee: state.filterSortOptions.maxFee,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -26,14 +26,14 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateFilterSortOptions(MARKET_MAX_FEES, maxFee)),
   updateHasOpenOrders: hasOpenOrders =>
     dispatch(updateFilterSortOptions(HAS_OPEN_ORDERS, hasOpenOrders)),
-  updateMobileMenuState: data => dispatch(updateMobileMenuState(data))
+  updateMobileMenuState: data => dispatch(updateMobileMenuState(data)),
 });
 
 const FilterDropdownsContainer = withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps,
-  )(FilterDropdown),
+    mapDispatchToProps
+  )(FilterDropdown)
 ) as any;
 
 export default FilterDropdownsContainer;

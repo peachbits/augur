@@ -7,7 +7,7 @@ describe(`utils/calculate-payout-numerators-value.js`, () => {
     minPrice: -10,
     numTicks: 1300,
     numOutcomes: 2,
-    marketType: SCALAR
+    marketType: SCALAR,
   };
 
   const marketScalar = {
@@ -15,7 +15,7 @@ describe(`utils/calculate-payout-numerators-value.js`, () => {
     minPrice: 0,
     numTicks: 10000,
     numOutcomes: 2,
-    marketType: SCALAR
+    marketType: SCALAR,
   };
 
   const marketBinary = {
@@ -23,7 +23,7 @@ describe(`utils/calculate-payout-numerators-value.js`, () => {
     minPrice: 0,
     numTicks: 10000,
     numOutcomes: 2,
-    marketType: YES_NO
+    marketType: YES_NO,
   };
 
   const marketCategorical = {
@@ -31,7 +31,7 @@ describe(`utils/calculate-payout-numerators-value.js`, () => {
     minPrice: 0,
     numTicks: 10003,
     numOutcomes: 7,
-    marketType: CATEGORICAL
+    marketType: CATEGORICAL,
   };
 
   describe("scalar 75", () => {

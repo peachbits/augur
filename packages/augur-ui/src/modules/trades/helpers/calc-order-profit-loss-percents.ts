@@ -25,7 +25,7 @@ export const calcOrderProfitLossPercents = (
   minPrice,
   maxPrice,
   type,
-  settlementFee,
+  settlementFee
 ) => {
   if (!minPrice || !maxPrice || !numShares || !side || !type || !limitPrice) {
     return null;
@@ -109,7 +109,7 @@ export const calcOrderShareProfitLoss = (
   shareCost,
   sharesFilledAvgPrice,
   settlementFee,
-  reversal,
+  reversal
 ) => {
   if (!minPrice || !maxPrice || !shareCost || !side || !type || !limitPrice) {
     return null;
@@ -189,7 +189,7 @@ export const calculateTotalOrderValue = (
   side,
   minPrice,
   maxPrice,
-  type,
+  type
 ) => {
   if (!minPrice || !maxPrice || !side || !type || !limitPrice) {
     return null;

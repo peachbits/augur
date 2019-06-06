@@ -13,7 +13,7 @@ interface UserTradingPositions {
   frozenFundsTotal: {
     frozenFunds: string;
   };
-  tradingPositions: Array<PositionData>;
+  tradingPositions: PositionData[];
   tradingPositionsPerMarket: TradingPositionsPerMarket;
   tradingPositionsTotal?: PositionsTotal;
 }
@@ -21,7 +21,7 @@ interface UserTradingPositions {
 export const loadAccountPositions = (
   options: any = {},
   callback: NodeStyleCallback = logError,
-  marketIdAggregator: Function | undefined,
+  marketIdAggregator: Function | undefined
 ) => (dispatch: ThunkDispatch<void, any, Action>) => {
   dispatch(
     loadAccountPositionsInternal(
@@ -29,14 +29,14 @@ export const loadAccountPositions = (
       (err: any, { marketIds = [], positions = {} }: any) => {
         if (marketIdAggregator) marketIdAggregator(marketIds);
         if (!err) postProcessing(marketIds, dispatch, positions, callback);
-      },
-    ),
+      }
+    )
   );
 };
 
 export const loadMarketAccountPositions = (
   marketId: string,
-  callback: NodeStyleCallback = logError,
+  callback: NodeStyleCallback = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>) => {
   dispatch(
     loadAccountPositionsInternal(
@@ -44,14 +44,14 @@ export const loadMarketAccountPositions = (
       (err: any, { marketIds = [], positions = {} }: any) => {
         if (!err) postProcessing(marketIds, dispatch, positions, callback);
         dispatch(loadAccountPositionsTotals());
-      },
-    ),
+      }
+    )
   );
 };
 
 export const loadAccountPositionsTotals = (callback: NodeStyleCallback = logError) => (
   dispatch: ThunkDispatch<void, any, Action>,
-  getState: () => AppState,
+  getState: () => AppState
 ) => {
   const { universe, loginAccount } = getState();
   augur.trading.getUserTradingPositions(
@@ -70,12 +70,13 @@ export const loadAccountPositionsTotals = (callback: NodeStyleCallback = logErro
 
 const loadAccountPositionsInternal = (
   options: any = {},
-  callback: NodeStyleCallback,
+  callback: NodeStyleCallback
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
 
   const { universe, loginAccount } = getState();
-  if (loginAccount.address == null || universe.id == null)
+  if (loginAccount.address == null || universe.id == null) {
     return callback(null, {});
+  }
   augur.trading.getUserTradingPositions(
     { ...options, account: loginAccount.address, universe: universe.id },
     (err: any, positions: UserTradingPositions) => {
@@ -89,7 +90,7 @@ const loadAccountPositionsInternal = (
           updateLoginAccount({
             totalFrozenFunds: positions.frozenFundsTotal.frozenFunds,
             tradingPositionsTotal: positions.tradingPositionsTotal,
-          }),
+          })
         );
       }
 
@@ -97,19 +98,19 @@ const loadAccountPositionsInternal = (
         new Set([
           ...positions.tradingPositions.reduce(
             (p: any, position: any) => [...p, position.marketId],
-            [],
+            []
           ),
-        ]),
+        ])
       );
 
       if (marketIds.length === 0) return callback(null, {});
       callback(err, { marketIds, positions });
-    },
+    }
   );
 };
 
 const postProcessing = (
-  marketIds: Array<string>,
+  marketIds: string[],
   dispatch: ThunkDispatch<void, any, Action>,
   positions: UserTradingPositions,
   callback: NodeStyleCallback
@@ -117,18 +118,18 @@ const postProcessing = (
   marketIds.forEach((marketId: string) => {
     const marketPositionData: AccountPosition = {};
     const marketPositions = positions.tradingPositions.filter(
-      (position: any) => position.marketId === marketId,
+      (position: any) => position.marketId === marketId
     );
-    const outcomeIds: Array<number> = Array.from(
+    const outcomeIds: number[] = Array.from(
       new Set([
         ...marketPositions.reduce(
-          (p: Array<number>, position: PositionData) => [
+          (p: number[], position: PositionData) => [
             ...p,
             position.outcome,
           ],
-          [],
+          []
         ),
-      ]),
+      ])
     );
     marketPositionData[marketId] = {
       tradingPositions: {},
@@ -144,7 +145,7 @@ const postProcessing = (
         outcomeId
       ] = positions.tradingPositions.filter(
         (position: PositionData) =>
-          position.marketId === marketId && position.outcome === outcomeId,
+          position.marketId === marketId && position.outcome === outcomeId
       )[0];
     });
     const positionData: AccountPositionAction = {

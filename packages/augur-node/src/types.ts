@@ -13,10 +13,10 @@ import * as t from "io-ts";
 import { EthersProvider } from "@augurproject/ethersjs-provider";
 import { Augur as GenericAugur, ParsedLog } from "@augurproject/sdk";
 
-export class Augur extends GenericAugur<EthersProvider> { };
+export class Augur extends GenericAugur<EthersProvider> { }
 export { ParsedLog as FormattedEventLog } from "@augurproject/sdk";
 
-export type BlockRange = { fromBlock: number; toBlock: number };
+export interface BlockRange { fromBlock: number; toBlock: number; }
 
 export interface ParsedLogWithEventName extends ParsedLog {
   eventName: string;
@@ -313,7 +313,7 @@ export interface Payout<BigNumberType> extends PayoutNumerators<BigNumberType> {
 }
 
 export interface NormalizedPayoutNumerators<BigNumberType> {
-  payout: Array<BigNumberType>;
+  payout: BigNumberType[];
 }
 
 export interface NormalizedPayout<BigNumberType> extends NormalizedPayoutNumerators<BigNumberType> {
@@ -650,7 +650,7 @@ export interface UIUniverseInfoRow<BigNumberType> extends NormalizedPayout<strin
 }
 
 export interface ServersData {
-  servers: Array<WebSocket.Server>;
+  servers: WebSocket.Server[];
   httpServers: Array<http.Server | https.Server>;
   controlEmitter: EventEmitter;
 }

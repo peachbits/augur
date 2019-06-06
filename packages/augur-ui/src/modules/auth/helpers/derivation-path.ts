@@ -14,13 +14,13 @@ interface PathComponents {
 export default class DerivationPath {
   static validate(derivationPath: string) {
     return /^m\/(44)'\/(60)'\/(\d+)'(?:\/|\/(\d+))?(?:\/|\/(\d+))?$/.test(
-      derivationPath,
+      derivationPath
     );
   }
 
   static parse(derivationPath: string) {
     const result = /^m\/(44)'\/(60)'\/(\d+)'(?:\/|\/(\d+))?(?:\/|\/(\d+))?$/.exec(
-      derivationPath,
+      derivationPath
     );
     if (result) {
       return {
@@ -28,7 +28,7 @@ export default class DerivationPath {
         coinType: parseInt(result[2], 10),
         account: parseInt(result[3], 10),
         change: result[4] ? parseInt(result[4], 10) : null,
-        index: result[5] ? parseInt(result[5], 10) : null
+        index: result[5] ? parseInt(result[5], 10) : null,
       };
     }
     return null;
@@ -46,7 +46,7 @@ export default class DerivationPath {
     return path;
   }
 
-  static increment(components: PathComponents, n: number = 1) {
+  static increment(components: PathComponents, n = 1) {
     const newComponents = { ...components };
     // add n to the last provided component
     if (newComponents.index !== null) {

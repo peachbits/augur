@@ -14,7 +14,7 @@ export class EthersProviderBlockStreamAdapter implements BlockAndLogStreamerDepe
       if(block) {
           await reconcileNewBlock(block);
       }
-    }
+    };
   }
 
   startPollingForBlocks = (reconcileNewBlock:(block:Block) => Promise<void>) => {

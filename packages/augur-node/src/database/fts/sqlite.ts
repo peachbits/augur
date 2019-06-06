@@ -12,7 +12,7 @@ export class SearchSqlite implements SearchProvider {
     this.db = db;
   }
 
-  public async migrateUp(): Promise<any> {
+  async migrateUp(): Promise<any> {
     await this.db.schema.dropTableIfExists("search_en");
     await this.db.schema.raw(`CREATE VIRTUAL TABLE search_en USING fts4(marketId, category, tags, shortDescription, longDescription, scalarDenomination, resolutionSource)`);
     const markets: Array<MarketsRow<BigNumber>>  = await this.db.select("*").from("markets");
@@ -21,19 +21,19 @@ export class SearchSqlite implements SearchProvider {
       }
   }
 
-  public async migrateDown(): Promise<any> {
+  async migrateDown(): Promise<any> {
     return this.db.schema.dropTableIfExists("search_en");
   }
 
-  public async addSearchData(search: SearchRow): Promise<any> {
+  async addSearchData(search: SearchRow): Promise<any> {
     await this.db("search_en").insert(search).into("search_en");
   }
 
-  public async removeSeachData(marketId: Address): Promise<any> {
+  async removeSeachData(marketId: Address): Promise<any> {
     await this.db("search_en").where({ marketId }).del();
   }
 
-  public searchBuilder(builder: Knex.QueryBuilder, query: string): Knex.QueryBuilder {
+  searchBuilder(builder: Knex.QueryBuilder, query: string): Knex.QueryBuilder {
     return builder.select("marketId").from("search_en").whereRaw("search_en MATCH ?", [query]);
   }
 }

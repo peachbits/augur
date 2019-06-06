@@ -22,14 +22,14 @@ const DEFAULT_STATE: ReportingWindowStats = {
 
 export default function(
   reportingWindowStats: ReportingWindowStats = DEFAULT_STATE,
-  { type, data }: BaseAction,
+  { type, data }: BaseAction
 ): ReportingWindowStats {
   switch (type) {
     case UPDATE_REPORTING_WINDOW_STATS: {
       const { windowStats } = data;
       return {
         ...reportingWindowStats,
-        ...windowStats
+        ...windowStats,
       };
     }
     case RESET_STATE:

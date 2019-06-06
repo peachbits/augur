@@ -26,11 +26,11 @@ const DEFAULT_STATE: NewMarket = {
       endTime: null,
       hour: null,
       minute: null,
-      meridiem: null
+      meridiem: null,
     },
     {
-      settlementFee: ""
-    }
+      settlementFee: "",
+    },
   ],
   currentStep: 0,
   type: "",
@@ -59,7 +59,7 @@ const DEFAULT_STATE: NewMarket = {
   initialLiquidityEth: createBigNumber(0),
   initialLiquidityGas: createBigNumber(0),
   creationError:
-    "Unable to create market.  Ensure your market is unique and all values are valid."
+    "Unable to create market.  Ensure your market is unique and all values are valid.",
 };
 
 export default function(newMarket: NewMarket = DEFAULT_STATE, { type, data }: BaseAction): NewMarket {
@@ -72,11 +72,11 @@ export default function(newMarket: NewMarket = DEFAULT_STATE, { type, data }: Ba
         type,
         orderEstimate,
         outcome,
-        outcomeName
+        outcomeName,
       } = orderToAdd;
       const existingOrders = newMarket.orderBook[outcome] || [];
       let orderAdded = false;
-      const updatedOrders = existingOrders.reduce((Orders: Array<LiquidityOrder>, order) => {
+      const updatedOrders = existingOrders.reduce((Orders: LiquidityOrder[], order) => {
         const orderInfo = Object.assign({}, order);
         if (order.price.eq(price) && order.type === type) {
           orderInfo.quantity = order.quantity.plus(quantity);
@@ -95,7 +95,7 @@ export default function(newMarket: NewMarket = DEFAULT_STATE, { type, data }: Ba
           type,
           price,
           quantity,
-          orderEstimate: createBigNumber(orderEstimate.replace(" ETH", ""))
+          orderEstimate: createBigNumber(orderEstimate.replace(" ETH", "")),
         });
       }
 
@@ -103,30 +103,30 @@ export default function(newMarket: NewMarket = DEFAULT_STATE, { type, data }: Ba
         ...newMarket,
         orderBook: {
           ...newMarket.orderBook,
-          [outcome]: updatedOrders
-        }
+          [outcome]: updatedOrders,
+        },
       };
     }
     case REMOVE_ORDER_FROM_NEW_MARKET: {
       const { outcome, index } = data && data.order;
       const updatedOutcome = [
         ...newMarket.orderBook[outcome].slice(0, index),
-        ...newMarket.orderBook[outcome].slice(index + 1)
+        ...newMarket.orderBook[outcome].slice(index + 1),
       ];
 
       return {
         ...newMarket,
         orderBook: {
           ...newMarket.orderBook,
-          [outcome]: updatedOutcome
-        }
+          [outcome]: updatedOutcome,
+        },
       };
     }
     case UPDATE_NEW_MARKET: {
       const { newMarketData } = data;
       return {
         ...newMarket,
-        ...newMarketData
+        ...newMarketData,
       };
     }
     case RESET_STATE:

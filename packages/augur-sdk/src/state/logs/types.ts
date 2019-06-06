@@ -72,7 +72,7 @@ export interface InitialReportSubmittedLog extends Log, Doc {
   market: Address;
   amountStaked: string;
   isDesignatedReporter: boolean;
-  payoutNumerators: Array<string>;
+  payoutNumerators: string[];
   description: string;
 }
 
@@ -92,16 +92,16 @@ export interface MarketCreatedLog extends Log, Doc {
   marketCreator: Address;
   designatedReporter: Address;
   feeDivisor: string;
-  prices: Array<string>;
+  prices: string[];
   marketType: MarketType;
   numTicks: string;
-  outcomes: Array<string>;
+  outcomes: string[];
 }
 
 export interface MarketFinalizedLog extends Log, Doc, Timestamped {
   universe: Address;
   market: Address;
-  winningPayoutNumerators: Array<string>;
+  winningPayoutNumerators: string[];
 }
 
 export interface MarketMigratedLog extends Log, Doc {
@@ -113,7 +113,7 @@ export interface MarketMigratedLog extends Log, Doc {
 export enum MarketType {
   YesNo = 0,
   Categorical = 1,
-  Scalar = 2
+  Scalar = 2,
 }
 
 export interface MarketVolumeChangedLog extends Log, Doc {
@@ -154,13 +154,13 @@ export interface OrderEventLog extends Log, Doc, Timestamped {
   orderType: OrderType;
   orderId: Bytes32;
   tradeGroupId: Bytes32;
-  addressData: Array<Address>;
-  uint256Data: Array<string>;
+  addressData: Address[];
+  uint256Data: string[];
 }
 
 export enum OrderType {
   Bid = 0,
-  Ask = 1
+  Ask = 1,
 }
 
 export enum OrderEventType {

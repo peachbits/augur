@@ -29,7 +29,7 @@ export const connect = async (env: any, loginAccount: LoginAccount, callback: No
       if (err) return callback(err);
       console.log("connected:", connectionInfo);
       callback(null, connectionInfo);
-    },
+    }
   );
 };
 

@@ -10,7 +10,7 @@ const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
   loginWithLedger: (address, lib, devPath) =>
     dispatch(loginWithLedger(address, lib, devPath)),
-  logout: () => dispatch(logout())
+  logout: () => dispatch(logout()),
 });
 
 export default withRouter(

@@ -62,7 +62,7 @@ export enum MarketInfoReportingState {
   FINALIZED = "FINALIZED",
   FORKING = "FORKING",
   AWAITING_NO_REPORT_MIGRATION = "AWAITING_NO_REPORT_MIGRATION",
-  AWAITING_FORK_MIGRATION = "AWAITING_FORK_MIGRATION"
+  AWAITING_FORK_MIGRATION = "AWAITING_FORK_MIGRATION",
 }
 
 export interface MarketInfo {
@@ -89,8 +89,8 @@ export interface MarketInfo {
   resolutionSource: string | null;
   numTicks: string;
   tickSize: string;
-  consensus: Array<string> | null,
-  outcomes: Array<MarketInfoOutcome>;
+  consensus: string[] | null;
+  outcomes: MarketInfoOutcome[];
 }
 
 export interface MarketPriceCandlestick {
@@ -105,7 +105,7 @@ export interface MarketPriceCandlestick {
 }
 
 export interface MarketPriceCandlesticks {
-  [outcome: number]: Array<MarketPriceCandlestick>;
+  [outcome: number]: MarketPriceCandlestick[];
 }
 
 export interface TimestampedPriceAmount {
@@ -115,24 +115,24 @@ export interface TimestampedPriceAmount {
 }
 
 export interface MarketPriceHistory {
-  [outcome: string]: Array<TimestampedPriceAmount>;
+  [outcome: string]: TimestampedPriceAmount[];
 }
 
 export class Markets {
-  public static GetMarketPriceCandlestickParams = t.type({
+  static GetMarketPriceCandlestickParams = t.type({
     marketId: t.string,
     outcome: t.union([OutcomeParam, t.number, t.null, t.undefined]),
     start: t.union([t.number, t.null, t.undefined]),
     end: t.union([t.number, t.null, t.undefined]),
     period: t.union([t.number, t.null, t.undefined]),
   });
-  public static GetMarketPriceHistoryParams = t.type({ marketId: t.string });
-  public static GetMarketsParams = t.intersection([GetMarketsParamsSpecific, SortLimit]);
-  public static GetMarketsInfoParams = t.type({ marketIds: t.array(t.string) });
-  public static GetTopics = t.type({ universe: t.string });
+  static GetMarketPriceHistoryParams = t.type({ marketId: t.string });
+  static GetMarketsParams = t.intersection([GetMarketsParamsSpecific, SortLimit]);
+  static GetMarketsInfoParams = t.type({ marketIds: t.array(t.string) });
+  static GetTopics = t.type({ universe: t.string });
 
   @Getter("GetMarketPriceCandlestickParams")
-  public static async getMarketPriceCandlesticks(augur: Augur, db: DB, params: t.TypeOf<typeof Markets.GetMarketPriceCandlestickParams>): Promise<MarketPriceCandlesticks> {
+  static async getMarketPriceCandlesticks(augur: Augur, db: DB, params: t.TypeOf<typeof Markets.GetMarketPriceCandlestickParams>): Promise<MarketPriceCandlesticks> {
     const marketCreatedLogs = await db.findMarketCreatedLogs({ selector: { market: params.marketId } });
     if (marketCreatedLogs.length < 1) {
       throw new Error(`No marketId for getMarketPriceCandlesticks: ${params.marketId}`);
@@ -140,20 +140,20 @@ export class Markets {
 
     const orderFilledLogs = await db.findOrderFilledLogs({ selector: { market: params.marketId, eventType: OrderEventType.Fill } });
     const filteredOrderFilledLogs = filterOrderFilledLogs(orderFilledLogs, params);
-    const tradeRowsByOutcome = _.groupBy(filteredOrderFilledLogs, (orderFilledLog) => { return new BigNumber(orderFilledLog.uint256Data[OrderEventUint256Value.outcome]).toString(10); });
+    const tradeRowsByOutcome = _.groupBy(filteredOrderFilledLogs, (orderFilledLog) => new BigNumber(orderFilledLog.uint256Data[OrderEventUint256Value.outcome]).toString(10));
 
     return _.mapValues(tradeRowsByOutcome, (outcomeTradeRows) => {
       const outcomeTradeRowsByPeriod = _.groupBy(outcomeTradeRows, (tradeRow) => getPeriodStartTime(params.start || 0, new BigNumber(tradeRow.uint256Data[OrderEventUint256Value.timestamp]).toNumber(), params.period || 60));
-      return _.map(outcomeTradeRowsByPeriod, (trades: Array<OrderEventLog>, startTimestamp): MarketPriceCandlestick => {
+      return _.map(outcomeTradeRowsByPeriod, (trades: OrderEventLog[], startTimestamp): MarketPriceCandlestick => {
         // TODO remove this partialCandlestick stuff and just return
         // a Candlestick after the temporary Candlestick.tokenVolume
         // is removed (see note on Candlestick.tokenVolume).
         const partialCandlestick = {
           startTimestamp: parseInt(startTimestamp, 10),
-          start: new BigNumber(_.minBy(trades, (tradeLog) => { return new BigNumber(tradeLog.uint256Data[OrderEventUint256Value.timestamp]).toNumber(); })!.uint256Data[OrderEventUint256Value.price]).toString(10),
-          end: new BigNumber(_.maxBy(trades, (tradeLog) => { return new BigNumber(tradeLog.uint256Data[OrderEventUint256Value.timestamp]).toNumber(); })!.uint256Data[OrderEventUint256Value.price]).toString(10),
-          min: new BigNumber(_.minBy(trades, (tradeLog) => { return new BigNumber(tradeLog.uint256Data[OrderEventUint256Value.price]).toNumber(); })!.uint256Data[OrderEventUint256Value.price]).toString(10),
-          max: new BigNumber(_.maxBy(trades, (tradeLog) => { return new BigNumber(tradeLog.uint256Data[OrderEventUint256Value.price]).toNumber(); })!.uint256Data[OrderEventUint256Value.price]).toString(10),
+          start: new BigNumber(_.minBy(trades, (tradeLog) => new BigNumber(tradeLog.uint256Data[OrderEventUint256Value.timestamp]).toNumber())!.uint256Data[OrderEventUint256Value.price]).toString(10),
+          end: new BigNumber(_.maxBy(trades, (tradeLog) => new BigNumber(tradeLog.uint256Data[OrderEventUint256Value.timestamp]).toNumber())!.uint256Data[OrderEventUint256Value.price]).toString(10),
+          min: new BigNumber(_.minBy(trades, (tradeLog) => new BigNumber(tradeLog.uint256Data[OrderEventUint256Value.price]).toNumber())!.uint256Data[OrderEventUint256Value.price]).toString(10),
+          max: new BigNumber(_.maxBy(trades, (tradeLog) => new BigNumber(tradeLog.uint256Data[OrderEventUint256Value.price]).toNumber())!.uint256Data[OrderEventUint256Value.price]).toString(10),
           volume: _.reduce(trades, (totalVolume: BigNumber, tradeRow: OrderEventLog) => totalVolume.plus(new BigNumber(tradeRow.uint256Data[OrderEventUint256Value.amount]).times(tradeRow.uint256Data[OrderEventUint256Value.price])), new BigNumber(0)).toString(10),
           shareVolume: _.reduce(trades, (totalShareVolume: BigNumber, tradeRow: OrderEventLog) => totalShareVolume.plus(tradeRow.uint256Data[OrderEventUint256Value.amount]), new BigNumber(0)).toString(10), // the business definition of shareVolume should be the same as used with markets/outcomes.shareVolume (which currently is just summation of trades.amount)
         };
@@ -166,8 +166,8 @@ export class Markets {
   }
 
   @Getter("GetMarketPriceHistoryParams")
-  public static async getMarketPriceHistory(augur: Augur, db: DB, params: t.TypeOf<typeof Markets.GetMarketPriceHistoryParams>): Promise<MarketPriceHistory> {
-    let orderFilledLogs = await db.findOrderFilledLogs({ selector: { market: params.marketId, eventType: OrderEventType.Fill } });
+  static async getMarketPriceHistory(augur: Augur, db: DB, params: t.TypeOf<typeof Markets.GetMarketPriceHistoryParams>): Promise<MarketPriceHistory> {
+    const orderFilledLogs = await db.findOrderFilledLogs({ selector: { market: params.marketId, eventType: OrderEventType.Fill } });
     orderFilledLogs.sort(
       (a: OrderEventLog, b: OrderEventLog) => {
         return (new BigNumber(a.uint256Data[OrderEventUint256Value.timestamp]).minus(b.uint256Data[OrderEventUint256Value.timestamp])).toNumber();
@@ -188,11 +188,11 @@ export class Markets {
         return previousValue;
       },
       {}
-    )
+    );
   }
 
   @Getter("GetMarketsParams")
-  public static async getMarkets(augur: Augur, db: DB, params: t.TypeOf<typeof Markets.GetMarketsParams>): Promise<Array<Address>> {
+  static async getMarkets(augur: Augur, db: DB, params: t.TypeOf<typeof Markets.GetMarketsParams>): Promise<Address[]> {
     if (! await augur.contracts.augur.isKnownUniverse_(params.universe)) {
       throw new Error("Unknown universe: " + params.universe);
     }
@@ -206,7 +206,7 @@ export class Markets {
         },
         sort: params.sortBy ? [params.sortBy] : undefined,
         limit: params.limit,
-        skip: params.offset
+        skip: params.offset,
       }
     );
 
@@ -218,7 +218,7 @@ export class Markets {
       marketCreatorFeeDivisor = new BigNumber(10 ** 18).multipliedBy(marketCreatorFee);
     }
 
-    let keyedMarketCreatedLogs = marketCreatedLogs.reduce(
+    const keyedMarketCreatedLogs = marketCreatedLogs.reduce(
       (previousValue: any, currentValue: MarketCreatedLog) => {
         // Filter markets with fees > maxFee
         if (
@@ -320,7 +320,7 @@ export class Markets {
   }
 
   @Getter("GetMarketsInfoParams")
-  public static async getMarketsInfo(augur: Augur, db: DB, params: t.TypeOf<typeof Markets.GetMarketsInfoParams>): Promise<Array<MarketInfo>> {
+  static async getMarketsInfo(augur: Augur, db: DB, params: t.TypeOf<typeof Markets.GetMarketsInfoParams>): Promise<MarketInfo[]> {
     const marketCreatedLogs = await db.findMarketCreatedLogs({ selector: { market: { $in: params.marketIds } } });
 
     return Promise.all(marketCreatedLogs.map(async (marketCreatedLog) => {
@@ -395,15 +395,15 @@ export class Markets {
         numTicks: numTicks.toString(10),
         tickSize: tickSize.toString(10),
         consensus,
-        outcomes: await getMarketOutcomes(db, marketCreatedLog)
+        outcomes: await getMarketOutcomes(db, marketCreatedLog),
       });
     }));
   }
 
   @Getter("GetTopics")
-  public static async getTopics(augur: Augur, db: DB, params: t.TypeOf<typeof Markets.GetTopics>): Promise<Array<string>> {
+  static async getTopics(augur: Augur, db: DB, params: t.TypeOf<typeof Markets.GetTopics>): Promise<string[]> {
     const marketCreatedLogs = await db.findMarketCreatedLogs({ selector: { universe: params.universe } });
-    let topics: any = {};
+    const topics: any = {};
     for (let i = 0; i < marketCreatedLogs.length; i++) {
       if (!(topics[toAscii(marketCreatedLogs[i].topic)])) {
         topics[toAscii(marketCreatedLogs[i].topic)] = null;
@@ -413,11 +413,11 @@ export class Markets {
   }
 }
 
-function filterOrderFilledLogs(orderFilledLogs: Array<OrderEventLog>, params: t.TypeOf<typeof Markets.GetMarketPriceCandlestickParams>): Array<OrderEventLog> {
+function filterOrderFilledLogs(orderFilledLogs: OrderEventLog[], params: t.TypeOf<typeof Markets.GetMarketPriceCandlestickParams>): OrderEventLog[] {
   let filteredOrderFilledLogs = orderFilledLogs;
   if (params.outcome || params.start || params.end) {
     filteredOrderFilledLogs = orderFilledLogs.reduce(
-      (previousValue: Array<OrderEventLog>, currentValue: OrderEventLog): Array<OrderEventLog> => {
+      (previousValue: OrderEventLog[], currentValue: OrderEventLog): OrderEventLog[] => {
         if (
           (params.outcome && new BigNumber(currentValue.uint256Data[OrderEventUint256Value.outcome]).toString(10) !== params.outcome.toString(10)) ||
           (params.start && new BigNumber(currentValue.uint256Data[OrderEventUint256Value.timestamp]).toNumber() <= params.start) ||
@@ -455,8 +455,8 @@ async function getMarketOpenInterest(db: DB, marketCreatedLog: MarketCreatedLog)
   return "0";
 }
 
-async function getMarketOutcomes(db: DB, marketCreatedLog: MarketCreatedLog): Promise<Array<MarketInfoOutcome>> {
-  let outcomes: Array<MarketInfoOutcome> = [];
+async function getMarketOutcomes(db: DB, marketCreatedLog: MarketCreatedLog): Promise<MarketInfoOutcome[]> {
+  const outcomes: MarketInfoOutcome[] = [];
   if (marketCreatedLog.outcomes.length === 0) {
     const ordersFilled0 = (await db.findOrderFilledLogs({ selector: { market: marketCreatedLog.market, [ORDER_EVENT_OUTCOME]: "0x00" } })).reverse();
     const ordersFilled1 = (await db.findOrderFilledLogs({ selector: { market: marketCreatedLog.market, [ORDER_EVENT_OUTCOME]: "0x01" } })).reverse();
@@ -464,24 +464,24 @@ async function getMarketOutcomes(db: DB, marketCreatedLog: MarketCreatedLog): Pr
     outcomes.push({
       id: 0,
       price: ordersFilled0.length > 0 ? new BigNumber(ordersFilled0[0].uint256Data[OrderEventUint256Value.price]).toString(10) : "0",
-      description: "Invalid"
+      description: "Invalid",
     });
     outcomes.push({
       id: 1,
       price: ordersFilled1.length > 0 ? new BigNumber(ordersFilled1[0].uint256Data[OrderEventUint256Value.price]).toString(10) : "0",
-      description: (marketCreatedLog.marketType === 0) ? "No" : new BigNumber(marketCreatedLog.prices[0]).toString(10)
+      description: (marketCreatedLog.marketType === 0) ? "No" : new BigNumber(marketCreatedLog.prices[0]).toString(10),
     });
     outcomes.push({
       id: 2,
       price: ordersFilled2.length > 0 ? new BigNumber(ordersFilled2[0].uint256Data[OrderEventUint256Value.price]).toString(10) : "0",
-      description: (marketCreatedLog.marketType === 0) ? "Yes" : new BigNumber(marketCreatedLog.prices[1]).toString(10)
+      description: (marketCreatedLog.marketType === 0) ? "Yes" : new BigNumber(marketCreatedLog.prices[1]).toString(10),
     });
   } else {
     const ordersFilled = (await db.findOrderFilledLogs({ selector: { market: marketCreatedLog.market, [ORDER_EVENT_OUTCOME]: "0x00" } })).reverse();
     outcomes.push({
       id: 0,
       price: ordersFilled.length > 0 ? new BigNumber(ordersFilled[0].uint256Data[OrderEventUint256Value.price]).toString(10) : "0",
-      description: "Invalid"
+      description: "Invalid",
     });
     for (let i = 0; i < marketCreatedLog.outcomes.length; i++) {
       const ordersFilled = (await db.findOrderFilledLogs({ selector: { market: marketCreatedLog.market, [ORDER_EVENT_OUTCOME]: "0x0" + (i + 1) } })).reverse();
@@ -489,14 +489,14 @@ async function getMarketOutcomes(db: DB, marketCreatedLog: MarketCreatedLog): Pr
       outcomes.push({
         id: i + 1,
         price: ordersFilled.length > 0 ? new BigNumber(ordersFilled[0].uint256Data[OrderEventUint256Value.price]).toString(10) : "0",
-        description: Buffer.from(outcomeDescription, "hex").toString()
+        description: Buffer.from(outcomeDescription, "hex").toString(),
       });
     }
   }
   return outcomes;
 }
 
-async function getMarketReportingState(db: DB, marketCreatedLog: MarketCreatedLog, marketFinalizedLogs: Array<MarketFinalizedLog>): Promise<MarketInfoReportingState> {
+async function getMarketReportingState(db: DB, marketCreatedLog: MarketCreatedLog, marketFinalizedLogs: MarketFinalizedLog[]): Promise<MarketInfoReportingState> {
   const universeForkedLogs = (await db.findUniverseForkedLogs({ selector: { universe: marketCreatedLog.universe } })).reverse();
   if (universeForkedLogs.length > 0) {
     if (universeForkedLogs[0].forkingMarket === marketCreatedLog.market) {

@@ -122,15 +122,15 @@ export default function setAlertText(alert: any, callback: any) {
               const marketInfo = selectMarket(alert.log.marketId);
               const outcomeDescription = getOutcomeName(
                 marketInfo,
-                { id: alert.log.outcome },
+                { id: alert.log.outcome }
               );
               alert.description = `Cancel order for ${formatShares(
-                alert.log.quantity,
+                alert.log.quantity
               ).denomination.toLowerCase()} of "${outcomeDescription}" at ${
                 formatEther(alert.log.price).formatted
               } ETH`;
               return dispatch(callback(alert));
-            }),
+            })
           );
         }
         break;
@@ -168,7 +168,7 @@ export default function setAlertText(alert: any, callback: any) {
               const marketInfo = selectMarket(alert.params._market);
               const outcomeDescription = getOutcomeName(
                 marketInfo,
-                { id: alert.log.outcome },
+                { id: alert.log.outcome }
               );
               alert.description = `Create ${alert.log.orderType} order for ${
                 formatShares(alert.log.amount).formatted
@@ -215,8 +215,8 @@ export default function setAlertText(alert: any, callback: any) {
                 marketInfo.outcomes.find(
                   (outcome: Outcomes) =>
                     outcome.id ===
-                    createBigNumber(alert.params._outcome).toFixed(),
-                ).name,
+                    createBigNumber(alert.params._outcome).toFixed()
+                ).name
               );
 
               alert.description = `Fill ${
@@ -356,21 +356,21 @@ export default function setAlertText(alert: any, callback: any) {
               const outcome = calculatePayoutNumeratorsValue(
                 marketInfo,
                 alert.params._payoutNumerators,
-                alert.params._invalid,
+                alert.params._invalid
               );
               const outcomeDescription = getOutcomeName(
                 marketInfo,
                 { id: outcome },
-                false,
+                false
               );
               alert.description = `Migrate ${
                 formatRep(
                   createBigNumber(alert.log.value).dividedBy(
-                    TEN_TO_THE_EIGHTEENTH_POWER,
+                    TEN_TO_THE_EIGHTEENTH_POWER
                   )).formatted
               } REP to child universe "${outcomeDescription}"`;
               return dispatch(callback(alert));
-            }),
+            })
           );
         }
         break;
@@ -401,13 +401,13 @@ export default function setAlertText(alert: any, callback: any) {
               const outcome =
                 alert.log.outcome !== undefined &&
                 marketInfo.outcomes.find(
-                  (o: any) => o.id === alert.log.outcome.toString(),
+                  (o: any) => o.id === alert.log.outcome.toString()
                 );
               const outcomeDescription = getOutcomeName(marketInfo, outcome);
               alert.description = `Place ${orderType} order for ${
                 formatShares(alert.amount || alert.log.amount).formatted
               } ${formatShares(
-                alert.log.amount,
+                alert.log.amount
               ).denomination.toLowerCase()} of "${outcomeDescription}" at ${
                 formatEther(alert.log.price).formatted
               } ETH`;

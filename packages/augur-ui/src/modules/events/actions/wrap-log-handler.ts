@@ -22,8 +22,9 @@ export const wrapLogHandler = (logHandler: Function = defaultLogHandler) => (
         if (
           find(Object.values(log), value => universeId === value) ||
           (log.contractName === "Cash" && log.eventName === "Approval")
-        )
+        ) {
           dispatch(logHandler(log));
+        }
       });
     } else {
       const isInCurrentUniverse = find(
@@ -33,8 +34,9 @@ export const wrapLogHandler = (logHandler: Function = defaultLogHandler) => (
       if (
         isInCurrentUniverse ||
         (log.contractName === "Cash" && log.eventName === "Approval")
-      )
+      ) {
         dispatch(logHandler(log));
+      }
     }
   }
 };

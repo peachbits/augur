@@ -7,7 +7,7 @@ exports.up = async (knex: Knex): Promise<any> => {
       table.string("marketId", 42).notNullable();
 
       const uniqueIndex = ["marketId", "isInvalid"];
-      for (let i: number = 0; i <= 7; i++ ) {
+      for (let i = 0; i <= 7; i++ ) {
         const column = `payout${i}`;
         table.string(column, 255).nullable();
         uniqueIndex.push(column);

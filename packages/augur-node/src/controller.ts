@@ -37,7 +37,7 @@ export class AugurNodeController {
   private logger = logger;
   private blockAndLogsQueue: BlockAndLogStreamerListener | undefined;
 
-  constructor(augur: Augur, networkConfig: ConnectOptions, databaseDir: string = ".", isWarpSync: boolean = false) {
+  constructor(augur: Augur, networkConfig: ConnectOptions, databaseDir = ".", isWarpSync = false) {
     this.augur = augur;
     this.networkConfig = networkConfig;
     this.isWarpSync = isWarpSync;
@@ -46,7 +46,7 @@ export class AugurNodeController {
     this.controlEmitter = new EventEmitter();
   }
 
-  public async start(errorCallback: ErrorCallback | undefined) {
+  async start(errorCallback: ErrorCallback | undefined) {
     this.running = true;
     this.errorCallback = errorCallback;
     try {
@@ -71,7 +71,7 @@ export class AugurNodeController {
     }
   }
 
-  public async warpSync(filename: string, errorCallback: ErrorCallback | undefined, infoCallback: GenericCallback<string>) {
+  async warpSync(filename: string, errorCallback: ErrorCallback | undefined, infoCallback: GenericCallback<string>) {
     try {
       this.logger.info(format("importing warp sync file %s", filename));
       if (this.isRunning()) await this.shutdown();
@@ -96,7 +96,7 @@ export class AugurNodeController {
     }
   }
 
-  public async shutdown() {
+  async shutdown() {
     try {
       await this._shutdown();
     } catch (err) {
@@ -104,11 +104,11 @@ export class AugurNodeController {
     }
   }
 
-  public isRunning() {
+  isRunning() {
     return this.running && this.db != null;
   }
 
-  public async requestLatestSyncedBlock(): Promise<SyncedBlockInfo> {
+  async requestLatestSyncedBlock(): Promise<SyncedBlockInfo> {
     if (!this.running || this.db == null) throw new Error("Not running");
     const row: { highestBlockNumber: number } = await this.db("blocks")
       .max("blockNumber as highestBlockNumber")
@@ -123,7 +123,7 @@ export class AugurNodeController {
     return {lastSyncBlockNumber, uploadBlockNumber, highestBlockNumber};
   }
 
-  public async resetDatabase(id: string, errorCallback: ErrorCallback | undefined) {
+  async resetDatabase(id: string, errorCallback: ErrorCallback | undefined) {
     let networkId = id || "1";
     try {
       if (this.augur != null && this.augur.networkId) {
@@ -136,11 +136,11 @@ export class AugurNodeController {
     }
   }
 
-  public addLogger(logger: LoggerInterface) {
+  addLogger(logger: LoggerInterface) {
     this.logger.addLogger(logger);
   }
 
-  public clearLoggers() {
+  clearLoggers() {
     this.logger.clear();
   }
 

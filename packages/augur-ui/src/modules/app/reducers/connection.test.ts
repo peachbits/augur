@@ -8,10 +8,10 @@ describe(`modules/app/reducers/connection.js`, () => {
   test(`Updates the connection in state`, () => {
     const action = {
       type: updateConnection.UPDATE_CONNECTION_STATUS,
-      data: { isConnected: true }
+      data: { isConnected: true },
     };
     const expectedOutput = Object.assign({}, thisTestState.connection, {
-      isConnected: true
+      isConnected: true,
     });
     expect(reducer(thisTestState.connection, action)).toEqual(expectedOutput);
   });
@@ -19,10 +19,10 @@ describe(`modules/app/reducers/connection.js`, () => {
   test(`Updates the Augur Node connection in state`, () => {
     const action = {
       type: updateConnection.UPDATE_AUGUR_NODE_CONNECTION_STATUS,
-      data: { isConnectedToAugurNode: true }
+      data: { isConnectedToAugurNode: true },
     };
     const expectedOutput = Object.assign({}, thisTestState.connection, {
-      isConnectedToAugurNode: true
+      isConnectedToAugurNode: true,
     });
     expect(reducer(thisTestState.connection, action)).toEqual(expectedOutput);
   });
@@ -30,10 +30,10 @@ describe(`modules/app/reducers/connection.js`, () => {
   test(`Updates the augurNodeNetworkId`, () => {
     const action = {
       type: updateConnection.UPDATE_AUGUR_NODE_NETWORK_ID,
-      data: { augurNodeNetworkId: "4" }
+      data: { augurNodeNetworkId: "4" },
     };
     const expectedOutput = Object.assign({}, thisTestState.connection, {
-      augurNodeNetworkId: "4"
+      augurNodeNetworkId: "4",
     });
     expect(reducer(thisTestState.connection, action)).toEqual(expectedOutput);
   });
@@ -41,10 +41,10 @@ describe(`modules/app/reducers/connection.js`, () => {
   test(`Updates the isReconnectionPaused variable in the connection object in state`, () => {
     const action = {
       type: updateConnection.UPDATE_IS_RECONNECTION_PAUSED,
-      data: { isReconnectionPaused: true }
+      data: { isReconnectionPaused: true },
     };
     const expectedOutput = Object.assign({}, thisTestState.connection, {
-      isReconnectionPaused: true
+      isReconnectionPaused: true,
     });
     expect(reducer(thisTestState.connection, action)).toEqual(expectedOutput);
   });

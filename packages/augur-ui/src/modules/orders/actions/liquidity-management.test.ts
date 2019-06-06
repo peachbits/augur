@@ -14,7 +14,7 @@ describe(`modules/orders/actions/liquidity-management.js`, () => {
   augur.trading.calculateTradeCost = jest.fn(() => ({
     onChainAmount: "0x0001",
     onChainPrice: "0x001",
-    cost: "0x001"
+    cost: "0x001",
   }));
   augur.trading.generateTradeGroupId = jest.fn(() => {});
 
@@ -26,17 +26,17 @@ describe(`modules/orders/actions/liquidity-management.js`, () => {
         marketType: YES_NO,
         minPrice: "0",
         maxPrice: "1",
-        outcomes: [{ id: 0, description: null }, { id: 1, description: null }]
-      }
+        outcomes: [{ id: 0, description: null }, { id: 1, description: null }],
+      },
     },
     pendingLiquidityOrders: {},
     loginAccount: {
       meta: {
-        test: "object"
+        test: "object",
       },
       address: "0x1233",
-      allowance: "12312451124912481204918240912480412"
-    }
+      allowance: "12312451124912481204918240912480412",
+    },
   };
 
   beforeAll(() => {
@@ -57,15 +57,15 @@ describe(`modules/orders/actions/liquidity-management.js`, () => {
               price: "0.5",
               type: "bid",
               estimatedCost: "1.5",
-              index: 0
-            }
-          ]
-        }
-      }
+              index: 0,
+            },
+          ],
+        },
+      },
     };
     const data = {
       marketId: "marketId",
-      log: null
+      log: null,
     };
     const store = mockStore(state);
     store.dispatch(startOrderSending(data));
@@ -79,24 +79,24 @@ describe(`modules/orders/actions/liquidity-management.js`, () => {
             price: "0.5",
             type: "bid",
             estimatedCost: "1.5",
-            index: 0
+            index: 0,
           },
           outcomeId: 1,
           updates: {
             onSent: true,
             txhash: "0xdeadbeef",
-            orderId: "0x1"
-          }
-        }
+            orderId: "0x1",
+          },
+        },
       },
       {
         type: "REMOVE_LIQUIDITY_ORDER",
         data: {
           marketId: "marketId",
           orderId: 0,
-          outcomeId: 1
-        }
-      }
+          outcomeId: 1,
+        },
+      },
     ]);
   });
 });

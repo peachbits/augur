@@ -19,8 +19,8 @@ describe("loadDisputing action", () => {
 
   const initialStoreState = {
     universe: {
-      id: universeAddress
-    }
+      id: universeAddress,
+    },
   };
 
   let mockStore;

@@ -19,7 +19,7 @@ export class WebWorkerConnector extends Connector {
   private api: API;
   private worker: any;
 
-  public async connect(params?: any): Promise<any> {
+  async connect(params?: any): Promise<any> {
     const ethersProvider = new EthersProvider(new JsonRpcProvider(settings.ethNodeURLs[4]), 10, 0, 40);
     const contractDependencies = new ContractDependenciesEthers(ethersProvider, undefined, settings.testAccounts[0]);
     const augur = await Augur.create(ethersProvider, contractDependencies, Addresses[4]);
@@ -50,22 +50,22 @@ export class WebWorkerConnector extends Connector {
     };
   }
 
-  public async disconnect(): Promise<any> {
+  async disconnect(): Promise<any> {
     this.worker.terminate();
   }
 
-  public bindTo<R, P>(f: (db: any, augur: any, params: P) => R): (params: P) => Promise<R> {
+  bindTo<R, P>(f: (db: any, augur: any, params: P) => R): (params: P) => Promise<R> {
     return async (params: P): Promise<R> => {
       return this.api.route(f.name, params);
     };
   }
 
-  public on(eventName: SubscriptionEventNames | string, callback: Callback): void {
+  on(eventName: SubscriptionEventNames | string, callback: Callback): void {
     this.subscriptions[eventName] = { id: "", callback };
     this.worker.postMessage({ subscribe: eventName });
   }
 
-  public off(eventName: SubscriptionEventNames | string): void {
+  off(eventName: SubscriptionEventNames | string): void {
     const subscription = this.subscriptions[eventName].id;
     delete this.subscriptions[eventName];
 

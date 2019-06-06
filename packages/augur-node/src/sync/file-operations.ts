@@ -11,7 +11,7 @@ export function getFileHash(filename: string): string {
   return md5File.sync(filename);
 }
 
-export async function compressAndHashFile(dbFileName: string, networkId: string, dbVersion: number, syncfileTemplate: string, directoryDir: string = ".") {
+export async function compressAndHashFile(dbFileName: string, networkId: string, dbVersion: number, syncfileTemplate: string, directoryDir = ".") {
   const WARP_SYNC_FILE = "__temp_sync_file__";
   await createWarpSyncFile(directoryDir, dbFileName, WARP_SYNC_FILE);
   const hash = getFileHash(path.join(directoryDir, WARP_SYNC_FILE));
@@ -59,7 +59,7 @@ export async function createWarpSyncFile(directoryDir: string, dbFileName: strin
   });
 }
 
-export function removeOldSyncFiles(networkId: string, dbVersion: number, directoryDir: string = ".") {
+export function removeOldSyncFiles(networkId: string, dbVersion: number, directoryDir = ".") {
   const syncFiles = format(DB_WARP_SYNC_FILE_ENDING, networkId, dbVersion);
   const files = fs.readdirSync(directoryDir).filter((fn: string) => fn.endsWith(syncFiles));
   if (files) {

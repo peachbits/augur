@@ -27,5 +27,5 @@ export const selectCoreStats = createSelector(
         label: "Realized P/L",
         value: "0", // need to get realized PnL from contract log emitted
       },
-    }),
+    })
 );

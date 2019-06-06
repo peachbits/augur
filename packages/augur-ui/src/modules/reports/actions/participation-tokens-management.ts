@@ -14,8 +14,8 @@ import { Action } from "redux";
 
 // TODO: is this even in use? on a search, i never see it imported...
 export const loadParticipationTokens = (
-  includeCurrent: boolean = true,
-  callback: NodeStyleCallback = logError,
+  includeCurrent = true,
+  callback: NodeStyleCallback = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { loginAccount, universe } = getState();
   const universeID = universe.id || UNIVERSE_ID;
@@ -35,14 +35,14 @@ export const loadParticipationTokens = (
         });
       });
       callback(null, feeWindowsWithUnclaimedTokens);
-    },
+    }
   );
 };
 
 export const purchaseParticipationTokens = (
   amount: string,
   estimateGas = false,
-  callback: NodeStyleCallback = logError,
+  callback: NodeStyleCallback = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { universe } = getState();
   augur.reporting.getFeeWindowCurrent(
@@ -56,9 +56,9 @@ export const purchaseParticipationTokens = (
         address = universe.id;
       }
       return dispatch(
-        callMethod(methodFunc, amount, address, estimateGas, callback),
+        callMethod(methodFunc, amount, address, estimateGas, callback)
       );
-    },
+    }
   );
 };
 
@@ -66,8 +66,8 @@ const callMethod = (
   method: Function,
   amount: string,
   address: string,
-  estimateGas: boolean = false,
-  callback: NodeStyleCallback,
+  estimateGas = false,
+  callback: NodeStyleCallback
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { loginAccount } = getState();
   method({
@@ -86,7 +86,7 @@ const callMethod = (
         const gasPrice = getGasPrice(getState());
         return callback(
           null,
-          formatGasCostToEther(res, { decimalsRounded: 4 }, gasPrice),
+          formatGasCostToEther(res, { decimalsRounded: 4 }, gasPrice)
         );
       }
       dispatch(loadReportingWindowBounds());

@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
   isMobile: state.appStatus.isMobile,
   accountREP: state.loginAccount.rep,
   currentBlockNumber: state.blockchain.currentBlockNumber,
-  gasPrice: getGasPrice(state)
+  gasPrice: getGasPrice(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -32,7 +32,7 @@ const mapDispatchToProps = dispatch => ({
     invalid,
     amount,
     history,
-    callback
+    callback,
   }) =>
     dispatch(
       submitMigrateREP({
@@ -42,11 +42,11 @@ const mapDispatchToProps = dispatch => ({
         invalid,
         amount,
         history,
-        callback
+        callback,
       })
     ),
   getForkMigrationTotals: (universe, callback) =>
-    dispatch(getForkMigrationTotals(universe, callback))
+    dispatch(getForkMigrationTotals(universe, callback)),
 });
 
 const mergeProps = (sP, dP, oP) => {
@@ -69,7 +69,7 @@ const mergeProps = (sP, dP, oP) => {
       invalid,
       amount,
       history,
-      callback
+      callback,
     }) =>
       dP.submitMigrateREP({
         estimateGas,
@@ -78,10 +78,10 @@ const mergeProps = (sP, dP, oP) => {
         invalid,
         amount,
         history,
-        callback
+        callback,
       }),
     getForkMigrationTotals: callback =>
-      dP.getForkMigrationTotals(sP.universe, callback)
+      dP.getForkMigrationTotals(sP.universe, callback),
   };
 };
 

@@ -37,7 +37,7 @@ export const createMarketsStateObject = markets => {
     [ALL_MARKETS]: markets,
     [MARKET_OPEN]: openPositionMarkets,
     [MARKET_REPORTING]: reportingMarkets,
-    [MARKET_CLOSED]: orderdClosedMarkets
+    [MARKET_CLOSED]: orderdClosedMarkets,
   };
 
   return marketsObject;

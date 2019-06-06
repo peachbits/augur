@@ -12,20 +12,20 @@ const mapStateToProps = state => {
   const markets = getPositionsMarkets(timestamps, positions);
 
   return {
-    markets
+    markets,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   claimTradingProceeds: marketId =>
-    dispatch(updateModal({ type: MODAL_CLAIM_TRADING_PROCEEDS, marketId }))
+    dispatch(updateModal({ type: MODAL_CLAIM_TRADING_PROCEEDS, marketId })),
 });
 
 const getPositionsMarkets = memoize(
   (marketsPositionsRecentlyTraded, positions) =>
     Array.from(new Set([...positions.markets])).map(m => ({
       ...m,
-      recentlyTraded: marketsPositionsRecentlyTraded[m.id]
+      recentlyTraded: marketsPositionsRecentlyTraded[m.id],
     })),
   { max: 1 }
 );

@@ -69,5 +69,5 @@ export async function getFeeWindow(db: Knex, augur: {}, params: t.TypeOf<typeof 
     startTime: 1509065473,
     totalStake: "132",
     universe: "0x000000000000000000000000000000000000000b",
-  }
+  };
 }

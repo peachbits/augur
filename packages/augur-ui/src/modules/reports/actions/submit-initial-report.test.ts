@@ -23,7 +23,7 @@ describe(`modules/reports/actions/submit-initial-report.js`, () => {
 
     callback = jest.fn();
     history = {
-      push: jest.fn()
+      push: jest.fn(),
     };
   });
 
@@ -46,7 +46,7 @@ describe(`modules/reports/actions/submit-initial-report.js`, () => {
           invalid: false,
           history,
           returnPath: REPORTING_REPORT_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -62,7 +62,7 @@ describe(`modules/reports/actions/submit-initial-report.js`, () => {
           invalid: false,
           history,
           returnPath: REPORTING_REPORT_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -78,7 +78,7 @@ describe(`modules/reports/actions/submit-initial-report.js`, () => {
           invalid: false,
           history,
           returnPath: REPORTING_REPORT_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -94,7 +94,7 @@ describe(`modules/reports/actions/submit-initial-report.js`, () => {
           invalid: false,
           history,
           returnPath: REPORTING_REPORT_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -110,7 +110,7 @@ describe(`modules/reports/actions/submit-initial-report.js`, () => {
           invalid: true,
           history,
           returnPath: REPORTING_REPORT_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -126,7 +126,7 @@ describe(`modules/reports/actions/submit-initial-report.js`, () => {
           invalid: false,
           history,
           returnPath: REPORTING_REPORT_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -153,7 +153,7 @@ describe(`modules/reports/actions/submit-initial-report.js`, () => {
           invalid: false,
           history,
           returnPath: REPORTING_REPORT_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -169,7 +169,7 @@ describe(`modules/reports/actions/submit-initial-report.js`, () => {
           invalid: true,
           history,
           returnPath: REPORTING_REPORT_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -185,7 +185,7 @@ describe(`modules/reports/actions/submit-initial-report.js`, () => {
           invalid: true,
           history,
           returnPath: REPORTING_REPORT_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);

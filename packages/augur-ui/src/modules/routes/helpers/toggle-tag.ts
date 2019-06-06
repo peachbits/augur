@@ -17,7 +17,7 @@ const toggleTag = (tag, location, history) => () => {
 
     return history.push({
       ...location,
-      search: searchParams
+      search: searchParams,
     });
   }
 
@@ -44,7 +44,7 @@ const toggleTag = (tag, location, history) => () => {
 
   history.push({
     ...location,
-    search: searchParams
+    search: searchParams,
   });
 };
 

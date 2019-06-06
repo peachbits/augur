@@ -8,7 +8,7 @@ import { MarketData, Outcomes } from "modules/types";
 export const getOutcomeName = (
   market: MarketData,
   outcome: Outcomes,
-  alwaysReturnYesForBinaryMarket: boolean = true,
+  alwaysReturnYesForBinaryMarket = true
 ): string => {
   // default to handle app loading
   if (!market) return YES_NO_YES_OUTCOME_NAME;

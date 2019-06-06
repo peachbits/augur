@@ -39,7 +39,7 @@ const localStorageMiddleware = store => next => action => {
     pendingOrders,
     pendingQueue,
     env,
-    connection
+    connection,
   } = state;
   const windowApp: WindowApp = windowRef as WindowApp;
   if (windowApp.localStorage && windowApp.localStorage.setItem) {
@@ -53,7 +53,7 @@ const localStorageMiddleware = store => next => action => {
     let storedAccountData = JSON.parse(accountValue);
     if (!storedAccountData || !storedAccountData.selectedUniverse) {
       storedAccountData = {
-        selectedUniverse: { [networkIdToUse]: universeIdToUse }
+        selectedUniverse: { [networkIdToUse]: universeIdToUse },
       };
     }
     const processedFavorites = processFavorites(
@@ -73,11 +73,11 @@ const localStorageMiddleware = store => next => action => {
         pendingOrders,
         pendingQueue,
         gasPriceInfo: {
-          userDefinedGasPrice: state.gasPriceInfo.userDefinedGasPrice
+          userDefinedGasPrice: state.gasPriceInfo.userDefinedGasPrice,
         },
         selectedUniverse: {
-          ...storedAccountData.selectedUniverse
-        }
+          ...storedAccountData.selectedUniverse,
+        },
       })
     );
   }
@@ -100,7 +100,7 @@ if (process.env.NODE_ENV === "production") {
 const rootReducers = createReducer();
 // middleware
 const store = createStore(
-  combineReducers({...rootReducers }), middleware,
+  combineReducers({...rootReducers }), middleware
 );
 
 export type AppState = AppStateInterface;
@@ -109,7 +109,7 @@ export type AppState = AppStateInterface;
 if (process.env.NODE_ENV !== "test") {
   Object.defineProperty(window, "state", {
     get: store.getState,
-    enumerable: true
+    enumerable: true,
   });
 }
 
@@ -122,14 +122,14 @@ if ((module as any).hot) {
     const nextReducers = require("reducers");
     store.replaceReducer(
       combineReducers({
-        ...nextReducers.createReducer()
+        ...nextReducers.createReducer(),
       })
     );
   });
 
   Object.defineProperty(window, "state", {
     get: store.getState,
-    enumerable: true
+    enumerable: true,
   });
 }
 

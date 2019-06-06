@@ -12,7 +12,7 @@ export function fix(n, encoding?, isWrapped=false) {
       encoding = encoding.toLowerCase();
     }
     if (Array.isArray(n)) {
-      let len = n.length;
+      const len = n.length;
       fixed = new Array(len);
       for (let i = 0; i < len; ++i) {
         fixed[i] = fix(n[i], encoding);

@@ -14,7 +14,7 @@ import { Action } from "redux";
 export function sellCompleteSets(
   marketId: string,
   numCompleteSets: any,
-  callback: NodeStyleCallback = logError,
+  callback: NodeStyleCallback = logError
 ) {
   return (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
     const { loginAccount, marketsData } = getState();
@@ -23,7 +23,7 @@ export function sellCompleteSets(
     const numCompleteSetsOnChain = augur.utils.convertDisplayAmountToOnChainAmount(
       createBigNumber(numCompleteSets.fullPrecision),
       createBigNumber(maxPrice - minPrice),
-      numTicks,
+      numTicks
     );
     const pendingHash = `pending-${marketId}-${numCompleteSets.fullPrecision}`;
     const sellCompleteSetsParams = {

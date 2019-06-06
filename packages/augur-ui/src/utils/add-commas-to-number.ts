@@ -1,5 +1,5 @@
 export default function(num: number | string): string {
-  let sides: Array<string> = [];
+  let sides: string[] = [];
 
   sides = num.toString().split(".");
   sides[0] = sides[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");

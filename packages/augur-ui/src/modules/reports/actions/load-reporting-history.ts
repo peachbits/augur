@@ -11,7 +11,7 @@ import noop from "utils/noop";
 export const loadReportingHistory = (
   options = {},
   callback: NodeStyleCallback = logError,
-  marketIdAggregator: Function = noop,
+  marketIdAggregator: Function = noop
 ) => (dispatch: ThunkDispatch<void, any, Action>) => {
   dispatch(
     loadReportingHistoryInternal(
@@ -30,7 +30,7 @@ export const loadReportingHistory = (
 
 const loadReportingHistoryInternal = (
   options: any = {},
-  callback: NodeStyleCallback,
+  callback: NodeStyleCallback
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { universe, loginAccount } = getState();
   if (!loginAccount.address) return callback(null, {});
@@ -41,12 +41,13 @@ const loadReportingHistoryInternal = (
       if (
         reportingHistory == null ||
         Object.keys(reportingHistory).length === 0
-      )
+      ) {
         return callback(null, {});
+      }
       callback(null, {
         marketIds: Object.keys(reportingHistory[universe.id]),
         universe: universe.id,
-        reportingHistory
+        reportingHistory,
       });
     }
   );

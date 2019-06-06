@@ -9,7 +9,7 @@ const orderForMarketDepth = orderBook => {
   const bids = rawBids.reduce(
     (p, order) => [
       ...p,
-      [order.cumulativeShares, order.price.value, order.shares.value, true]
+      [order.cumulativeShares, order.price.value, order.shares.value, true],
     ],
     []
   );
@@ -19,7 +19,7 @@ const orderForMarketDepth = orderBook => {
     .reduce(
       (p, order) => [
         ...p,
-        [order.cumulativeShares, order.price.value, order.shares.value, true]
+        [order.cumulativeShares, order.price.value, order.shares.value, true],
       ],
       []
     );
@@ -34,7 +34,7 @@ const orderForMarketDepth = orderBook => {
       createBigNumber(0),
       minAsksDepthOrder[1],
       minAsksDepthOrder[2],
-      false
+      false,
     ]);
   }
 
@@ -48,13 +48,13 @@ const orderForMarketDepth = orderBook => {
       createBigNumber(0),
       minBidDepthOrder[1],
       minBidDepthOrder[2],
-      false
+      false,
     ]);
   }
 
   return {
     [BIDS]: bids,
-    [ASKS]: asks
+    [ASKS]: asks,
   };
 };
 

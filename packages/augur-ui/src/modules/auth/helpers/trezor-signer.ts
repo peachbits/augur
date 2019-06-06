@@ -14,7 +14,7 @@ const trezorSigner = async (connect, path, dispatch, rawTxArgs) => {
 
   dispatch(
     updateModal({
-      type: MODAL_TREZOR
+      type: MODAL_TREZOR,
     })
   );
 
@@ -32,13 +32,13 @@ const trezorSigner = async (connect, path, dispatch, rawTxArgs) => {
     chainId: parseInt(chain, 10),
     nonce: hex(tx.nonce),
     gasLimit: hex(tx.gas),
-    gasPrice: hex(tx.gasPrice)
+    gasPrice: hex(tx.gasPrice),
   };
 
   return connect
     .ethereumSignTransaction({
       path,
-      transaction
+      transaction,
     })
     .then(response => {
       if (response.success) {
@@ -61,7 +61,7 @@ const trezorSigner = async (connect, path, dispatch, rawTxArgs) => {
       dispatch(
         updateModal({
           type: MODAL_TREZOR,
-          error: `Error signing transaction: "${err}"`
+          error: `Error signing transaction: "${err}"`,
         })
       );
     });

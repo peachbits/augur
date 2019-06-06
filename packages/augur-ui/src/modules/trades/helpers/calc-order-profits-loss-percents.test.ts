@@ -26,7 +26,7 @@ describe("modules/trades/helpers/calc-order-profit-loss-percents.js", () => {
       SELL,
       "190-242nota valid number",
       "10",
-      SCALAR,
+      SCALAR
     );
 
     const expected = null;
@@ -42,7 +42,7 @@ describe("modules/trades/helpers/calc-order-profit-loss-percents.js", () => {
       "-1",
       "10abc this is not a valid number",
       SCALAR,
-      "0",
+      "0"
     );
 
     const expected = null;
@@ -115,7 +115,7 @@ describe("modules/trades/helpers/calc-order-profit-loss-percents.js", () => {
       YES_NO,
       "10",
       "0.25",
-      "0.2",
+      "0.2"
     );
 
     const expected = {

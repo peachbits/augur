@@ -12,28 +12,28 @@ import { TransactionStatusCallback, ContractDependenciesEthers } from "contract-
 export interface CustomEvent {
   name: string;
   eventName?: string;
-  idFields?: Array<string>;
+  idFields?: string[];
 }
 
 export interface UserSpecificEvent extends CustomEvent {
   numAdditionalTopics: number;
-  userTopicIndicies: Array<number>;
+  userTopicIndicies: number[];
 }
 
 export class Augur<TProvider extends Provider = Provider> {
-  public readonly provider: TProvider;
+  readonly provider: TProvider;
   private readonly dependencies: ContractDependenciesEthers;
 
-  public readonly networkId: NetworkId;
-  public readonly events: Events;
-  public readonly addresses: ContractAddresses;
-  public readonly contracts: Contracts;
-  public readonly trade: Trade;
-  public readonly connector: Connector;
+  readonly networkId: NetworkId;
+  readonly events: Events;
+  readonly addresses: ContractAddresses;
+  readonly contracts: Contracts;
+  readonly trade: Trade;
+  readonly connector: Connector;
 
   // TODO Set genericEventNames & userSpecificEvents using
   // GenericContractInterfaces instead of hardcoding them
-  public readonly genericEventNames: Array<string> = [
+  readonly genericEventNames: string[] = [
     "CompleteSetsPurchased",
     "CompleteSetsSold",
     "DisputeCrowdsourcerCompleted",
@@ -59,16 +59,16 @@ export class Augur<TProvider extends Provider = Provider> {
     "UniverseForked",
   ];
 
-  public readonly customEvents: Array<CustomEvent> = [
+  readonly customEvents: CustomEvent[] = [
     {
       "name": "CurrentOrders",
       "eventName": "OrderEvent",
-      "idFields": ["orderId"]
+      "idFields": ["orderId"],
     },
-  ]
+  ];
 
   // TODO Update numAdditionalTopics/userTopicIndexes once contract events are updated
-  public readonly userSpecificEvents: Array<UserSpecificEvent> = [
+  readonly userSpecificEvents: UserSpecificEvent[] = [
     {
       "name": "TokensTransferred",
       "numAdditionalTopics": 3,
@@ -83,11 +83,11 @@ export class Augur<TProvider extends Provider = Provider> {
       "name": "TokenBalanceChanged",
       "numAdditionalTopics": 2,
       "userTopicIndicies": [1],
-      "idFields": ["token"]
+      "idFields": ["token"],
     },
   ];
 
-  public constructor(provider: TProvider, dependencies: ContractDependenciesEthers, networkId: NetworkId, addresses: ContractAddresses, connector: Connector = new EmptyConnector()) {
+  constructor(provider: TProvider, dependencies: ContractDependenciesEthers, networkId: NetworkId, addresses: ContractAddresses, connector: Connector = new EmptyConnector()) {
     this.provider = provider;
     this.dependencies = dependencies;
     this.networkId = networkId;
@@ -100,7 +100,7 @@ export class Augur<TProvider extends Provider = Provider> {
     this.events = new Events(this.provider, this.addresses.Augur);
   }
 
-  public static async create<TProvider extends Provider = Provider>(provider: TProvider, dependencies: ContractDependenciesEthers, addresses: ContractAddresses, connector: Connector = new EmptyConnector()): Promise<Augur> {
+  static async create<TProvider extends Provider = Provider>(provider: TProvider, dependencies: ContractDependenciesEthers, addresses: ContractAddresses, connector: Connector = new EmptyConnector()): Promise<Augur> {
     const networkId = await provider.getNetworkId();
     const augur = new Augur<TProvider>(provider, dependencies, networkId, addresses, connector);
 
@@ -109,49 +109,49 @@ export class Augur<TProvider extends Provider = Provider> {
     return augur;
   }
 
-  public async getAccount(): Promise<string> {
-    return await this.dependencies.getDefaultAddress();
+  async getAccount(): Promise<string> {
+    return this.dependencies.getDefaultAddress();
   }
 
-  public getMarket(address: string): ContractInterfaces.Market {
+  getMarket(address: string): ContractInterfaces.Market {
     return new ContractInterfaces.Market(this.dependencies, address);
   }
 
-  public getOrders(): ContractInterfaces.Orders {
+  getOrders(): ContractInterfaces.Orders {
     return new ContractInterfaces.Orders(this.dependencies, this.addresses.Orders);
   }
 
-  public registerTransactionStatusCallback(key: string, callback: TransactionStatusCallback): void {
+  registerTransactionStatusCallback(key: string, callback: TransactionStatusCallback): void {
     this.dependencies.registerTransactionStatusCallback(key, callback);
   }
 
-  public deRegisterTransactionStatusCallback(key: string): void {
+  deRegisterTransactionStatusCallback(key: string): void {
     this.dependencies.deRegisterTransactionStatusCallback(key);
   }
 
-  public deRegisterAllTransactionStatusCallbacks(): void {
+  deRegisterAllTransactionStatusCallbacks(): void {
     this.dependencies.deRegisterAllTransactionStatusCallbacks();
   }
 
-  public async connect(params?: any): Promise<any> {
+  async connect(params?: any): Promise<any> {
     return this.connector.connect(params);
   }
 
-  public async disconnect(): Promise<any> {
+  async disconnect(): Promise<any> {
     return this.connector.disconnect();
   }
 
-  public bindTo<R, P>(f: (db: any, augur: any, params: P) => R): (params: P) => Promise<R> {
+  bindTo<R, P>(f: (db: any, augur: any, params: P) => R): (params: P) => Promise<R> {
     return this.connector.bindTo(f);
   }
 
-  public on(eventName: SubscriptionEventNames | string, callback: Callback): void {
+  on(eventName: SubscriptionEventNames | string, callback: Callback): void {
     if (isSubscriptionEventName(eventName)) {
       this.connector.on(eventName, callback);
     }
   }
 
-  public off(eventName: SubscriptionEventNames | string): void {
+  off(eventName: SubscriptionEventNames | string): void {
     if (isSubscriptionEventName(eventName)) {
       this.connector.off(eventName);
     }

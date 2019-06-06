@@ -16,12 +16,12 @@ const mapStateToProps = (state: AppState) => {
     sidebarStatus,
     unseenCount,
     isLogged: authStatus.isLogged,
-    alertsVisible: authStatus.isLogged && sidebarStatus.isAlertsVisible
+    alertsVisible: authStatus.isLogged && sidebarStatus.isAlertsVisible,
   };
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
-  updateIsAlertVisible: (data: Boolean) => dispatch(updateIsAlertVisible(data))
+  updateIsAlertVisible: (data: Boolean) => dispatch(updateIsAlertVisible(data)),
 });
 
 export default withRouter(

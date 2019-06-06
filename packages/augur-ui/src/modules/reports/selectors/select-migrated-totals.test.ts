@@ -15,8 +15,8 @@ describe(`modules/reports/selectors/select-migrated-totals.js`, () => {
     reportableOutcomes: [
       { id: "0", name: "No" },
       { id: "1", name: "Yes" },
-      { id: "0.5", name: "Indeterminate" }
-    ]
+      { id: "0.5", name: "Indeterminate" },
+    ],
   };
 
   const marketCategorical = {
@@ -33,8 +33,8 @@ describe(`modules/reports/selectors/select-migrated-totals.js`, () => {
       { id: "4", name: "Joe" },
       { id: "5", name: "Mike" },
       { id: "6", name: "Ed" },
-      { id: "0.5", name: "Indeterminate" }
-    ]
+      { id: "0.5", name: "Indeterminate" },
+    ],
   };
 
   const marketScalar = {
@@ -44,13 +44,13 @@ describe(`modules/reports/selectors/select-migrated-totals.js`, () => {
     tickSize: 4,
     numOutcomes: 2,
     marketType: SCALAR,
-    reportableOutcomes: [{ id: "0.5", name: "Indeterminate" }]
+    reportableOutcomes: [{ id: "0.5", name: "Indeterminate" }],
   };
 
   beforeEach(() => {
     formatAttoRep.mockImplementation(value => ({
       formatted: value.toString(),
-      fullPrecision: value
+      fullPrecision: value,
     }));
   });
 
@@ -59,58 +59,58 @@ describe(`modules/reports/selectors/select-migrated-totals.js`, () => {
       2202: {
         repTotal: 201,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       2200: {
         repTotal: 11,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       0.5: {
         repTotal: 135,
         winner: false,
-        isInvalid: true
+        isInvalid: true,
       },
       2221: {
         repTotal: 31,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       2122: {
         repTotal: 131,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       1222: {
         repTotal: 221,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       2332: {
         repTotal: 230,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       2552: {
         repTotal: 231,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       2113: {
         repTotal: 2.33,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       21: {
         repTotal: 1.33,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       211: {
         repTotal: 0.33,
         winner: false,
-        isInvalid: false
-      }
+        isInvalid: false,
+      },
     };
 
     const expected = [
@@ -118,50 +118,50 @@ describe(`modules/reports/selectors/select-migrated-totals.js`, () => {
         ...immutableDelete(totals[2552], "repTotal"),
         name: "2552",
         id: "2552",
-        rep: { formatted: "231", fullPrecision: 231 }
+        rep: { formatted: "231", fullPrecision: 231 },
       },
       {
         ...immutableDelete(totals[2332], "repTotal"),
         name: "2332",
         id: "2332",
-        rep: { formatted: "230", fullPrecision: 230 }
+        rep: { formatted: "230", fullPrecision: 230 },
       },
       {
         ...immutableDelete(totals[1222], "repTotal"),
         name: "1222",
         id: "1222",
-        rep: { formatted: "221", fullPrecision: 221 }
+        rep: { formatted: "221", fullPrecision: 221 },
       },
       {
         ...immutableDelete(totals[2202], "repTotal"),
         name: "2202",
         id: "2202",
-        rep: { formatted: "201", fullPrecision: 201 }
+        rep: { formatted: "201", fullPrecision: 201 },
       },
       {
         ...immutableDelete(totals[0.5], "repTotal"),
         name: "Indeterminate",
         id: "0.5",
-        rep: { formatted: "135", fullPrecision: 135 }
+        rep: { formatted: "135", fullPrecision: 135 },
       },
       {
         ...immutableDelete(totals[2122], "repTotal"),
         name: "2122",
         id: "2122",
-        rep: { formatted: "131", fullPrecision: 131 }
+        rep: { formatted: "131", fullPrecision: 131 },
       },
       {
         ...immutableDelete(totals[2221], "repTotal"),
         name: "2221",
         id: "2221",
-        rep: { formatted: "31", fullPrecision: 31 }
+        rep: { formatted: "31", fullPrecision: 31 },
       },
       {
         ...immutableDelete(totals[2200], "repTotal"),
         name: "2200",
         id: "2200",
-        rep: { formatted: "11", fullPrecision: 11 }
-      }
+        rep: { formatted: "11", fullPrecision: 11 },
+      },
     ];
 
     const actual = selectMigratedTotals(
@@ -176,110 +176,110 @@ describe(`modules/reports/selectors/select-migrated-totals.js`, () => {
       2202: {
         repTotal: 201,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       2200: {
         repTotal: 11,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       2221: {
         repTotal: 31,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       2122: {
         repTotal: 131,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       1222: {
         repTotal: 221,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       2332: {
         repTotal: 230,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       2552: {
         repTotal: 231,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       2113: {
         repTotal: 2.33,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       21: {
         repTotal: 1.33,
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       211: {
         repTotal: 0.33,
         winner: false,
-        isInvalid: false
-      }
+        isInvalid: false,
+      },
     };
     const expected = [
       {
         ...immutableDelete(totals[2552], "repTotal"),
         name: "2552",
         id: "2552",
-        rep: { formatted: "231", fullPrecision: 231 }
+        rep: { formatted: "231", fullPrecision: 231 },
       },
       {
         ...immutableDelete(totals[2332], "repTotal"),
         name: "2332",
         id: "2332",
-        rep: { formatted: "230", fullPrecision: 230 }
+        rep: { formatted: "230", fullPrecision: 230 },
       },
       {
         ...immutableDelete(totals[1222], "repTotal"),
         name: "1222",
         id: "1222",
-        rep: { formatted: "221", fullPrecision: 221 }
+        rep: { formatted: "221", fullPrecision: 221 },
       },
       {
         ...immutableDelete(totals[2202], "repTotal"),
         name: "2202",
         id: "2202",
-        rep: { formatted: "201", fullPrecision: 201 }
+        rep: { formatted: "201", fullPrecision: 201 },
       },
       {
         ...immutableDelete(totals[2122], "repTotal"),
         name: "2122",
         id: "2122",
-        rep: { formatted: "131", fullPrecision: 131 }
+        rep: { formatted: "131", fullPrecision: 131 },
       },
       {
         ...immutableDelete(totals[2221], "repTotal"),
         name: "2221",
         id: "2221",
-        rep: { formatted: "31", fullPrecision: 31 }
+        rep: { formatted: "31", fullPrecision: 31 },
       },
       {
         ...immutableDelete(totals[2200], "repTotal"),
         name: "2200",
         id: "2200",
-        rep: { formatted: "11", fullPrecision: 11 }
+        rep: { formatted: "11", fullPrecision: 11 },
       },
       {
         ...immutableDelete(totals[2113], "repTotal"),
         name: "2113",
         id: "2113",
-        rep: { formatted: "2.33", fullPrecision: 2.33 }
+        rep: { formatted: "2.33", fullPrecision: 2.33 },
       },
       {
         ...totals[0.5],
         name: "Indeterminate",
         id: "0.5",
         winner: false,
-        rep: { formatted: "0", fullPrecision: 0 }
-      }
+        rep: { formatted: "0", fullPrecision: 0 },
+      },
     ];
     const actual = selectMigratedTotals(
       marketScalar.reportableOutcomes,
@@ -295,20 +295,20 @@ describe(`modules/reports/selectors/select-migrated-totals.js`, () => {
         ...marketBinary.reportableOutcomes[0],
         rep: "0",
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       {
         ...marketBinary.reportableOutcomes[1],
         rep: "0",
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       {
         ...marketBinary.reportableOutcomes[2],
         rep: "0",
         winner: false,
-        isInvalid: true
-      }
+        isInvalid: true,
+      },
     ];
 
     expect(actual).toEqual(expected);
@@ -324,50 +324,50 @@ describe(`modules/reports/selectors/select-migrated-totals.js`, () => {
         ...marketCategorical.reportableOutcomes[0],
         rep: "0",
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       {
         ...marketCategorical.reportableOutcomes[1],
         rep: "0",
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       {
         ...marketCategorical.reportableOutcomes[2],
         rep: "0",
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       {
         ...marketCategorical.reportableOutcomes[3],
         rep: "0",
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       {
         ...marketCategorical.reportableOutcomes[4],
         rep: "0",
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       {
         ...marketCategorical.reportableOutcomes[5],
         rep: "0",
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       {
         ...marketCategorical.reportableOutcomes[6],
         rep: "0",
         winner: false,
-        isInvalid: false
+        isInvalid: false,
       },
       {
         ...marketCategorical.reportableOutcomes[7],
         rep: "0",
         winner: false,
-        isInvalid: true
-      }
+        isInvalid: true,
+      },
     ];
     expect(actual).toEqual(expected);
   });
@@ -380,8 +380,8 @@ describe(`modules/reports/selectors/select-migrated-totals.js`, () => {
         rep: "0",
         name: "Indeterminate",
         winner: false,
-        isInvalid: true
-      }
+        isInvalid: true,
+      },
     ];
     expect(actual).toEqual(expected);
   });

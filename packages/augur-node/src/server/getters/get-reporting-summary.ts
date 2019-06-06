@@ -21,7 +21,7 @@ interface ReportingStateRow {
 export async function getReportingSummary(db: Knex, augur: Augur, params: t.TypeOf<typeof ReportingSummaryParams>): Promise<UIReportingSummary> {
   const query = getMarketsWithReportingState(db, []).countDistinct("markets.marketId as count").where({ disputeWindow: params.disputeWindow });
   query.select("market_state.reportingState").groupBy("market_state.reportingState");
-  const summaryRows: Array<ReportingStateRow> = await query;
+  const summaryRows: ReportingStateRow[] = await query;
   if (!summaryRows) return {};
   return summaryRows.reduce((acc, cur) => {
     acc[cur.reportingState] = cur.count;

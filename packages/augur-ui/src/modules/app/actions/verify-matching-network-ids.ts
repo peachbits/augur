@@ -14,7 +14,7 @@ const allNetworkIdsMatch = (networkIds: NetworkIdsObject, callback: NodeStyleCal
   const networkIdValues: any = Object.values(networkIds);
   if (networkIdValues.indexOf(null) > -1) {
     return callback(
-      `One or more network IDs not found: ${JSON.stringify(networkIds)}`,
+      `One or more network IDs not found: ${JSON.stringify(networkIds)}`
     );
   }
   if (new Set(networkIdValues).size > 1) {
@@ -34,5 +34,5 @@ export const verifyMatchingNetworkIds = (callback: NodeStyleCallback = logError)
       };
       if (!isGlobalWeb3()) return allNetworkIdsMatch(networkIds, callback);
       allNetworkIdsMatch({ ...networkIds }, callback);
-    }),
+    })
   );

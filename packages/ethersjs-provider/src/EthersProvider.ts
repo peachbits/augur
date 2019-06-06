@@ -39,7 +39,7 @@ export class EthersProvider extends ethers.providers.BaseProvider implements EPr
           }
           callback(null, results);
         },
-        function (err: Error, results: any) {
+        function (err: Error|null|undefined, results: any) {
           if (err) {
             item.reject(err);
             callback();
@@ -51,27 +51,27 @@ export class EthersProvider extends ethers.providers.BaseProvider implements EPr
     }, concurrency);
   }
 
-  public async listAccounts(): Promise<Array<string>> {
+  async listAccounts(): Promise<string[]> {
     return this.provider.listAccounts();
   }
 
-  public async call(transaction: Transaction<ethers.utils.BigNumber>): Promise<string> {
+  async call(transaction: Transaction<ethers.utils.BigNumber>): Promise<string> {
     return super.call(transaction);
   }
 
-  public async getNetworkId(): Promise<NetworkId> {
-    return <NetworkId>(await this.getNetwork()).chainId.toString();
+  async getNetworkId(): Promise<NetworkId> {
+    return (await this.getNetwork()).chainId.toString() as NetworkId;
   }
 
-  public async getBlockNumber(): Promise<number> {
+  async getBlockNumber(): Promise<number> {
     return super.getBlockNumber();
   }
 
-  public storeAbiData(abi: Abi, contractName: string): void {
+  storeAbiData(abi: Abi, contractName: string): void {
     this.contractMapping[contractName] = new ethers.utils.Interface(abi);
   }
 
-  public getEventTopic(contractName: string, eventName: string): string {
+  getEventTopic(contractName: string, eventName: string): string {
     const contractInterface = this.contractMapping[contractName];
     if (!contractInterface) {
       throw new Error(`Contract name ${contractName} not found in EthersJSProvider. Call 'storeAbiData' first with this name and the contract abi`);
@@ -82,13 +82,13 @@ export class EthersProvider extends ethers.providers.BaseProvider implements EPr
     return contractInterface.events[eventName].topic;
   }
 
-  public parseLogValues(contractName: string, log: Log): LogValues {
+  parseLogValues(contractName: string, log: Log): LogValues {
     const contractInterface = this.contractMapping[contractName];
     if (!contractInterface) {
       throw new Error(`Contract name ${contractName} not found in EthersJSProvider. Call 'storeAbiData' first with this name and the contract abi`);
     }
     const parsedLog = contractInterface.parseLog(log);
-    let omittedValues = _.map(_.range(parsedLog.values.length), (n) => n.toString());
+    const omittedValues = _.map(_.range(parsedLog.values.length), (n) => n.toString());
     omittedValues.push('length');
     let logValues = _.omit(parsedLog.values, omittedValues);
     logValues = _.mapValues(logValues, (val) => {
@@ -101,14 +101,14 @@ export class EthersProvider extends ethers.providers.BaseProvider implements EPr
             return innerVal._hex;
           }
           return innerVal;
-        })
+        });
       }
       return val;
     });
     return logValues;
   }
 
-  public async getLogs(filter: Filter): Promise<Array<Log>> {
+  async getLogs(filter: Filter): Promise<Log[]> {
     const logs = await super.getLogs(filter);
     return logs.map<Log>((log) => ({
       transactionHash: "",
@@ -119,10 +119,10 @@ export class EthersProvider extends ethers.providers.BaseProvider implements EPr
       transactionLogIndex: 0,
       removed: false,
       ...log,
-    }))
+    }));
   }
 
-  public async perform(message: any, params: any): Promise<any> {
+  async perform(message: any, params: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.performQueue.push({ message, params, resolve, reject });
     });

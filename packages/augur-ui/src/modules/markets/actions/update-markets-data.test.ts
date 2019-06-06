@@ -3,16 +3,16 @@ import * as updateMarketsDataReducer from "modules/markets/actions/update-market
 describe(`modules/markets/actions/update-markets-data.js`, () => {
   test("`updateMarketsData` should return the expected object", () => {
     const actual = updateMarketsDataReducer.updateMarketsData({
-      test: "object"
+      test: "object",
     });
 
     const expected = {
       type: updateMarketsDataReducer.UPDATE_MARKETS_DATA,
       data: {
         marketsData: {
-          test: "object"
-        }
-      }
+          test: "object",
+        },
+      },
     };
 
     expect(actual).toEqual(expected);
@@ -22,7 +22,7 @@ describe(`modules/markets/actions/update-markets-data.js`, () => {
     const actual = updateMarketsDataReducer.clearMarketsData();
 
     const expected = {
-      type: updateMarketsDataReducer.CLEAR_MARKETS_DATA
+      type: updateMarketsDataReducer.CLEAR_MARKETS_DATA,
     };
 
     expect(actual).toEqual(expected);
@@ -38,8 +38,8 @@ describe(`modules/markets/actions/update-markets-data.js`, () => {
       type: updateMarketsDataReducer.UPDATE_MARKET_CATEGORY,
       data: {
         marketId: "0xMarket1",
-        category: "cat1"
-      }
+        category: "cat1",
+      },
     };
 
     expect(actual).toEqual(expected);
@@ -55,8 +55,8 @@ describe(`modules/markets/actions/update-markets-data.js`, () => {
       type: updateMarketsDataReducer.UPDATE_MARKET_REP_BALANCE,
       data: {
         marketId: "0xMarket1",
-        repBalance: 10
-      }
+        repBalance: 10,
+      },
     };
 
     expect(actual).toEqual(expected);
@@ -72,8 +72,8 @@ describe(`modules/markets/actions/update-markets-data.js`, () => {
       type: updateMarketsDataReducer.UPDATE_MARKET_FROZEN_SHARES_VALUE,
       data: {
         marketId: "0xMarket1",
-        frozenSharesValue: 5
-      }
+        frozenSharesValue: 5,
+      },
     };
 
     expect(actual).toEqual(expected);

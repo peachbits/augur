@@ -8,7 +8,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { Action } from "redux";
 
 const mapStateToProps = (state: AppState) => ({
-  timeframeData: state.universe.timeframeData
+  timeframeData: state.universe.timeframeData,
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({});
@@ -61,8 +61,8 @@ const PlatformtOverviewStatsContainer: any = withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps,
-    mergeProps,
-  )(Stats),
+    mergeProps
+  )(Stats)
 );
 
 export default PlatformtOverviewStatsContainer;

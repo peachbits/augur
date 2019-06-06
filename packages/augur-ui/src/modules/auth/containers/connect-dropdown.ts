@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, { history }) => ({
   connectMetaMask: cb => dispatch(loginWithMetaMask(cb)),
   logout: () => dispatch(logout()),
-  edgeLoginLink: history => dispatch(showEdgeLogin(history))
+  edgeLoginLink: history => dispatch(showEdgeLogin(history)),
 });
 
 export default withRouter(

@@ -10,7 +10,7 @@ export const deleteTransaction = (transactionId: string) => ({
 });
 
 export const deleteTransactionsWithTransactionHash = (
-  transactionHash: string,
+  transactionHash: string
 ) => ({
   type: DELETE_TRANSACTIONS_WITH_TRANSACTION_HASH,
   data: { transactionHash },

@@ -31,7 +31,7 @@ const mapStateToProps = (state: AppState) => ({
   gasCost: formatGasCostToEther(
     CLAIM_FEES_GAS_COST,
     { decimalsRounded: 4 },
-    getGasPrice(state),
+    getGasPrice(state)
   ),
   pendingQueue: state.pendingQueue || [],
   reportingFees: state.reportingWindowStats.reportingFees,
@@ -46,13 +46,13 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
 
 const mergeProps = (sP: any, dP: any, oP: any) => {
   const marketIdsToTest = sP.nonforkedMarkets;
-  const markets: Array<ActionRowsProps> = [];
+  const markets: ActionRowsProps[] = [];
   const claimableMarkets: any = [];
   let unclaimedRep = createBigNumber(
-    sP.reportingFees.unclaimedRep.fullPrecision,
+    sP.reportingFees.unclaimedRep.fullPrecision
   );
   let unclaimedEth = createBigNumber(
-    sP.reportingFees.unclaimedEth.fullPrecision,
+    sP.reportingFees.unclaimedEth.fullPrecision
   );
   marketIdsToTest.forEach((marketObj) => {
     const market = selectMarket(marketObj.marketId);
@@ -92,15 +92,15 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
           {
             label: "reporting stake",
             value: `${marketRep.formatted || 0} REP`,
-            addExtraSpace: true
+            addExtraSpace: true,
           },
           {
             label: "Reporting Fees",
-            value: `${ethFees.formatted || 0} ETH`
+            value: `${ethFees.formatted || 0} ETH`,
           },
           {
             label: "est gas cost",
-            value: `${marketObj.gasCost} ETH`
+            value: `${marketObj.gasCost} ETH`,
           },
           {
             label: "total eth",
@@ -110,8 +110,8 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
                   .minus(createBigNumber(marketObj.gasCost))
                   .abs()
               ).formatted
-            } ETH`
-          }
+            } ETH`,
+          },
         ],
         action: () => {
           const marketIndex = sP.reportingFees.nonforkedMarkets.findIndex(
@@ -120,10 +120,10 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
           const RedeemStakeOptions = {
             feeWindows: [],
             nonforkedMarkets: [sP.nonforkedMarkets[marketIndex]],
-            pendingId: sP.nonforkedMarkets[marketIndex].marketId
+            pendingId: sP.nonforkedMarkets[marketIndex].marketId,
           };
           dP.redeemStake(RedeemStakeOptions);
-        }
+        },
       });
     }
   });
@@ -162,33 +162,33 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
           value: `${
             sP.reportingFees.participationTokenRepStaked.formatted
           } REP`,
-          addExtraSpace: true
+          addExtraSpace: true,
         },
         {
           label: "Reporting Fees",
           value: `${
             sP.reportingFees.unclaimedParticipationTokenEthFees.formatted
-          } ETH`
+          } ETH`,
         },
         {
           label: "Est Gas cost",
           value: `${
             formatEther(sP.reportingFees.gasCosts[CLAIM_FEE_WINDOWS]).formatted
-          } ETH`
+          } ETH`,
         },
         {
           label: "Total Eth",
-          value: `${formatEther(totalMinusGas).formatted} ETH`
-        }
+          value: `${formatEther(totalMinusGas).formatted} ETH`,
+        },
       ],
       action: () => {
         const RedeemStakeOptions = {
           feeWindows: sP.feeWindows,
           nonforkedMarkets: [],
-          pendingId: CLAIM_FEE_WINDOWS
+          pendingId: CLAIM_FEE_WINDOWS,
         };
         dP.redeemStake(RedeemStakeOptions);
-      }
+      },
     });
   }
 
@@ -197,16 +197,16 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
       ? [
           {
             label: "Total REP",
-            value: `${formatRep(unclaimedRep.toNumber()).full}`
+            value: `${formatRep(unclaimedRep.toNumber()).full}`,
           },
           {
             label: "Total Fees",
-            value: `${formatEther(unclaimedEth.toNumber()).full}`
+            value: `${formatEther(unclaimedEth.toNumber()).full}`,
           },
           {
             label: "Total Gas Cost (ETH)",
-            value: `${sP.reportingFees.gasCosts[ALL]} ETH`
-          }
+            value: `${sP.reportingFees.gasCosts[ALL]} ETH`,
+          },
         ]
       : null;
 
@@ -216,13 +216,13 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
       {
         preText: "You have",
         boldText: `${sP.reportingFees.unclaimedRep.full} REP`,
-        postText: "available to be claimed from your reporting stake "
+        postText: "available to be claimed from your reporting stake ",
       },
       {
         preText: " and",
         boldText: `${sP.reportingFees.unclaimedEth.full} ETH`,
-        postText: "of reporting fees to collect from the following markets:"
-      }
+        postText: "of reporting fees to collect from the following markets:",
+      },
     ],
     rows: markets,
     breakdown,
@@ -244,7 +244,7 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
               if (sP.modal.cb) {
                 sP.modal.cb();
               }
-            }
+            },
           };
           dP.redeemStake(RedeemStakeOptions, () => {
             if (sP.modal.cb) {
@@ -252,7 +252,7 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
             }
           });
           dP.closeModal();
-        }
+        },
       },
       {
         text: "Close",
@@ -261,9 +261,9 @@ const mergeProps = (sP: any, dP: any, oP: any) => {
             sP.modal.cb();
           }
           dP.closeModal();
-        }
-      }
-    ]
+        },
+      },
+    ],
   };
 };
 

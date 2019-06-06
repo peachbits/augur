@@ -18,6 +18,6 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
 export default withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps,
-  )(ModalNetworkDisconnected),
+    mapDispatchToProps
+  )(ModalNetworkDisconnected)
 );

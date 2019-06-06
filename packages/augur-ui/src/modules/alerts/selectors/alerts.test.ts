@@ -15,21 +15,21 @@ describe("modules/alerts/selectors/alerts", () => {
             seen: false,
             id: "0xTEST0",
             level: alertLevels.INFO,
-            timestamp: 1
+            timestamp: 1,
           },
           {
             seen: true,
             id: "0xTEST1",
             level: alertLevels.INFO,
-            timestamp: 3
+            timestamp: 3,
           },
           {
             seen: false,
             id: "0xTEST2",
             level: alertLevels.INFO,
-            timestamp: 2
-          }
-        ]
+            timestamp: 2,
+          },
+        ],
       };
     });
 
@@ -42,23 +42,23 @@ describe("modules/alerts/selectors/alerts", () => {
             id: "0xTEST1",
             level: alertLevels.INFO,
             timestamp: 3,
-            index: 1
+            index: 1,
           },
           {
             seen: false,
             id: "0xTEST2",
             level: alertLevels.INFO,
             timestamp: 2,
-            index: 2
+            index: 2,
           },
           {
             seen: false,
             id: "0xTEST0",
             level: alertLevels.INFO,
             timestamp: 1,
-            index: 0
-          }
-        ]
+            index: 0,
+          },
+        ],
       });
     });
   });
@@ -69,17 +69,17 @@ describe("modules/alerts/selectors/alerts", () => {
         alerts: [
           {
             id: "0xTEST0",
-            level: alertLevels.INFO
+            level: alertLevels.INFO,
           },
           {
             id: "0xTEST1",
-            level: alertLevels.INFO
+            level: alertLevels.INFO,
           },
           {
             id: "0xTEST2",
-            level: alertLevels.CRITICAL
-          }
-        ]
+            level: alertLevels.CRITICAL,
+          },
+        ],
       };
     });
 

@@ -18,7 +18,7 @@ export async function getCategoriesRows(db: Knex, universe: string): Promise<Arr
   return db.select(["category", "nonFinalizedOpenInterest", "openInterest", "universe"]).from("categories").where({ universe });
 }
 
-export async function getMarketsTagRows(db: Knex, universe: string): Promise<Array<MarketsTagRow>> {
+export async function getMarketsTagRows(db: Knex, universe: string): Promise<MarketsTagRow[]> {
   return db.select([
     "markets.category as category",
     "markets.openInterest as openInterest",
@@ -30,7 +30,7 @@ export async function getMarketsTagRows(db: Knex, universe: string): Promise<Arr
     .where({ universe });
 }
 
-function buildUICategories(categoriesRows: Array<CategoriesRow<BigNumber>>, marketsTagRows: Array<MarketsTagRow>): Array<UICategory<string>> {
+function buildUICategories(categoriesRows: Array<CategoriesRow<BigNumber>>, marketsTagRows: MarketsTagRow[]): Array<UICategory<string>> {
   function upsertTagAggregation(r: MarketsTagRow, tagAggregationByTagName: Map<string, TagAggregation<BigNumber>>, tagProp: "tag1" | "tag2"): void {
     if (!r[tagProp]) {
       return;
@@ -94,8 +94,8 @@ export async function getCategories(db: Knex, augur: Augur, params: t.TypeOf<typ
   if (universeInfo === undefined) throw new Error(`Universe ${params.universe} does not exist`);
 
   const p1: Promise<Array<CategoriesRow<BigNumber>>> = getCategoriesRows(db, params.universe);
-  const p2: Promise<Array<MarketsTagRow>> = getMarketsTagRows(db, params.universe);
+  const p2: Promise<MarketsTagRow[]> = getMarketsTagRows(db, params.universe);
   const cs: Array<CategoriesRow<BigNumber>> = await p1;
-  const ts: Array<MarketsTagRow> = await p2;
+  const ts: MarketsTagRow[] = await p2;
   return buildUICategories(cs, ts);
 }

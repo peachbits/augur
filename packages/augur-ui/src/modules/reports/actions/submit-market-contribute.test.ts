@@ -25,7 +25,7 @@ describe(`modules/reports/actions/submit-market-contribute.js`, () => {
 
     callback = jest.fn();
     history = {
-      push: jest.fn()
+      push: jest.fn(),
     };
   });
 
@@ -49,7 +49,7 @@ describe(`modules/reports/actions/submit-market-contribute.js`, () => {
           amount: 1000,
           history,
           returnPath: REPORTING_DISPUTE_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -66,7 +66,7 @@ describe(`modules/reports/actions/submit-market-contribute.js`, () => {
           amount: 1000,
           history,
           returnPath: REPORTING_DISPUTE_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -83,7 +83,7 @@ describe(`modules/reports/actions/submit-market-contribute.js`, () => {
           amount: 1000,
           history,
           returnPath: REPORTING_DISPUTE_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -100,7 +100,7 @@ describe(`modules/reports/actions/submit-market-contribute.js`, () => {
           amount: 1000,
           history,
           returnPath: REPORTING_DISPUTE_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -117,7 +117,7 @@ describe(`modules/reports/actions/submit-market-contribute.js`, () => {
           amount: 1000,
           history,
           returnPath: REPORTING_DISPUTE_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -134,7 +134,7 @@ describe(`modules/reports/actions/submit-market-contribute.js`, () => {
           amount: 1000,
           history,
           returnPath: REPORTING_DISPUTE_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);
@@ -159,7 +159,7 @@ describe(`modules/reports/actions/submit-market-contribute.js`, () => {
           amount: 1000,
           history,
           returnPath: REPORTING_DISPUTE_MARKETS,
-          callback
+          callback,
         })
       );
       expect(callback).toHaveBeenCalledTimes(1);

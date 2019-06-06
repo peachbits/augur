@@ -77,7 +77,7 @@ test("sync databases", async () => {
         }],
       warning:
         "no matching index found, create an index to optimize query time",
-    },
+    }
   ));
 
   // TODO If derived DBs are used, verify MetaDB contents before & after rollback
@@ -91,7 +91,7 @@ test("sync databases", async () => {
       docs: [],
       warning:
         "no matching index found, create an index to optimize query time",
-    },
+    }
   ));
 
   expect(await db.syncStatus.getHighestSyncBlock(syncableDBName)).toBe(originalHighestSyncedBlockNumbers[syncableDBName]);

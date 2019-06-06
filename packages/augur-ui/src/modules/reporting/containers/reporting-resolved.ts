@@ -27,7 +27,7 @@ const mapStateToProps = state => {
     isForkingMarketFinalized: state.universe.isForkingMarketFinalized,
     forkingMarket: state.universe.isForking
       ? selectMarket(state.universe.forkingMarket)
-      : null
+      : null,
   };
 };
 
@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
   loadReporting: () => dispatch(loadReportingFinal()),
   loadMarketsInfoIfNotLoaded: marketIds =>
     dispatch(loadMarketsInfoIfNotLoaded(marketIds)),
-  toggleFavorite: marketId => dispatch(toggleFavorite(marketId))
+  toggleFavorite: marketId => dispatch(toggleFavorite(marketId)),
 });
 
 const ReportingResolvedContainer = withRouter(

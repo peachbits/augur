@@ -112,12 +112,12 @@ export interface BetterWorseResult {
 }
 
 export class Trading {
-  public static GetTradingHistoryParams = t.intersection([SortLimit, TradingHistoryParams]);
-  public static GetOrdersParams = t.intersection([SortLimit, OrdersParams]);
-  public static GetBetterWorseOrdersParams = BetterWorseOrdersParams;
+  static GetTradingHistoryParams = t.intersection([SortLimit, TradingHistoryParams]);
+  static GetOrdersParams = t.intersection([SortLimit, OrdersParams]);
+  static GetBetterWorseOrdersParams = BetterWorseOrdersParams;
 
   @Getter("GetTradingHistoryParams")
-  public static async getTradingHistory(augur: Augur, db: DB, params: t.TypeOf<typeof Trading.GetTradingHistoryParams>): Promise<Array<any>> {
+  static async getTradingHistory(augur: Augur, db: DB, params: t.TypeOf<typeof Trading.GetTradingHistoryParams>): Promise<any[]> {
     if (!params.account && !params.marketId) {
       throw new Error("'getTradingHistory' requires an 'account' or 'marketId' param be provided");
     }
@@ -148,7 +148,7 @@ export class Trading {
     const marketsResponse = await db.findMarketCreatedLogs({ selector: { market: { $in: marketIds } } });
     const markets = _.keyBy(marketsResponse, "market");
 
-    return orderFilledResponse.reduce((trades: Array<MarketTradingHistory>, orderFilledDoc) => {
+    return orderFilledResponse.reduce((trades: MarketTradingHistory[], orderFilledDoc) => {
       const orderDoc = orders[orderFilledDoc.orderId];
       if (!orderDoc) return trades;
       const marketDoc = markets[orderFilledDoc.market];
@@ -178,11 +178,11 @@ export class Trading {
           settlementFees: fees.toString(10),
         }) as MarketTradingHistory);
       return trades;
-    }, [] as Array<MarketTradingHistory>);
+    }, [] as MarketTradingHistory[]);
   }
 
   @Getter("GetOrdersParams")
-  public static async getOrders(augur: Augur, db: DB, params: t.TypeOf<typeof Trading.GetOrdersParams>): Promise<Orders> {
+  static async getOrders(augur: Augur, db: DB, params: t.TypeOf<typeof Trading.GetOrdersParams>): Promise<Orders> {
     if (!params.universe && !params.marketId) {
       throw new Error("'getOrders' requires a 'universe' or 'marketId' param be provided");
     }
@@ -207,8 +207,8 @@ export class Trading {
       request.selector = Object.assign(request.selector, {
         $and: [
           { [ORDER_EVENT_TIMESTAMP]: { $lte: `0x${params.latestCreationTime.toString(16)}` } },
-          { [ORDER_EVENT_TIMESTAMP]: { $gte: `0x${params.earliestCreationTime.toString(16)}` } }
-        ]
+          { [ORDER_EVENT_TIMESTAMP]: { $gte: `0x${params.earliestCreationTime.toString(16)}` } },
+        ],
       });
     } else if (params.latestCreationTime) {
       request.selector = Object.assign(request.selector, { [ORDER_EVENT_TIMESTAMP]: { $lte: `0x${params.latestCreationTime.toString(16)}` } });
@@ -274,14 +274,14 @@ export class Trading {
   }
 
   @Getter("GetBetterWorseOrdersParams")
-  public static async getBetterWorseOrders(augur: Augur, db: DB, params: t.TypeOf<typeof Trading.GetBetterWorseOrdersParams>): Promise<BetterWorseResult> {
+  static async getBetterWorseOrders(augur: Augur, db: DB, params: t.TypeOf<typeof Trading.GetBetterWorseOrdersParams>): Promise<BetterWorseResult> {
     const request = {
       selector: {
         market: params.marketId,
         [ORDER_EVENT_OUTCOME]: `0x0${params.outcome.toString()}`,
         orderType: params.orderType === "buy" ? 0 : 1,
-        [ORDER_EVENT_AMOUNT]: { $gt: "0x00" }
-      }
+        [ORDER_EVENT_AMOUNT]: { $gt: "0x00" },
+      },
     };
 
     const currentOrdersResponse = await db.findCurrentOrders(request);

@@ -12,7 +12,7 @@ export const loadPendingQueue = (pendingQueue: any): BaseAction => ({
 export const addPendingData = (
   pendingId: string,
   queueName: string,
-  status: string,
+  status: string
 ): BaseAction => ({
   type: ADD_PENDING_DATA,
   data: {
@@ -24,7 +24,7 @@ export const addPendingData = (
 
 export const removePendingData = (
   pendingId: string,
-  queueName: string,
+  queueName: string
 ): BaseAction => ({
   type: REMOVE_PENDING_DATA,
   data: { pendingId, queueName },

@@ -190,7 +190,7 @@ export const selectProceedsToClaimOnHold = createSelector(
 
           return {
             ...market,
-            finalizationTimeWithHold
+            finalizationTimeWithHold,
           };
         });
     }
@@ -308,7 +308,7 @@ export const selectNotifications = createSelector(
         buttonLabel: TYPE_VIEW_DETAILS,
         market: null,
         claimReportingFees,
-        id: NOTIFICATION_TYPES.claimReportingFees
+        id: NOTIFICATION_TYPES.claimReportingFees,
       });
     }
 
@@ -332,7 +332,7 @@ export const selectNotifications = createSelector(
           market: null,
           marketes: marketIds,
           totalProceeds: totalEth.toNumber(),
-          id: NOTIFICATION_TYPES.proceedsToClaim
+          id: NOTIFICATION_TYPES.proceedsToClaim,
         });
       }
     }
@@ -364,7 +364,7 @@ const getRequiredMarketData = market => ({
   disputeInfo: market.disputeInfo || {},
   myPositionsSummary: market.myPositionsSummary || {},
   outstandingReturns: market.outstandingReturns || null,
-  finalizationTime: market.finalizationTime
+  finalizationTime: market.finalizationTime,
 });
 
 // Build notification objects and include market data
@@ -377,7 +377,7 @@ const generateCards = (markets, type) => {
       isImportant: false,
       isNew: true,
       title: RESOLVED_MARKETS_OPEN_ORDERS_TITLE,
-      buttonLabel: TYPE_VIEW_ORDERS
+      buttonLabel: TYPE_VIEW_ORDERS,
     };
   } else if (type === NOTIFICATION_TYPES.reportOnMarkets) {
     defaults = {
@@ -385,7 +385,7 @@ const generateCards = (markets, type) => {
       isImportant: true,
       isNew: true,
       title: REPORTING_ENDS_SOON_TITLE,
-      buttonLabel: TYPE_VIEW_DETAILS
+      buttonLabel: TYPE_VIEW_DETAILS,
     };
   } else if (type === NOTIFICATION_TYPES.finalizeMarkets) {
     defaults = {
@@ -393,7 +393,7 @@ const generateCards = (markets, type) => {
       isImportant: true,
       isNew: true,
       title: FINALIZE_MARKET_TITLE,
-      buttonLabel: TYPE_VIEW_DETAILS
+      buttonLabel: TYPE_VIEW_DETAILS,
     };
   } else if (type === NOTIFICATION_TYPES.marketsInDispute) {
     defaults = {
@@ -401,7 +401,7 @@ const generateCards = (markets, type) => {
       isImportant: false,
       isNew: true,
       title: TYPE_DISPUTE,
-      buttonLabel: TYPE_DISPUTE
+      buttonLabel: TYPE_DISPUTE,
     };
   } else if (type === NOTIFICATION_TYPES.completeSetPositions) {
     defaults = {
@@ -409,7 +409,7 @@ const generateCards = (markets, type) => {
       isImportant: false,
       isNew: true,
       title: SELL_COMPLETE_SETS_TITLE,
-      buttonLabel: TYPE_VIEW_SETS
+      buttonLabel: TYPE_VIEW_SETS,
     };
   } else if (type === NOTIFICATION_TYPES.unsignedOrders) {
     defaults = {
@@ -417,7 +417,7 @@ const generateCards = (markets, type) => {
       isImportant: false,
       isNew: true,
       title: UNSIGNED_ORDERS_TITLE,
-      buttonLabel: TYPE_VIEW_ORDERS
+      buttonLabel: TYPE_VIEW_ORDERS,
     };
   } else if (type === NOTIFICATION_TYPES.proceedsToClaimOnHold) {
     defaults = {
@@ -425,13 +425,13 @@ const generateCards = (markets, type) => {
       isImportant: false,
       isNew: true,
       title: PROCEEDS_TO_CLAIM_TITLE,
-      buttonLabel: TYPE_VIEW_DETAILS
+      buttonLabel: TYPE_VIEW_DETAILS,
     };
   }
 
   return markets.map(market => ({
     market,
     ...defaults,
-    id: `${type}-${market.id}`
+    id: `${type}-${market.id}`,
   }));
 };

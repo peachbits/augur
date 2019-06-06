@@ -39,8 +39,8 @@ test("Flexible Search", async () => {
         resolutionSource: "http://www.blah.com",
         _scalarDenomination: "fake scalar denomination",
         tags: ["humanity", "30"],
-      })
-    }
+      }),
+    },
   ];
   await db.addNewBlock(syncableDBName, blockLogs);
   await db.sync(augur, mock.constants.chunkSize, mock.constants.blockstreamDelay);

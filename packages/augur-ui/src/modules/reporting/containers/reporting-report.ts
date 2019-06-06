@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
   isMobile: state.appStatus.isMobile,
   availableRep: getValue(state, "loginAccount.rep") || "0",
   userAddress: state.loginAccount.address,
-  gasPrice: getGasPrice(state)
+  gasPrice: getGasPrice(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
     invalid,
     history,
     returnPath,
-    callback
+    callback,
   }) =>
     dispatch(
       submitInitialReport({
@@ -45,9 +45,9 @@ const mapDispatchToProps = dispatch => ({
         invalid,
         history,
         returnPath,
-        callback
+        callback,
       })
-    )
+    ),
 });
 
 const mergeProps = (sP, dP, oP) => {
@@ -80,7 +80,7 @@ const mergeProps = (sP, dP, oP) => {
       selectedOutcome,
       invalid,
       history,
-      callback
+      callback,
     }) =>
       dP.submitInitialReport({
         estimateGas,
@@ -89,8 +89,8 @@ const mergeProps = (sP, dP, oP) => {
         invalid,
         history,
         returnPath,
-        callback
-      })
+        callback,
+      }),
   };
 };
 

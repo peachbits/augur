@@ -8,8 +8,8 @@ import { augurEmitter } from "../../events";
 import { CONTRACT_INTERVAL, SubscriptionEventNames } from "../../constants";
 
 export interface DisputeWindowModifications {
-  expiredDisputeWindows: Array<Address>;
-  newActiveDisputeWindows: Array<Address>;
+  expiredDisputeWindows: Address[];
+  newActiveDisputeWindows: Address[];
 }
 
 function queryCurrentMarketStateId(db: Knex, marketId: Address) {
@@ -42,7 +42,7 @@ export async function updateMarketState(db: Knex, marketId: Address, blockNumber
   if (db.client.config.client !== "sqlite3") {
     query = query.returning("marketStateId");
   }
-  const marketStateId: Array<number> = await query;
+  const marketStateId: number[] = await query;
   if (!marketStateId || !marketStateId.length) throw new Error("Failed to generate new marketStateId for marketId:" + marketId);
   return setMarketStateToLatest(db, marketId);
 }
@@ -109,13 +109,13 @@ export async function insertPayout(db: Knex, marketId: Address, payoutNumerators
   } else {
     const payoutRowWithTentativeWinning = Object.assign({},
       payoutRow,
-      { tentativeWinning: Number(tentativeWinning) },
+      { tentativeWinning: Number(tentativeWinning) }
     );
     let query = db.insert(payoutRowWithTentativeWinning).into("payouts");
     if (db.client.config.client !== "sqlite3") {
       query = query.returning("payoutId");
     }
-    const payoutIdRow: Array<number> = await query;
+    const payoutIdRow: number[] = await query;
     if (!payoutIdRow || !payoutIdRow.length) throw new Error("No payoutId returned");
     return payoutIdRow[0];
   }

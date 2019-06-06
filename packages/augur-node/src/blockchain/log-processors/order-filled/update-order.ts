@@ -13,7 +13,7 @@ interface OrderFilledRow {
 }
 
 export async function updateOrder(db: Knex, augur: Augur, marketId: Address, orderId: Bytes32, amount: BigNumber, creator: Address, filler: Address, tickSize: BigNumber, minPrice: BigNumber) {
-  const orders = augur.getOrders()
+  const orders = augur.getOrders();
   const orderRow: OrderFilledRow = await db("orders").first("fullPrecisionAmount", "outcome", "price").where({ orderId });
   if (orderRow == null) throw new Error(`Could not fetch order amount for order ${orderId}`);
   const fullPrecisionAmountRemainingInOrder = orderRow.fullPrecisionAmount.minus(amount);

@@ -90,7 +90,7 @@ describe("server/getters/get-profit-loss#bucketRangeByInterval", () => {
 
 describe("server/getters/get-profit-loss#getProfitLoss", () => {
   let connection = null;
-  let augur = new Augur();
+  const augur = new Augur();
 
   beforeEach(async () => {
     connection = await setupTestDb();
@@ -130,7 +130,7 @@ describe("server/getters/get-profit-loss#getProfitLoss", () => {
 
 describe("server/getters/get-profit-loss#getProfitLossSummary", () => {
   let connection = null;
-  let augur = new Augur();
+  const augur = new Augur();
 
   beforeEach(async () => {
     connection = await setupTestDb();

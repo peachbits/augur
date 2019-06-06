@@ -26,8 +26,8 @@ const mapStateToProps = (state: AppState, ownProps: any) => {
 
 const MarketChartsPaneContainer = withRouter(
   connect(
-    mapStateToProps,
-  )(MarketChartsPane),
+    mapStateToProps
+  )(MarketChartsPane)
 );
 
 export default MarketChartsPaneContainer;

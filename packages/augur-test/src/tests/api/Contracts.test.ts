@@ -61,7 +61,7 @@ test("Contract :: Universe :: Create Market", async() => {
   const endTime = new BigNumber(Math.round(new Date().getTime() / 1000) + 30 * 24 * 60 * 60);
   const fee = (new BigNumber(10)).pow(16);
   const affiliateFeeDivisor = new BigNumber(25);
-  const outcomes: Array<string> = [stringTo32ByteHex("big"), stringTo32ByteHex("small")];
+  const outcomes: string[] = [stringTo32ByteHex("big"), stringTo32ByteHex("small")];
   const topic = stringTo32ByteHex("boba");
   const description = "Will big or small boba be the most popular in 2019?";
   const extraInfo = "";
@@ -73,7 +73,7 @@ test("Contract :: Universe :: Create Market", async() => {
     outcomes,
     topic,
     extraInfo,
-    { sender: ACCOUNTS[0].publicKey },
+    { sender: ACCOUNTS[0].publicKey }
   )).pop();
 
   if (typeof(maybeMarketCreatedEvent) === "undefined") {

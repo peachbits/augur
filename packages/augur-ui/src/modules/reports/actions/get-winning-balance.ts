@@ -11,7 +11,7 @@ export const getWinningBalance = (marketIds = [], callback: NodeStyleCallback = 
   augur.augurNode.submitRequest(
     "getWinningBalance",
     { marketIds, account: loginAccount.address },
-    (err: any, winningBalance: Array<any>) => {
+    (err: any, winningBalance: any[]) => {
       if (err) return callback(err);
 
       const { marketsData } = getState();
@@ -31,8 +31,8 @@ export const getWinningBalance = (marketIds = [], callback: NodeStyleCallback = 
         (p, balance) => ({
           ...p,
           [balance.marketId]: {
-            outstandingReturns: speedomatic.unfix(balance.winnings, "string")
-          }
+            outstandingReturns: speedomatic.unfix(balance.winnings, "string"),
+          },
         }),
         {}
       );

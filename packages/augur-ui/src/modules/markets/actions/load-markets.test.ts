@@ -12,14 +12,14 @@ describe(`modules/markets/actions/load-markets`, () => {
   augur.markets.getMarkets = jest.fn(() => {});
 
   const {
-    loadMarketsByFilter
+    loadMarketsByFilter,
   } = require("modules/markets/actions/load-markets");
 
   test(`test filtering market empty filter object`, () => {
     augur.markets.getMarkets.mockImplementation((value, cb) =>
       cb(null, [
         { id: "0xMarket1", test: "value" },
-        { id: "0xMarket2", test: "value" }
+        { id: "0xMarket2", test: "value" },
       ])
     );
 
@@ -28,7 +28,7 @@ describe(`modules/markets/actions/load-markets`, () => {
       loadMarketsByFilter(filterOptions, (err, actual) => {
         const expected = [
           { id: "0xMarket1", test: "value" },
-          { id: "0xMarket2", test: "value" }
+          { id: "0xMarket2", test: "value" },
         ];
         expect(err).toBeNull();
         expect(actual).toEqual(expected);
@@ -43,16 +43,16 @@ describe(`modules/markets/actions/load-markets`, () => {
           {
             id: "0xMarket1",
             test: "value",
-            reportingState: REPORTING_STATE.OPEN_REPORTING
+            reportingState: REPORTING_STATE.OPEN_REPORTING,
           },
-          { id: "0xMarket2", test: "value" }
+          { id: "0xMarket2", test: "value" },
         ])
       )
       .mockImplementationOnce(() => {});
 
     const filterOptions = {
       filter: MARKET_REPORTING,
-      sort: "endTime"
+      sort: "endTime",
     };
     store.dispatch(
       loadMarketsByFilter(filterOptions, (err, actual) => {
@@ -60,9 +60,9 @@ describe(`modules/markets/actions/load-markets`, () => {
           {
             id: "0xMarket1",
             test: "value",
-            reportingState: REPORTING_STATE.OPEN_REPORTING
+            reportingState: REPORTING_STATE.OPEN_REPORTING,
           },
-          { id: "0xMarket2", test: "value" }
+          { id: "0xMarket2", test: "value" },
         ];
         expect(err).toBeNull();
         expect(actual).toEqual(expected);

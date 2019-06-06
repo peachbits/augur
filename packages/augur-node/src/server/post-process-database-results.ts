@@ -139,7 +139,7 @@ function convertToBigNumber(row: any) {
   return row;
 }
 
-export function postProcessDatabaseResults(result: Array<any>|any) {
+export function postProcessDatabaseResults(result: any[]|any) {
   if (Array.isArray(result)) {
     return result.map(convertToBigNumber);
   } else {

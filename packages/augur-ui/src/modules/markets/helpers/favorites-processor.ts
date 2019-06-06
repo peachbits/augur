@@ -33,26 +33,26 @@ export const processFavorites = (
           [networkId]: {
             [universeId]: {
               ...storedUniverseFavorites,
-              ...stateFavs
-            }
-          }
+              ...stateFavs,
+            },
+          },
         };
       }
       // we don't have a network and universe match, must create one
       return {
         ...storedFavs,
         [networkId]: {
-          [universeId]: stateFavs
-        }
+          [universeId]: stateFavs,
+        },
       };
     }
     // old stored favorites, convert to new style
     return {
-      [networkId]: { [universeId]: storedFavs }
+      [networkId]: { [universeId]: storedFavs },
     };
   }
   // storedFavotires don't exist, lets just set them.
   return {
-    [networkId]: { [universeId]: stateFavs }
+    [networkId]: { [universeId]: stateFavs },
   };
 };

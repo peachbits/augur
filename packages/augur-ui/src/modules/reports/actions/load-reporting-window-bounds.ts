@@ -16,7 +16,7 @@ export const loadReportingWindowBounds = (callback: NodeStyleCallback = logError
     "getFeeWindowCurrent",
     {
       universe: universe.id,
-      reporter: loginAccount.address
+      reporter: loginAccount.address,
     },
     (err: any, result: any) => {
       if (err) return callback(err);
@@ -26,7 +26,7 @@ export const loadReportingWindowBounds = (callback: NodeStyleCallback = logError
         {
           universe: universe.id,
           reporter: loginAccount.address,
-          feeWindowState: "next"
+          feeWindowState: "next",
         },
         (err: any, nextResult: any) => {
           if (err) console.log(err); // just log error
@@ -59,7 +59,7 @@ export const loadReportingWindowBounds = (callback: NodeStyleCallback = logError
               participantContributionsInitialReport: combineValues(
                 (result || {}).participantContributionsInitialReport,
                 (nextResult || {}).participantContributionsInitialReport
-              )
+              ),
             })
           );
         }

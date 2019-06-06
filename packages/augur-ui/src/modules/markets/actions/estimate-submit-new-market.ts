@@ -8,7 +8,7 @@ import { Action } from "redux";
 
 export const estimateSubmitNewMarket = (
   newMarket: any,
-  callback: NodeStyleCallback = logError,
+  callback: NodeStyleCallback = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { universe, loginAccount, contractAddresses } = getState();
   const { createMarket, formattedNewMarket } = buildCreateMarket(
@@ -16,7 +16,7 @@ export const estimateSubmitNewMarket = (
     true,
     universe,
     loginAccount,
-    contractAddresses,
+    contractAddresses
   );
 
   createMarket({

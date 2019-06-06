@@ -11,14 +11,14 @@ describe("modules/markets/actions/submit-new-market", () => {
   const clearNewMarket = { type: "CLEAR_NEW_MARKET" };
   const invalidateMarketCreation = {
     data: { newMarketData: { isValid: false } },
-    type: "UPDATE_NEW_MARKET"
+    type: "UPDATE_NEW_MARKET",
   };
   const {
-    submitNewMarket
+    submitNewMarket,
   } = require("modules/markets/actions/submit-new-market");
 
   const history = {
-    push: jest.fn()
+    push: jest.fn(),
   };
 
   describe("successful create market tests", () => {
@@ -27,36 +27,36 @@ describe("modules/markets/actions/submit-new-market", () => {
       buildCreateMarket.mockImplementationOnce(() => ({
         createMarket: jest.fn(value => {
           value.onSent({
-            callReturn: "marketId"
+            callReturn: "marketId",
           });
           value.onSuccess({
             res: {
-              callReturn: "marketId"
-            }
+              callReturn: "marketId",
+            },
           });
         }),
-        formattedNewMarket: {}
+        formattedNewMarket: {},
       }));
     });
 
     test(`should dispatch the expected action and call the expected function from the 'onSent' callback`, () => {
       const state = {
         universe: {
-          id: "1010101"
+          id: "1010101",
         },
         contractAddresses: {
-          Cash: "domnination"
+          Cash: "domnination",
         },
         loginAccount: {
           meta: {
-            test: "object"
+            test: "object",
           },
-          address: "0x1233"
+          address: "0x1233",
         },
         newMarket: {
           properties: "value",
-          orderBook: {}
-        }
+          orderBook: {},
+        },
       };
       const store = mockStore(state || {});
       store.dispatch(submitNewMarket(store.getState().newMarket, history));
@@ -69,17 +69,17 @@ describe("modules/markets/actions/submit-new-market", () => {
     test(`should dispatch the expected actions from the 'onSuccess' callback when an orderbook IS present`, () => {
       const state = {
         universe: {
-          id: "1010101"
+          id: "1010101",
         },
         contractAddresses: {
-          Cash: "domnination"
+          Cash: "domnination",
         },
         loginAccount: {
           meta: {
-            test: "object"
+            test: "object",
           },
           address: "0x1233",
-          allowance: "100"
+          allowance: "100",
         },
         newMarket: {
           properties: "value",
@@ -89,68 +89,68 @@ describe("modules/markets/actions/submit-new-market", () => {
               {
                 type: BUY,
                 price: createBigNumber("0.1"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: SELL,
                 price: createBigNumber("0.6"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: BUY,
                 price: createBigNumber("0.2"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: SELL,
                 price: createBigNumber("0.7"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: BUY,
                 price: createBigNumber("0.3"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: SELL,
                 price: createBigNumber("0.8"),
-                quantity: createBigNumber("1")
-              }
+                quantity: createBigNumber("1"),
+              },
             ],
             two: [
               {
                 type: BUY,
                 price: createBigNumber("0.1"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: SELL,
                 price: createBigNumber("0.6"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: BUY,
                 price: createBigNumber("0.2"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: SELL,
                 price: createBigNumber("0.7"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: BUY,
                 price: createBigNumber("0.3"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: SELL,
                 price: createBigNumber("0.8"),
-                quantity: createBigNumber("1")
-              }
-            ]
-          }
-        }
+                quantity: createBigNumber("1"),
+              },
+            ],
+          },
+        },
       };
       const store = mockStore(state || {});
       store.dispatch(submitNewMarket(store.getState().newMarket, history));
@@ -166,68 +166,68 @@ describe("modules/markets/actions/submit-new-market", () => {
               {
                 type: SELL,
                 price: createBigNumber("0.8"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: SELL,
                 price: createBigNumber("0.7"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: SELL,
                 price: createBigNumber("0.6"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: BUY,
                 price: createBigNumber("0.3"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: BUY,
                 price: createBigNumber("0.2"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: BUY,
                 price: createBigNumber("0.1"),
-                quantity: createBigNumber("1")
-              }
+                quantity: createBigNumber("1"),
+              },
             ],
             two: [
               {
                 type: SELL,
                 price: createBigNumber("0.8"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: SELL,
                 price: createBigNumber("0.7"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: SELL,
                 price: createBigNumber("0.6"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: BUY,
                 price: createBigNumber("0.3"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: BUY,
                 price: createBigNumber("0.2"),
-                quantity: createBigNumber("1")
+                quantity: createBigNumber("1"),
               },
               {
                 type: BUY,
                 price: createBigNumber("0.1"),
-                quantity: createBigNumber("1")
-              }
-            ]
-          }
-        }
+                quantity: createBigNumber("1"),
+              },
+            ],
+          },
+        },
       };
       const expected = [clearNewMarket, addMarketLiquidityOrders];
       expect(history.push).toHaveBeenCalledTimes(1);
@@ -237,18 +237,18 @@ describe("modules/markets/actions/submit-new-market", () => {
     test(`should dispatch the expected actions from the 'onSuccess' callback when an orderbook IS NOT present`, () => {
       const state = {
         universe: {
-          id: "1010101"
+          id: "1010101",
         },
         contractAddresses: {
-          Cash: "domnination"
+          Cash: "domnination",
         },
         loginAccount: {
           meta: {
-            test: "object"
+            test: "object",
           },
-          address: "0x1233"
+          address: "0x1233",
         },
-        newMarket: { properties: "value", orderBook: {} }
+        newMarket: { properties: "value", orderBook: {} },
       };
       const store = mockStore(state || {});
       store.dispatch(submitNewMarket(store.getState().newMarket, history));
@@ -266,28 +266,28 @@ describe("modules/markets/actions/submit-new-market", () => {
         createMarket: jest.fn(value => {
           value.onSent();
           value.onFailed({
-            message: "blah error blah"
+            message: "blah error blah",
           });
         }),
-        formattedNewMarket: {}
+        formattedNewMarket: {},
       }));
     });
 
     test(`should dispatch the expected actions from the 'onFailed' callback`, () => {
       const state = {
         universe: {
-          id: "1010101"
+          id: "1010101",
         },
         contractAddresses: {
-          Cash: "domnination"
+          Cash: "domnination",
         },
         loginAccount: {
           meta: {
-            test: "object"
+            test: "object",
           },
-          address: "0x1233"
+          address: "0x1233",
         },
-        newMarket: { properties: "value", orderBook: {} }
+        newMarket: { properties: "value", orderBook: {} },
       };
       const store = mockStore(state || {});
       store.dispatch(submitNewMarket(store.getState().newMarket, history));

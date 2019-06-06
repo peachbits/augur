@@ -15,7 +15,7 @@ const DEFAULT_STATE: OutcomesData = {};
 
 export default function(
   outcomesData: OutcomesData = DEFAULT_STATE,
-  {type, data}: BaseAction,
+  {type, data}: BaseAction
 ): OutcomesData {
   switch (type) {
     case UPDATE_MARKETS_DATA:
@@ -38,9 +38,9 @@ export default function(
           ...outcomesData[marketId],
           [outcomeId]: {
             ...outcomesData[marketId][outcomeId],
-            price
-          }
-        }
+            price,
+          },
+        },
       };
     }
     case RESET_STATE:
@@ -66,21 +66,21 @@ function parseOutcomes(newMarketsData, outcomesData) {
       case YES_NO:
         p[marketId] = {
           ...outcomesData[marketId],
-          ...parseYesNoOutcomes(marketData)
+          ...parseYesNoOutcomes(marketData),
         };
         return p;
 
       case CATEGORICAL:
         p[marketId] = {
           ...outcomesData[marketId],
-          ...parseCategoricalOutcomes(marketData)
+          ...parseCategoricalOutcomes(marketData),
         };
         return p;
 
       case SCALAR:
         p[marketId] = {
           ...outcomesData[marketId],
-          ...parseScalarOutcomes(marketData)
+          ...parseScalarOutcomes(marketData),
         };
         return p;
 

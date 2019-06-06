@@ -4,7 +4,7 @@ import { marketTradingPriceTimeSeries } from "modules/markets/selectors/market-t
 import { createBigNumber } from "utils/create-big-number";
 
 const mapStateToProps = state => ({
-  marketTradingHistory: state.marketTradingHistory
+  marketTradingHistory: state.marketTradingHistory,
 });
 
 const mergeProps = (sP, dP, oP) => {
@@ -33,7 +33,7 @@ const mergeProps = (sP, dP, oP) => {
     ...sP,
     ...dP,
     groupedTradeHistory,
-    groupedTradeHistoryVolume
+    groupedTradeHistoryVolume,
   };
 };
 

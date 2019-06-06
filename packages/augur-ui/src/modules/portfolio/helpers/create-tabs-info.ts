@@ -10,23 +10,23 @@ export const createTabsInfo = markets => {
     {
       key: ALL_MARKETS,
       label: "All",
-      num: markets[ALL_MARKETS].length
+      num: markets[ALL_MARKETS].length,
     },
     {
       key: MARKET_OPEN,
       label: "Open",
-      num: markets[MARKET_OPEN].length
+      num: markets[MARKET_OPEN].length,
     },
     {
       key: MARKET_REPORTING,
       label: "In Reporting",
-      num: markets[MARKET_REPORTING].length
+      num: markets[MARKET_REPORTING].length,
     },
     {
       key: MARKET_CLOSED,
       label: "Resolved",
-      num: markets[MARKET_CLOSED].length
-    }
+      num: markets[MARKET_CLOSED].length,
+    },
   ];
 
   return tabsInfo;

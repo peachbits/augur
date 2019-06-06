@@ -28,7 +28,7 @@ export const getReportingFees = (callback: NodeStyleCallback = logError) => (
     "getReportingFees",
     {
       universe: universe.id,
-      reporter: loginAccount.address
+      reporter: loginAccount.address,
     },
     (err: any, result: any) => {
       if (err) return callback(err);
@@ -52,7 +52,7 @@ export const getReportingFees = (callback: NodeStyleCallback = logError) => (
                 },
                 onFailed: (gasCost: any) => {
                   resolve({ type: ALL, gasCost });
-                }
+                },
               })
             )
           )
@@ -74,7 +74,7 @@ export const getReportingFees = (callback: NodeStyleCallback = logError) => (
                 onFailed: (gasCost: any) => {
                   nonforkedMarket.gasCost = gasCost;
                   resolve();
-                }
+                },
               })
             )
           )
@@ -98,24 +98,24 @@ export const getReportingFees = (callback: NodeStyleCallback = logError) => (
               unclaimedEth: formatAttoEth(result.total.unclaimedEth, {
                 decimals: 4,
                 decimalsRounded: 4,
-                zeroStyled: false
+                zeroStyled: false,
               }),
               unclaimedRep: formatAttoRep(unclaimedRepTotal, {
                 decimals: 4,
                 decimalsRounded: 4,
-                zeroStyled: false
+                zeroStyled: false,
               }),
               unclaimedForkEth: formatAttoEth(result.total.unclaimedForkEth, {
                 decimals: 4,
                 decimalsRounded: 4,
-                zeroStyled: false
+                zeroStyled: false,
               }),
               unclaimedForkRepStaked: formatAttoRep(
                 result.total.unclaimedForkRepStaked,
                 {
                   decimals: 4,
                   decimalsRounded: 4,
-                  zeroStyled: false
+                  zeroStyled: false,
                 }
               ),
               participationTokenRepStaked: formatAttoRep(
@@ -123,7 +123,7 @@ export const getReportingFees = (callback: NodeStyleCallback = logError) => (
                 {
                   decimals: 4,
                   decimalsRounded: 4,
-                  zeroStyled: false
+                  zeroStyled: false,
                 }
               ),
               unclaimedParticipationTokenEthFees: formatAttoRep(
@@ -131,7 +131,7 @@ export const getReportingFees = (callback: NodeStyleCallback = logError) => (
                 {
                   decimals: 4,
                   decimalsRounded: 4,
-                  zeroStyled: false
+                  zeroStyled: false,
                 }
               ),
               feeWindows: [], // TODO: no more fee windows, prob use dispute window
@@ -141,9 +141,9 @@ export const getReportingFees = (callback: NodeStyleCallback = logError) => (
                 ...gasCosts
                   .filter(i => i !== undefined)
                   .reduce((p, i: any) => ({ ...p, [i.type]: i.gasCost }), {}),
-                [CLAIM_FEE_WINDOWS]: gasCost
-              }
-            }
+                [CLAIM_FEE_WINDOWS]: gasCost,
+              },
+            },
           })
         );
         callback(null, result);

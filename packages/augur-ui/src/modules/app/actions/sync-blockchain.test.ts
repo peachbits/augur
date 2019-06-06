@@ -14,27 +14,27 @@ jest.mock("services/augurjs", () => ({
       getNetworkID: () => 4,
       getCurrentBlock: () => ({
         number: 10000,
-        timestamp: 4886718345
+        timestamp: 4886718345,
       }),
       block: {
         number: 10000,
-        timestamp: "0x123456789"
-      }
+        timestamp: "0x123456789",
+      },
     },
     api: {
       Controller: {
         getTimestamp: callback => {
           callback(null, 42);
-        }
-      }
+        },
+      },
     },
     augurNode: {
       getSyncData: () => ({
         highestBlock: { number: 111 },
-        lastProcessedBlock: { number: 110 }
-      })
-    }
-  }
+        lastProcessedBlock: { number: 110 },
+      }),
+    },
+  },
 }));
 
 jest.mock("modules/app/actions/update-blockchain");
@@ -51,15 +51,15 @@ describe(`modules/app/actions/sync-blockchain.js`, () => {
   const state = Object.assign({}, testState, {
     blockchain: {
       currentBlockNumber: 9999,
-      currentAugurTimestamp: 42
+      currentAugurTimestamp: 42,
     },
     gasPriceInfo: {
-      blockNumber: undefined
-    }
+      blockNumber: undefined,
+    },
   });
   const dataReturned = {
     currentBlockNumber: 0x10000,
-    currentAugurTimestamp: 42
+    currentAugurTimestamp: 42,
   };
   const store = mockStore(state);
 
@@ -68,19 +68,19 @@ describe(`modules/app/actions/sync-blockchain.js`, () => {
       .spyOn(updateBlockChainModule, "updateBlockchain")
       .mockImplementation(data => ({
         type: "UPDATE_BLOCKCHAIN",
-        data
+        data,
       }));
 
     updateAssetsSpy = jest
       .spyOn(updateAssetsModule, "updateAssets")
       .mockImplementation(() => ({
-        type: "UPDATE_ASSETS"
+        type: "UPDATE_ASSETS",
       }));
 
     loadGasPriceInfoSpy = jest
       .spyOn(loadGadPriceInfoModule, "loadGasPriceInfo")
       .mockImplementation(() => ({
-        type: "UPDATE_GAS_PRICE_INFO"
+        type: "UPDATE_GAS_PRICE_INFO",
       }));
 
 
@@ -98,11 +98,11 @@ describe(`modules/app/actions/sync-blockchain.js`, () => {
     expect(store.getActions()).toEqual([
       {
         type: "UPDATE_BLOCKCHAIN",
-        data: dataReturned
+        data: dataReturned,
       },
       {
-        type: "UPDATE_ASSETS"
-      }
+        type: "UPDATE_ASSETS",
+      },
     ]);
     done();
   });

@@ -10,7 +10,7 @@ describe("volumeForTrade", () => {
       numCreatorShares: new BigNumber("19"),
       numFillerTokens: new BigNumber("31"),
       numFillerShares: new BigNumber("70"),
-      expectedVolume: new BigNumber("276")
+      expectedVolume: new BigNumber("276"),
     };
     expect(volumeForTrade(td.numTicks, {
       numCreatorTokens: td.numCreatorTokens,

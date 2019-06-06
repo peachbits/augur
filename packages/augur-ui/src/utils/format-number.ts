@@ -203,14 +203,14 @@ export function optionsBlank(): FormattedNumberOptions {
     bigUnitPostfix: false,
   };
 }
-export function sumAndformatGasCostToEther(gases: Array<string>, opts: FormattedNumberOptions = optionsBlank(), gasPrice: string): string {
+export function sumAndformatGasCostToEther(gases: string[], opts: FormattedNumberOptions = optionsBlank(), gasPrice: string): string {
   const summedGas = gases.reduce(
     (p, g) => createBigNumber(unfix(g, "number")).plus(p),
-    ZERO,
+    ZERO
   );
 
   const estimatedGasCost = createBigNumber(summedGas).times(
-    createBigNumber(gasPrice),
+    createBigNumber(gasPrice)
   );
 
   return formatGasCost(estimatedGasCost, opts).roundedFormatted;
@@ -226,7 +226,7 @@ export function formatAttoRep(num: NumStrBigNumber, opts: FormattedNumberOptions
     createBigNumber(num.toString())
       .dividedBy(ETHER)
       .toNumber(),
-    { blankZero: false, ...opts },
+    { blankZero: false, ...opts }
   );
 }
 
@@ -237,7 +237,7 @@ export function formatAttoEth(num: NumStrBigNumber, opts: FormattedNumberOptions
     createBigNumber(num.toString())
       .dividedBy(ETHER)
       .toNumber(),
-    { blankZero: false, ...opts },
+    { blankZero: false, ...opts }
   );
 }
 
@@ -256,7 +256,7 @@ export function formatGasCost(num: NumStrBigNumber, opts: FormattedNumberOptions
 
 export function formatNumber(
   num: NumStrBigNumber,
-  opts: FormattedNumberOptions = optionsBlank(),
+  opts: FormattedNumberOptions = optionsBlank()
 ): FormattedNumber {
   const value = num != null ? createBigNumber(num, 10) : ZERO;
   const { minimized, bigUnitPostfix } = opts;
@@ -312,7 +312,7 @@ export function formatNumber(
       new BigNumber(decimals, 10)
         .minus(1)
         .negated()
-        .toNumber(),
+        .toNumber()
     );
     const roundToZeroThreshold = ZERO;
     o.value = value.toNumber();
@@ -335,7 +335,7 @@ export function formatNumber(
     }
 
     const zeroFixed = ZERO.toFixed(
-      USUAL_NUMBER_DECIMAL_PLACES,
+      USUAL_NUMBER_DECIMAL_PLACES
     );
 
     if (bigUnitPostfix && !formatSigFig) {
@@ -357,7 +357,7 @@ export function formatNumber(
           formatted = zeroFixed; // if there are no significant digits in the 8 decimal places, just use zero
         } else {
           formatted = value.toFixed(
-            1 - Math.floor(Math.log(value.abs().toNumber()) / Math.log(10)),
+            1 - Math.floor(Math.log(value.abs().toNumber()) / Math.log(10))
           ); // find first two significant digit
         }
       }

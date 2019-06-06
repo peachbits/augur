@@ -20,7 +20,7 @@ const mapStateToProps = (state, ownProps) => {
     authStatus,
     appStatus,
     connection,
-    universe
+    universe,
   } = state;
   const marketId = parseQuery(ownProps.location.search)[MARKET_ID_PARAM_NAME];
   const market = selectMarket(marketId);
@@ -48,7 +48,7 @@ const mapStateToProps = (state, ownProps) => {
     market,
     marketId,
     universe,
-    marketReviewSeen: !!marketReviewSeen
+    marketReviewSeen: !!marketReviewSeen,
   };
 };
 
@@ -61,9 +61,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(
       updateModal({
         type: MODAL_MARKET_REVIEW,
-        ...modal
+        ...modal,
       })
-    )
+    ),
 });
 
 const Market = withRouter(

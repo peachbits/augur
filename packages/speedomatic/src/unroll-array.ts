@@ -6,8 +6,8 @@ import { unfixSigned } from "./unfix-signed";
 export function unrollArray(string, returns, stride, init) {
   if (string && string.length >= 66) {
     stride = stride || 64;
-    let elements = Math.ceil((string.length - 2) / stride);
-    let array = new Array(elements);
+    const elements = Math.ceil((string.length - 2) / stride);
+    const array = new Array(elements);
     let position = init || 2;
     for (let i = 0; i < elements; ++i) {
       array[i] = prefixHex(string.slice(position, position + stride));

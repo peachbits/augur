@@ -7,7 +7,7 @@ import { ThunkDispatch } from "redux-thunk";
 
 export const updatePlatformTimeframeData = (
   options: any = {},
-  callback: any = logError,
+  callback: any = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState): void => {
   const { universe } = getState();
   if (universe.id == null) return callback(null);
@@ -25,8 +25,8 @@ export const updatePlatformTimeframeData = (
       dispatch(
         updateUniverse({
           result,
-        } as any),
+        } as any)
       );
-    },
+    }
   );
 };

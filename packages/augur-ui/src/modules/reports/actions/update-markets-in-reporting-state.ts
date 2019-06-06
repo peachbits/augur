@@ -14,10 +14,10 @@ export const UPDATE_UPCOMING_DESIGNATED_REPORTING_MARKETS =
  * @param {string[]} marketIds
  * @returns {{type: string, data: string[]}}
  */
-export function updateDesignatedReportingMarkets(marketIds: Array<string>) {
+export function updateDesignatedReportingMarkets(marketIds: string[]) {
   return {
     type: UPDATE_DESIGNATED_REPORTING_MARKETS,
-    data: { marketIds }
+    data: { marketIds },
   };
 }
 
@@ -26,10 +26,10 @@ export function updateDesignatedReportingMarkets(marketIds: Array<string>) {
  * @param {string[]} marketIds
  * @returns {{type: string, data: string[]}}
  */
-export function updateAwaitingDisputeMarkets(marketIds: Array<string>) {
+export function updateAwaitingDisputeMarkets(marketIds: string[]) {
   return {
     type: UPDATE_AWAITING_DISPUTE_MARKETS,
-    data: { marketIds }
+    data: { marketIds },
   };
 }
 
@@ -38,10 +38,10 @@ export function updateAwaitingDisputeMarkets(marketIds: Array<string>) {
  * @param {string[]} marketIds
  * @returns {{type: string, data: string[]}}
  */
-export function updateCrowdDisputeMarkets(marketIds: Array<string>) {
+export function updateCrowdDisputeMarkets(marketIds: string[]) {
   return {
     type: UPDATE_CROWD_DISPUTE_MARKETS,
-    data: { marketIds }
+    data: { marketIds },
   };
 }
 
@@ -50,10 +50,10 @@ export function updateCrowdDisputeMarkets(marketIds: Array<string>) {
  * @param {string[]} marketIds
  * @returns {{type: string, data: string[]}}
  */
-export function updateResolvedMarkets(marketIds: Array<string>) {
+export function updateResolvedMarkets(marketIds: string[]) {
   return {
     type: UPDATE_RESOLVED_REPORTING_MARKETS,
-    data: { marketIds }
+    data: { marketIds },
   };
 }
 
@@ -62,10 +62,10 @@ export function updateResolvedMarkets(marketIds: Array<string>) {
  * @param {string[]} marketIds
  * @returns {{type: string, data: string[]}}
  */
-export function updateOpenMarkets(marketIds: Array<string>) {
+export function updateOpenMarkets(marketIds: string[]) {
   return {
     type: UPDATE_OPEN_REPORTING_MARKETS,
-    data: { marketIds }
+    data: { marketIds },
   };
 }
 
@@ -75,10 +75,10 @@ export function updateOpenMarkets(marketIds: Array<string>) {
  * @returns {{type: string, data: string[]}}
  */
 export function updateUpcomingDesignatedReportingMarkets(
-  marketIds: Array<string>
+  marketIds: string[]
 ) {
   return {
     type: UPDATE_UPCOMING_DESIGNATED_REPORTING_MARKETS,
-    data: { marketIds }
+    data: { marketIds },
   };
 }

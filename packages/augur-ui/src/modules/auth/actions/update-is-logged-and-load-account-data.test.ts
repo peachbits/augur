@@ -18,7 +18,7 @@ describe(`modules/auth/actions/update-is-logged-and-load-account-data.js`, () =>
   beforeEach(() => {
     loadAccountData.mockImplementation(account => ({
       type: "LOAD_ACCOUNT_DATA",
-      account
+      account,
     }));
   });
 
@@ -39,8 +39,8 @@ describe(`modules/auth/actions/update-is-logged-and-load-account-data.js`, () =>
         type: "UPDATE_AUTH_STATUS",
         data: {
           statusKey: "isLogged",
-          value: true
-        }
+          value: true,
+        },
       },
       {
         type: "LOAD_ACCOUNT_DATA",
@@ -50,10 +50,10 @@ describe(`modules/auth/actions/update-is-logged-and-load-account-data.js`, () =>
           meta: {
             accountType: "unlockedEthereumNode",
             address: "0xb0b",
-            signer: null
-          }
-        }
-      }
+            signer: null,
+          },
+        },
+      },
     ]);
   });
   test("metamask-connect", () => {
@@ -71,17 +71,17 @@ describe(`modules/auth/actions/update-is-logged-and-load-account-data.js`, () =>
         type: "UPDATE_AUTH_STATUS",
         data: {
           statusKey: "isLogged",
-          value: true
-        }
+          value: true,
+        },
       },
       {
         type: "LOAD_ACCOUNT_DATA",
         account: {
           address: "0xb0b",
           displayAddress: "0xB0B",
-          meta: { accountType: "metaMask", address: "0xb0b", signer: null }
-        }
-      }
+          meta: { accountType: "metaMask", address: "0xb0b", signer: null },
+        },
+      },
     ]);
   });
 });

@@ -61,8 +61,8 @@ const orderAndAssignCumulativeShares = memoize(
               : createBigNumber(order.shares.fullPrecision),
           mySize: userOpenOrders
             ? calculateMySize(userOpenOrders.buy, loginAccount, order.price)
-            : order.shares // use shares for creating market
-        }
+            : order.shares, // use shares for creating market
+        },
       ],
       []
     );
@@ -85,8 +85,8 @@ const orderAndAssignCumulativeShares = memoize(
                 : createBigNumber(order.shares.fullPrecision),
             mySize: userOpenOrders
               ? calculateMySize(userOpenOrders.sell, loginAccount, order.price)
-              : order.shares // use shares for creating market
-          }
+              : order.shares, // use shares for creating market
+          },
         ],
         []
       )
@@ -94,7 +94,7 @@ const orderAndAssignCumulativeShares = memoize(
 
     return {
       bids,
-      asks
+      asks,
     };
   }
 );

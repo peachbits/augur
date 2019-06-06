@@ -22,8 +22,8 @@ export const marketsOpenOrders = createSelector(selectMarkets, allMarkets => {
         ...m,
         recentlyTraded: marketsPositionsRecentlyTraded[m.id] || 0,
         filledOrders: getUserFilledOrders(m.id) || [],
-        userOpenOrders
-      }
+        userOpenOrders,
+      },
     ];
   }, []);
 
@@ -50,6 +50,6 @@ export const marketsOpenOrders = createSelector(selectMarkets, allMarkets => {
     markets,
     marketsObj,
     ordersObj,
-    openOrders: individualOrders
+    openOrders: individualOrders,
   };
 });

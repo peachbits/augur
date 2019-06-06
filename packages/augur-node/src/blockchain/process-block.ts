@@ -34,7 +34,7 @@ import { Log } from "@augurproject/sdk";
 export type BlockDirection = "add" | "remove";
 
 const overrideTimestamps = Array<number>();
-let blockHeadTimestamp: number = 0;
+let blockHeadTimestamp = 0;
 
 export function getCurrentTime(): number {
   return getOverrideTimestamp() || blockHeadTimestamp;
@@ -64,7 +64,7 @@ export function clearOverrideTimestamp(): void {
   blockHeadTimestamp = 0;
 }
 
-export async function processBlockAndLogs(db: Knex, pouch: PouchDB.Database, augur: Augur, direction: BlockDirection, block: BlockDetail, bulkSync: boolean, logs: Array<ParsedLogWithEventName>, databaseDir: string, isWarpSync: boolean) {
+export async function processBlockAndLogs(db: Knex, pouch: PouchDB.Database, augur: Augur, direction: BlockDirection, block: BlockDetail, bulkSync: boolean, logs: ParsedLogWithEventName[], databaseDir: string, isWarpSync: boolean) {
   if (!block || !block.timestamp) throw new Error(JSON.stringify(block));
   const dbWritePromises = _.compact(logs.map((log) => processLogByName(augur, log, true)));
   const dbWriteFunctions = await Promise.all(dbWritePromises);
@@ -104,7 +104,7 @@ export async function processBlockAndLogs(db: Knex, pouch: PouchDB.Database, aug
 }
 
 async function insertBlockRow(db: Knex, blockNumber: number, blockHash: string, bulkSync: boolean, timestamp: number) {
-  const blocksRows: Array<BlocksRow> = await db("blocks").where({ blockNumber });
+  const blocksRows: BlocksRow[] = await db("blocks").where({ blockNumber });
   let query: Knex.QueryBuilder;
   if (!blocksRows || !blocksRows.length) {
     query = db.insert({ blockNumber, blockHash, timestamp, bulkSync }).into("blocks");
@@ -121,14 +121,14 @@ export async function pouchUpsert(pouch: PouchDB.Database, id: string, document:
   return pouch.put(Object.assign(
     previousBlockRev ? { _rev: previousBlockRev } : {},
     { _id: id },
-    document,
+    document
   ));
 }
 
-export async function pouchUpsertBlockRow(pouch: PouchDB.Database, blockDetail: BlockDetail, logs: Array<FormattedEventLog>, bulkSync: boolean) {
+export async function pouchUpsertBlockRow(pouch: PouchDB.Database, blockDetail: BlockDetail, logs: FormattedEventLog[], bulkSync: boolean) {
   const newBlockRow = Object.assign(
     blockDetail,
-    { logs, bulkSync },
+    { logs, bulkSync }
   );
   return pouchUpsert(pouch, blockDetail.number.toString(), newBlockRow);
 }
@@ -146,7 +146,7 @@ export async function processBlockByBlockDetails(db: Knex, augur: Augur, block: 
 
 export async function insertTransactionHash(db: Knex, blockNumber: number, transactionHash: string) {
   if (transactionHash === null) throw new Error("Received null transactionHash from getLogs request. Your Ethereum node might be in light mode with bug: https://github.com/paritytech/parity-ethereum/issues/9929");
-  const txHashRows: Array<TransactionHashesRow> = await db("transactionHashes").where({ transactionHash });
+  const txHashRows: TransactionHashesRow[] = await db("transactionHashes").where({ transactionHash });
   if (!txHashRows || !txHashRows.length) {
     await db.insert({ blockNumber, transactionHash }).into("transactionHashes");
   }
@@ -164,7 +164,7 @@ async function advanceMarketReachingEndTime(db: Knex, augur: Augur, blockNumber:
     .select("markets.marketId")
     .join("market_state", "market_state.marketStateId", "markets.marketStateId");
   designatedDisputeQuery.where("reportingState", ReportingState.PRE_REPORTING).where("endTime", "<", timestamp);
-  const designatedDisputeMarketIds: Array<MarketsContractAddressRow> = await designatedDisputeQuery;
+  const designatedDisputeMarketIds: MarketsContractAddressRow[] = await designatedDisputeQuery;
   await each(designatedDisputeMarketIds, async (marketIdRow) => {
     await updateMarketState(db, marketIdRow.marketId, blockNumber, ReportingState.DESIGNATED_REPORTING);
     augurEmitter.emit(SubscriptionEventNames.MarketState, {
@@ -180,7 +180,7 @@ async function advanceMarketMissingDesignatedReport(db: Knex, augur: Augur, bloc
   const marketsMissingDesignatedReport = getMarketsWithReportingState(db, ["markets.marketId"])
     .where("endTime", "<", timestamp - CONTRACT_INTERVAL.DESIGNATED_REPORTING_DURATION_SECONDS)
     .where("reportingState", ReportingState.DESIGNATED_REPORTING);
-  const marketAddressRows: Array<MarketsContractAddressRow> = await marketsMissingDesignatedReport;
+  const marketAddressRows: MarketsContractAddressRow[] = await marketsMissingDesignatedReport;
   await each(marketAddressRows, async (marketIdRow) => {
     await updateMarketState(db, marketIdRow.marketId, blockNumber, ReportingState.OPEN_REPORTING);
     augurEmitter.emit(SubscriptionEventNames.MarketState, {
@@ -191,7 +191,7 @@ async function advanceMarketMissingDesignatedReport(db: Knex, augur: Augur, bloc
   });
 }
 
-async function advanceMarketsToAwaitingFinalization(db: Knex, augur: Augur, blockNumber: number, expiredDisputeWindows: Array<Address>) {
+async function advanceMarketsToAwaitingFinalization(db: Knex, augur: Augur, blockNumber: number, expiredDisputeWindows: Address[]) {
   const marketIds: Array<{ marketId: Address; universe: Address; }> = await getMarketsWithReportingState(db, ["markets.marketId", "markets.universe"])
     .join("universes", "markets.universe", "universes.universe")
     .where("universes.forked", 0)
@@ -220,8 +220,8 @@ export async function advanceDisputeWindowActive(db: Knex, augur: Augur, blockNu
   await advanceMarketsToCrowdsourcingDispute(db, augur, blockNumber, disputeWindowModifications!.newActiveDisputeWindows || []);
 }
 
-async function advanceMarketsToCrowdsourcingDispute(db: Knex, augur: Augur, blockNumber: number, newActiveDisputeWindows: Array<Address>) {
-  const marketIds: Array<MarketIdUniverseDisputeWindow> = await getMarketsWithReportingState(db, ["markets.marketId", "markets.universe", "activeDisputeWindow.disputeWindow"])
+async function advanceMarketsToCrowdsourcingDispute(db: Knex, augur: Augur, blockNumber: number, newActiveDisputeWindows: Address[]) {
+  const marketIds: MarketIdUniverseDisputeWindow[] = await getMarketsWithReportingState(db, ["markets.marketId", "markets.universe", "activeDisputeWindow.disputeWindow"])
     .join("universes", "markets.universe", "universes.universe")
     .join("dispute_windows as activeDisputeWindow", "activeDisputeWindow.universe", "markets.universe")
     .whereIn("markets.disputeWindow", newActiveDisputeWindows)
@@ -240,7 +240,7 @@ async function advanceMarketsToCrowdsourcingDispute(db: Knex, augur: Augur, bloc
   });
 }
 
-async function advanceIncompleteCrowdsourcers(db: Knex, blockNumber: number, expiredDisputeWindows: Array<Address>) {
+async function advanceIncompleteCrowdsourcers(db: Knex, blockNumber: number, expiredDisputeWindows: Address[]) {
   // Finds crowdsourcers rows that we don't know the completion of, but are attached to disputeWindows that have ended
   // They did not reach their goal, so set completed to 0.
   return db("crowdsourcers")

@@ -12,8 +12,8 @@ jest.mock("services/augurjs");
 jest.mock("store/select-state");
 jest.mock("modules/alerts/actions/alerts", () => ({
   updateAlert: () => ({
-    type: "UPDATE_ALERT"
-  })
+    type: "UPDATE_ALERT",
+  }),
 }));
 
 describe("events/actions/listen-to-updates", () => {
@@ -32,14 +32,14 @@ describe("events/actions/listen-to-updates", () => {
     const ACTIONS = {
       STOP_BLOCK_LISTENERS: { type: "STOP_BLOCK_LISTENERS" },
       STOP_AUGUR_NODE_EVENT_LISTENERS: {
-        type: "STOP_AUGUR_NODE_EVENT_LISTENERS"
+        type: "STOP_AUGUR_NODE_EVENT_LISTENERS",
       },
       START_BLOCK_LISTENERS: { type: "START_BLOCK_LISTENERS" },
       START_AUGUR_NODE_EVENT_LISTENERS: {
-        type: "START_AUGUR_NODE_EVENT_LISTENERS"
+        type: "START_AUGUR_NODE_EVENT_LISTENERS",
       },
       NODES_AUGUR_ON_SET: { type: "NODES_AUGUR_ON_SET" },
-      NODES_ETHEREUM_ON_SET: { type: "NODES_ETHEREUM_ON_SET" }
+      NODES_ETHEREUM_ON_SET: { type: "NODES_ETHEREUM_ON_SET" },
     };
 
     afterEach(() => {
@@ -117,7 +117,7 @@ describe("events/actions/listen-to-updates", () => {
         ACTIONS.START_BLOCK_LISTENERS,
         ACTIONS.START_AUGUR_NODE_EVENT_LISTENERS,
         ACTIONS.NODES_AUGUR_ON_SET,
-        ACTIONS.NODES_ETHEREUM_ON_SET
+        ACTIONS.NODES_ETHEREUM_ON_SET,
       ]);
     });
   });
@@ -142,14 +142,14 @@ describe("events/actions/listen-to-updates", () => {
 
     beforeEach(() => {
       state = {
-        universe: { id: "UNIVERSE_ADDRESS" }
+        universe: { id: "UNIVERSE_ADDRESS" },
       };
       store = mockStore(state);
       loadMarketsInfoSpy = jest
         .spyOn(loadMarketsInfoModule, "loadMarketsInfo")
         .mockImplementation(marketIds => ({
           type: "LOAD_MARKETS_INFO",
-          marketIds
+          marketIds,
         }));
 
       stopAugurNodeEventListenersSpy = jest
@@ -175,12 +175,12 @@ describe("events/actions/listen-to-updates", () => {
         .mockImplementationOnce(listeners =>
           listeners.MarketState(null, {
             marketId: "MARKET_ADDRESS",
-            universe: "UNIVERSE_ADDRESS"
+            universe: "UNIVERSE_ADDRESS",
           })
         );
       store.dispatch(listenToUpdates({}));
       expect(store.getActions()).toEqual([
-        { type: "LOAD_MARKETS_INFO", marketIds: ["MARKET_ADDRESS"] }
+        { type: "LOAD_MARKETS_INFO", marketIds: ["MARKET_ADDRESS"] },
       ]);
     });
 
@@ -223,30 +223,30 @@ describe("events/actions/listen-to-updates", () => {
     beforeEach(() => {
       state = {
         universe: { id: "UNIVERSE_ADDRESS" },
-        loginAccount: { address: "MY_ADDRESS" }
+        loginAccount: { address: "MY_ADDRESS" },
       };
       store = mockStore(state);
       loadMarketsInfoSpy = jest
         .spyOn(loadMarketsInfoModule, "loadMarketsInfo")
         .mockImplementation(marketIds => ({
           type: "LOAD_MARKETS_INFO",
-          marketIds
+          marketIds,
         }));
       updateLoggedTransactionsSpy = jest
         .spyOn(convertLogsToTransactionsModule, "updateLoggedTransactions")
         .mockImplementation(log => ({
           type: "UPDATE_LOGGED_TRANSACTIONS",
-          log
+          log,
         }));
       updateAssetsSpy = jest
         .spyOn(updateAssetsModule, "updateAssets")
         .mockImplementation(() => ({
-          type: "UPDATE_ASSETS"
+          type: "UPDATE_ASSETS",
         }));
       loadReportingSpy = jest
         .spyOn(loadReportingModule, "loadReporting")
         .mockImplementation(() => ({
-          type: "LOAD_REPORTING"
+          type: "LOAD_REPORTING",
         }));
       stopBlockListenersSpy = jest
         .spyOn(augurjs.augur.events, "stopBlockListeners")
@@ -273,14 +273,14 @@ describe("events/actions/listen-to-updates", () => {
             eventName: "InitialReportSubmitted",
             market: "MARKET_ADDRESS",
             reporter: "REPORTER_ADDRESS",
-            universe: "UNIVERSE_ADDRESS"
+            universe: "UNIVERSE_ADDRESS",
           })
         );
       store.dispatch(listenToUpdates({}));
       expect(store.getActions()).toEqual([
         { type: "LOAD_MARKETS_INFO", marketIds: ["MARKET_ADDRESS"] },
         { type: "UPDATE_UNCLAIMED_DATA", marketIds: ["MARKET_ADDRESS"] },
-        { type: "LOAD_REPORTING" }
+        { type: "LOAD_REPORTING" },
       ]);
     });
 
@@ -292,7 +292,7 @@ describe("events/actions/listen-to-updates", () => {
             eventName: "InitialReportSubmitted",
             market: "MARKET_ADDRESS",
             reporter: "MY_ADDRESS",
-            universe: "UNIVERSE_ADDRESS"
+            universe: "UNIVERSE_ADDRESS",
           })
         );
       store.dispatch(listenToUpdates({ id: "logId" }));
@@ -308,9 +308,9 @@ describe("events/actions/listen-to-updates", () => {
             eventName: "InitialReportSubmitted",
             market: "MARKET_ADDRESS",
             reporter: "MY_ADDRESS",
-            universe: "UNIVERSE_ADDRESS"
-          }
-        }
+            universe: "UNIVERSE_ADDRESS",
+          },
+        },
       ]);
     });
   });
@@ -344,29 +344,29 @@ describe("events/actions/listen-to-updates", () => {
         .spyOn(loadMarketsInfoModule, "loadMarketsInfo")
         .mockImplementation(marketIds => ({
           type: "LOAD_MARKETS_INFO",
-          marketIds
+          marketIds,
         }));
       loadMarketsDisputeInfoSpy = jest
         .spyOn(loadMarketsInfoModule, "loadMarketsDisputeInfo")
         .mockImplementation(marketIds => ({
           type: "LOAD_DISPUTE_MARKETS_INFO",
-          marketIds
+          marketIds,
         }));
       updateLoggedTransactionsSpy = jest
         .spyOn(convertLogsToTransactionsModule, "updateLoggedTransactions")
         .mockImplementation(log => ({
           type: "UPDATE_LOGGED_TRANSACTIONS",
-          log
+          log,
         }));
       updateAssetsSpy = jest
         .spyOn(updateAssetsModule, "updateAssets")
         .mockImplementation(() => ({
-          type: "UPDATE_ASSETS"
+          type: "UPDATE_ASSETS",
         }));
       loadReportingSpy = jest
         .spyOn(loadReportingModule, "loadReporting")
         .mockImplementation(() => ({
-          type: "LOAD_REPORTING"
+          type: "LOAD_REPORTING",
         }));
       stopBlockListenersSpy = jest
         .spyOn(augurjs.augur.events, "stopBlockListeners")
@@ -388,7 +388,7 @@ describe("events/actions/listen-to-updates", () => {
     test("Handled calling initial reporter redeemed not designated reporter", () => {
       const state = {
         universe: { id: "UNIVERSE_ADDRESS" },
-        loginAccount: { address: "MY_ADDRESS" }
+        loginAccount: { address: "MY_ADDRESS" },
       };
       const store = mockStore(state);
       jest
@@ -398,20 +398,20 @@ describe("events/actions/listen-to-updates", () => {
             eventName: "InitialReporterRedeemed",
             market: "MARKET_ADDRESS",
             reporter: "REPORTER_ADDRESS",
-            universe: "UNIVERSE_ADDRESS"
+            universe: "UNIVERSE_ADDRESS",
           })
         );
       store.dispatch(listenToUpdates({}));
       expect(store.getActions()).toEqual([
         { type: "LOAD_MARKETS_INFO", marketIds: ["MARKET_ADDRESS"] },
-        { type: "UPDATE_UNCLAIMED_DATA", marketIds: ["MARKET_ADDRESS"] }
+        { type: "UPDATE_UNCLAIMED_DATA", marketIds: ["MARKET_ADDRESS"] },
       ]);
     });
 
     test("Handled calling initial reporter redeemed IS designated reporter", () => {
       const state = {
         universe: { id: "UNIVERSE_ADDRESS" },
-        loginAccount: { address: "MY_ADDRESS" }
+        loginAccount: { address: "MY_ADDRESS" },
       };
       const store = mockStore(state);
       jest
@@ -421,7 +421,7 @@ describe("events/actions/listen-to-updates", () => {
             eventName: "InitialReporterRedeemed",
             market: "MARKET_ADDRESS",
             reporter: "MY_ADDRESS",
-            universe: "UNIVERSE_ADDRESS"
+            universe: "UNIVERSE_ADDRESS",
           })
         );
       store.dispatch(listenToUpdates({}));
@@ -436,9 +436,9 @@ describe("events/actions/listen-to-updates", () => {
             eventName: "InitialReporterRedeemed",
             market: "MARKET_ADDRESS",
             reporter: "MY_ADDRESS",
-            universe: "UNIVERSE_ADDRESS"
-          }
-        }
+            universe: "UNIVERSE_ADDRESS",
+          },
+        },
       ]);
     });
   });
@@ -478,7 +478,7 @@ describe("events/actions/listen-to-updates", () => {
     test("Handled calling TokensTransferred with to address different from current address", () => {
       const state = {
         universe: { id: "UNIVERSE_ADDRESS" },
-        loginAccount: { address: "MY_ADDRESS" }
+        loginAccount: { address: "MY_ADDRESS" },
       };
       const store = mockStore(state);
       jest
@@ -488,7 +488,7 @@ describe("events/actions/listen-to-updates", () => {
             eventName: "TokensTransferred",
             market: "MARKET_ADDRESS",
             to: "NOT_MY_ADDRESS",
-            universe: "UNIVERSE_ADDRESS"
+            universe: "UNIVERSE_ADDRESS",
           })
         );
       store.dispatch(listenToUpdates({}));

@@ -98,7 +98,7 @@ export function createReducer() {
     transactionsStatus,
     universe,
     versions,
-    accountShareBalances
+    accountShareBalances,
   };
 }
 
@@ -106,11 +106,11 @@ export function createReducer() {
 // keeping with reducers for easier maintenance.
 export interface AppStateInterface {
   accountPositions: AccountPosition;
-  alerts: Array<Alert>;
+  alerts: Alert[];
   appStatus: AppStatus;
   authStatus: AuthStatus;
   blockchain: Blockchain;
-  categories: Array<Category>;
+  categories: Category[];
   connection: Connection;
   env: EnvObject;
   favorites: Favorite;
@@ -122,7 +122,7 @@ export interface AppStateInterface {
   marketsData: MarketsData;
   modal: any;
   newMarket: NewMarket;
-  readNotifications: Array<Notification>;
+  readNotifications: Notification[];
   orderBooks: OrderBooks;
   orderCancellation: OrderCancellations;
   outcomesData: OutcomesData;

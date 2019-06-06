@@ -5,27 +5,27 @@ export function makeConnectorMock(json: object): Connector {
   class MockConnector extends Connector {
     private callback: Callback;
 
-    public async connect(params?: any): Promise<any> {
+    async connect(params?: any): Promise<any> {
       return true;
     }
 
-    public async disconnect(): Promise<any> {
+    async disconnect(): Promise<any> {
       return true;
     }
 
     // bind API calls
-    public bindTo<R, P>(f: (db: any, augur: any, params: P) => R): (params: P) => Promise<R> {
+    bindTo<R, P>(f: (db: any, augur: any, params: P) => R): (params: P) => Promise<R> {
       return async (params: P): Promise<R> => {
 
-        return <R>(json as unknown);
+        return (json as unknown) as R;
       };
     }
 
-    public async on(event: SubscriptionEventNames | string, callback: Callback): Promise<any> {
+    async on(event: SubscriptionEventNames | string, callback: Callback): Promise<any> {
       return true;
     }
 
-    public async off(eventName: SubscriptionEventNames | string): Promise<any> {
+    async off(eventName: SubscriptionEventNames | string): Promise<any> {
       return true;
     }
   }

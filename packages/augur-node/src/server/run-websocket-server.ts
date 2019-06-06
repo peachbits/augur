@@ -35,7 +35,7 @@ function safePing(websocket: WebSocket) {
 }
 
 export function runWebsocketServer(db: Knex, app: express.Application, augur: Augur, webSocketConfigs: WebSocketConfigs, controlEmitter: EventEmitter = new EventEmitter()): ServersData {
-  const servers: Array<WebSocket.Server> = [];
+  const servers: WebSocket.Server[] = [];
   const httpServers: Array<http.Server|https.Server> = [];
 
   if (webSocketConfigs.wss != null) {

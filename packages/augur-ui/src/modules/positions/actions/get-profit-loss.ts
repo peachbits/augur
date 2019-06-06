@@ -28,7 +28,7 @@ export default function getProfitLoss({
         periodInterval,
         marketId,
       },
-      callback,
+      callback
     );
   };
 }

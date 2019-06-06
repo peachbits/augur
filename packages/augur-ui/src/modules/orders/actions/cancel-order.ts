@@ -23,14 +23,14 @@ const TIME_TO_WAIT_BEFORE_FINAL_ACTION_MILLIS = 3000;
 
 export const cancelAllOpenOrders = (orders: any, cb: NodeStyleCallback) => (
   dispatch: ThunkDispatch<void, any, Action>,
-  getState: () => AppState,
+  getState: () => AppState
 ) => {
   eachOf(orders, (order: any) => order.cancelOrder(order));
 };
 
 export const cancelOrder = (
   { orderId, marketId, outcome, orderTypeLabel }: any,
-  callback: NodeStyleCallback = logError,
+  callback: NodeStyleCallback = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { loginAccount, orderBooks, outcomesData, marketsData } = getState();
   const order = selectOrder(
@@ -38,7 +38,7 @@ export const cancelOrder = (
     marketId,
     outcome,
     orderTypeLabel,
-    orderBooks,
+    orderBooks
   );
   const market = marketsData[marketId];
   if (
@@ -55,7 +55,7 @@ export const cancelOrder = (
           marketId,
           outcome,
           orderTypeLabel,
-        }),
+        })
       );
     };
     updateStatus(CLOSE_DIALOG_PENDING);
@@ -71,7 +71,7 @@ export const cancelOrder = (
         updateStatus(CLOSE_DIALOG_FAILED);
         setTimeout(
           () => updateStatus(null),
-          TIME_TO_WAIT_BEFORE_FINAL_ACTION_MILLIS,
+          TIME_TO_WAIT_BEFORE_FINAL_ACTION_MILLIS
         );
         callback(err);
       },

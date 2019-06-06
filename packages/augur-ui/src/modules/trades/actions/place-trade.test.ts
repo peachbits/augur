@@ -36,11 +36,11 @@ describe(`modules/trades/actions/place-trade.js`, () => {
     testState.loginAccount = { privateKey: Buffer.from("PRIVATE_KEY", "utf8") };
     const store = mockStore(testState);
     store.dispatch(
-      placeTrade({ marketId: "testYesNoMarketId", outcomeId: null }),
+      placeTrade({ marketId: "testYesNoMarketId", outcomeId: null })
     );
     store.clearActions();
     store.dispatch(
-      placeTrade({ marketId: "testYesNoMarketId", outcomeId: undefined }),
+      placeTrade({ marketId: "testYesNoMarketId", outcomeId: undefined })
     );
   });
   test("should handle a null/undefined marketId", () => {
@@ -75,7 +75,7 @@ describe(`modules/trades/actions/place-trade.js`, () => {
           numShares: "1",
           side: "buy",
         },
-      }),
+      })
     );
     const storeActions = store.getActions();
     const approvalAction = storeActions[0];
@@ -110,7 +110,7 @@ describe(`modules/trades/actions/place-trade.js`, () => {
           numShares: "1",
           side: "buy",
         },
-      }),
+      })
     );
     const storeActions = store.getActions();
     expect(storeActions).toHaveLength(0);

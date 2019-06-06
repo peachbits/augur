@@ -13,12 +13,12 @@ export const selectReportableOutcomes = (type, outcomes) => {
       return [
         {
           id: `${YES_NO_NO_ID}`,
-          name: YES_NO_NO_OUTCOME_NAME
+          name: YES_NO_NO_OUTCOME_NAME,
         },
         {
           id: `${YES_NO_YES_ID}`,
-          name: YES_NO_YES_OUTCOME_NAME
-        }
+          name: YES_NO_YES_OUTCOME_NAME,
+        },
       ];
     case CATEGORICAL:
       return outcomes.slice();

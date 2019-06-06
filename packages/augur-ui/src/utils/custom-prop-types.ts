@@ -14,7 +14,7 @@ function createCustomPropType(isRequired: boolean): Error | void {
             propName +
             "` wasn't supplied to `" +
             componentName +
-            "`.",
+            "`."
         );
       }
       // Prop is optional. Do nothing.
@@ -26,7 +26,7 @@ function createCustomPropType(isRequired: boolean): Error | void {
           componentName +
           "`. Validation failed, not an instance of BigNumber"
       );
-    };
+    }
   };
 }
 

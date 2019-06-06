@@ -8,28 +8,28 @@ enum OrderEventType {
     Create,
     Cancel,
     PriceChanged,
-    Fill
+    Fill,
 }
 
 export async function processOrderEventLog(augur: Augur, log: FormattedEventLog) {
     log = unpackOrderEventLog(log);
     if (log.eventType === OrderEventType.Create) {
-        return await processOrderCreatedLog(augur, log);
+        return processOrderCreatedLog(augur, log);
     } else if (log.eventType === OrderEventType.Cancel) {
-        return await processOrderCanceledLog(augur, log);
+        return processOrderCanceledLog(augur, log);
     } else {
-        return await processOrderFilledLog(augur, log);
+        return processOrderFilledLog(augur, log);
     }
 }
 
 export async function processOrderEventLogRemoval(augur: Augur, log: FormattedEventLog) {
     log = unpackOrderEventLog(log);
     if (log.eventType === OrderEventType.Create) {
-        return await processOrderCreatedLogRemoval(augur, log);
+        return processOrderCreatedLogRemoval(augur, log);
     } else if (log.eventType === OrderEventType.Cancel) {
-        return await processOrderCanceledLogRemoval(augur, log);
+        return processOrderCanceledLogRemoval(augur, log);
     } else {
-        return await processOrderFilledLogRemoval(augur, log);
+        return processOrderFilledLogRemoval(augur, log);
     }
 }
 

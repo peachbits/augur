@@ -27,16 +27,16 @@ describe(`modules/reports/selectors/select-market-dispute-outcomes.js`, () => {
           {
             id: "market2",
             reportingState: "AWAITING_NEXT_WINDOW",
-            disputeInfo: {}
+            disputeInfo: {},
           },
           {
             id: "market3",
             reportingState: "CROWDSOURCING_DISPUTE",
-            disputeInfo: {}
-          }
+            disputeInfo: {},
+          },
         ];
         const universe = {
-          forkThreshold: 1000000
+          forkThreshold: 1000000,
         };
 
         const actual = selectMarketDisputeOutcomes.resultFunc(
@@ -46,7 +46,7 @@ describe(`modules/reports/selectors/select-market-dispute-outcomes.js`, () => {
 
         const expected = {
           market2: [],
-          market3: []
+          market3: [],
         };
         expect(actual).toEqual(expected);
       });

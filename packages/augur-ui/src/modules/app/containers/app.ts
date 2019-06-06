@@ -39,7 +39,7 @@ const mapStateToProps = state => ({
   universe: state.universe,
   url: state.url,
   useWeb3Transport: isGlobalWeb3(),
-  sidebarStatus: state.sidebarStatus
+  sidebarStatus: state.sidebarStatus,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -55,7 +55,7 @@ const mapDispatchToProps = dispatch => ({
   updateCurrentInnerNavType: data => dispatch(updateCurrentInnerNavType(data)),
   updateMobileMenuState: data => dispatch(updateMobileMenuState(data)),
   updateIsAlertVisible: data => dispatch(updateIsAlertVisible(data)),
-  updateSidebarStatus: data => dispatch(updateSidebarStatus(data))
+  updateSidebarStatus: data => dispatch(updateSidebarStatus(data)),
 });
 
 const AppContainer = compose(

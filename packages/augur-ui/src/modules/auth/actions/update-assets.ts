@@ -21,8 +21,9 @@ export function updateAssets(callback: NodeStyleCallback = logError) {
       dai: undefined,
     });
 
-    if (!loginAccount.address)
+    if (!loginAccount.address) {
       return dispatch(updateLoginAccount(balances));
+    }
     const { address } = loginAccount;
     balances.rep = await getRepBalance(address);
     balances.dai = await getDaiBalance(address);

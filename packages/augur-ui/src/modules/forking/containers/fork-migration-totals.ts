@@ -9,12 +9,12 @@ import { getForkMigrationTotals } from "modules/forking/actions/get-fork-migrati
 const mapStateToProps = state => ({
   universe: state.universe.id,
   forkingMarketId: state.universe.forkingMarket,
-  currentBlockNumber: state.blockchain.currentBlockNumber
+  currentBlockNumber: state.blockchain.currentBlockNumber,
 });
 
 const mapDispatchToProps = dispatch => ({
   getForkMigrationTotals: (universe, callback) =>
-    dispatch(getForkMigrationTotals(universe, callback))
+    dispatch(getForkMigrationTotals(universe, callback)),
 });
 
 const mergeProps = (sP, dP) => {
@@ -24,7 +24,7 @@ const mergeProps = (sP, dP) => {
     ...sP,
     forkingMarket,
     getForkMigrationTotals: callback =>
-      dP.getForkMigrationTotals(sP.universe, callback)
+      dP.getForkMigrationTotals(sP.universe, callback),
   };
 };
 

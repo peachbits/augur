@@ -6,11 +6,11 @@ import { ThunkDispatch } from "redux-thunk";
 import { Action } from "redux";
 
 export const getDisputeInfo = (
-  marketIds: Array<string>,
-  callback: NodeStyleCallback = logError,
+  marketIds: string[],
+  callback: NodeStyleCallback = logError
 ) => (
   dispatch: ThunkDispatch<{}, {}, Action>,
-  getState: () => AppState,
+  getState: () => AppState
 ): void => {
   const { loginAccount } = getState();
   augur.augurNode.submitRequest(
@@ -22,6 +22,6 @@ export const getDisputeInfo = (
     (err: any, result: any) => {
       if (err) return callback(err);
       callback(null, result);
-    },
+    }
   );
 };

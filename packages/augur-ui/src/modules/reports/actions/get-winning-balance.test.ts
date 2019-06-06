@@ -18,7 +18,7 @@ describe("modules/reports/actions/get-winning-balance.js", () => {
 
   describe("getWinningBalance", () => {
     const ACTIONS = {
-      UPDATE_MARKETS_DATA: "UPDATE_MARKETS_DATA"
+      UPDATE_MARKETS_DATA: "UPDATE_MARKETS_DATA",
     };
 
     beforeEach(() => {
@@ -27,13 +27,13 @@ describe("modules/reports/actions/get-winning-balance.js", () => {
           expect(methodName).toEqual("getWinningBalance");
           expect(args).toEqual({
             marketIds: ["0xdeadbeef"],
-            account: "0xb0b"
+            account: "0xb0b",
           });
           return callback(null, [
             {
               marketId: "0xdeadbeef",
-              winnings: "1000000000000000"
-            }
+              winnings: "1000000000000000",
+            },
           ]);
         }
       );
@@ -41,24 +41,24 @@ describe("modules/reports/actions/get-winning-balance.js", () => {
       updateMarketsData.mockImplementation(marketsData => ({
         type: ACTIONS.UPDATE_MARKETS_DATA,
         data: {
-          marketsData
-        }
+          marketsData,
+        },
       }));
     });
 
     test("Should fire correct calls.", () => {
       const store = mockStore({
         loginAccount: {
-          address: "0xb0b"
+          address: "0xb0b",
         },
         marketsData: {
           "0xdeadbeef": {
             maxPrice: 1,
             minPrice: 0,
             numTicks: 10000,
-            marketType: YES_NO
-          }
-        }
+            marketType: YES_NO,
+          },
+        },
       });
 
       store.dispatch(getWinningBalance(["0xdeadbeef"]));
@@ -71,11 +71,11 @@ describe("modules/reports/actions/get-winning-balance.js", () => {
           data: {
             marketsData: {
               "0xdeadbeef": {
-                outstandingReturns: "0.001"
-              }
-            }
-          }
-        }
+                outstandingReturns: "0.001",
+              },
+            },
+          },
+        },
       ];
       expect(actual).toEqual(expected);
     });

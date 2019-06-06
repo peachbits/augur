@@ -38,7 +38,7 @@ function findOrders(
           orderId: `${selfFilledTrade.transactionHash}-${
             selfFilledTrade.logIndex
           }-fake-order-for-self-filled-trade`, // fake order id (must be unique per trade) for the fake order that will be used only for this single self-filled trade
-          type: selfFilledTrade.type === BUY ? SELL : BUY // flip BUY/SELL to show other side of self-filled trade
+          type: selfFilledTrade.type === BUY ? SELL : BUY, // flip BUY/SELL to show other side of self-filled trade
         })
       )
   );
@@ -56,7 +56,7 @@ function findOrders(
         timestamp,
         transactionHash,
         marketId,
-        logIndex
+        logIndex,
       }
     ) => {
       const foundOrder = order.find(({ id }) => id === orderId);
@@ -66,7 +66,7 @@ function findOrders(
 
       const outcomeName = getOutcomeName(
         marketsData,
-        (outcomesData || {})[outcome],
+        (outcomesData || {})[outcome]
       );
 
       let originalQuantity = amountBN;
@@ -98,7 +98,7 @@ function findOrders(
           transactionHash,
           marketId,
           marketDescription,
-          logIndex
+          logIndex,
         });
 
         foundOrder.originalQuantity = foundOrder.originalQuantity.plus(
@@ -137,9 +137,9 @@ function findOrders(
               transactionHash,
               marketId,
               marketDescription,
-              logIndex
-            }
-          ]
+              logIndex,
+            },
+          ],
         });
       }
       return order

@@ -3,7 +3,7 @@ import {DB} from "./DB";
 import {SyncStatus} from "./SyncStatus";
 
 export interface SequenceIds {
-  [dbName: string]: string
+  [dbName: string]: string;
 }
 
 /**
@@ -20,12 +20,12 @@ export class MetaDB extends AbstractDB {
     this.syncStatus = dbController.syncStatus;
     this.db.createIndex({
       index: {
-        fields: ['blockNumber']
-      }
+        fields: ['blockNumber'],
+      },
     });
   }
 
-  public async addNewBlock(blockNumber: number, sequenceIds: SequenceIds) {
+  async addNewBlock(blockNumber: number, sequenceIds: SequenceIds) {
     await this.upsertDocument(
       this.networkId + "-" + blockNumber,
       {
@@ -36,7 +36,7 @@ export class MetaDB extends AbstractDB {
     await this.syncStatus.setHighestSyncBlock(this.dbName, blockNumber);
   }
 
-  public async rollback(blockNumber: number): Promise<void> {
+  async rollback(blockNumber: number): Promise<void> {
     // Remove each change from blockNumber onward
     try {
       let highestSyncBlock = await this.syncStatus.getHighestSyncBlock(this.dbName);
@@ -49,7 +49,7 @@ export class MetaDB extends AbstractDB {
       if (blocksToRemove.docs.length > 0) {
         console.log("\n\nDeleting the following blocks from " + this.dbName);
         console.log(blocksToRemove.docs);
-        for (let doc of blocksToRemove.docs) {
+        for (const doc of blocksToRemove.docs) {
           // Remove block number from MetaDB
           await this.db.remove(doc._id, doc._rev);
           // Update highest sync block with decremented block number

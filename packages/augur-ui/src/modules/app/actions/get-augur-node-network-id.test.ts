@@ -7,9 +7,9 @@ import * as augurModule from "services/augurjs";
 jest.mock("services/augurjs.js", () => ({
   augur: {
     augurNode: {
-      getSyncData: () => {}
-    }
-  }
+      getSyncData: () => {},
+    },
+  },
 }));
 
 describe("modules/app/actions/get-augur-node-network-id.js", () => {
@@ -21,7 +21,7 @@ describe("modules/app/actions/get-augur-node-network-id.js", () => {
 
   test("that augur-node network id already in state", () => {
     store = configureMockStore([thunk])({
-      connection: { augurNodeNetworkId: "4" }
+      connection: { augurNodeNetworkId: "4" },
     });
     augurModule.augur.augurNode.mockGetSyncData = expect.toThrowErrorMatchingSnapshot();
     store.dispatch(
@@ -35,7 +35,7 @@ describe("modules/app/actions/get-augur-node-network-id.js", () => {
 
   test("fetch network id from augur-node", () => {
     store = configureMockStore([thunk])({
-      connection: { augurNodeNetworkId: null }
+      connection: { augurNodeNetworkId: null },
     });
     augurModule.augur.augurNode.getSyncData = callback =>
       callback(null, { net_version: "4" });
@@ -46,8 +46,8 @@ describe("modules/app/actions/get-augur-node-network-id.js", () => {
         expect(store.getActions()).toEqual([
           {
             type: "UPDATE_AUGUR_NODE_NETWORK_ID",
-            data: { augurNodeNetworkId: "4" }
-          }
+            data: { augurNodeNetworkId: "4" },
+          },
         ]);
       })
     );

@@ -7,7 +7,7 @@ export function updateAppStatus(statusKey: string, value: boolean) {
     type: UPDATE_APP_STATUS,
     data: {
       statusKey,
-      value
-    }
+      value,
+    },
   };
 }

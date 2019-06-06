@@ -40,7 +40,7 @@ const NETWORK_ID_POLL_INTERVAL_DURATION = 10000;
 function pollForAccount(
   dispatch: ThunkDispatch<void, any, Action>,
   getState: () => AppState,
-  callback: any,
+  callback: any
 ) {
   const { loginAccount } = getState();
   let accountType =
@@ -65,7 +65,7 @@ function pollForAccount(
           (err: any, loadedAccount: any) => {
             if (err) console.error(err);
             account = loadedAccount;
-          },
+          }
         );
       }
       const windowApp = windowRef as WindowApp;
@@ -77,7 +77,7 @@ function pollForAccount(
         dispatch(
           updateModal({
             type: MODAL_DISCLAIMER,
-          }),
+          })
         );
       }
     }, ACCOUNTS_POLL_INTERVAL_DURATION);
@@ -88,7 +88,7 @@ function loadAccount(
   dispatch: ThunkDispatch<void, any, Action>,
   existing: any,
   accountType: string,
-  callback: NodeStyleCallback,
+  callback: NodeStyleCallback
 ) {
   let loggedInAccount: any = null;
   const windowApp = windowRef as WindowApp;
@@ -96,7 +96,7 @@ function loadAccount(
   if (windowApp.localStorage && windowApp.localStorage.getItem) {
     loggedInAccount = windowApp.localStorage.getItem("loggedInAccount");
   }
-  getAccounts().then((accounts: Array<string>) => {
+  getAccounts().then((accounts: string[]) => {
     let account = existing;
     if (existing !== accounts[0]) {
       account = accounts[0];
@@ -147,7 +147,7 @@ function pollForNetwork(dispatch: ThunkDispatch<void, any, Action>, getState: ()
               type: MODAL_NETWORK_MISMATCH,
               expectedNetwork:
                 NETWORK_NAMES[expectedNetworkId] || expectedNetworkId,
-            }),
+            })
           );
         } else if (
           expectedNetworkId == null &&
@@ -155,7 +155,7 @@ function pollForNetwork(dispatch: ThunkDispatch<void, any, Action>, getState: ()
         ) {
           dispatch(closeModal());
         }
-      }),
+      })
     );
     if (!process.env.ENABLE_MAINNET) {
       dispatch(
@@ -165,12 +165,12 @@ function pollForNetwork(dispatch: ThunkDispatch<void, any, Action>, getState: ()
             dispatch(
               updateModal({
                 type: MODAL_NETWORK_DISABLED,
-              }),
+              })
             );
           } else if (!isMainnet && modal.type === MODAL_NETWORK_DISABLED) {
             dispatch(closeModal());
           }
-        }),
+        })
       );
     }
   }, NETWORK_ID_POLL_INTERVAL_DURATION);
@@ -179,8 +179,8 @@ function pollForNetwork(dispatch: ThunkDispatch<void, any, Action>, getState: ()
 export function connectAugur(
   history: any,
   env: any,
-  isInitialConnection: boolean = false,
-  callback: NodeStyleCallback = logError,
+  isInitialConnection = false,
+  callback: NodeStyleCallback = logError
 ) {
   return (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
     const { modal, loginAccount } = getState();
@@ -201,7 +201,7 @@ export function connectAugur(
                 augurjs: res.version,
                 augurNode: res.augurNodeVersion,
                 augurui: version,
-              }),
+              })
             );
           }
         });
@@ -217,7 +217,7 @@ export function connectAugur(
         ) {
           const localUniverse = windowApp.localStorage.getItem && windowApp.localStorage.getItem(loginAccount.address) || "";
           const storedUniverseId = JSON.parse(
-            localUniverse,
+            localUniverse
           ).selectedUniverse[
             getState().connection.augurNodeNetworkId ||
             getNetworkId().toString()
@@ -227,8 +227,9 @@ export function connectAugur(
 
         const doIt = () => {
           dispatch(updateUniverse({ id: universeId }));
-          if (modal && modal.type === MODAL_NETWORK_DISCONNECTED)
+          if (modal && modal.type === MODAL_NETWORK_DISCONNECTED) {
             dispatch(closeModal());
+          }
           if (isInitialConnection) {
             pollForAccount(dispatch, getState, null);
             pollForNetwork(dispatch, getState);
@@ -245,7 +246,7 @@ export function connectAugur(
         } else {
           doIt();
         }
-      },
+      }
     );
   };
 }
@@ -260,7 +261,7 @@ interface initAugurParams {
 export function initAugur(
   history: any,
   { augurNode, ethereumNodeHttp, ethereumNodeWs, useWeb3Transport }: initAugurParams,
-  callback: NodeStyleCallback = logError,
+  callback: NodeStyleCallback = logError
 ) {
   return (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
     const env = networkConfig[`${process.env.ETHEREUM_NETWORK}`];
@@ -269,13 +270,13 @@ export function initAugur(
     env["augur-node"] = defaultTo(augurNode, env["augur-node"]);
     env["ethereum-node"].http = defaultTo(
       ethereumNodeHttp,
-      env["ethereum-node"].http,
+      env["ethereum-node"].http
     );
 
     env["ethereum-node"].ws = defaultTo(
       ethereumNodeWs,
       // If only the http param is provided we need to prevent this "default from taking precedence.
-      isEmpty(ethereumNodeHttp) ? env["ethereum-node"].ws : "",
+      isEmpty(ethereumNodeHttp) ? env["ethereum-node"].ws : ""
     );
 
     dispatch(updateEnv(env));

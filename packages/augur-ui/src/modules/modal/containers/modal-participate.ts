@@ -21,6 +21,6 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
 export default withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps,
-  )(ModalParticipate),
+    mapDispatchToProps
+  )(ModalParticipate)
 );

@@ -7,7 +7,7 @@ import { AppState } from "store";
 
 export const registerUserDefinedGasPriceFunction = () => (
   dispatch: ThunkDispatch<void, any, Action>,
-  getState: () => AppState,
+  getState: () => AppState
 ) => {
   // TODO: how to set gasPrice in ethers
   // @ts-ignore

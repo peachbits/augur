@@ -20,7 +20,7 @@ export interface UISyncData {
 }
 
 export async function getSyncData(db: Knex, augur: Augur, params: t.TypeOf<typeof NoParams>): Promise<UISyncData> {
-  const currentBlockNumber = await augur.provider.getBlockNumber()
+  const currentBlockNumber = await augur.provider.getBlockNumber();
   const highestBlock = await augur.provider.getBlock(currentBlockNumber);
   const lastProcessedBlock = await db("blocks").first(["blockNumber as number", "blockHash as hash", "timestamp"]).orderBy("blockNumber", "DESC");
   return {

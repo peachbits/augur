@@ -8,11 +8,12 @@ import { Action } from "redux";
 
 export const updateTimeframeData = (
   options: any = {},
-  callback: any = logError,
+  callback: any = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState): void => {
   const { universe, loginAccount } = getState();
-  if (loginAccount.address == null || universe.id == null)
+  if (loginAccount.address == null || universe.id == null) {
     return callback(null);
+  }
 
   augur.augurNode.submitRequest(
     "getAccountTimeRangedStats",
@@ -25,6 +26,6 @@ export const updateTimeframeData = (
     (err, timeframeData: TimeframeData) => {
       if (err) return callback(err);
       dispatch(updateLoginAccount({ timeframeData }));
-    },
+    }
   );
 };

@@ -18,7 +18,7 @@ interface MarketPriceHistoryRow {
 // Input: MarketId
 // Output: { outcome: [{ price, timestamp }] }
 export async function getMarketPriceHistory(db: Knex, augur: Augur, params: t.TypeOf<typeof MarketPriceHistoryParams>): Promise<MarketPriceHistory<string>> {
-  const tradesRows: Array<MarketPriceHistoryRow> = await db.select([
+  const tradesRows: MarketPriceHistoryRow[] = await db.select([
     "trades.outcome",
     "trades.price",
     "trades.amount",

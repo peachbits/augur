@@ -21,11 +21,11 @@ interface StakesByPayoutId {
 }
 
 async function updateTentativeWinningPayout(db: Knex, marketId: Address) {
-  const results: Array<StakesByPayoutId> = await db.from("crowdsourcers").select(["payoutId", "amountStaked"]).where({
+  const results: StakesByPayoutId[] = await db.from("crowdsourcers").select(["payoutId", "amountStaked"]).where({
     completed: 1,
     marketId,
   }).union((builder: QueryBuilder) =>
-    builder.select(["payoutId", "amountStaked"]).from("initial_reports").where("marketId", marketId),
+    builder.select(["payoutId", "amountStaked"]).from("initial_reports").where("marketId", marketId)
   );
   const summed = groupByAndSum(results, ["payoutId"], ["amountStaked"])
     .sort((a: StakesByPayoutId, b: StakesByPayoutId) => new BigNumberJS(b.amountStaked.toString()).comparedTo(new BigNumberJS(a.amountStaked.toString())));

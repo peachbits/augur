@@ -45,7 +45,7 @@ export const constructBasicTransaction = ({
 
 export const constructTransaction = (
   log: any,
-  callback: NodeStyleCallback = logError,
+  callback: NodeStyleCallback = logError
 ) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   switch (log.eventName) {
     case "OrderCreated":
@@ -71,13 +71,13 @@ export const constructTransaction = (
         loadReportingHistory({
           reporter: getState().loginAccount.address,
           universe: getState().universe.id,
-        }),
+        })
       );
     default:
       console.warn(
         `constructing default transaction for event ${
           log.eventName
-        } (no handler found)`,
+        } (no handler found)`
       );
       dispatch(
         updateTransactionsData({
@@ -89,7 +89,7 @@ export const constructTransaction = (
             message: log.message,
             description: log.description,
           }),
-        }),
+        })
       );
   }
 };

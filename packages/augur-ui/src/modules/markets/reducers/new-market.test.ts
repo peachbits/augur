@@ -55,14 +55,14 @@ describe("modules/markets/reducers/new-market.js", () => {
           endTime: null,
           hour: null,
           minute: null,
-          meridiem: null
+          meridiem: null,
         },
         {
-          settlementFee: ""
-        }
+          settlementFee: "",
+        },
       ],
       creationError:
-        "Unable to create market.  Ensure your market is unique and all values are valid."
+        "Unable to create market.  Ensure your market is unique and all values are valid.",
     };
 
     expect(actual).toEqual(expected);
@@ -77,7 +77,7 @@ describe("modules/markets/reducers/new-market.js", () => {
   test("should add order to outcome with no previous orders", () => {
     const newMarketState = {
       test: "test",
-      orderBook: {}
+      orderBook: {},
     };
 
     const actual = newMarket(newMarketState, {
@@ -88,9 +88,9 @@ describe("modules/markets/reducers/new-market.js", () => {
           type: "bid",
           price: createBigNumber(0.5),
           quantity: createBigNumber(1),
-          orderEstimate: "0.5 ETH"
-        }
-      }
+          orderEstimate: "0.5 ETH",
+        },
+      },
     });
 
     const expected = {
@@ -101,10 +101,10 @@ describe("modules/markets/reducers/new-market.js", () => {
             type: "bid",
             price: createBigNumber(0.5),
             quantity: createBigNumber(1),
-            orderEstimate: createBigNumber(0.5)
-          }
-        ]
-      }
+            orderEstimate: createBigNumber(0.5),
+          },
+        ],
+      },
     };
 
     expect(actual).toEqual(expected);
@@ -119,16 +119,16 @@ describe("modules/markets/reducers/new-market.js", () => {
             type: "bid",
             price: createBigNumber(0.8),
             quantity: createBigNumber(1),
-            orderEstimate: createBigNumber(0.8)
+            orderEstimate: createBigNumber(0.8),
           },
           {
             type: "ask",
             price: createBigNumber(0.9),
             quantity: createBigNumber(1),
-            orderEstimate: createBigNumber(0.1)
-          }
-        ]
-      }
+            orderEstimate: createBigNumber(0.1),
+          },
+        ],
+      },
     };
 
     const actual = newMarket(newMarketState, {
@@ -139,9 +139,9 @@ describe("modules/markets/reducers/new-market.js", () => {
           type: "bid",
           price: createBigNumber(0.5),
           quantity: createBigNumber(1),
-          orderEstimate: "0.5 ETH"
-        }
-      }
+          orderEstimate: "0.5 ETH",
+        },
+      },
     });
 
     const expected = {
@@ -152,22 +152,22 @@ describe("modules/markets/reducers/new-market.js", () => {
             type: "bid",
             price: createBigNumber(0.8),
             quantity: createBigNumber(1),
-            orderEstimate: createBigNumber(0.8)
+            orderEstimate: createBigNumber(0.8),
           },
           {
             type: "ask",
             price: createBigNumber(0.9),
             quantity: createBigNumber(1),
-            orderEstimate: createBigNumber(0.1)
+            orderEstimate: createBigNumber(0.1),
           },
           {
             type: "bid",
             price: createBigNumber(0.5),
             quantity: createBigNumber(1),
-            orderEstimate: createBigNumber(0.5)
-          }
-        ]
-      }
+            orderEstimate: createBigNumber(0.5),
+          },
+        ],
+      },
     };
 
     expect(actual).toEqual(expected);
@@ -182,16 +182,16 @@ describe("modules/markets/reducers/new-market.js", () => {
             type: "bid",
             price: createBigNumber(0.3),
             quantity: createBigNumber(1),
-            orderEstimate: createBigNumber(0.3)
+            orderEstimate: createBigNumber(0.3),
           },
           {
             type: "ask",
             price: createBigNumber(0.9),
             quantity: createBigNumber(1),
-            orderEstimate: createBigNumber(0.1)
-          }
-        ]
-      }
+            orderEstimate: createBigNumber(0.1),
+          },
+        ],
+      },
     };
 
     const actual = newMarket(newMarketState, {
@@ -202,9 +202,9 @@ describe("modules/markets/reducers/new-market.js", () => {
           type: "bid",
           price: createBigNumber(0.3),
           quantity: createBigNumber(1),
-          orderEstimate: "0.3 ETH"
-        }
-      }
+          orderEstimate: "0.3 ETH",
+        },
+      },
     });
 
     const expected = {
@@ -215,16 +215,16 @@ describe("modules/markets/reducers/new-market.js", () => {
             type: "bid",
             price: createBigNumber(0.3),
             quantity: createBigNumber(2),
-            orderEstimate: createBigNumber(0.6)
+            orderEstimate: createBigNumber(0.6),
           },
           {
             type: "ask",
             price: createBigNumber(0.9),
             quantity: createBigNumber(1),
-            orderEstimate: createBigNumber(0.1)
-          }
-        ]
-      }
+            orderEstimate: createBigNumber(0.1),
+          },
+        ],
+      },
     };
 
     expect(actual).toEqual(expected);
@@ -239,16 +239,16 @@ describe("modules/markets/reducers/new-market.js", () => {
             type: "bid",
             price: createBigNumber(0.3),
             quantity: createBigNumber(1),
-            orderEstimate: createBigNumber(0.3)
+            orderEstimate: createBigNumber(0.3),
           },
           {
             type: "ask",
             price: createBigNumber(0.9),
             quantity: createBigNumber(1),
-            orderEstimate: createBigNumber(0.1)
-          }
-        ]
-      }
+            orderEstimate: createBigNumber(0.1),
+          },
+        ],
+      },
     };
 
     const action1 = newMarket(newMarketState, {
@@ -259,9 +259,9 @@ describe("modules/markets/reducers/new-market.js", () => {
           type: "bid",
           price: createBigNumber(0.3),
           quantity: createBigNumber(1),
-          orderEstimate: "0.3 ETH"
-        }
-      }
+          orderEstimate: "0.3 ETH",
+        },
+      },
     });
 
     const action2 = newMarket(action1, {
@@ -272,9 +272,9 @@ describe("modules/markets/reducers/new-market.js", () => {
           type: "ask",
           price: createBigNumber(0.9),
           quantity: createBigNumber(5),
-          orderEstimate: "0.5 ETH"
-        }
-      }
+          orderEstimate: "0.5 ETH",
+        },
+      },
     });
 
     const actual = newMarket(action2, {
@@ -285,9 +285,9 @@ describe("modules/markets/reducers/new-market.js", () => {
           type: "bid",
           price: createBigNumber(0.3),
           quantity: createBigNumber(5),
-          orderEstimate: "1.5 ETH"
-        }
-      }
+          orderEstimate: "1.5 ETH",
+        },
+      },
     });
 
     const expected = {
@@ -298,16 +298,16 @@ describe("modules/markets/reducers/new-market.js", () => {
             type: "bid",
             price: createBigNumber(0.3),
             quantity: createBigNumber(7),
-            orderEstimate: createBigNumber(2.1)
+            orderEstimate: createBigNumber(2.1),
           },
           {
             type: "ask",
             price: createBigNumber(0.9),
             quantity: createBigNumber(6),
-            orderEstimate: createBigNumber(0.6)
-          }
-        ]
-      }
+            orderEstimate: createBigNumber(0.6),
+          },
+        ],
+      },
     };
 
     expect(actual).toEqual(expected);
@@ -321,15 +321,15 @@ describe("modules/markets/reducers/new-market.js", () => {
           {
             type: "bid",
             price: createBigNumber(0.8),
-            quantity: createBigNumber(1)
+            quantity: createBigNumber(1),
           },
           {
             type: "ask",
             price: createBigNumber(0.9),
-            quantity: createBigNumber(1)
-          }
-        ]
-      }
+            quantity: createBigNumber(1),
+          },
+        ],
+      },
     };
 
     const actual = newMarket(newMarketState, {
@@ -337,9 +337,9 @@ describe("modules/markets/reducers/new-market.js", () => {
       data: {
         order: {
           outcome: "Outcome1",
-          index: 0
-        }
-      }
+          index: 0,
+        },
+      },
     });
 
     const expected = {
@@ -349,10 +349,10 @@ describe("modules/markets/reducers/new-market.js", () => {
           {
             type: "ask",
             price: createBigNumber(0.9),
-            quantity: createBigNumber(1)
-          }
-        ]
-      }
+            quantity: createBigNumber(1),
+          },
+        ],
+      },
     };
 
     expect(actual).toEqual(expected);
@@ -361,19 +361,19 @@ describe("modules/markets/reducers/new-market.js", () => {
   test(`should update 'newMarket'`, () => {
     const newMarketState = {
       test: "test",
-      anotherTest: ["test1", "test2"]
+      anotherTest: ["test1", "test2"],
     };
 
     const actual = newMarket(newMarketState, {
       type: UPDATE_NEW_MARKET,
       data: {
-        newMarketData: { test: "updated test" }
-      }
+        newMarketData: { test: "updated test" },
+      },
     });
 
     const expected = {
       test: "updated test",
-      anotherTest: ["test1", "test2"]
+      anotherTest: ["test1", "test2"],
     };
 
     expect(actual).toEqual(expected);
@@ -382,11 +382,11 @@ describe("modules/markets/reducers/new-market.js", () => {
   test(`should clear 'newMarket'`, () => {
     const newMarketState = {
       test: "test",
-      anotherTest: ["test1", "test2"]
+      anotherTest: ["test1", "test2"],
     };
 
     const actual = newMarket(newMarketState, {
-      type: CLEAR_NEW_MARKET
+      type: CLEAR_NEW_MARKET,
     });
 
     const expected = {
@@ -430,14 +430,14 @@ describe("modules/markets/reducers/new-market.js", () => {
           endTime: null,
           hour: null,
           minute: null,
-          meridiem: null
+          meridiem: null,
         },
         {
-          settlementFee: ""
-        }
+          settlementFee: "",
+        },
       ],
       creationError:
-        "Unable to create market.  Ensure your market is unique and all values are valid."
+        "Unable to create market.  Ensure your market is unique and all values are valid.",
     };
 
     expect(actual).toEqual(expected);

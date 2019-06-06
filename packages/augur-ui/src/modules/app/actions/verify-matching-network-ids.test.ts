@@ -31,15 +31,15 @@ describe("modules/app/actions/verify-matching-network-ids.test.js", () => {
           net: {
             version: callback => {
               callback(null, "4");
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     },
     assertions: (err, expectedNetworkId) => {
       expect(err).toBeNull();
       expect(expectedNetworkId).toBeUndefined();
-    }
+    },
   };
 
   const t2 = {
@@ -53,14 +53,14 @@ describe("modules/app/actions/verify-matching-network-ids.test.js", () => {
       augur: {
         rpc: {
           getNetworkID: () => "4",
-          net: { version: callback => callback(null, "1") }
-        }
-      }
+          net: { version: callback => callback(null, "1") },
+        },
+      },
     },
     assertions: (err, expectedNetworkId) => {
       expect(err).toBeNull();
       expect(expectedNetworkId).toStrictEqual("4");
-    }
+    },
   };
 
   const t3 = {
@@ -74,14 +74,14 @@ describe("modules/app/actions/verify-matching-network-ids.test.js", () => {
       augur: {
         rpc: {
           getNetworkID: () => "1",
-          net: { version: callback => callback(null, "4") }
-        }
-      }
+          net: { version: callback => callback(null, "4") },
+        },
+      },
     },
     assertions: (err, expectedNetworkId) => {
       expect(err).toBeNull();
       expect(expectedNetworkId).toStrictEqual("4");
-    }
+    },
   };
 
   const t4 = {
@@ -95,14 +95,14 @@ describe("modules/app/actions/verify-matching-network-ids.test.js", () => {
       augur: {
         rpc: {
           getNetworkID: () => "4",
-          net: { version: () => {} }
-        }
-      }
+          net: { version: () => {} },
+        },
+      },
     },
     assertions: (err, expectedNetworkId) => {
       expect(err).toBeNull();
       expect(expectedNetworkId).toBeUndefined();
-    }
+    },
   };
 
   const t5 = {
@@ -116,14 +116,14 @@ describe("modules/app/actions/verify-matching-network-ids.test.js", () => {
       augur: {
         rpc: {
           getNetworkID: () => "4",
-          net: { version: () => {} }
-        }
-      }
+          net: { version: () => {} },
+        },
+      },
     },
     assertions: (err, expectedNetworkId) => {
       expect(err).toBeNull();
       expect(expectedNetworkId).toStrictEqual("1");
-    }
+    },
   };
 
   const t6 = {
@@ -138,16 +138,16 @@ describe("modules/app/actions/verify-matching-network-ids.test.js", () => {
       augur: {
         rpc: {
           getNetworkID: () => null,
-          net: { version: () => {} }
-        }
-      }
+          net: { version: () => {} },
+        },
+      },
     },
     assertions: (err, expectedNetworkId) => {
       expect(err).toStrictEqual(
         'One or more network IDs not found: {"augurNode":"4","middleware":null}'
       );
       expect(expectedNetworkId).toBeUndefined();
-    }
+    },
   };
 
   describe.each([t1, t2, t3, t4, t5, t6])(

@@ -23,11 +23,11 @@ describe(`modules/auth/actions/logout.js`, () => {
   test(`Logout the logged in account`, () => {
     const expectedOutput = [
       {
-        type: "CLEAR_TRANSACTION_DATA"
+        type: "CLEAR_TRANSACTION_DATA",
       },
       {
-        type: "CLEAR_LOGIN_ACCOUNT"
-      }
+        type: "CLEAR_LOGIN_ACCOUNT",
+      },
     ];
     store.dispatch(logoutModule.logout());
     expect(store.getActions()).toEqual(expectedOutput);

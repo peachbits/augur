@@ -6,8 +6,9 @@ export default function makePath(paths, match = false) {
   if (
     (paths.constructor !== String && paths.constructor !== Array) ||
     (match && paths.constructor !== Array)
-  )
+  ) {
     return "/";
+  }
 
   // Matching Regex for Route Component
   if (match) return `^/(${paths.join("|")})/`;

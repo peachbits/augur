@@ -16,7 +16,7 @@ const mapStateToProps = (state: AppState, ownProps: any) => {
       (market.myPositionsSummary &&
         market.myPositionsSummary.numCompleteSets) ||
       undefined,
-    transactionsStatus: state.transactionsStatus
+    transactionsStatus: state.transactionsStatus,
   };
 };
 
@@ -27,9 +27,9 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<void, any, Action>) => ({
         type: MODAL_SELL_COMPLETE_SETS,
         marketId,
         numCompleteSets,
-        cb
+        cb,
       })
-    )
+    ),
 });
 
 const PositionsTable = withRouter(

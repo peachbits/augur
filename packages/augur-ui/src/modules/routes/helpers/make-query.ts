@@ -11,6 +11,6 @@ export default function makeQuery(query: QueryEndpoints): string {
       `${i === 0 ? "?" : ""}${p}${
         i === 0 ? "" : "&"
       }${paramKey}=${encodeURIComponent(query[paramKey])}`,
-    "",
+    ""
   );
 }

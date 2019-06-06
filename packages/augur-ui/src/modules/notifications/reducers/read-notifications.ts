@@ -3,9 +3,9 @@ import { CLEAR_LOGIN_ACCOUNT } from "modules/account/actions/login-account";
 import { RESET_STATE } from "modules/app/actions/reset-state";
 import { Notification, BaseAction } from "modules/types";
 
-const DEFAULT_STATE: Array<Notification> = [];
+const DEFAULT_STATE: Notification[] = [];
 
-export default (notifications = DEFAULT_STATE, { type, data }: BaseAction): Array<Notification> => {
+export default (notifications = DEFAULT_STATE, { type, data }: BaseAction): Notification[] => {
   switch (type) {
     case UPDATE_READ_NOTIFICATIONS:
       return data.notifications;

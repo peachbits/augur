@@ -32,14 +32,14 @@ export const placeTrade = ({
   const market = marketsData[marketId];
   if (!tradeInProgress || !market || outcomeId == null) {
     return console.error(
-      `required parameters not found for market ${marketId} outcome ${outcomeId}`,
+      `required parameters not found for market ${marketId} outcome ${outcomeId}`
     );
   }
   const bnAllowance = createBigNumber(loginAccount.allowance, 10);
   const sharesDepleted = createBigNumber(tradeInProgress.sharesDepleted, 10);
   const otherSharesDepleted = createBigNumber(
     tradeInProgress.otherSharesDepleted,
-    10,
+    10
   );
   const sharesProvided = sharesDepleted.eq(ZERO)
     ? otherSharesDepleted.toFixed()
@@ -83,15 +83,15 @@ export const placeTrade = ({
             unmatchedShares: formatShares(tradeInProgress.numShares),
             name: getOutcomeName(
               outcomesData[marketId],
-              { id: outcomeId },
+              { id: outcomeId }
             ),
             type: tradeInProgress.side,
             pendingOrder: true,
             pending: false,
             blockNumber: blockchain.currentBlockNumber,
           },
-          marketId,
-        ),
+          marketId
+        )
       );
 
       callback(null, tradeInProgress.tradeGroupId);
@@ -129,7 +129,7 @@ export const placeTrade = ({
         approveCallback: (err: any, res: any) => {
           if (err) return callback(err);
         },
-      }),
+      })
     );
   };
 
@@ -145,7 +145,7 @@ export const placeTrade = ({
         } else {
           sendTrade();
         }
-      }),
+      })
     );
   } else {
     sendTrade();

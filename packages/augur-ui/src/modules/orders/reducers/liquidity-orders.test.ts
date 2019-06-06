@@ -25,12 +25,12 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
   test("should handle loading pending liquidity orders", () => {
     const pendingLiquidityOrders = {
       marketId: {
-        1: [{ quantity: "3", price: "0.5", type: "bid", estimatedCost: "1.5" }]
-      }
+        1: [{ quantity: "3", price: "0.5", type: "bid", estimatedCost: "1.5" }],
+      },
     };
     const actual = liquidityOrders(undefined, {
       type: LOAD_PENDING_LIQUIDITY_ORDERS,
-      data: { pendingLiquidityOrders }
+      data: { pendingLiquidityOrders },
     });
 
     const expected = pendingLiquidityOrders;
@@ -41,8 +41,8 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
     const data = {
       marketId: "marketId",
       liquidityOrders: {
-        1: [{ quantity: "3", price: "0.5", type: "bid", estimatedCost: "1.5" }]
-      }
+        1: [{ quantity: "3", price: "0.5", type: "bid", estimatedCost: "1.5" }],
+      },
     };
     const actual = liquidityOrders(
       { marketId: {} },
@@ -51,8 +51,8 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
 
     const expected = {
       [data.marketId]: {
-        1: [{ ...data.liquidityOrders[1][0], index: 0 }]
-      }
+        1: [{ ...data.liquidityOrders[1][0], index: 0 }],
+      },
     };
 
     expect(actual).toEqual(expected);
@@ -62,8 +62,8 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
     const data = {
       marketId: "marketId",
       liquidityOrders: {
-        1: [{ quantity: "3", price: "0.5", type: "bid", estimatedCost: "1.5" }]
-      }
+        1: [{ quantity: "3", price: "0.5", type: "bid", estimatedCost: "1.5" }],
+      },
     };
     const actual = liquidityOrders(
       {},
@@ -72,8 +72,8 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
 
     const expected = {
       [data.marketId]: {
-        1: [{ ...data.liquidityOrders[1][0], index: 0 }]
-      }
+        1: [{ ...data.liquidityOrders[1][0], index: 0 }],
+      },
     };
 
     expect(actual).toEqual(expected);
@@ -90,24 +90,24 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
               price: "0.5",
               type: "bid",
               estimatedCost: "1.5",
-              index: 0
+              index: 0,
             },
             {
               quantity: "5",
               price: "0.6",
               type: "bid",
               estimatedCost: "3",
-              index: 1
+              index: 1,
             },
             {
               quantity: "5",
               price: "0.7",
               type: "ask",
               estimatedCost: "1.5",
-              index: 2
-            }
-          ]
-        }
+              index: 2,
+            },
+          ],
+        },
       },
       { type: CLEAR_ALL_MARKET_ORDERS, data: { marketId } }
     );
@@ -126,9 +126,9 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
         price: "0.7",
         type: "ask",
         estimatedCost: "1.5",
-        index: 2
+        index: 2,
       },
-      updates: { onSent: true, txHash: "0xdeadbeef", orderId: "0xOrderId" }
+      updates: { onSent: true, txHash: "0xdeadbeef", orderId: "0xOrderId" },
     };
     const actual = liquidityOrders(
       {
@@ -139,24 +139,24 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
               price: "0.5",
               type: "bid",
               estimatedCost: "1.5",
-              index: 0
+              index: 0,
             },
             {
               quantity: "5",
               price: "0.6",
               type: "bid",
               estimatedCost: "3",
-              index: 1
+              index: 1,
             },
             {
               quantity: "5",
               price: "0.7",
               type: "ask",
               estimatedCost: "1.5",
-              index: 2
-            }
-          ]
-        }
+              index: 2,
+            },
+          ],
+        },
       },
       { type: UPDATE_LIQUIDITY_ORDER, data }
     );
@@ -169,14 +169,14 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
             price: "0.5",
             type: "bid",
             estimatedCost: "1.5",
-            index: 0
+            index: 0,
           },
           {
             quantity: "5",
             price: "0.6",
             type: "bid",
             estimatedCost: "3",
-            index: 1
+            index: 1,
           },
           {
             quantity: "5",
@@ -186,10 +186,10 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
             index: 2,
             onSent: true,
             txHash: "0xdeadbeef",
-            orderId: "0xOrderId"
-          }
-        ]
-      }
+            orderId: "0xOrderId",
+          },
+        ],
+      },
     };
     expect(actual).toEqual(expected);
   });
@@ -198,7 +198,7 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
     const data = {
       marketId: "marketId",
       outcomeId: 1,
-      orderId: 2
+      orderId: 2,
     };
     const actual = liquidityOrders(
       {
@@ -209,24 +209,24 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
               price: "0.5",
               type: "bid",
               estimatedCost: "1.5",
-              index: 0
+              index: 0,
             },
             {
               quantity: "5",
               price: "0.6",
               type: "bid",
               estimatedCost: "3",
-              index: 1
+              index: 1,
             },
             {
               quantity: "5",
               price: "0.7",
               type: "ask",
               estimatedCost: "1.5",
-              index: 2
-            }
-          ]
-        }
+              index: 2,
+            },
+          ],
+        },
       },
       { type: REMOVE_LIQUIDITY_ORDER, data }
     );
@@ -239,17 +239,17 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
             price: "0.5",
             type: "bid",
             estimatedCost: "1.5",
-            index: 0
+            index: 0,
           },
           {
             quantity: "5",
             price: "0.6",
             type: "bid",
             estimatedCost: "3",
-            index: 1
-          }
-        ]
-      }
+            index: 1,
+          },
+        ],
+      },
     };
     expect(actual).toEqual(expected);
   });
@@ -258,7 +258,7 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
     const data = {
       marketId: "marketId",
       outcomeId: "apple",
-      orderId: 0
+      orderId: 0,
     };
     const actual = liquidityOrders(
       {
@@ -269,8 +269,8 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
               price: "0.5",
               type: "bid",
               estimatedCost: "1.5",
-              index: 0
-            }
+              index: 0,
+            },
           ],
           banana: [
             {
@@ -278,24 +278,24 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
               price: "0.5",
               type: "bid",
               estimatedCost: "1",
-              index: 0
+              index: 0,
             },
             {
               quantity: "2",
               price: "0.6",
               type: "bid",
               estimatedCost: "1.2",
-              index: 1
+              index: 1,
             },
             {
               quantity: "2",
               price: "0.7",
               type: "ask",
               estimatedCost: "0.6",
-              index: 2
-            }
-          ]
-        }
+              index: 2,
+            },
+          ],
+        },
       },
       { type: REMOVE_LIQUIDITY_ORDER, data }
     );
@@ -308,24 +308,24 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
             price: "0.5",
             type: "bid",
             estimatedCost: "1",
-            index: 0
+            index: 0,
           },
           {
             quantity: "2",
             price: "0.6",
             type: "bid",
             estimatedCost: "1.2",
-            index: 1
+            index: 1,
           },
           {
             quantity: "2",
             price: "0.7",
             type: "ask",
             estimatedCost: "0.6",
-            index: 2
-          }
-        ]
-      }
+            index: 2,
+          },
+        ],
+      },
     };
     expect(actual).toEqual(expected);
   });
@@ -334,7 +334,7 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
     const data = {
       marketId: "marketId",
       outcomeId: 1,
-      orderId: 0
+      orderId: 0,
     };
     const actual = liquidityOrders(
       {
@@ -345,10 +345,10 @@ describe("modules/orders/reducers/liquidity-orders.js", () => {
               price: "0.5",
               type: "bid",
               estimatedCost: "1.5",
-              index: 0
-            }
-          ]
-        }
+              index: 0,
+            },
+          ],
+        },
       },
       { type: REMOVE_LIQUIDITY_ORDER, data }
     );

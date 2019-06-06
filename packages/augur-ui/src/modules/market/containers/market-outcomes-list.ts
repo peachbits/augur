@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
     marketType: market.marketType,
     scalarDenomination: market.scalarDenomination,
     minPrice: market.minPrice,
-    maxPrice: market.maxPrice
+    maxPrice: market.maxPrice,
   };
 };
 

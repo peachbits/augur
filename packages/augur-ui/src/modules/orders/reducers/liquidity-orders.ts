@@ -22,12 +22,12 @@ Example:
 
 export default function(
   pendingLiquidityOrders: LiquidityOrders = DEFAULT_STATE,
-  { type, data }: BaseAction,
+  { type, data }: BaseAction
 ): LiquidityOrders {
   switch (type) {
     case LOAD_PENDING_LIQUIDITY_ORDERS:
       return {
-        ...data.pendingLiquidityOrders
+        ...data.pendingLiquidityOrders,
       };
     case ADD_MARKET_LIQUIDITY_ORDERS: {
       const { liquidityOrders, marketId } = data;
@@ -35,13 +35,13 @@ export default function(
       const updatedOrderBook = marketOutcomes.reduce((acc, outcome) => {
         acc[outcome] = liquidityOrders[outcome].map((order, index, array) => ({
           ...array[index],
-          index
+          index,
         }));
         return acc;
       }, {});
       return {
         ...pendingLiquidityOrders,
-        [marketId]: updatedOrderBook
+        [marketId]: updatedOrderBook,
       };
     }
     case CLEAR_ALL_MARKET_ORDERS: {
@@ -52,7 +52,7 @@ export default function(
       const { order, updates, marketId, outcomeId } = data;
       const updatedOrder = {
         ...order,
-        ...updates
+        ...updates,
       };
       const updatedOutcomeArray = pendingLiquidityOrders[marketId][
         outcomeId
@@ -84,7 +84,7 @@ export default function(
       // just remove a single order
       const updatedOutcomeOrders = pendingLiquidityOrders[marketId][
         outcomeId
-      ].reduce((acc: Array<LiquidityOrder>, order) => {
+      ].reduce((acc: LiquidityOrder[], order) => {
         if (order.index === orderId) return acc;
         acc.push(order);
         return acc;

@@ -52,19 +52,19 @@ export async function updateOutcomeValuesFromFinalization(db: Knex, augur: Augur
   const numTicks = payouts.numTicks;
   
   const tickSize = numTicksToTickSize(numTicks, minPrice, maxPrice);
-  const insertValues:Array<FinalizationValue> = [];
-  for (let i: number = 0; i <= 7; i++) {
+  const insertValues:FinalizationValue[] = [];
+  for (let i = 0; i <= 7; i++) {
     const column = `payout${i}`;
     const payoutValue = payouts[column as keyof PayoutAndMarket<BigNumber>];
     if (payoutValue != null) {
       const value = payoutValue.multipliedBy(tickSize).plus(minPrice);
-      insertValues.push(<FinalizationValue>{
+      insertValues.push({
         marketId,
         transactionHash,
         outcome: i,
         value: value.toString(),
         timestamp,
-      });
+      } as FinalizationValue);
     }
   }
   await db.insert(insertValues).into("outcome_value_timeseries");

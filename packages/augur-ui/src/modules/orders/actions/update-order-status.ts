@@ -20,7 +20,7 @@ export const updateOrderStatus = ({
   status,
   marketId,
   outcome,
-  orderTypeLabel
+  orderTypeLabel,
 }: OrderStatus) => (dispatch: ThunkDispatch<void, any, Action>, getState: () => AppState) => {
   const { orderBooks } = getState();
   const order = selectOrder(
@@ -43,8 +43,8 @@ export const updateOrderStatus = ({
     type: UPDATE_ORDER_STATUS,
     data: {
       orderId,
-      status
-    }
+      status,
+    },
   });
 };
 
